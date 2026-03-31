@@ -1,0 +1,342 @@
+---
+import { getCollection } from "astro:content";
+import { BASE } from "../lib/base";
+
+const notes = await getCollection("notes");
+const currentSlug = Astro.props.currentSlug as string;
+
+// Build navigation tree
+type NoteItem = {
+  slug: string;
+  title: string;
+  order: number;
+};
+type WeekItem = {
+  title: string;
+  slug: string;
+  order: number;
+  notes: NoteItem[];
+};
+type CourseItem = {
+  title: string;
+  slug: string;
+  order: number;
+  weeks: Map<string, WeekItem>;
+};
+
+const tree = new Map<string, CourseItem>();
+
+for (const note of notes) {
+  const {
+    course,
+    courseSlug,
+    courseOrder,
+    week,
+    weekSlug,
+    weekOrder,
+    order,
+    title,
+  } = note.data;
+
+  if (!tree.has(courseSlug)) {
+    tree.set(courseSlug, {
+      title: course,
+      slug: courseSlug,
+      order: courseOrder,
+      weeks: new Map(),
+    });
+  }
+  const courseNode = tree.get(courseSlug)!;
+
+  if (!courseNode.weeks.has(weekSlug)) {
+    courseNode.weeks.set(weekSlug, {
+      title: week,
+      slug: weekSlug,
+      order: weekOrder,
+      notes: [],
+    });
+  }
+  courseNode.weeks.get(weekSlug)!.notes.push({ slug: note.id, title, order });
+}
+
+// Sort everything
+const courses = Array.from(tree.values()).sort((a, b) => a.order - b.order);
+for (const course of courses) {
+  course.weeks = new Map(
+    Array.from(course.weeks.entries()).sort(
+      ([, a], [, b]) => a.order - b.order,
+    ),
+  );
+  for (const week of course.weeks.values()) {
+    week.notes.sort((a, b) => a.order - b.order);
+  }
+}
+
+// Determine which course/week the current note belongs to
+const currentNote = notes.find((n) => n.id === currentSlug);
+const activeCourseSlug = currentNote?.data.courseSlug;
+const activeWeekSlug = currentNote?.data.weekSlug;
+---
+
+<nav id="sidebar" class="sidebar" aria-label="Course navigation">
+  <div class="sidebar-header">
+    <a href={BASE + "/"} class="site-title">
+      <span class="site-title-icon">📚</span>
+      <span>DE Specialization</span>
+    </a>
+    <button
+      id="sidebar-close"
+      class="sidebar-close-btn"
+      aria-label="Close sidebar">✕</button
+    >
+  </div>
+
+  <div class="nav-tree">
+    {
+      courses.map((course) => {
+        const isCourseActive = course.slug === activeCourseSlug;
+        const weeks = Array.from(course.weeks.values());
+        return (
+          <details open={isCourseActive} class="course-details">
+            <summary class={`course-summary ${isCourseActive ? "active" : ""}`}>
+              <span class="summary-text">{course.title}</span>
+              <span class="chevron">▸</span>
+            </summary>
+            <div class="course-content">
+              {weeks.map((week) => {
+                const isWeekActive =
+                  isCourseActive && week.slug === activeWeekSlug;
+                return (
+                  <details open={isWeekActive} class="week-details">
+                    <summary
+                      class={`week-summary ${isWeekActive ? "active" : ""}`}
+                    >
+                      <span class="summary-text">{week.title}</span>
+                      <span class="chevron">▸</span>
+                    </summary>
+                    <ul class="note-list">
+                      {week.notes.map((note) => {
+                        const isActive = note.slug === currentSlug;
+                        return (
+                          <li>
+                            <a
+                              href={`${BASE}/notes/${note.slug}/`}
+                              class={`note-link ${isActive ? "active" : ""}`}
+                            >
+                              {note.title}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </details>
+                );
+              })}
+            </div>
+          </details>
+        );
+      })
+    }
+  </div>
+</nav>
+
+<style>
+  .sidebar {
+    width: 280px;
+    min-width: 280px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    background-color: rgb(18 18 20);
+    border-right: 1px solid rgb(39 39 42);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem 0.75rem;
+    border-bottom: 1px solid rgb(39 39 42);
+    position: sticky;
+    top: 0;
+    background-color: rgb(18 18 20);
+    z-index: 1;
+  }
+
+  .site-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: rgb(250 250 250);
+    text-decoration: none;
+    line-height: 1.3;
+  }
+
+  .site-title:hover {
+    color: rgb(56 189 248);
+  }
+
+  .site-title-icon {
+    font-size: 1.1rem;
+  }
+
+  .sidebar-close-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: rgb(113 113 122);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem;
+  }
+
+  .nav-tree {
+    padding: 0.5rem 0;
+    flex: 1;
+  }
+
+  /* Course level */
+  .course-details {
+    border-bottom: 1px solid rgb(39 39 42);
+  }
+
+  .course-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgb(161 161 170);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    list-style: none;
+    user-select: none;
+  }
+
+  .course-summary::-webkit-details-marker {
+    display: none;
+  }
+  .course-summary::marker {
+    display: none;
+  }
+
+  .course-summary:hover {
+    color: rgb(228 228 231);
+    background-color: rgb(24 24 27);
+  }
+  .course-summary.active {
+    color: rgb(56 189 248);
+  }
+
+  .course-details[open] > .course-summary .chevron {
+    transform: rotate(90deg);
+  }
+
+  .chevron {
+    font-size: 0.65rem;
+    transition: transform 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .summary-text {
+    flex: 1;
+  }
+
+  .course-content {
+    padding-bottom: 0.25rem;
+  }
+
+  /* Week level */
+  .week-details {
+  }
+
+  .week-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 1rem 0.4rem 1.25rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgb(113 113 122);
+    list-style: none;
+    user-select: none;
+  }
+
+  .week-summary::-webkit-details-marker {
+    display: none;
+  }
+  .week-summary::marker {
+    display: none;
+  }
+
+  .week-summary:hover {
+    color: rgb(161 161 170);
+    background-color: rgb(24 24 27);
+  }
+  .week-summary.active {
+    color: rgb(148 163 184);
+  }
+
+  .week-details[open] > .week-summary .chevron {
+    transform: rotate(90deg);
+  }
+
+  /* Note links */
+  .note-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .note-link {
+    display: block;
+    padding: 0.3rem 1rem 0.3rem 2rem;
+    font-size: 0.8rem;
+    color: rgb(113 113 122);
+    text-decoration: none;
+    line-height: 1.4;
+    border-left: 2px solid transparent;
+  }
+
+  .note-link:hover {
+    color: rgb(212 212 216);
+    background-color: rgb(24 24 27);
+    border-left-color: rgb(63 63 70);
+  }
+
+  .note-link.active {
+    color: rgb(56 189 248);
+    background-color: rgb(14 165 233 / 0.1);
+    border-left-color: rgb(56 189 248);
+    font-weight: 500;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sidebar {
+      position: fixed;
+      left: -300px;
+      top: 0;
+      z-index: 50;
+      width: 280px;
+      transition: left 0.2s ease;
+      box-shadow: 4px 0 20px rgb(0 0 0 / 0.5);
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+    .sidebar-close-btn {
+      display: block;
+    }
+  }
+</style>
