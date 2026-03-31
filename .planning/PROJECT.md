@@ -12,7 +12,9 @@ Navigate and read course notes in a fast, well-designed interface — content ov
 
 ### Validated
 
-(None yet — brownfield start, building toward v1)
+- [x] ESLint + Prettier configured with Astro plugin (Validated in Phase 1: Foundation & Tooling)
+- [x] TypeScript strict mode passes with zero errors (Validated in Phase 1: Foundation & Tooling)
+- [x] `npm run build` succeeds cleanly (Validated in Phase 1: Foundation & Tooling)
 
 ### Active
 
@@ -38,7 +40,7 @@ Navigate and read course notes in a fast, well-designed interface — content ov
 
 **Content:** Notion root page `139969a7aa018017b81fc3858c54fc8f`. Hierarchy: Root → Courses → Weeks → Sections → Subsections → `.md` files. Script handles paragraphs, headings, lists, tables, code blocks, images (downloaded to `public/images/`), callouts, toggles, equations.
 
-**What needs work:** The UI components exist but need a full design overhaul. The fetch script likely needs auditing against the actual Notion content. No ESLint/Prettier configured. Images not optimized via Astro Image component.
+**What needs work:** The UI components exist but need a full design overhaul. The fetch script likely needs auditing against the actual Notion content. Images not optimized via Astro Image component.
 
 ## Constraints
 
@@ -50,12 +52,13 @@ Navigate and read course notes in a fast, well-designed interface — content ov
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-|----------|-----------|---------|
-| Astro SSG | Static site, no runtime needed, fast GitHub Pages deploy | — Pending |
-| TailwindCSS 4 | Already installed, modern utility CSS | — Pending |
-| Markdown files as source of truth post-sync | Removes ongoing Notion API dependency, simpler workflow | — Pending |
-| Dark mode only | Intentional design choice, not missing feature | — Pending |
+| Decision                                    | Rationale                                                | Outcome   |
+| ------------------------------------------- | -------------------------------------------------------- | --------- |
+| Astro SSG                                   | Static site, no runtime needed, fast GitHub Pages deploy | — Pending |
+| TailwindCSS 4                               | Already installed, modern utility CSS                    | — Pending |
+| Markdown files as source of truth post-sync | Removes ongoing Notion API dependency, simpler workflow  | — Pending |
+| Dark mode only                              | Intentional design choice, not missing feature           | — Pending |
 
 ---
-*Last updated: 2026-03-31 after initial project setup*
+
+_Last updated: 2026-03-31 — Phase 1 (Foundation & Tooling) complete_
