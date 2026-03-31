@@ -31,7 +31,7 @@
 ```json
 "lint": "eslint . --ext .ts,.astro,.js",
 "lint:fix": "eslint . --ext .ts,.astro,.js --fix",
-"typecheck": "tsc --noEmit",
+"typecheck": "astro check",
 "format": "prettier --write ."
 ```
 
