@@ -87,41 +87,41 @@
 
 ## Traceability
 
-| Requirement | Phase   | Status  |
-| ----------- | ------- | ------- |
+| Requirement | Phase   | Status   |
+| ----------- | ------- | -------- |
 | TOOL-01     | Phase 1 | Complete |
-| TOOL-02     | Phase 1 | Pending |
-| TOOL-03     | Phase 1 | Pending |
-| SYNC-01     | Phase 2 | Pending |
-| SYNC-02     | Phase 2 | Pending |
-| SYNC-03     | Phase 2 | Pending |
-| SYNC-04     | Phase 2 | Pending |
-| SYNC-05     | Phase 2 | Pending |
-| SYNC-06     | Phase 2 | Pending |
-| SYNC-07     | Phase 2 | Pending |
-| SYNC-08     | Phase 2 | Pending |
-| UI-01       | Phase 3 | Pending |
-| UI-02       | Phase 3 | Pending |
-| UI-03       | Phase 3 | Pending |
-| UI-04       | Phase 3 | Pending |
-| UI-05       | Phase 3 | Pending |
-| UI-06       | Phase 3 | Pending |
-| UI-07       | Phase 3 | Pending |
-| UI-08       | Phase 3 | Pending |
-| CONT-01     | Phase 4 | Pending |
-| CONT-02     | Phase 4 | Pending |
-| CONT-03     | Phase 4 | Pending |
-| CONT-04     | Phase 4 | Pending |
-| CONT-05     | Phase 4 | Pending |
-| CONT-06     | Phase 4 | Pending |
-| NAV-01      | Phase 4 | Pending |
-| NAV-02      | Phase 4 | Pending |
-| NAV-03      | Phase 4 | Pending |
-| NAV-04      | Phase 4 | Pending |
-| DEPLOY-01   | Phase 5 | Pending |
-| DEPLOY-02   | Phase 5 | Pending |
-| DEPLOY-03   | Phase 5 | Pending |
-| DEPLOY-04   | Phase 5 | Pending |
+| TOOL-02     | Phase 1 | Pending  |
+| TOOL-03     | Phase 1 | Pending  |
+| SYNC-01     | Phase 2 | Pending  |
+| SYNC-02     | Phase 2 | Pending  |
+| SYNC-03     | Phase 2 | Pending  |
+| SYNC-04     | Phase 2 | Pending  |
+| SYNC-05     | Phase 2 | Pending  |
+| SYNC-06     | Phase 2 | Pending  |
+| SYNC-07     | Phase 2 | Pending  |
+| SYNC-08     | Phase 2 | Pending  |
+| UI-01       | Phase 3 | Pending  |
+| UI-02       | Phase 3 | Pending  |
+| UI-03       | Phase 3 | Pending  |
+| UI-04       | Phase 3 | Pending  |
+| UI-05       | Phase 3 | Pending  |
+| UI-06       | Phase 3 | Pending  |
+| UI-07       | Phase 3 | Pending  |
+| UI-08       | Phase 3 | Pending  |
+| CONT-01     | Phase 4 | Pending  |
+| CONT-02     | Phase 4 | Pending  |
+| CONT-03     | Phase 4 | Pending  |
+| CONT-04     | Phase 4 | Pending  |
+| CONT-05     | Phase 4 | Pending  |
+| CONT-06     | Phase 4 | Pending  |
+| NAV-01      | Phase 4 | Pending  |
+| NAV-02      | Phase 4 | Pending  |
+| NAV-03      | Phase 4 | Pending  |
+| NAV-04      | Phase 4 | Pending  |
+| DEPLOY-01   | Phase 5 | Pending  |
+| DEPLOY-02   | Phase 5 | Pending  |
+| DEPLOY-03   | Phase 5 | Pending  |
+| DEPLOY-04   | Phase 5 | Pending  |
 
 **Coverage:**
 
