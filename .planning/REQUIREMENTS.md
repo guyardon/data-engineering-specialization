@@ -8,8 +8,8 @@
 ### Tooling & Foundation
 
 - [x] **TOOL-01**: Project has ESLint + Prettier configured with Astro plugin
-- [ ] **TOOL-02**: TypeScript strict mode passes with zero errors across all source files
-- [ ] **TOOL-03**: `npm run build` succeeds cleanly from a fresh clone
+- [x] **TOOL-02**: TypeScript strict mode passes with zero errors across all source files
+- [x] **TOOL-03**: `npm run build` succeeds cleanly from a fresh clone
 
 ### Notion Sync
 
