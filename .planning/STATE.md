@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-03-31T20:05:00Z"
+last_updated: "2026-03-31T22:58:00Z"
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
 current_phase: 1
-current_plan: 2
+current_plan: 3
 ---
 
 # Project State
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Phase
 
 **Phase 1** — Foundation & Tooling
-**Status:** Executing Phase 01 — Plan 01 complete, on Plan 02
-**Stopped at:** Completed 01-01-PLAN.md (ESLint + Prettier tooling)
+**Status:** Executing Phase 01 — Plan 02 complete, on Plan 03
+**Stopped at:** Completed 01-02-PLAN.md (TypeScript error fixes)
 
 ## Phase History
 
@@ -43,6 +43,7 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 | Phase | Plan | Duration | Tasks | Files |
 | ----- | ---- | -------- | ----- | ----- |
 | 01    | 01   | 35min    | 3     | 6     |
+| 01    | 02   | 8min     | 2     | 2     |
 
 ## Decisions Log
 
@@ -54,4 +55,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ---
 
-_Last updated: 2026-03-31 after completing 01-01 ESLint/Prettier setup_
+- 2026-03-31: Astro v5 CollectionEntry uses .id not .slug; local NoteItem type uses .slug — never conflate the two
+- 2026-03-31: Import z from zod directly, not from astro:content (deprecated in Astro v5)
+
+---
+
+_Last updated: 2026-03-31 after completing 01-02 TypeScript error fixes_

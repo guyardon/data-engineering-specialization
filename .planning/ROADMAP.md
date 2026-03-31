@@ -29,7 +29,7 @@ Brownfield Astro project that fetches course notes from Notion and serves them a
 Plans:
 
 - [x] 01-01: Add ESLint + Prettier with Astro plugin; configure rules
-- [ ] 01-02: Audit and fix TypeScript strict mode errors across all source files
+- [x] 01-02: Audit and fix TypeScript strict mode errors across all source files
 - [ ] 01-03: Verify clean build end-to-end; add lint/typecheck to package.json scripts
 
 ### Phase 2: Notion Sync Audit & Fix
