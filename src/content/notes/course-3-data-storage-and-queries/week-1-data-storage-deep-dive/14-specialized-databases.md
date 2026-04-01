@@ -10,7 +10,10 @@ order: 4
 notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 ---
 
-## Graph Databases
+
+## 1.4.1 Graph Databases
+
+**Graph Databases**
 
 - Nodes represent data items
 - Edges represent connections between the data items
@@ -35,7 +38,10 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 - Gremlin
 - SparQL
 
-## Vector Databases
+
+## 1.4.2 Vector Databases
+
+**Vector Databases**
 
 - Enable efficiently query data based on semantic similarities
 - Called "Similarity Search"
@@ -50,7 +56,10 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 - Optimized via A-NN (approximate)
 - Vector databases support ANN
 
-## Neo4j Graph Database & Cypher Query Language
+
+## 1.4.3 Neo4j Graph Database and Cypher Query Language
+
+**Neo4j Graph Database & Cypher Query Language**
 
 - Relationship between data is modeled using the Property Graph Model
 - Describes what type of nodes are in the graph and how these nodes can be related (edge types)

@@ -11,7 +11,7 @@ notionId: "18d969a7-aa01-805f-981f-c3b5e3dee330"
 ---
 
 
-**4.1.1 Requirements**
+## 4.1.1 Requirements
 
 Hierarchy of Needs:
 
@@ -28,7 +28,7 @@ Hierarchy of Needs:
 2. *Non-functional*
   1. Characteristics or attributes of the system: latency, scalability, reliability, maintainability, cost, security
 
-**4.1.2 Evaluating Tradeoffs**
+## 4.1.2 Evaluating Tradeoffs
 
 Timeline
 

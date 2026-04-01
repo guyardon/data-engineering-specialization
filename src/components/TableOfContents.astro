@@ -6,7 +6,7 @@ export interface Heading {
 }
 
 const { headings } = Astro.props as { headings: Heading[] };
-const filtered = headings.filter((h) => h.depth <= 3);
+const filtered = headings.filter((h) => h.depth === 2);
 ---
 
 {

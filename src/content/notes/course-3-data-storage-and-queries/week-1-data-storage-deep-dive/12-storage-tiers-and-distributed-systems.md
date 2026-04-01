@@ -10,13 +10,19 @@ order: 2
 notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 ---
 
-## Storage Tiers
+
+## 1.2.1 Storage Tiers
+
+**Storage Tiers**
 
 ![](/data-engineering-specialization-website/images/3663cb24-2c3e-469e-a23b-be24b8313bde.png)
 
 ![](/data-engineering-specialization-website/images/f27be8e6-58c4-4ce5-a420-ea04c0bc4c30.png)
 
-## Distributed Storage Systems
+
+## 1.2.2 Distributed Storage Systems
+
+**Distributed Storage Systems**
 
 **How distributed storage systems work:**
 

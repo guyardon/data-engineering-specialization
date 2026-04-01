@@ -10,12 +10,17 @@ order: 2
 notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 ---
 
-## Data Lakes - Key Architectural Ideas
+
+## 2.2.1 Data Lake Architecture
+
+**Data Lakes - Key Architectural Ideas**
 
 - Semi-structured data and unstructured data do not fit well into a structured schema
 - Data lakes solve this through a central repository for storing large volumes of data
 - No fixed schema or predefined set of transformations
 - **Schema on read pattern**
+
+## 2.2.2 Data Lake 1.0 and Its Shortcomings
 
 **Data Lake 1.0**
 
@@ -35,6 +40,8 @@ notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
   - Data not optimized for query operations such as joins
   - Hard to process stored data
 - Large companies such as facebook were able to leverage data lake 1.0 with custom tools, but most companies had a hard time to use it
+
+## 2.2.3 Next-Generation Data Lakes
 
 **Next-Generation Data Lakes**
 

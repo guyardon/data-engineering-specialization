@@ -10,7 +10,10 @@ order: 1
 notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 ---
 
-## Overview
+
+## 3.1.1 Query Fundamentals
+
+**Overview**
 
 - Exploring how the way the data is stored and managed affects
 -  the performance of querying the data
@@ -31,9 +34,13 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 - Many SQL queries are applicable to other query languages
 - Aggregating queries: columnar vs. row storage
 - Queries on streaming data
-## Batch Queries
 
-### The Life of a Query
+## 3.1.2 The Life of a Query
+
+**Batch Queries**
+
+
+**The Life of a Query**
 
 | **Database Management System Layer** | **Query Lifecycle Stage** | **Notes** |
 | --- | --- | --- |

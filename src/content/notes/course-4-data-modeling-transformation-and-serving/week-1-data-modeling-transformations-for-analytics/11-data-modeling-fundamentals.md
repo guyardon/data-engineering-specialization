@@ -10,9 +10,13 @@ order: 1
 notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 ---
 
-# Introduction to Data Modeling and Analytics
 
-## Course Overview
+## 1.1.1 Introduction and Course Overview
+
+**Introduction to Data Modeling and Analytics**
+
+
+**Course Overview**
 
 **Week 1: Batch Data Modeling**
 
@@ -22,14 +26,18 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 **Week 4: Build an end-to-end data pipline**
 
-## **Data Modeling**
+
+## 1.1.2 Data Modeling Concepts
+
+**Data Modeling**
 
 - Choosing a coherent data structure that aligns with business goals and logic
 - Traditionally used to structure data stored in data warehouses and relational databases
 - Was ignored in the data lake 1.0 era, leading to data swamps
 - Recommendation: target data modeling approach, where you model data for specific business domains
 
-## **Data Model**
+
+**Data Model**
 
 - A data model organizes and standardizes data in a precise structured representation to enable and guide human and machine behavior, inform decision making, and facilitate actions.
 - e.g. modeling tabular data
@@ -54,9 +62,13 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 - Choose tools and technologies
 - Build, evaluate, iterate and evolve
 
-## Conceptual, Logical, and Physical Data Models
 
-### **Conceptual**
+## 1.1.3 Conceptual, Logical, and Physical Data Models
+
+**Conceptual, Logical, and Physical Data Models**
+
+
+**Conceptual**
 
 - Describes business entities, relationships, and attributes
 - Reflect business logic and rules 
@@ -74,12 +86,14 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
   - each *order* can be associated with *one or many order details*
 ![](/data-engineering-specialization-website/images/c7b5e1bd-7fbd-454b-854b-e16b560e738a.png)
 
-### Logical Model
+
+**Logical Model**
 
 - details about the implementation of the conceptual model
 - data types
 - primary and foreign keys
-### Physical Model
+
+**Physical Model**
 
 - Details about the implementation of the logical model in a specific DBMS
 - Configuration details

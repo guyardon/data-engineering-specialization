@@ -10,9 +10,13 @@ order: 1
 notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 ---
 
-## Introduction
 
-### Hierarchal View of Storage:
+## 1.1.1 Introduction and Storage Hierarchy
+
+**Introduction**
+
+
+**Hierarchal View of Storage:**
 
 - **Physical Components**
 - Magnetic Disks
@@ -37,7 +41,8 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 - Datalakes
 - Data Lakehouses
 
-### Course Overview
+
+**Course Overview**
 
 **Week 1:**
 
@@ -60,7 +65,10 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 - How different storage solutions affect query performance
 - Techniques for improving query performance
 
-### Raw Ingredients of Storage Systems
+
+## 1.1.2 Raw Ingredients of Storage Systems
+
+**Raw Ingredients of Storage Systems**
 
 - **Persistent Storage Mediums**
 - Magnetic disks
@@ -126,7 +134,10 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
     - repeated values in columns are stored as binary vector, with a 1 corresponding to the index where the value is located.
 ![](/data-engineering-specialization-website/images/a6508f11-eae2-4537-a198-4c0248a11e68.png)
 
-### Cloud Storage Options
+
+## 1.1.3 Cloud Storage Options
+
+**Cloud Storage Options**
 
 **File Storage**
 

@@ -10,7 +10,10 @@ order: 1
 notionId: "20a969a7-aa01-800d-8146-c81f183ff15e"
 ---
 
-## Overview
+
+## 4.1.1 Serving Data for Analytics and ML
+
+**Overview**
 
 **Serving Data - Analytical Use Cases**
 
@@ -59,7 +62,10 @@ Semantic Layer
 
 ![](/data-engineering-specialization-website/images/14fcf985-2d48-4f6d-b059-a967ec9a1582.png)
 
-## Views and Materialized Views
+
+## 4.1.2 Views and Materialized Views
+
+**Views and Materialized Views**
 
 ![](/data-engineering-specialization-website/images/8b0a9e7c-d067-49a7-b021-ec6b9c249ed9.png)
 

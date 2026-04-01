@@ -10,7 +10,10 @@ order: 3
 notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 ---
 
-## Airflow Taskflow API
+
+## 4.3.1 Taskflow API Basics
+
+**Airflow Taskflow API**
 
 - Instead of instantiating a DAG object in a context manager, you use decorators @dag to wrap the dag definition and @task  to wrap the tasks
 - You don't need to keep track of the task_id, the name of the python function, the name of the task variable like when using the DAG context manager with PythonOperators
@@ -24,7 +27,10 @@ notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 - return values from tasks and pass them to other tasks
 ![](/data-engineering-specialization-website/images/497f224c-4544-4e27-a589-2dafdda12422.png)
 
-## AirFlow Task API Example vs. Traditional Paradigm
+
+## 4.3.2 Taskflow API vs. Traditional Paradigm
+
+**AirFlow Task API Example vs. Traditional Paradigm**
 
 ```python
 from airflow import DAG

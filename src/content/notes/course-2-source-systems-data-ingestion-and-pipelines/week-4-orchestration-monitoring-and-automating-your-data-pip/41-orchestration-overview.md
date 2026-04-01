@@ -10,13 +10,17 @@ order: 1
 notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 ---
 
-## Orchestration Overview
+
+## 4.1.1 Introduction to Orchestration
+
+**Orchestration Overview**
 
 - Evolution of orchestration tools
 - Basic details of orchestration
 - Details of Apache AirFlow
 
-### Before Orchestration
+
+**Before Orchestration**
 
 - Back in the day, people used cron
 - CLI utility introduced in the 70s
@@ -35,7 +39,8 @@ notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 - Scheduling simple repetitive tasks with no downstream use cases
 - Prototyping phase
 
-### Evolution of Orchestration Tools
+
+**Evolution of Orchestration Tools**
 
 - late 2000's: Dataswarm (facebook)
 - 2010's: Apache oozie (limited to hadoop clusters)
@@ -45,19 +50,24 @@ notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 - Prefect: more scalable orchestration solutions
 - dagster/mage: built in capabilites for data quality testing
 
-### Airflow Advantages
+
+**Airflow Advantages**
 
 - Written in Python
 - Open source project and very active
 - Available as a managed service on AWS and GCP
 
-### Airflow Challenges
+
+**Airflow Challenges**
 
 - Scalability challenge
 - Ensuring data integrity
 - No support for streaming pipelines
 
-### Orchestration Basics
+
+## 4.1.2 Orchestration Basics
+
+**Orchestration Basics**
 
 - Pros:
 - Set up dependencies
@@ -67,7 +77,10 @@ notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 - Cons
 - More operational overhead than simple Cron scheduling
 
-### AirFlow Basics
+
+## 4.1.3 Airflow Architecture
+
+**AirFlow Basics**
 
 - Directed Acyclic Graph (DAG)
 - Graph representation where:
@@ -99,7 +112,8 @@ notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 
 ![](/data-engineering-specialization-website/images/45902bc4-5075-4911-adf7-f45968cddda6.png)
 
-### Airflow - Core Components
+
+**Airflow - Core Components**
 
 - Underlying architecture
 - Store python scripts defining DAGs in DAG directory

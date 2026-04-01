@@ -10,9 +10,13 @@ order: 3
 notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 ---
 
-## Streaming Systems
 
-### Message Queues vs. Event Streaming Platforms
+## 2.3.1 Streaming Concepts
+
+**Streaming Systems**
+
+
+**Message Queues vs. Event Streaming Platforms**
 
 - Message Queue
 - A buffer used to deliver messages asynchronously
@@ -22,7 +26,10 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 - Event router distributes messages in the log to the subscribers
 - It's possible to replay or re-process messages
 
-### **Apache Kakfa**
+
+## 2.3.2 Apache Kafka
+
+**Apache Kakfa**
 
 - Open source event streaming platform
 - Event producers:
@@ -47,7 +54,10 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 - read or pull messages from the Kafka cluster
 - subscribe to one or more topics
 
-### **Kinesis Data Streams**
+
+## 2.3.3 Kinesis Data Streams
+
+**Kinesis Data Streams**
 
 - Analogous to Kafka cluster
 - Message streams are split up into "streams" (analogous to topics in Kafka)

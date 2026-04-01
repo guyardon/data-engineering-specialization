@@ -10,7 +10,8 @@ order: 1
 notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 ---
 
-## **Introduction**
+
+**Introduction**
 
 Data ingestion is the process of acquiring raw data from various sources. This week covers different ingestion patterns, batch and streaming ingestion requirements, and key AWS tools for data ingestion.
 
@@ -18,16 +19,18 @@ Data ingestion is the process of acquiring raw data from various sources. This w
 
 ---
 
-## **Week Overview**
+
+**Week Overview**
 
 - Batch & Streaming Ingestion Patterns
 - Requirements for Batch Ingestion from a REST API
 - Requirements for Streaming Ingestion
 ---
 
-## **1.1.1 Data Ingestion on a Continuum**
+## 1.1.1 Data Ingestion on a Continuum
 
-### **Unbounded vs. Bounded Data**
+
+**Unbounded vs. Bounded Data**
 
 - **Unbounded Data:** Continuous stream of events (stream ingestion)
 - **Bounded Data:** Data ingested in chunks (batch ingestion)
@@ -35,68 +38,82 @@ Data ingestion is the process of acquiring raw data from various sources. This w
 - Size-based ingestion
 ![](/data-engineering-specialization-website/images/5733cc62-1f85-4e29-8062-7037f4bcb069.png)
 
-### **Ways to Ingest Data**
 
-### **Using Connectors:**
+**Ways to Ingest Data**
+
+
+**Using Connectors:**
 
 - JDBC/IDBC API
 - Supports time/size-based ingestion
-### **Using Ingestion Tools:**
+
+**Using Ingestion Tools:**
 
 - **AWS Glue ETL** – Automates regular data ingestion
-### **Using APIs:**
+
+**Using APIs:**
 
 - Protocol-based ingestion
 - Considerations:
 - Ingestion limits per request
 - API call frequency
 - Complexity due to reliance on documentation, data owners, and custom API connection code
-### **Ingesting Data from Files**
+
+**Ingesting Data from Files**
 
 - **Manual File Download**
 - **Secure File Transfer:**
 - SFTP (Secure File Transfer Protocol)
 - SCP (Secure Copy Protocol)
-### **Ingesting Data from Streaming Systems**
+
+**Ingesting Data from Streaming Systems**
 
 - **Message Queues**
 - **Streaming Platforms**
 ---
 
-## **Popular AWS Data Ingestion Tools**
 
-### **AWS Glue ETL**
+**Popular AWS Data Ingestion Tools**
+
+
+**AWS Glue ETL**
 
 - Ingests, transforms, and loads data from AWS sources (RDS, S3, Redshift)
 - Uses Apache Spark for distributed processing
 - Serverless and automated scaling
-### **Amazon EMR**
+
+**Amazon EMR**
 
 - Managed cluster platform for big data processing (Hadoop, Spark)
 - Supports large-scale transformations and ingestion
 - Available in serverless and provisioned modes
-### **AWS Glue ETL vs. Amazon EMR**
+
+**AWS Glue ETL vs. Amazon EMR**
 
 | Feature | AWS Glue ETL | Amazon EMR |
 | --- | --- | --- |
 | **Ease of Use** | Serverless, minimal setup | Requires configuration |
 | **Scaling** | Automated scaling | Custom resource allocation |
 
-### **AWS DMS (Data Migration Service)**
+
+**AWS DMS (Data Migration Service)**
 
 - Moves data between databases without transformation
 - Supports migrations between different database engines
 - Available in serverless and provisioned modes
-### **Other AWS Ingestion Services**
+
+**Other AWS Ingestion Services**
 
 - **AWS Snow Family:** Physical transfer appliances (Snowball, Snowcone) for large-scale migration
 - **AWS Transfer Family:** Secure file transfers to/from Amazon S3 using SFTP, FTP
-### **Third-Party Ingestion Tools**
+
+**Third-Party Ingestion Tools**
 
 - **Airbyte, Matillion, Fivetran** – Cloud-based ETL tools
 ---
 
-## **Streaming Ingestion Tools**
+
+**Streaming Ingestion Tools**
 
 - **Amazon Kinesis Data Streams**
 - **Amazon Managed Streaming for Apache Kafka (MSK)**
@@ -104,7 +121,8 @@ Both enable real-time data ingestion, processing, and analytics.
 
 ---
 
-## **Key Considerations: Batch vs. Streaming Ingestion**
+
+**Key Considerations: Batch vs. Streaming Ingestion**
 
 - **Use Case:** Real-time ingestion is useful if it provides tangible business value.
 - **Machine Learning:** Batch for model training; streaming for real-time predictions.

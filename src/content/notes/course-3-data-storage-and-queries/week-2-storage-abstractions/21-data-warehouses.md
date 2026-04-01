@@ -10,7 +10,10 @@ order: 1
 notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 ---
 
-## Overview
+
+## 2.1.1 Storage Hierarchy Overview
+
+**Overview**
 
 **Storage Hierarchy**
 
@@ -21,7 +24,10 @@ notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 3. **Data Lakehouse**
 1. Combines the advantages of data warehouses and data lakes
 
-### Data Warehouse
+
+## 2.1.2 Data Warehouse Concepts
+
+**Data Warehouse**
 
 Bill Inman's Definition: *A subject-oriented, integrated, nonvolatile, time-variant collection of data in support of management's decisions*
 
@@ -32,6 +38,8 @@ Bill Inman's Definition: *A subject-oriented, integrated, nonvolatile, time-vari
 ![](/data-engineering-specialization-website/images/50173c33-ecf9-40ad-aa15-75767d7f6b8f.png)
 
 ![](/data-engineering-specialization-website/images/bf8e7e01-ed44-427d-ae38-18c236e36ff8.png)
+
+## 2.1.3 Modern Cloud Data Warehouses and Redshift
 
 **Modern Cloud Data Warehouses**
 

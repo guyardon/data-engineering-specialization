@@ -11,8 +11,9 @@ notionId: "18c969a7-aa01-8012-908e-cb0e0b1f7b79"
 ---
 
 
+## 3.1.1 What is Data Architecture
 
-## What is Data Architecture?
+**What is Data Architecture?**
 
 **Enterprise Architecture:**
 
@@ -36,7 +37,9 @@ notionId: "18c969a7-aa01-8012-908e-cb0e0b1f7b79"
 - E.g. if the departments are isolated, the systems they create will be isolated. If departments work together, they can use shared data systems. 
 
 
-## Principles of Good Architecture
+## 3.1.2 Principles of Good Architecture
+
+**Principles of Good Architecture**
 
 
 How data architecture impacts other teams and individuals:
@@ -77,8 +80,9 @@ How data architecture impacts other teams and individuals:
 - Missed opportunities for revenues
 
 
+## 3.1.3 Batch and Streaming Architectures
 
-## Batch Architectures
+**Batch Architectures**
 
 - Data is processed (ingested and transformed) in batches
 - Real-time analysis is not critical
@@ -109,7 +113,8 @@ ELT is becoming more popular because of modern cloud data warehouses.
 - Comes after transformation but before serving
 - May have its own stages of transformation
 
-## Streaming Architectures
+
+**Streaming Architectures**
 
 - At its source, the data is a continuous stream of events
 
@@ -147,8 +152,9 @@ Tools for unifying multiple code paths:
 Batch is a “special case” of streaming. 
 
 
+## 3.1.4 Architecting for Compliance
 
-## Architecting for Compliance
+**Architecting for Compliance**
 
 - General Data Protection Regulation (GDPR)
 - Enacted in the EU in 2018

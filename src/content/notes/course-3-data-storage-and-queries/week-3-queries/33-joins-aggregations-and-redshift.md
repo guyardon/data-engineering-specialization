@@ -10,7 +10,10 @@ order: 3
 notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 ---
 
-## The Join Statement
+
+## 3.3.1 Joins and Join Methods
+
+**The Join Statement**
 
 - one of the most time consuming query operations
 - Example of inner join
@@ -39,15 +42,20 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
   - row explosion - when a query returns more rows that what is anticipated
     - check your query to see if it correctly describes what you intended to do
     - e.g. in the above example, add a table that correctly maps "payment" to "orderNumber"
-## Aggregate Queries
+
+## 3.3.2 Aggregate Queries
+
+**Aggregate Queries**
 
 - Used to compute summary value of a column (e.g. sum, average, max, min, and count of values)
 
 ```sql
 SELECT MIN(price) from orders
 
-# can either do a full table scan O(n)
-# or faster index-scan on b-tree if available O(log n)
+
+**can either do a full table scan O(n)**
+
+**or faster index-scan on b-tree if available O(log n)**
 ```
 
 - We can also use GROUP BY in these types of queries which will return multiple rows for each group instead of aggregating the whole table
@@ -60,7 +68,10 @@ SELECT MIN(price) from orders GROUP BY country
 - For large dataset, aggregating queries (analytical queries) is faster for columnar storage
 - You only transfer the relevant columns from disk to memory, and not all rows
 
-## Amazon Redshift and Cloud Data Warehouse
+
+## 3.3.3 Amazon Redshift and Cloud Data Warehouse
+
+**Amazon Redshift and Cloud Data Warehouse**
 
 - Features of Amazon Redshift
 - Columnar data storage
@@ -104,7 +115,10 @@ Other factors which affect query performance
 - speeds up queries
 - sort key for OLAP databases is analogous to how OLTP databases use indexes
 
-## Additional Query Strategy
+
+## 3.3.4 Additional Query Strategies
+
+**Additional Query Strategy**
 
 - **Leverage Query Caching**
 - Running a complex query frequently can be costly

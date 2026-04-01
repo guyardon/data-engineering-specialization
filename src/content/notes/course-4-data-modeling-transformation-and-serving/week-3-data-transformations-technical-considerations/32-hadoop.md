@@ -10,9 +10,13 @@ order: 2
 notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 ---
 
-## :hadoop: Distributed Processing Framework -  Hadoop
 
-### Historical Background
+## 3.2.1 Hadoop Background and HDFS
+
+**:hadoop: Distributed Processing Framework -  Hadoop**
+
+
+**Historical Background**
 
 1990's-2000's: Big Data Era
 
@@ -21,7 +25,8 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 Several innovations in large-scale distributed storage and computing
 
-### Hadoop Distributed File System
+
+**Hadoop Distributed File System**
 
 - **HDFS**: combines compute and storage on the same nodes
 - **Object Storage:** limited compute support for internal processing
@@ -40,7 +45,10 @@ Several innovations in large-scale distributed storage and computing
   - allows in-place data processing
   - achieved via **MapReduce**
 
-### Hadoop MapReduce
+
+## 3.2.2 Hadoop MapReduce
+
+**Hadoop MapReduce**
 
 - send computation code to the nodes that contain the data
 - favors locality

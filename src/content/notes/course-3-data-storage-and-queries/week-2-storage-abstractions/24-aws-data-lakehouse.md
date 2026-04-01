@@ -10,7 +10,10 @@ order: 4
 notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 ---
 
-## Data Lakehouse Architecture on AWS
+
+## 2.4.1 AWS Lake Formation
+
+**Data Lakehouse Architecture on AWS**
 
 **AWS Lake Formation**
 
@@ -22,6 +25,8 @@ notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 **AWS Data Lakehouse**
 
 ![](/data-engineering-specialization-website/images/e759ff45-23f9-4b98-a29c-dc435d55597a.png)
+
+## 2.4.2 Implementing a Data Lakehouse on AWS
 
 **Implementing a Data Lakehouse on AWS**
 

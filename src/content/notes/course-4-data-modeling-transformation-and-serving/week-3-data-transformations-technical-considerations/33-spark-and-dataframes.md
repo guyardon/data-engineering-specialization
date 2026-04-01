@@ -10,7 +10,10 @@ order: 3
 notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 ---
 
-## :spark_: Distributed Processing Framework - Spark
+
+## 3.3.1 Spark Overview and Architecture
+
+**:spark_: Distributed Processing Framework - Spark**
 
 - Started at UC Berkeley in 2009 to address the shortcomings of MapReduce
 - Memory storage for intermediate results
@@ -24,7 +27,8 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 ![](/data-engineering-specialization-website/images/949d3939-649e-4c8d-b083-7ade222eff53.png)
 
-### Spark Application Architecture
+
+**Spark Application Architecture**
 
 **Consists of a cluster of nodes**
 
@@ -59,7 +63,10 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 ![](/data-engineering-specialization-website/images/0b9f86c6-eb83-432e-adee-d85d9afbfdbf.png)
 
-### Spark DataFrames Overview
+
+## 3.3.2 Spark DataFrames and Core Concepts
+
+**Spark DataFrames Overview**
 
 - Spark DataFrames enable working with large, distributed tabular datasets
 - Abstracts the complexity of distributed computation
@@ -85,13 +92,17 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 - **Lineage** → Keeps a record of transformations for fault recovery
 - **Lazy Evaluation** → Optimizes execution by deferring computations
 
-### Basic PySpark DataFrame Operations
+
+## 3.3.3 Basic PySpark DataFrame Operations
+
+**Basic PySpark DataFrame Operations**
 
 This section outlines fundamental operations for working with Spark DataFrames, including creation, manipulation, cleaning, aggregation, and the use of user-defined functions (UDFs).
 
 ---
 
-### Installation
+
+**Installation**
 
 To install the required packages locally:
 
@@ -110,7 +121,8 @@ import pyspark
 
 ---
 
-### Create a Spark Session
+
+**Create a Spark Session**
 
 ```python
 from pyspark.sql import SparkSession
@@ -121,21 +133,24 @@ spark = SparkSession.builder.appName("example").getOrCreate()
 
 ---
 
-### Creating DataFrames
+
+**Creating DataFrames**
 
 **Manually:**
 
 ```python
 from pyspark.sql.types import StructType, StructField, LongType, IntegerType, DoubleType, StringType
 
-# Define data
+
+**Define data**
 data = [
     (100, 1, 1, 50.1, 1, "Thingamjig", 5, "Joe Reis"),
     (100, 2, 2, 25.08, 2, "Whatchamacallit", 5, "Joe Reis"),
     (101, 1, 3, 75.23, 1, "Whoozeewhatzit", 7, "Matt Housley")
 ]
 
-# Define schema using StructType
+
+**Define schema using StructType**
 schema = StructType([
     StructField("OrderID", LongType(), True),
     StructField("ItemNumber", IntegerType(), True),
@@ -147,10 +162,12 @@ schema = StructType([
     StructField("CustomerName", StringType(), True)
 ])
 
-# Create DataFrame
+
+**Create DataFrame**
 orders_df = spark.createDataFrame(data, schema)
 
-# Show DataFrame
+
+**Show DataFrame**
 orders_df.show()
 
 ```
@@ -164,7 +181,8 @@ transactions_df.show(5)
 
 ---
 
-### 🔍 Selecting & Summarizing Columns
+
+**🔍 Selecting & Summarizing Columns**
 
 ```python
 print(transactions_df.columns)
@@ -175,14 +193,16 @@ transactions_df.select("price", "quantity", "country").describe().show(5)
 
 ---
 
-### ✏️ Manipulating DataFrames
+
+**✏️ Manipulating DataFrames**
 
 **Add a new column/ Modify an existing Column:**
 
 ```python
 from pyspark.sql.functions import col
 
-# spark dataframes are immutible so this creates a new dataframe
+
+**spark dataframes are immutible so this creates a new dataframe**
 transactions_df = transactions_df.withColumn(column_name="amount", col=transactions_df.price * transactions_df.quantity)
 transactions_df.show()
 
@@ -204,7 +224,8 @@ transactions_df = transactions_df.drop("description")
 
 ---
 
-### 🧹 Data Cleaning
+
+**🧹 Data Cleaning**
 
 **Remove nulls:**
 
@@ -222,7 +243,8 @@ transactions_df = transactions_df.filter(transactions_df.quantity > 0)
 
 ---
 
-### 📊 Aggregation
+
+**📊 Aggregation**
 
 **Total amount per order ID:**
 
@@ -240,7 +262,8 @@ transactions_df.groupBy("country").count().orderBy("count", ascending=False).sho
 
 ---
 
-### 🔧 User-Defined Functions (UDFs)
+
+**🔧 User-Defined Functions (UDFs)**
 
 **Using a UDF to convert to uppercase:**
 
