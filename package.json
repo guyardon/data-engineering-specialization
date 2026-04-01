@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npx pagefind --site dist --glob '**/*.html'",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint .",
@@ -33,6 +33,7 @@
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.4.0",
     "node-fetch": "^3.3.2",
+    "pagefind": "^1.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "remark-gfm": "^4.0.1",
