@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import { BASE } from "../lib/base";
+import Logo from "./Logo.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
 const notes = await getCollection("notes");
 const currentSlug = Astro.props.currentSlug as string;
@@ -22,6 +24,31 @@ type CourseItem = {
   slug: string;
   order: number;
   weeks: Map<string, WeekItem>;
+};
+
+const courseEmojis: Record<string, string> = {
+  "course-1-introduction-to-data-engineering": "\u{1F4CA}",
+  "course-2-source-systems-data-ingestion-and-pipelines": "\u{1F50C}",
+  "course-3-data-storage-and-queries": "\u{1F5C4}",
+  "course-4-data-modeling-transformation-and-serving": "\u{2699}",
+};
+
+const weekEmojis: Record<string, string> = {
+  "week-1-how-to-think-like-a-data-engineer": "\u{1F914}",
+  "week-2-the-data-engineering-lifecycle-undercurrents": "\u{1F504}",
+  "week-3-data-architecture": "\u{1F3D7}",
+  "week-4-translating-requirements-to-architecture": "\u{1F4DD}",
+  "week-1-working-with-source-systems": "\u{1F517}",
+  "week-2-data-digestion": "\u{1F4E5}",
+  "week-3-dataops": "\u{2699}",
+  "week-4-orchestration-monitoring-and-automating-your-data-pip": "\u{1F3BC}",
+  "week-1-data-storage-deep-dive": "\u{1F4BE}",
+  "week-2-storage-abstractions": "\u{1F4E6}",
+  "week-3-queries": "\u{1F50D}",
+  "week-1-data-modeling-transformations-for-analytics": "\u{1F4D0}",
+  "week-2-data-modeling-transformations-for-machine-learning": "\u{1F916}",
+  "week-3-data-transformations-technical-considerations": "\u{26A1}",
+  "week-4-serving-data-and-analytics-for-machine-learning": "\u{1F4E1}",
 };
 
 const tree = new Map<string, CourseItem>();
@@ -80,15 +107,16 @@ const activeWeekSlug = currentNote?.data.weekSlug;
 
 <nav id="sidebar" class="sidebar" aria-label="Course navigation">
   <div class="sidebar-header">
-    <a href={BASE + "/"} class="site-title">
-      <span class="site-title-icon">📚</span>
-      <span>DE Specialization</span>
-    </a>
-    <button
-      id="sidebar-close"
-      class="sidebar-close-btn"
-      aria-label="Close sidebar">✕</button
-    >
+    <Logo />
+    <div class="sidebar-header-actions">
+      <ThemeToggle />
+      <button id="sidebar-close" class="sidebar-close-btn" aria-label="Close sidebar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <div class="nav-tree">
@@ -99,7 +127,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
         return (
           <details open={isCourseActive} class="course-details">
             <summary class={`course-summary ${isCourseActive ? "active" : ""}`}>
-              <span class="summary-text">{course.title}</span>
+              <span class="summary-text"><span class="nav-emoji">{courseEmojis[course.slug] || ""}</span> {course.title}</span>
               <span class="chevron">▸</span>
             </summary>
             <div class="course-content">
@@ -111,7 +139,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
                     <summary
                       class={`week-summary ${isWeekActive ? "active" : ""}`}
                     >
-                      <span class="summary-text">{week.title}</span>
+                      <span class="summary-text"><span class="nav-emoji">{weekEmojis[week.slug] || ""}</span> {week.title}</span>
                       <span class="chevron">▸</span>
                     </summary>
                     <ul class="note-list">
@@ -148,8 +176,8 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     position: sticky;
     top: 0;
     overflow-y: auto;
-    background-color: rgb(18 18 20);
-    border-right: 1px solid rgb(39 39 42);
+    background-color: var(--bg);
+    border-right: 1px solid var(--line);
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -160,37 +188,24 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1rem 0.75rem;
-    border-bottom: 1px solid rgb(39 39 42);
+    border-bottom: 1px solid var(--line);
     position: sticky;
     top: 0;
-    background-color: rgb(18 18 20);
+    background-color: var(--bg);
     z-index: 1;
   }
 
-  .site-title {
+  .sidebar-header-actions {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: rgb(250 250 250);
-    text-decoration: none;
-    line-height: 1.3;
-  }
-
-  .site-title:hover {
-    color: rgb(56 189 248);
-  }
-
-  .site-title-icon {
-    font-size: 1.1rem;
   }
 
   .sidebar-close-btn {
     display: none;
     background: none;
     border: none;
-    color: rgb(113 113 122);
+    color: var(--fg-soft);
     cursor: pointer;
     font-size: 1rem;
     padding: 0.25rem;
@@ -201,9 +216,14 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     flex: 1;
   }
 
+  .nav-emoji {
+    font-size: 0.85em;
+    margin-right: 0.1rem;
+  }
+
   /* Course level */
   .course-details {
-    border-bottom: 1px solid rgb(39 39 42);
+    border-bottom: 1px solid var(--line);
   }
 
   .course-summary {
@@ -214,7 +234,8 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: 600;
-    color: rgb(161 161 170);
+    font-family: var(--font-sans);
+    color: var(--fg-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     list-style: none;
@@ -229,11 +250,11 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   }
 
   .course-summary:hover {
-    color: rgb(228 228 231);
-    background-color: rgb(24 24 27);
+    color: var(--fg);
+    background-color: var(--bg-hover);
   }
   .course-summary.active {
-    color: rgb(56 189 248);
+    color: var(--accent);
   }
 
   .course-details[open] > .course-summary .chevron {
@@ -266,7 +287,8 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: 500;
-    color: rgb(113 113 122);
+    font-family: var(--font-sans);
+    color: var(--fg-soft);
     list-style: none;
     user-select: none;
   }
@@ -279,11 +301,11 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   }
 
   .week-summary:hover {
-    color: rgb(161 161 170);
-    background-color: rgb(24 24 27);
+    color: var(--fg-muted);
+    background-color: var(--bg-hover);
   }
   .week-summary.active {
-    color: rgb(148 163 184);
+    color: var(--fg-muted);
   }
 
   .week-details[open] > .week-summary .chevron {
@@ -301,22 +323,23 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     display: block;
     padding: 0.3rem 1rem 0.3rem 2rem;
     font-size: 0.8rem;
-    color: rgb(113 113 122);
+    font-family: var(--font-sans);
+    color: var(--fg-soft);
     text-decoration: none;
     line-height: 1.4;
     border-left: 2px solid transparent;
   }
 
   .note-link:hover {
-    color: rgb(212 212 216);
-    background-color: rgb(24 24 27);
-    border-left-color: rgb(63 63 70);
+    color: var(--fg);
+    background-color: var(--bg-hover);
+    border-left-color: var(--line-strong);
   }
 
   .note-link.active {
-    color: rgb(56 189 248);
-    background-color: rgb(14 165 233 / 0.1);
-    border-left-color: rgb(56 189 248);
+    color: var(--accent);
+    background-color: var(--bg-hover);
+    border-left-color: var(--accent);
     font-weight: 500;
   }
 
