@@ -73,14 +73,14 @@
     font-weight: 300;
   }
 
-  .prose h1,
-  .prose h2 {
+  .prose h1 {
     color: var(--fg);
     font-family: var(--font-serif);
     font-weight: 600;
     scroll-margin-top: 5rem;
   }
 
+  .prose h2,
   .prose h3,
   .prose h4 {
     color: var(--fg);
