@@ -10,7 +10,10 @@ order: 2
 notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 ---
 
-## Normalization
+
+## 1.2.1 Normalization Fundamentals
+
+**Normalization**
 
 - a data modeling practice typically applied to relational databases to remove the redundancy of data within a database and ensure referential integrity between tables
 - defined by Edgar Codd, with objectives:
@@ -26,19 +29,24 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
   - to add a new column, add a new table mapping shipment ids, order ids, and ship details
 ![](/data-engineering-specialization-website/images/a08fb08d-89c7-4a9d-bd31-eb01cbdba83f.png)
 
-### Denormalized Form
+
+## 1.2.2 Normal Forms
+
+**Denormalized Form**
 
 - data is in one table
 - some columns contain nested json data
 - contains redundant data
 ![](/data-engineering-specialization-website/images/9bd278fb-3329-4ec4-a02b-6b682d98f774.png)
 
-### 1st Normal Form
+
+**1st Normal Form**
 
 - Each column must be unique, and have a single value
 - Table must have a unique primary key
 - In the example, order id + order number create unique primary key
-### 2nd Normal Form
+
+**2nd Normal Form**
 
 - the requirements of 1NF must be met
 - partial dependencies must be removed
@@ -50,7 +58,8 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
   - in orders: customername and address depend on customer id
 ![](/data-engineering-specialization-website/images/d501fe47-00c9-4669-bd22-21c5a7fec895.png)
 
-### 3rd Normal Form
+
+**3rd Normal Form**
 
 - meets all requirements from 2ND
 - does not have transitive dependencies

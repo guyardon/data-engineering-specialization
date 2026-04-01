@@ -10,26 +10,32 @@ order: 4
 notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 ---
 
-## Inman vs. Kimball Data Modeling Approaches for Data Warehouses
+
+## 1.4.1 Inmon vs. Kimball Modeling Approaches
+
+**Inman vs. Kimball Data Modeling Approaches for Data Warehouses**
 
 - The data warehouse was created with the goal of separating the source system from the analytical system
 - Data Warehouse Definition:
 - A subject-oriented, integrated, non-volatile, and invariant collection of data in support of management's decisions
 - The data warehouse contains granular corporate data. Data in the data warehouse is able to be used for many purposes, including sitting and waiting for future requirements which are unknown today
 
-### Inman Modeling Approach
+
+**Inman Modeling Approach**
 
 - store data in the data warehouse in highly normalized 3rd normal form
 - provide additional data marts, normalized for specific departments (e.g. in star schemas)
 ![](/data-engineering-specialization-website/images/365d1881-2ead-431f-a81b-338ce0a55c71.png)
 
-### Kimball Data Modeling Approach
+
+**Kimball Data Modeling Approach**
 
 - serve data that's structured as star schemas directly in the data warehouse
 - This allows faster modeling and iteration, but more redundancy
 ![](/data-engineering-specialization-website/images/3d7abbcc-bd15-45d0-afd7-2f9869953fef.png)
 
-### What to Choose
+
+**What to Choose**
 
 - Choose Inman if:
 - Data quality is your highest priority
@@ -38,7 +44,10 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 - Quick insights are your highest priority
 - Rapid implementation and iteration
 
-## Data Vault Modeling Approach
+
+## 1.4.2 Data Vault Modeling Approach
+
+**Data Vault Modeling Approach**
 
 - Inmon/Kimball focus on the structure of business logic in the data warehouse
 - Data Vault focuses on separating the structural aspects of data (business entities and how they're related to each other)
@@ -52,7 +61,8 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 - Only change the structure in which data is stored
 - Allows you to trace the data back to its source
 - Helps you avoid restructuring the data when business requirements change
-### **3 Types of Tables in a Data Vault:**
+
+**3 Types of Tables in a Data Vault:**
 
 - Hub: Stores a unique list of business keys
 - Business key
@@ -76,7 +86,10 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 - Primary key should consist of a hash key of the parent hub and load date
 ![](/data-engineering-specialization-website/images/6845e8b4-6d09-46b5-b722-4e19a19b3e7f.png)
 
-## One Big Table Modeling Approach
+
+## 1.4.3 One Big Table and Summary
+
+**One Big Table Modeling Approach**
 
 **Background**
 
@@ -108,13 +121,17 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 - A lot of data that needs more flexibility that a traditional data modeling approach might provide
 
-## Summary of Modeling Approaches
+
+**Summary of Modeling Approaches**
 
 ![](/data-engineering-specialization-website/images/2541140f-1fad-477e-9d6f-3da0ced3e7dd.png)
 
 ![](/data-engineering-specialization-website/images/01a3268b-5540-4a7b-a579-4726665dd15f.png)
 
-## DBT
+
+## 1.4.4 DBT
+
+**DBT**
 
 - Warps SQL statemens that create fact/dimension tables with a create statement
 - Helps document and validate data within the data warehouse

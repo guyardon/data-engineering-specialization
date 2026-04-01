@@ -10,16 +10,22 @@ order: 1
 notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 ---
 
-# Batch Transformations
 
-## Overview
+## 3.1.1 Batch Transformation Overview
 
-### Transformation Stage
+**Batch Transformations**
+
+
+**Overview**
+
+
+**Transformation Stage**
 
 - Manipulate and enhance data for downstream stakeholders
 - Leverage massively parallel processing for data modeling (e.g. star schemas, data vaults, etc)
 - Define Zones for stages of transformed data (e.g. raw, cleaned, enriched)
-### Technical Considerations
+
+**Technical Considerations**
 
 **Batch Transformations**
 
@@ -36,7 +42,8 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 - Single machine or use a distributed processing tool
 - Writing transformation logic in SQL or python
 
-### Week Overview
+
+**Week Overview**
 
 **Batch Transformations**
 
@@ -58,23 +65,32 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 - Transformation use cases
 - Micro-batch vs true streaming processing tools
 - Lab: Implement a CDC pipeline using Apache Kafka and Apache Flink
-## Batch Transformation Patterns and Use Cases
 
-### ETL vs. ELT vs. EtLT
+## 3.1.2 ETL Patterns and Use Cases
+
+**Batch Transformation Patterns and Use Cases**
+
+
+**ETL vs. ELT vs. EtLT**
 
 ![](/data-engineering-specialization-website/images/533b35b2-1d38-4f8d-80ba-741e6b1c2577.png)
 
 - The third approach (EtLT, means simple transformations before loading to the data warehouse (like cleaning) and then applying transformations (like modeling the data into star schema) inside the data warehouse
 
-### **Transformations for Data Modeling**
+
+**Transformations for Data Modeling**
 
 ![](/data-engineering-specialization-website/images/1fd6d4b5-06ed-4cf9-90bc-e191041c6bbb.png)
 
-### **Transformations for Data Cleaning (Data Wrangling)**
+
+**Transformations for Data Cleaning (Data Wrangling)**
 
 ![](/data-engineering-specialization-website/images/bd34135f-782a-4ee5-ab5c-b5c8b2929500.png)
 
-### **Transformations for Data Updating **
+
+## 3.1.3 Data Updating and Change Data Capture
+
+**Transformations for Data Updating **
 
 Usecase: making sure the data in the data warehouse is in sync with the data from the source system
 

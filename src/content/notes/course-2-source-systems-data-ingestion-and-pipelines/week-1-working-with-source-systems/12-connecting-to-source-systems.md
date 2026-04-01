@@ -18,7 +18,7 @@ Lesson Plan:
 - Lab Exercise
 ---
 
-**1.2.1 Connecting to Source Systems**
+## 1.2.1 Connecting to Source Systems
 
 boto3 - connecting to Amazon DynamoDB NoSWL Database via Python
 
@@ -39,7 +39,7 @@ Programatic Way (more repeatable and traceable):
 - API Connectors (e.g. JDBC/ODBC API)
 ---
 
-**1.2.2 Connecting to an Amazon RDS Instance**
+## 1.2.2 Connecting to an Amazon RDS Instance
 
 To connect to an existing (e.g. MySQL) instance we need 3 things:
 
@@ -79,7 +79,7 @@ Ways to Connect:
 
 ---
 
-**1.1.3 Basics of IAM and Permissions**
+## 1.2.3 Basics of IAM and Permissions
 
 IAM - identity and access management
 
@@ -114,7 +114,7 @@ AWS IAM:
   - **Example 2:** Let’s say you run a Glue ETL job and want it to write the ingested and transformed data to S3. You can create a role with permissions to write to S3, then allow Glue ETL to assume this role.
 ---
 
-**1.1.4 Basics of Networking in the Cloud**
+## 1.2.4 Basics of Networking in the Cloud
 
 Each cloud is made of of physical data centers that are spread out around the world
 
@@ -141,7 +141,7 @@ Region considerations:
 - Availability (the more availability zones - the more likely you are to recover from a disaster)
 - Cost
 
-**1.1.5 AWS Networking Overview - VPCs and Subnets**
+## 1.2.5 AWS Networking Overview - VPCs and Subnets
 
 Core networking concepts:
 

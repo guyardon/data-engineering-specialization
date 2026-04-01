@@ -10,7 +10,10 @@ order: 3
 notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 ---
 
-## Data Lakehouse
+
+## 2.3.1 The Data Lakehouse Architecture
+
+**Data Lakehouse**
 
 **The Data Lakehouse Architecture**
 
@@ -23,6 +26,8 @@ notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 - superior query performance
 - robust data management
 ![](/data-engineering-specialization-website/images/6723598f-36a0-49d5-8ab8-42fc838b68c0.png)
+
+## 2.3.2 Data Lakehouse Implementation and Open Table Formats
 
 **Data Lakehouse Implementation**
 

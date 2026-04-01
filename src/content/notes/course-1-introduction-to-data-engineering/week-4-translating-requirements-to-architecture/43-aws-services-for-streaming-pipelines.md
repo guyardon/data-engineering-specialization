@@ -10,6 +10,8 @@ order: 3
 notionId: "18d969a7-aa01-80dc-9629-c246ca2a0883"
 ---
 
+## 4.3.1 AWS Services for Streaming Pipelines
+
 Amazon Kinesis Data Streams
 
 - Data producers send data to Kinesis

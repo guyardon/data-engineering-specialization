@@ -10,9 +10,13 @@ order: 3
 notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 ---
 
-## **Introduction**
 
-### Database Management System (DBMS)
+## 1.3.1 Database Management Systems
+
+**Introduction**
+
+
+**Database Management System (DBMS)**
 
 - the software layer for database systems
 - both for relational databases or nonrelational databases such as graph databases
@@ -30,7 +34,8 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
     - improved performance on SSDs
     - handle modern data types and structures
     - columnar support for analytical applications
-### **In-Memory Storage Systems**
+
+**In-Memory Storage Systems**
 
 - Fast, low latency
 - volatile
@@ -43,7 +48,10 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
   - key-value store that supports more complex data types
   - supports high performance applications that can tolerate minor data loss
 
-### Row vs. Column Storage
+
+## 1.3.2 Row vs. Column Storage
+
+**Row vs. Column Storage**
 
 - row oriented storage → each row in a table stored as a consecutive sequence of bytes in memory
 - good for OLTP (fast read/write, low latency)

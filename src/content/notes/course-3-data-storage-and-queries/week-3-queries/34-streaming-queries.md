@@ -10,9 +10,13 @@ order: 4
 notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 ---
 
-## Streaming Queries
 
-### Overview
+## 3.4.1 Streaming Query Patterns
+
+**Streaming Queries**
+
+
+**Overview**
 
 - Query patterns need to reflect the real time nature of the data
 - SQL Queries on continuously streaming data is enabled by:
@@ -33,7 +37,10 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 - Joining Data Streams
 ![](/data-engineering-specialization-website/images/7d48148e-5530-4388-86d7-6da77315ff57.png)
 
-### Deploying an Application with Amazon Managed Service for Apache Flink
+
+## 3.4.2 Deploying with Amazon Managed Service for Apache Flink
+
+**Deploying an Application with Amazon Managed Service for Apache Flink**
 
 ![](/data-engineering-specialization-website/images/6f598b43-b313-4d98-89b7-ef9cab0b67f3.png)
 

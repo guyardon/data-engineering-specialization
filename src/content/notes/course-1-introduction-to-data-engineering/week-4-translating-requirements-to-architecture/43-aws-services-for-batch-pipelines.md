@@ -10,6 +10,8 @@ order: 2
 notionId: "18d969a7-aa01-808e-8260-ce7edc5dc3a7"
 ---
 
+## 4.3.1 AWS Services for Batch Pipelines
+
 ETL Pipeline for batch data
 
 - Source system: e.g Amazon RDS

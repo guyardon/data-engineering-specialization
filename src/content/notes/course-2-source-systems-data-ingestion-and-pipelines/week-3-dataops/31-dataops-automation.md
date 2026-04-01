@@ -10,7 +10,10 @@ order: 1
 notionId: "1d3969a7-aa01-80e3-b264-c6789380bcaa"
 ---
 
-## Introduction
+
+## 3.1.1 DataOps Overview
+
+**Introduction**
 
 DataOps is a set of practices and cultural habits centered around building robust data systems and delivering high quality data products (DataOps: Data Engineering is analogous to DevOps: SW Engineering)
 
@@ -23,7 +26,8 @@ DataOps is a set of practices and cultural habits centered around building robus
 - Observability and Monitoring
 - Incident Response 
 
-## DataOps Automation
+
+**DataOps Automation**
 
 - CI/CD:
 - Version control
@@ -33,7 +37,10 @@ DataOps is a set of practices and cultural habits centered around building robus
 - version control over your entire infrastructure
 - track changes in the code defining the infra, and revert to previous infrastructure if necessary
 
-### Infrastructure as Code (Terraform)
+
+## 3.1.2 Infrastructure as Code with Terraform
+
+**Infrastructure as Code (Terraform)**
 
 - Easier than instead of manual clicking setup windows in cloud or writing bash scripts
 - Example: AWS CloudFormation 
@@ -55,7 +62,8 @@ DataOps is a set of practices and cultural habits centered around building robus
 - When using bash, we need to specify all the steps, and treat all conditions, error handling, etc. 
 - Much more complex than using declarative configuration management.
 
-### Terraform Workflow
+
+**Terraform Workflow**
 
 1. You write the config files to define your resources
 2. Terraform prepares the workspace
@@ -64,7 +72,10 @@ DataOps is a set of practices and cultural habits centered around building robus
 3. You approve the plan
 4. Terraform applies the proposed steps
 
-### Terraform Basic Example
+
+## 3.1.3 Terraform Tutorials and Examples
+
+**Terraform Basic Example**
 
 Create EC2 Instance and launch it in the default VPC of your selected region.
 
@@ -98,7 +109,8 @@ Create EC2 Instance and launch it in the default VPC of your selected region.
 - shows plan again and asks for approval
 - We can see the created EC2 instance in the console
 
-### Terraform Tutorial - Defining Variables and Outputs
+
+**Terraform Tutorial - Defining Variables and Outputs**
 
 - We can specify variables that are dynamic instead of hardcoding them into the configuration
 - Good for variables that can change
@@ -129,7 +141,8 @@ Create EC2 Instance and launch it in the default VPC of your selected region.
 - We can divide [main.tf](http://main.tf/) to [variables.tf](http://variables.tf/), outputs.tf, providers.tf
 - Define resources in [main.tf](http://main.tf/) or a [resource_name].tf for a specific resource
 
-### Terraform Data Sources
+
+**Terraform Data Sources**
 
 - Data Sources are data blocks to reference resources created outside Terraform or in another Terraform workspace
 

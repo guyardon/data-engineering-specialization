@@ -10,7 +10,10 @@ order: 2
 notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 ---
 
-## Airflow - UI
+
+## 4.2.1 Airflow UI
+
+**Airflow - UI**
 
 - DAGS page
 - list of all DAGS created in DAG directory
@@ -21,7 +24,10 @@ notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
       - previous runs
       - details, graph, gantt, code, logs
 
-## Airflow - Creating a DAG
+
+## 4.2.2 Creating DAGs and Using Operators
+
+**Airflow - Creating a DAG**
 
 - e.g. ETL Process
 - extract job
@@ -45,7 +51,10 @@ Defining Tasks in AirFlow:
 
 ![](/data-engineering-specialization-website/images/d120f613-43ae-42d2-86ce-541ea129b514.png)
 
-## Airflow - Xcoms
+
+## 4.2.3 Xcoms and Variables
+
+**Airflow - Xcoms**
 
 - Xcom is short for cross-communication
 - Designed to pass small amounts of data between tasks (metadata, dates, single value metrics and single computations)
@@ -59,7 +68,8 @@ Defining Tasks in AirFlow:
 - We can see Xcoms in the Airflow UI under Admin→Xcoms
 - Xcoms are NOT designed to pass large objects such as dataframes, we need to save them to intermediate files (in S3 for example) and read them in another task.
 
-## Airflow - Variables
+
+**Airflow - Variables**
 
 - Useful instead of hard-coding values inside tasks
 - We can either create variables int eh Airflow UI or create environment variables
@@ -70,6 +80,8 @@ Defining Tasks in AirFlow:
 ![](/data-engineering-specialization-website/images/5c493deb-0221-4a73-8488-20246cba508b.png)
 
 - Note that to return as dictionary instead of string, pass deserialize_json=True
+
+## 4.2.4 DAG Best Practices
 
 When writing DAGs, there are some best practices that help ensure your code is efficient, readable, idempotent and reproducible (like with any code). Let's go through some of these basic practices.
 

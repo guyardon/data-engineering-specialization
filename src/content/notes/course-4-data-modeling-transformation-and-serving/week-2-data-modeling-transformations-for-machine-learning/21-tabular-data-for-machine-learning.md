@@ -10,11 +10,15 @@ order: 1
 notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 ---
 
-## Modeling and Processing Tabular Data for Machine Learning
+
+## 2.1.1 Machine Learning Overview
+
+**Modeling and Processing Tabular Data for Machine Learning**
 
 ---
 
-### Machine Learning Overview
+
+**Machine Learning Overview**
 
 **Supervised Learning**
 
@@ -28,7 +32,10 @@ notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 - E.g. clustering and grouping similar features
 ---
 
-### Machine Learning Lifecycle
+
+## 2.1.2 Machine Learning Lifecycle
+
+**Machine Learning Lifecycle**
 
 - **Scoping**
 - Defining Project
@@ -62,7 +69,10 @@ The role of the Data Engineer in the ML/AI Team:
 - Serve an updated set of data to re-train and update the model
 ---
 
-### Feature Engineering for Tabular Data
+
+## 2.1.3 Feature Engineering for Tabular Data
+
+**Feature Engineering for Tabular Data**
 
 Feature engineering Any change or preprocessing done to a raw column and any creation of new features, for example:
 
@@ -84,35 +94,44 @@ Feature engineering Any change or preprocessing done to a raw column and any cre
 - **Creating new columns by combining or modifying existing columns**
 ---
 
-### Scikit-Learn and Pandas for Processing Tabular Data
+
+## 2.1.4 Scikit-Learn and Pandas for Processing Tabular Data
+
+**Scikit-Learn and Pandas for Processing Tabular Data**
 
 ```python
 import pandas as pd
 
 data = pd.read_csv("customer_churn_dataset.csv")
 
-# get basic insights
+
+**get basic insights**
 print(data.shape)
 print(data.head())
 print(data.describe())
 
-# check nulls
+
+**check nulls**
 print(data.isnull().sum())
 print(data[data['CustomerId'].is_null()])
 
-# drop nulls
+
+**drop nulls**
 data = data.dropna()
 
-# check nulls again
+
+**check nulls again**
 print(data.isnull().sum())
 
-# check categorical column value counts
+
+**check categorical column value counts**
 for col in ['Subscription Type', 'Contract Length']:
 	print(col)
 	print(data[col].value_counts(normalize=True))
 	print('\n')
 	
-# get features and labels
+
+**get features and labels**
 features = data.iloc[:, 0:-1] # all columns except last
 labels = data.iloc[:, -1] # customer churn column
 ```
@@ -130,7 +149,8 @@ Steps to prepare the data for training an ML model:
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScalar, OneHotEncoder
 
-# split into train/test sets
+
+**split into train/test sets**
 X_train, X_test, y_train, y_test = train_test_split(features, 
 																										labels, 
 																										test_size=0.2, 
@@ -140,22 +160,27 @@ X_train, X_test, y_train, y_test = train_test_split(features,
 ```python
 from sklearn.preprocessing import StandardScalar
 
-# extract numerical columns																										random_state=42)
+
+**extract numerical columns																										random_state=42)**
 numerical_columns = ['Age', 'Tenure', 'Usage Frequency',
 										 'Payment Delay', 'Total Spend', 'Last Interaction']
 
 X_train_numerical = X_train[numerical_columns]
 
-# instantiate scalar
+
+**instantiate scalar**
 scalar = StandardScalar()
 
-# fit scalar: computes the mean/standard-dev of each column
+
+**fit scalar: computes the mean/standard-dev of each column**
 scalar.fit(X_train_numerical)
 
-# transform scalar: uses the computed statistics to normalize the data
+
+**transform scalar: uses the computed statistics to normalize the data**
 x_train_scaled = scalar.transform(X_train_numerical)
 
-# Create dataframe for scaled numerical data
+
+**Create dataframe for scaled numerical data**
 X_train_scaled_df = pd.DataFrame(data=X_train_scaled,
                                  index=X_train.index,
 	                               columns=numerical_columns)
@@ -164,23 +189,30 @@ X_train_scaled_df = pd.DataFrame(data=X_train_scaled,
 ```python
 from sklearn.preprocessing import OneHotEncoding
 
-# extract categorical columns	                                                
+
+**extract categorical columns**
 categorical_columns = ['Subscription Type', 'Contract Length']
 X_train_categorical = X_train[categorical_columns]
 
-# instantiate one hot encoder
+
+**instantiate one hot encoder**
 encoder = OneHotEncoder()
 
-# encoder.fit: checks the unique values within each categorical column
+
+**encoder.fit: checks the unique values within each categorical column**
 encoder.fit(X_train_categorical)
 
-# encoder.transform: prepares the labels of the output columns
+
+**encoder.transform: prepares the labels of the output columns**
 X_train_encoded = encoder.transform(X_train_categorical) 
 
-# returns sparse matrix
-# print(type(X_train_encoded)) # scipy.sparse._csr.csr_matrix
 
-# convert one-hot encodings back to dataframe
+**returns sparse matrix**
+
+**print(type(X_train_encoded)) # scipy.sparse._csr.csr_matrix**
+
+
+**convert one-hot encodings back to dataframe**
 X_train_encoded_df = pd.DataFrame(x_train_encoded.todense(), # converts sparse matrix to dense matrix
                                   index=X_train.index,
                                   columns=encoder.get_feature_names_out()) # get feature names corresonding to column encodings
@@ -188,13 +220,16 @@ X_train_encoded_df = pd.DataFrame(x_train_encoded.todense(), # converts sparse m
 ```
 
 ```python
-# get final transformed dataframe
+
+**get final transformed dataframe**
 X_train_transf = pd.concat([X_train['CustomerID'],
                             X_train_scaled_df,
                             X_train_encoded_df], axis=1)
                             
 X_train_transf.to_parquet("train.parquet")  
 
-# do the same for test set...
-# note that for test set, we do not need to re-fit scalar (it should be learned from training_set)                                              
+
+**do the same for test set...**
+
+**note that for test set, we do not need to re-fit scalar (it should be learned from training_set)**
 ```

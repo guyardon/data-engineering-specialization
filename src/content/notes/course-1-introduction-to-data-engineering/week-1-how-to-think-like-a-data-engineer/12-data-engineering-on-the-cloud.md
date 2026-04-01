@@ -11,7 +11,6 @@ notionId: "144969a7-aa01-80aa-8aa6-f29d8bdc1634"
 ---
 
 
-
 ## 1.2.1 Intro to AWS Cloud
 
 - On-demand delivery of IT resources with pay-as-you-go pricing
@@ -39,7 +38,6 @@ notionId: "144969a7-aa01-80aa-8aa6-f29d8bdc1634"
 ![](/data-engineering-specialization-website/images/e92af9ac-d59c-4e9b-9858-35b497cbca9f.png)
 
 ![](/data-engineering-specialization-website/images/af4eadb3-4888-465e-8b83-5a754e24ccbc.png)
-
 
 
 ## 1.2.2 Intro to AWS Core Services
@@ -108,16 +106,17 @@ AWS uses a specific naming convention for the instance types. For example, *t3a.
 AWS offers a few different pay-as-you-go purchasing options for EC2 instances. By default, you can choose to set up and launch *on-demand* EC2 instances that give you compute capacity with no long-term commitments. If you want to save on cost, you can opt for EC2 *spot instances*, which are unused EC2 computing resources in the AWS cloud available at a discount compared to on-demand prices.
 
 
-
 ## 1.2.4 Networking - Virtual Private Cloud (VPC) & Subnets
 
 Networking is another building block for hosting your work on the cloud.
 
-### What is a network?
+
+**What is a network?**
 
 A network is simply a collection of devices connected together, where each connection can be a request sent from one device to another or a response to a request. When you create and use resources on AWS, you want these resources to communicate with each other and possibly with the outside internet. Enabling the communication between resources and with the outside world requires an understanding of some basic cloud networking concepts. This includes understanding what an IP address is and how to create a network for your resources on AWS using VPC (Virtual Private Cloud) and subnets.
 
-### What is an IP address?
+
+**What is an IP address?**
 
 In a given network, each device is assigned an IP (Internet Protocol) address, which is a series of digits that uniquely identifies each device within the network. These addresses ensure that responses and requests are sent to the correct device.
 
@@ -129,13 +128,15 @@ Another related term you will encounter when working on the cloud is CIDR (Class
 
 This notation means that the first 24 bits are fixed and the last 8 bits can be any bits. In other words, 192.101.0.0/24 represents all IP addresses between 192.101.0.0 and 192.101.0.255.
 
-### What is a VPC?
+
+**What is a VPC?**
 
 A VPC (Virtual Private Cloud) is an isolated private network where you can launch your AWS resources. A VPC exists inside a region, which can contain more than one VPC, and a VPC spans multiple availability zones inside the region. VPC is a way to isolate your resources (for example EC2) from the outside world. Think of it as a box or a wall that protects and organizes your resources. Resources within the same VPC can communicate with each other. By default, there’s no communication between resources from different VPCs or with the internet unless you allow it to happen by properly configuring the VPC.
 
 When you create a VPC, you need to specify the range of IP addresses or the CIDR block for the network, which determines the size of the network. Each resource created inside the VPC will be assigned an IP address from the specified range. When you launch resources such as EC2, you need to make sure they’re launched inside a VPC.
 
-### What is a subnet?
+
+**What is a subnet?**
 
 Inside your VPC, you may need some resources to be public and others to be private. You can achieve this by creating subnets within your VPC. Subnets provide you with more detailed control over access to your resources. Each VPC consists of subnets created inside availability zones. You can create a public subnet if you want to allow for outside traffic to access your resources, and you can create a private subnet if you don’t want to allow for outside traffic to access your resources.
 

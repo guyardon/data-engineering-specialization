@@ -10,13 +10,18 @@ order: 4
 notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 ---
 
-## Change Data Capture (CDC)
 
-### Definition
+## 2.4.1 CDC Fundamentals
+
+**Change Data Capture (CDC)**
+
+
+**Definition**
 
 Change data capture (CDC) is a method for extracting each change event (insert, update, delete) that occurs in a database and making it more available for downstream systems
 
-### Ways to ensure Storage Systems are In-Sync with Data in Source System
+
+**Ways to ensure Storage Systems are In-Sync with Data in Source System**
 
 - Full Snapshots/ Full load
 - Update all the data in the storage systems
@@ -27,7 +32,8 @@ Change data capture (CDC) is a method for extracting each change event (insert, 
 - only load updates and changes since the last read from the source system
 - e.g. utilize a "last_updated_at" column and update based on these columns. may require more complex logic.
 - When working with databases, this processes is called "Change Data Capture" (CDC).
-### Use Cases for CDC
+
+**Use Cases for CDC**
 
 - Synchronize data across different databases
 - e.g. PostgreSQL system that supports an app. Periodically we want to update our storage system (data warehouse) based on the table changes to support analytics.
@@ -35,7 +41,10 @@ Change data capture (CDC) is a method for extracting each change event (insert, 
 - Capture historical changes for auditing or other business purposes (e.g. regulations, insights, etc)
 - Enable microservices to track any changes in the source database (e.g. CDC captures changes from purchance service, and relays information to shipment service and customer service).
 
-### Approaches to CDC
+
+## 2.4.2 CDC Approaches and Implementation
+
+**Approaches to CDC**
 
 - **Push**
 - Logic that captures changes in source database → changes are pushed to target system. 
@@ -44,7 +53,8 @@ Change data capture (CDC) is a method for extracting each change event (insert, 
 - The target system continuously polls the source database to check for changes and then pulls updates when changes occur.
 - If changes are batched before pull requests, this can cause a lag in the target system.
 
-### CDC Implementation Patterns
+
+**CDC Implementation Patterns**
 
 - **Batch-oriented or query-based CDC (pull-based)**
 - Query the database to check for changes (based on a "last_modified" column. 
@@ -59,7 +69,8 @@ Change data capture (CDC) is a method for extracting each change event (insert, 
 - A trigger is a stored function that you can configure to run when a specific column changes. 
 - The triggers informs (pushes to) the CDC of the changes in the source databases.
 - Disadvantage: too many triggers can impact the write performance of the source database.
-### CDC Tools:
+
+**CDC Tools:**
 
 - Debezium
 - AWS DMS
@@ -67,9 +78,13 @@ Change data capture (CDC) is a method for extracting each change event (insert, 
 - Airbyte log-based CDC.
 ---
 
-## Summary: General Consideration for Choosing Ingestion Tools
 
-### Characteristics of the Data
+## 2.4.3 General Considerations for Choosing Ingestion Tools
+
+**Summary: General Consideration for Choosing Ingestion Tools**
+
+
+**Characteristics of the Data**
 
 - **Data Type and Structure**
 - Structured/ unstructured/ semi structured
@@ -87,7 +102,8 @@ Change data capture (CDC) is a method for extracting each change event (insert, 
 - **Changes in Schema**
 - If schema changes are expected (new columns, changing types, renaming columns) use tools that automatically detect schema changes.
 - Ensure good communication between you and the upstream stakeholder.
-### Reliability and Durability
+
+**Reliability and Durability**
 
 Reliability
 

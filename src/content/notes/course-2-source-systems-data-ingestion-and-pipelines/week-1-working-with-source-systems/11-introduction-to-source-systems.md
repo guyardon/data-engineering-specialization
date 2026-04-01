@@ -10,14 +10,16 @@ order: 1
 notionId: "18d969a7-aa01-80e1-8091-d2f8fc8a1024"
 ---
 
-# **1.1.1 Different Types of Source Systems**
+## 1.1.1 Different Types of Source Systems
 
-## **Types of Data**
+
+**Types of Data**
 
 - **Structured Data**: Organized in a table format (e.g., relational databases).
 - **Semi-Structured Data**: Has some structure but is not tabular (e.g., JSON). May include nesting.
 - **Unstructured Data**: Lacks predefined structure (e.g., images, videos, audio files).
-## **Data Sources**
+
+**Data Sources**
 
 - **Databases**
 - Store data in an organized way.
@@ -37,24 +39,28 @@ notionId: "18d969a7-aa01-80e1-8091-d2f8fc8a1024"
 - Uses message queues/streaming platforms (e.g., **Amazon Kinesis, Kafka**).
 ---
 
-# **1.1.2 Relational Databases**
+## 1.1.2 Relational Databases
 
-## **Structure & Advantages**
+
+**Structure & Advantages**
 
 - Comprised of multiple tables, reducing redundancy and improving data management.
 - **One Big Table (OBT) Approach**:
 - Stores everything in a single table for faster processing.
 - Leads to data duplication and potential inconsistencies.
-## **Database Schema & Keys**
+
+**Database Schema & Keys**
 
 - **Schema**: Defines how tables are organized and related.
 - **Primary Key**: Unique identifier for each row.
 - **Foreign Key**: References a primary key from another table.
 - **Columns**: Have names and data types (part of the schema).
-## **Data Normalization**
+
+**Data Normalization**
 
 - Organizes data into separate tables to minimize redundancy and ensure integrity.
-## **Relational Database Management Systems (RDBMS)**
+
+**Relational Database Management Systems (RDBMS)**
 
 - Examples: **MySQL, PostgreSQL, SQL Server, Oracle Database**.
 - Interact using **SQL** for:
@@ -64,9 +70,10 @@ notionId: "18d969a7-aa01-80e1-8091-d2f8fc8a1024"
 - Filtering
 ---
 
-# **1.1.3 SQL Queries**
+## 1.1.3 SQL Queries
 
-## **Common SQL Commands**
+
+**Common SQL Commands**
 
 - **SELECT**: Retrieves data (e.g., `SELECT *` returns all rows/columns).
 - **FROM**: Specifies the table.
@@ -78,7 +85,8 @@ notionId: "18d969a7-aa01-80e1-8091-d2f8fc8a1024"
 - **GROUP BY**: Groups data and applies aggregate functions (e.g., `COUNT(*)`).
 - **ORDER BY**: Sorts data (add `DESC` for descending order).
 - **LIMIT**: Restricts the number of rows returned.
-## **Other Commands for Data Manipulation**
+
+**Other Commands for Data Manipulation**
 
 - **CREATE**: Defines a new table.
 - **DELETE**: Removes records.
@@ -86,9 +94,10 @@ notionId: "18d969a7-aa01-80e1-8091-d2f8fc8a1024"
 - **UPDATE**: Modifies existing records.
 ---
 
-# **1.1.4 NoSQL Databases**
+## 1.1.4 NoSQL Databases
 
-## **Characteristics**
+
+**Characteristics**
 
 - Supports SQL or SQL-like queries.
 - Uses non-tabular structures:
@@ -99,24 +108,28 @@ notionId: "18d969a7-aa01-80e1-8091-d2f8fc8a1024"
 - No predefined schemas → More flexibility.
 - **Horizontal Scaling**: Distributes data across multiple servers.
 - **Eventual Consistency**: Updates propagate over time.
-## **Comparison with Relational Databases**
+
+**Comparison with Relational Databases**
 
 - **Eventual Consistency (NoSQL)** → Prioritizes speed & scalability.
 - **Strong Consistency (Relational)** → Ensures all nodes have updated data before reading.
 - **ACID Compliance**: Some NoSQL databases (e.g., **MongoDB**) support it.
-## **Common NoSQL Models**
+
+**Common NoSQL Models**
 
 - **Key-Value Databases** (e.g., caching user session data).
 - **Document Databases** (e.g., storing JSON documents for content management, catalogs, sensor readings).
 ---
 
-# **1.1.5 Database ACID Compliance**
+## 1.1.5 Database ACID Compliance
 
-## **OLTP Systems (Online Transaction Processing)**
+
+**OLTP Systems (Online Transaction Processing)**
 
 - **Relational Databases**: ACID Compliant.
 - **NoSQL Databases**: Not all are ACID compliant.
-## **ACID Principles**
+
+**ACID Principles**
 
 - **Atomicity**: All or nothing (e.g., banking transactions).
 - **Consistency**: Transactions maintain data integrity (e.g., inventory stock ≥ 0).
@@ -126,9 +139,10 @@ These principles **ensure database reliability and a consistent view of data**.
 
 ---
 
-# **1.1.6 Lab - Interacting with Amazon DynamoDB (NoSQL Database)**
+## 1.1.6 Lab - Interacting with Amazon DynamoDB (NoSQL Database)
 
-## **Key Features**
+
+**Key Features**
 
 - **Key-Value Model**
 - **Schema-less**: Each item can have distinct attributes.
@@ -137,24 +151,28 @@ These principles **ensure database reliability and a consistent view of data**.
 - **Composite Key** (Partition Key + Sort Key).
 - **Nested Attributes**
 - **Data Types**: String (S), Number (N), List (L), Boolean (BOOL).
-## **Boto3**
+
+**Boto3**
 
 - Python package for interacting with AWS services.
 ---
 
-# **1.1.7 Object Storage**
+## 1.1.7 Object Storage
 
-## **Concept**
+
+**Concept**
 
 - Stores files as **objects** (not hierarchical like file systems).
 - Example: **Amazon S3**.
 - Ideal for **semi-structured & unstructured data** (e.g., ML training data).
-## **Object Components**
+
+**Object Components**
 
 - **UUID (Key)**: Unique identifier.
 - **Metadata**: File properties (e.g., creation date, owner, version).
 - **Immutable**: Objects cannot be modified—only replaced.
-## **Why Object Storage?**
+
+**Why Object Storage?**
 
 - **Scalability**: Virtually unlimited storage.
 - **Redundancy**: Data is replicated across multiple availability zones.
@@ -162,30 +180,34 @@ These principles **ensure database reliability and a consistent view of data**.
 - **Used for Modern Architectures**: **Data Lakes, Data Lakehouses**.
 ---
 
-# **1.1.8 Logs**
+## 1.1.8 Logs
 
-## **Definition**
+
+**Definition**
 
 - **Append-only sequence of records ordered by time**.
 - Captures system events like:
 - User activity
 - Database updates
 - Error logs
-## **Use Cases**
+
+**Use Cases**
 
 - **System Monitoring & Debugging**
 - **Data Analysis & Automation**
 - **Machine Learning Pipelines**
 ---
 
-# **1.1.9 Streaming Systems**
+## 1.1.9 Streaming Systems
 
-## **Key Terminology**
+
+**Key Terminology**
 
 - **Event**: A recorded occurrence or state change.
 - **Message**: Data associated with an event.
 - **Stream**: A sequence of messages.
-## **Components**
+
+**Components**
 
 - **Event Collector**: Groups messages into batches for processing.
 - **Streaming Broker/Event Router**: Routes messages from producer to consumer.

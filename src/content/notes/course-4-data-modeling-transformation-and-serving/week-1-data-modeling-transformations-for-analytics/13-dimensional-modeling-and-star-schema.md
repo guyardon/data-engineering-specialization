@@ -10,13 +10,17 @@ order: 3
 notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 ---
 
-## Dimensional Modeling - Star Schema
+
+## 1.3.1 Star Schema Fundamentals
+
+**Dimensional Modeling - Star Schema**
 
 - Normalized models focus on connecting data entities and modeling the relationships to reduce data redundancy
 - Star schema (dimensional data model) focuses on:
 - structuring the data for faster analytical queries
 - delivers data that is more understandable to business users
-### Fact Table
+
+**Fact Table**
 
 - contains quantitative business measurements that result from a business event or process
 - e.g. business event: order a ride share
@@ -31,13 +35,17 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 - one ride by one customer (atomic grain)
 - Atomic grain:
   - most detailed level at which data is capture by a given event
-### Dimension Tables
+
+**Dimension Tables**
 
 - Provide the reference data, attributes, and relational context for the event sin the fact table
 - Describe the events' who, what, where, and when
 - often have many columns (wide and short), i.e. lots of descriptive columns but fewer rows
 
-### Relationship between Fact and Dimension Tables
+
+## 1.3.2 Fact-Dimension Relationships and Analytical Queries
+
+**Relationship between Fact and Dimension Tables**
 
 ![](/data-engineering-specialization-website/images/a43dd950-04a8-4625-831b-f1f86c7beb9e.png)
 
@@ -48,7 +56,8 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 ![](/data-engineering-specialization-website/images/bf7b521a-577a-4775-a9d9-c9d91059ec04.png)
 
-### Using Star Schemas to Perform Analytical Queries
+
+**Using Star Schemas to Perform Analytical Queries**
 
 - apply aggregate queries to find sum, average, maximum, etc. of a fact measure in the fact table
 - use a dimension table to filter or group the facts
@@ -56,18 +65,23 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 ![](/data-engineering-specialization-website/images/97b7f8db-4bb3-4545-a51f-de63de50da5e.png)
 
-## From Normalized Model to Star Schema
+
+## 1.3.3 Designing and Building a Star Schema
+
+**From Normalized Model to Star Schema**
 
 - Data can be in normalized form in a relational databases, but may be needed to be converted to star schemas for data specific marts
 
-### 4 Key Steps in Designing a Star Schema
+
+**4 Key Steps in Designing a Star Schema**
 
 - Select the business process
 - Declare the grain (best - atomic)
 - Identify the dimensions
 - Identify the facts
 
-### Surrogate Keys
+
+**Surrogate Keys**
 
 - Sometimes, instead of defining one of the columns as a primary key (e.g. in a stores table, the store_id), we may want to define a new "surrogate key".
 - e.g. the store id is a string
@@ -78,13 +92,16 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
   - supported by many DBMSs like PostgreSQL and MySQL
   - Example: MD5
 
-### SQL Statements to Create a Star Schema from Normalized Form
+
+**SQL Statements to Create a Star Schema from Normalized Form**
 
 ![](/data-engineering-specialization-website/images/80a1eb46-5b4a-449f-9d4b-6958c5464219.png)
 
 ```sql
-# create a stores dimension from the stores table
-# in the normalized form
+
+**create a stores dimension from the stores table**
+
+**in the normalized form**
 SELECT
 	MD5(store_id) as store_key,
 	store_id,
@@ -93,7 +110,8 @@ SELECT
 	store_zipcode,
 FROM stores;
 
-# do the same for items dimension
+
+**do the same for items dimension**
 SELECT
 	MD5(sku) as item_key,
 	sku,
@@ -101,7 +119,8 @@ SELECT
 	brand
 FROM items;
 
-# create a date dimension
+
+**create a date dimension**
 SELECT
 	date_key,
 	EXTRACT(DAY FROM date_key) AS day_of_week
@@ -114,21 +133,26 @@ FROM
 									'1 day'::interval) AS date_key
 
 
-# create a fact table
-# create a surrogate key by combining two columns and hashing them
+**create a fact table**
+
+**create a surrogate key by combining two columns and hashing them**
 SELECT
-	# primary key (surrogate, composite)
+
+**primary key (surrogate, composite)**
 	MD5(CONCAT(OrderItems.order_id,
 						 OrderItems.item_line_number))
 	AS fact_order_key
-	# for reference, include these
+
+**for reference, include these**
 	OrderItems.order_id,
 	OrderItems.item_line_number,
-	# foreign keys
+
+**foreign keys**
 	MD5(Orders.store_id) as store_key
 	MD5(OrderItems.items_sku) as item_key,
 	Orders.order_date AS date_key
-	# facts
+
+**facts**
 	OrderItems.item_quantity,
 	Items.price AS item_price
 FROM OrderItems

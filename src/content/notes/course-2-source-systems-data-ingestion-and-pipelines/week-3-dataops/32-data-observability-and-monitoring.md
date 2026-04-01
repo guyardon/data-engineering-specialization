@@ -10,7 +10,10 @@ order: 2
 notionId: "1d3969a7-aa01-80e3-b264-c6789380bcaa"
 ---
 
-## Data Observability and Monitoring
+
+## 3.2.1 Observability Concepts
+
+**Data Observability and Monitoring**
 
 **DevOps Observability**
 
@@ -51,6 +54,8 @@ Takeaways from Conversation with Barr Moses (CEO of Monte Carlo)
 4. **Lineage**: According to [Barr](https://towardsdatascience.com/introducing-the-five-pillars-of-data-observability-e73734b263d5), "When data breaks, the first question is always "where?" Data lineage helps you trace the data journey from its source to its destination, visualizing how data was transformed and where it was stored. This way, you can identify the source of errors or anomalies.
 5. **Schema**: Data schema refers to monitoring changes in data structure or types. This pillar helps avoid the failure of the data pipeline.
 
+## 3.2.2 Monitoring Data Quality
+
 **Monitoring Data Quality**
 
 - Volume
@@ -59,13 +64,17 @@ Takeaways from Conversation with Barr Moses (CEO of Monte Carlo)
 - Freshness
 Identify and focus on most important metrics (check what stakeholders care about, and talk with source system owners).
 
-## Great Expectations
+
+## 3.2.3 Observability Tools
+
+**Great Expectations**
 
 **Core Components**
 
 ![](/data-engineering-specialization-website/images/cd3cd7f0-368b-4ad6-b595-91ff95e55de6.png)
 
-### AWS Cloudwatch
+
+**AWS Cloudwatch**
 
 Monitoring on AWS
 

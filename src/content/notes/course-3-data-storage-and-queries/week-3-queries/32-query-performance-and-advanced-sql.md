@@ -10,7 +10,10 @@ order: 2
 notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 ---
 
-## Understanding Query Performance
+
+## 3.2.1 Understanding Query Performance
+
+**Understanding Query Performance**
 
 - EXPLAIN command
 - Sequence of steps to execute the query
@@ -18,7 +21,10 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 - performance statistics in each query stage
 ![](/data-engineering-specialization-website/images/451f5889-b5e5-4f22-af21-e817e978b524.png)
 
-## Advanced SQL Queries
+
+## 3.2.2 Advanced SQL Queries
+
+**Advanced SQL Queries**
 
 - SELECT DISTINCT
 - CASE
@@ -28,13 +34,15 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 - Subqueries
 - SQL Window Functions
 ```sql
-# DATA Manipulation Operations
+
+**DATA Manipulation Operations**
 CREATE
 INSERT INTO
 UPDATE
 DELETE
 
-# COMMON SQL COMMANDS
+
+**COMMON SQL COMMANDS**
 SELECT
 COUNT(), SUM(), AVG(), MIN(), MAX()
 FROM
@@ -140,7 +148,8 @@ Window Functions
 - Allows you to apply an aggregate or ranking function over a particular window or range of rows
 - Does not group rows into a single output row: each row remains seperate.
 ```sql
-# Subquery Template
+
+**Subquery Template**
 SELECT column_name1,
 ranking_function() OVER (
 	PARTITION BY column_name1
@@ -148,7 +157,8 @@ ranking_function() OVER (
 ) AS new_column
 FROM table_name;
 
-# example of ranking functions:
+
+**example of ranking functions:**
 rank()
 row_number()
 ```
@@ -156,7 +166,8 @@ row_number()
 Window Function Example
 
 ```sql
-# lets start with a query
+
+**lets start with a query**
 SELECT
 fact_rental.customer_id,
 dim_category.name,
@@ -167,15 +178,18 @@ ON fact_rental.category_id = dim_category.category_id
 GROUP BY fact_rental.customer_id, dim_category.name
 ORDER BY fact_rental.customer_id, average_rental_days DESC
 
-# now convert the query to a CTE
+
+**now convert the query to a CTE**
 WITH customer_info as (
- # <previous query here>
+
+**<previous query here>**
 )
 SELECT
 	customer_id,
 	name,
 	average_rental_days
-# now comes the window function
+
+**now comes the window function**
 rank() over (
 	PARTITION BY customer_id
 	ORDER BY average_rental_days DESC
@@ -187,7 +201,10 @@ ORDER BY
 	rank category
 ```
 
-## Index Deep Dive
+
+## 3.2.3 Index Deep Dive
+
+**Index Deep Dive**
 
 - An index is a separate data structure that has its own disk space and contains information that refers to the actual table
 - DBMS's query optimizer checks whether an index is present and if using an index-based plan to execute a query will be more efficient
@@ -218,8 +235,10 @@ ORDER BY
 Example:
 
 ```sql
-# will perform index scan since employee_id
-# is defined as the primary key for this table
+
+**will perform index scan since employee_id**
+
+**is defined as the primary key for this table**
 EXPLAIN
 SELECT first_name, last_name
 FROM employees
@@ -227,26 +246,41 @@ WHERE employee_id = 123
 ```
 
 ```sql
-# orderdetails table has a *composite* primary key
-# (productcode, ordernumber)
-# the index is created on the productcode column
-# *since its defined first*
-# because of the mismatch between the index
-# and the primary key, the DBMS will perform
-# a full table scan on orderdetails (seq scan)
+
+**orderdetails table has a *composite* primary key**
+
+**(productcode, ordernumber)**
+
+**the index is created on the productcode column**
+
+***since its defined first***
+
+**because of the mismatch between the index**
+
+**and the primary key, the DBMS will perform**
+
+**a full table scan on orderdetails (seq scan)**
 EXPLAIN
 SELECT productcode, priceeach
 FROM orderdetails
 WHERE ordernumber = 10101
 
-# if we choose the *composite* primary key
-# to be (ordernumber, productcode)
-# since ordernumber is first, the DBMS
-# will create an index on ordernumber (since its first)
-# and filtering based on it will use the index.
+
+**if we choose the *composite* primary key**
+
+**to be (ordernumber, productcode)**
+
+**since ordernumber is first, the DBMS**
+
+**will create an index on ordernumber (since its first)**
+
+**and filtering based on it will use the index.**
 ```
 
-## **Retrieving Only the Data You Need**
+
+## 3.2.4 Retrieving Only the Data You Need
+
+**Retrieving Only the Data You Need**
 
 - SELECT * FROM order
 - Large amounts of data needs to be transferred from disk to memory
@@ -255,11 +289,13 @@ WHERE ordernumber = 10101
 - Exclude irrelevant data from being scanned in your query
 - e.g. row based pruning
 ```sql
-# Use index/cluster key
+
+**Use index/cluster key**
 CREATE INDEX rental_idx
 ON payment (rental_id);
 
-# Filter out rows with WHERE
+
+**Filter out rows with WHERE**
 SELECT * from payment
 WHERE rental_id = 1;
 ```

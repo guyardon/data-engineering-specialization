@@ -10,9 +10,13 @@ order: 2
 notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 ---
 
-## Modeling and Processing Unstructured Data for Machine Learning
 
-### Modeling Image Data for ML Algorithms
+## 2.2.1 Image Data for Machine Learning
+
+**Modeling and Processing Unstructured Data for Machine Learning**
+
+
+**Modeling Image Data for ML Algorithms**
 
 - Traditional ML Algorithms:
 - Expect data to be in tabular form
@@ -39,13 +43,16 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import tensorflow_datasets as tfds
 
-# load the dataset
+
+**load the dataset**
 dataset = tfds.load('cats_vs_dogs', split='train', as_supervised=True)
 
 def resize_normalize(image, label, image_size=150):
-  # resize the image
+
+**resize the image**
   image = tf.image.resize(image, [image_size, image_size])
-  # normalize the image
+
+**normalize the image**
   image = (image / 255.0)
   return image, label
 
@@ -62,7 +69,10 @@ image, label = augment(image)
 
 ```
 
-### Preprocessing Text for Analysis and Text Classification
+
+## 2.2.2 Text Preprocessing and Classification
+
+**Preprocessing Text for Analysis and Text Classification**
 
 - Some examples of NLP Tasks:
 - sentiment analysis of product reviews
@@ -99,8 +109,10 @@ import unicodedata
 import spacy
 import numpy as np
 
-# A dictionary expanding common contractions
-# See: github.com/dipanjanS/practical-machine-learning-with-python
+
+**A dictionary expanding common contractions**
+
+**See: github.com/dipanjanS/practical-machine-learning-with-python**
 CONTRACTION_MAP = {
     "ain't": "is not",
     "aren't": "are not",
@@ -200,7 +212,10 @@ def preprocess_text(text, nlp, special_characters = ['~','@', '#', '$', '%', '^'
 
 ```
 
-### Text Vectorization and Embedding
+
+## 2.2.3 Text Vectorization and Embeddings
+
+**Text Vectorization and Embedding**
 
 The next stage after pre-preocessing hte text data is converting words, sub-words, characters, or even sentences into tokens (depending on the scale).
 
@@ -256,7 +271,8 @@ Problems:
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# load a pre-trained sentence transformer model
+
+**load a pre-trained sentence transformer model**
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
 sentences = [
@@ -265,7 +281,8 @@ sentences = [
 	"I bought this for my son",
 	]
 
-# encode sentences
+
+**encode sentences**
 embeddings = embedder.encode(sentences)
 
 print(embeddings.shape) # (3, 384)
@@ -290,10 +307,12 @@ reviews = ["this wonderful price amount you get",
          "great product big amount",
          "I buy this my son his hair thin"]
 
-# bag of words
+
+**bag of words**
 vectorizer_bag_words = CountVectorizer(token_pattern='(?u)\\b\\w+\\b')
 
-# fit-transform
+
+**fit-transform**
 vectorizer_bag_words.fit(reviews)
 reviews_bag_words = vectorizer_bag_words.transform(reviews)
 
