@@ -1,0 +1,117 @@
+---
+const { id = "search" } = Astro.props;
+---
+
+<div id={id} class="search-wrapper"></div>
+
+<style is:global>
+  .search-wrapper {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .pagefind-ui .pagefind-ui__search-input {
+    font-family: var(--font-sans) !important;
+    font-size: 0.9rem !important;
+    background: var(--bg-card) !important;
+    color: var(--fg) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem 0.75rem 2.5rem !important;
+    outline: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .pagefind-ui .pagefind-ui__search-input:focus {
+    border-color: var(--accent) !important;
+  }
+
+  .pagefind-ui .pagefind-ui__search-input::placeholder {
+    color: var(--fg-soft) !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result-link {
+    color: var(--accent) !important;
+    font-family: var(--font-serif) !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result-excerpt {
+    color: var(--fg-muted) !important;
+    font-family: var(--font-sans) !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result {
+    border-top: 1px solid var(--line) !important;
+    padding: 1rem 0 !important;
+  }
+
+  .pagefind-ui .pagefind-ui__message {
+    color: var(--fg-muted) !important;
+    font-family: var(--font-sans) !important;
+  }
+
+  .pagefind-ui .pagefind-ui__button {
+    color: var(--accent) !important;
+    background: none !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 8px !important;
+  }
+
+  .pagefind-ui mark {
+    background: transparent !important;
+    color: var(--accent) !important;
+    font-weight: 600 !important;
+  }
+</style>
+
+<script>
+  async function initSearch() {
+    try {
+      // @ts-ignore — generated at build time
+      const { PagefindUI } = await import("/pagefind/pagefind-ui.js");
+      new PagefindUI({
+        element: "#search",
+        showSubResults: false,
+        showImages: false,
+        resetStyles: false,
+      });
+    } catch {
+      // Dev mode fallback: create placeholder with safe DOM APIs
+      const container = document.getElementById("search");
+      if (container && container.children.length === 0) {
+        const wrapper = document.createElement("div");
+        wrapper.style.cssText = "display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1.25rem;border:1px solid var(--line);border-radius:10px;color:var(--fg-soft);font-family:var(--font-sans);font-size:0.9rem;background:var(--bg-card);";
+
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", "18");
+        svg.setAttribute("height", "18");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("fill", "none");
+        svg.setAttribute("stroke", "currentColor");
+        svg.setAttribute("stroke-width", "2");
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", "11");
+        circle.setAttribute("cy", "11");
+        circle.setAttribute("r", "8");
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", "21");
+        line.setAttribute("y1", "21");
+        line.setAttribute("x2", "16.65");
+        line.setAttribute("y2", "16.65");
+        svg.appendChild(circle);
+        svg.appendChild(line);
+
+        const span = document.createElement("span");
+        span.textContent = "Search notes... (available in production build)";
+
+        wrapper.appendChild(svg);
+        wrapper.appendChild(span);
+        container.appendChild(wrapper);
+      }
+    }
+  }
+
+  initSearch();
+</script>
