@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx astro:*)",
+      "Bash(npm install:*)",
+      "Bash(node scripts/fetch-notion.mjs)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const a = require\\(''./node_modules/astro/package.json''\\); console.log\\(a.version\\)\")",
+      "Bash(while read:*)",
+      "Bash(do mv:*)",
+      "Bash(done)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(node -e \":*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:www.coursera.org)",
+      "Bash(for course:*)",
+      "Bash(do echo:*)",
+      "Read(//Users/guyardon/Repositories/data-engineering-specialization-website/**)",
+      "Bash(for d:*)",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(\"/Users/guyardon/Repositories/data-engineering-specialization-website/src/content/notes/course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/11-data-modeling-fundamentals.md\":*)",
+      "Bash(\"/Users/guyardon/Repositories/data-engineering-specialization-website/src/content/notes/course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/12-normalization.md\":*)",
+      "Bash(cd:*)",
+      "WebFetch(domain:www.markdown.engineering)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

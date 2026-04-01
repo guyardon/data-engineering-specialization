@@ -7,27 +7,32 @@
 ## Decisions
 
 ### ESLint Configuration
+
 - Use `eslint-plugin-astro` + `@typescript-eslint/eslint-plugin` with recommended rules
 - Include `eslint-plugin-prettier` to run Prettier as an ESLint rule (single pass)
 - Rule severity: **errors only** — no noisy style warnings beyond what Prettier handles
 - Target: zero errors, not zero opinions. Keep config minimal and non-blocking.
 
 ### Prettier Configuration
+
 - Use Prettier for all formatting (`.astro`, `.ts`, `.js`, `.md`)
 - Include `prettier-plugin-astro` for `.astro` file formatting
 - Default Prettier settings are fine (no custom overrides needed)
 
 ### TypeScript Path Aliases
+
 - **No path aliases** — keep relative imports as-is
 - The project is small; aliases add config complexity without clear benefit yet
 - Can revisit in Phase 3 if component imports become unwieldy
 
 ### Dependency Cleanup
+
 - Move `zod`, `remark-gfm`, `node-fetch` from `dependencies` → `devDependencies`
 - These are build-time or script-time only; not needed in the deployed static output
 - `@notionhq/client` also goes to `devDependencies` (only used in fetch script)
 
 ### package.json Scripts to Add
+
 ```json
 "lint": "eslint . --ext .ts,.astro,.js",
 "lint:fix": "eslint . --ext .ts,.astro,.js --fix",
@@ -36,6 +41,7 @@
 ```
 
 ### What to NOT touch in Phase 1
+
 - No UI changes
 - No Notion sync changes
 - No content schema changes

@@ -87,6 +87,7 @@ completed: 2026-03-31
 ### Auto-fixed Issues
 
 **1. [Rule 3 - Blocking] Added `globals` package for Node.js environment in scripts/**
+
 - **Found during:** Task 3 (zero errors goal)
 - **Issue:** `process`, `console` reported as undefined — no node globals configured
 - **Fix:** Installed `globals` devDependency; added `languageOptions.globals: globals.node` for `scripts/**/*.mjs` in eslint.config.mjs
@@ -95,6 +96,7 @@ completed: 2026-03-31
 - **Committed in:** 7498b41 (Task 3 commit)
 
 **2. [Rule 1 - Bug] Fixed eslint-plugin-prettier parse errors on Astro virtual TS files**
+
 - **Found during:** Task 3 (zero errors goal)
 - **Issue:** eslint-plugin-prettier configured for `**/*.ts` matches virtual `*.astro/*.ts` files created by the astro processor. Prettier fails to parse isolated TypeScript script content (e.g., `querySelectorAll<HTMLAnchorElement>`).
 - **Fix:** Added explicit `prettier/prettier: "off"` config entry for `**/*.astro/*.ts` and `**/*.astro/*.js` patterns, placed AFTER the prettier plugin config entry to ensure override takes effect.
@@ -103,6 +105,7 @@ completed: 2026-03-31
 - **Committed in:** 7498b41 (Task 3 commit)
 
 **3. [Rule 2 - Missing Critical] Suppressed unused `getPageTitle` function lint error**
+
 - **Found during:** Task 3 (zero errors goal)
 - **Issue:** `getPageTitle` defined but never called in scripts/fetch-notion.mjs
 - **Fix:** Added `// eslint-disable-next-line @typescript-eslint/no-unused-vars` comment to suppress the error — function kept for future use
@@ -129,5 +132,6 @@ None - no external service configuration required.
 - Ready for Phase 01 Plan 02 (GitHub Actions CI/CD)
 
 ---
-*Phase: 01-foundation-tooling*
-*Completed: 2026-03-31*
+
+_Phase: 01-foundation-tooling_
+_Completed: 2026-03-31_

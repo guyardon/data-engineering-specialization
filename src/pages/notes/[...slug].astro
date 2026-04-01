@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+import NoteLayout from "../../layouts/NoteLayout.astro";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notes");
+
+  // Sort all notes for prev/next
+  const sorted = notes.sort((a, b) => {
+    if (a.data.courseOrder !== b.data.courseOrder)
+      return a.data.courseOrder - b.data.courseOrder;
+    if (a.data.weekOrder !== b.data.weekOrder)
+      return a.data.weekOrder - b.data.weekOrder;
+    return a.data.order - b.data.order;
+  });
+
+  return sorted.map((note, i) => ({
+    params: { slug: note.id },
+    props: {
+      note,
+      prev:
+        i > 0
+          ? { slug: sorted[i - 1].id, title: sorted[i - 1].data.title }
+          : null,
+      next:
+        i < sorted.length - 1
+          ? { slug: sorted[i + 1].id, title: sorted[i + 1].data.title }
+          : null,
+    },
+  }));
+}
+
+const { note, prev, next } = Astro.props;
+const { Content, headings } = await render(note);
+---
+
+<NoteLayout
+  title={note.data.title}
+  course={note.data.course}
+  week={note.data.week}
+  headings={headings}
+  prev={prev}
+  next={next}
+  currentSlug={note.id}
+>
+  <Content />
+</NoteLayout>

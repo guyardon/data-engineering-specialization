@@ -39,17 +39,18 @@ data-engineering-specialization-website/
 
 ## Key Locations
 
-| Purpose | Path |
-|---------|------|
-| Astro config | `astro.config.mjs` |
-| Content schema | `src/content.config.ts` |
-| Notion fetch script | `scripts/fetch-notion.mjs` |
-| BASE path utility | `src/lib/base.ts` |
-| Generated notes | `src/content/notes/` |
-| Downloaded images | `public/images/` |
+| Purpose             | Path                           |
+| ------------------- | ------------------------------ |
+| Astro config        | `astro.config.mjs`             |
+| Content schema      | `src/content.config.ts`        |
+| Notion fetch script | `scripts/fetch-notion.mjs`     |
+| BASE path utility   | `src/lib/base.ts`              |
+| Generated notes     | `src/content/notes/`           |
+| Downloaded images   | `public/images/`               |
 | GitHub Pages deploy | `.github/workflows/deploy.yml` |
 
 ## Naming Conventions
+
 - Components: PascalCase `.astro` (e.g. `Sidebar.astro`)
 - Scripts: camelCase `.mjs` (e.g. `fetch-notion.mjs`)
 - Content files: kebab-case `.md`

@@ -231,7 +231,6 @@ const {
   /* Page nav */
   .page-nav {
     display: flex;
-    justify-content: space-between;
     gap: 1rem;
     margin-top: 3rem;
     padding-top: 1.5rem;
@@ -239,11 +238,12 @@ const {
   }
 
   .page-nav-prev {
-    flex: 1;
+    flex: none;
   }
   .page-nav-next {
-    flex: 1;
+    flex: none;
     text-align: right;
+    margin-left: auto;
   }
 
   .page-nav-link {
@@ -255,6 +255,7 @@ const {
     border: 1px solid var(--line);
     border-radius: 14px;
     background: var(--bg-card);
+    width: fit-content;
     transition:
       border-color 0.15s,
       background 0.15s,

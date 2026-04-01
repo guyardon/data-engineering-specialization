@@ -161,7 +161,7 @@ async function richTextToMd(richText) {
     .join("");
 }
 
-async function processBlocks(blocks, depth = 0, imageBasePath = "/images") {
+async function processBlocks(blocks, depth = 0, imageBasePath = "/data-engineering-specialization-website/images") {
   const lines = [];
   let i = 0;
 
