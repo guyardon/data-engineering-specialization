@@ -13,14 +13,14 @@
 
 ### Notion Sync
 
-- [ ] **SYNC-01**: Running `fetch-notion.mjs` produces `.md` files for all courses, weeks, and lessons
-- [ ] **SYNC-02**: All text block types render correctly (paragraphs, headings h1-h3, bold, italic, inline code)
-- [ ] **SYNC-03**: Code blocks render with correct language tag for syntax highlighting
-- [ ] **SYNC-04**: Images download to `public/images/` and reference correctly in markdown
-- [ ] **SYNC-05**: Tables render as valid markdown tables
-- [ ] **SYNC-06**: Callouts/admonitions convert to a consistent markdown representation
-- [ ] **SYNC-07**: Nested lists render correctly
-- [ ] **SYNC-08**: Frontmatter includes: title, course, courseSlug, courseOrder, week, weekSlug, weekOrder, order, notionId
+- [x] **SYNC-01**: Running `fetch-notion.mjs` produces `.md` files for all courses, weeks, and lessons
+- [x] **SYNC-02**: All text block types render correctly (paragraphs, headings h1-h3, bold, italic, inline code)
+- [x] **SYNC-03**: Code blocks render with correct language tag for syntax highlighting
+- [x] **SYNC-04**: Images download to `public/images/` and reference correctly in markdown
+- [x] **SYNC-05**: Tables render as valid markdown tables
+- [x] **SYNC-06**: Callouts/admonitions convert to a consistent markdown representation
+- [x] **SYNC-07**: Nested lists render correctly
+- [x] **SYNC-08**: Frontmatter includes: title, course, courseSlug, courseOrder, week, weekSlug, weekOrder, order, notionId
 
 ### UI Design & Layout
 
@@ -92,14 +92,14 @@
 | TOOL-01     | Phase 1 | Complete |
 | TOOL-02     | Phase 1 | Pending  |
 | TOOL-03     | Phase 1 | Pending  |
-| SYNC-01     | Phase 2 | Pending  |
-| SYNC-02     | Phase 2 | Pending  |
-| SYNC-03     | Phase 2 | Pending  |
-| SYNC-04     | Phase 2 | Pending  |
-| SYNC-05     | Phase 2 | Pending  |
-| SYNC-06     | Phase 2 | Pending  |
-| SYNC-07     | Phase 2 | Pending  |
-| SYNC-08     | Phase 2 | Pending  |
+| SYNC-01     | Phase 2 | Complete |
+| SYNC-02     | Phase 2 | Complete |
+| SYNC-03     | Phase 2 | Complete |
+| SYNC-04     | Phase 2 | Complete |
+| SYNC-05     | Phase 2 | Complete |
+| SYNC-06     | Phase 2 | Complete |
+| SYNC-07     | Phase 2 | Complete |
+| SYNC-08     | Phase 2 | Complete |
 | UI-01       | Phase 3 | Pending  |
 | UI-02       | Phase 3 | Pending  |
 | UI-03       | Phase 3 | Pending  |

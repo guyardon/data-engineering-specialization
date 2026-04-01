@@ -47,7 +47,7 @@ Plans:
 
 Plans:
 
-- [ ] 02-01-PLAN.md — Fix richTextToMd href, table separator, and flatten subsection traversal
+- [x] 02-01-PLAN.md — Fix richTextToMd href, table separator, and flatten subsection traversal
 - [ ] 02-02-PLAN.md — Run script, validate output, verify all block types and frontmatter
 
 ### Phase 3: UI Design System & Layout
