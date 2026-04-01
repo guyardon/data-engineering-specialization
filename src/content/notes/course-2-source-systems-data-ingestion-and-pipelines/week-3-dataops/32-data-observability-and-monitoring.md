@@ -13,56 +13,31 @@ notionId: "1d3969a7-aa01-80e3-b264-c6789380bcaa"
 
 ## 3.2.1 Observability Concepts
 
-**Data Observability and Monitoring**
+Data observability borrows from DevOps observability but focuses on the health of data itself, not just the systems that process it.
 
-**DevOps Observability**
+**DevOps Observability** monitors metrics like CPU/RAM usage and response time to quickly detect anomalies, identify problems, prevent downtime, and ensure reliable software products.
 
-- Metrics:
-- CPU and RAM usage
-- Response Time
-- Use Cases:
-- Quickly detect anomalies
-- Identify problems
-- prevent downtime
-- Ensure reliable software products
+**Data Observability** monitors the health of data and data systems, ensuring high-quality data that is accurate, complete, discoverable, and available in a timely manner. Upstream changes -- such as source systems changing their data structure -- should be expected and mitigated proactively.
 
-**Data Observability**
+**Key questions to ask** (from Barr Moses, CEO of Monte Carlo):
 
-Monitor the health of data and data systems
-
-- High Quality Data
-- Accurate
-- Complete
-- Discoverable
-- Available in a timely manner
-- Upstream changes should be expected and mitigated
-- E.g. if source systems change structure of data
-
-Takeaways from Conversation with Barr Moses (CEO of Monte Carlo)
-
-- Ask the following questions:
 - Is the data up-to-date?
 - Is the data complete?
 - Are fields within expected ranges?
 - Is the null rate higher or lower than it should be?
 - Has the schema changed?
-5 Pillars for Data Observablity:
 
-1. **Distribution/ Internal Quality**: The quality pillar refers to the internal characteristics of the data, and checks metrics such as the percentage of NULL elements, percentage of unique elements, summary statistics and if your data is within the expected range. It helps you ensure that your data is trusted based on your data expectation.
-2. **Freshness**: Data freshness refers to how "fresh" or "up-to-date" the data is within the final asset (table, BI report), i.e., when the data was last updated, and how frequently it is updated. Stale data results in wasted time and money.
-3. **Volume**: Data volume refers to checking the amount of data ingested and looking for unexpected spikes or drops. Sudden drops in data volume can indicate issues like lost data or system outages, and sudden increases may indicate unexpected surges in usage.
-4. **Lineage**: According to [Barr](https://towardsdatascience.com/introducing-the-five-pillars-of-data-observability-e73734b263d5), "When data breaks, the first question is always "where?" Data lineage helps you trace the data journey from its source to its destination, visualizing how data was transformed and where it was stored. This way, you can identify the source of errors or anomalies.
-5. **Schema**: Data schema refers to monitoring changes in data structure or types. This pillar helps avoid the failure of the data pipeline.
+**5 Pillars of Data Observability:**
+
+1. **Distribution / Internal Quality**: Checks metrics such as NULL percentage, unique element percentage, summary statistics, and whether data falls within expected ranges. Ensures data is trusted based on your expectations.
+2. **Freshness**: How up-to-date the data is within the final asset (table, BI report) -- when it was last updated and how frequently. Stale data results in wasted time and money.
+3. **Volume**: Monitors the amount of data ingested, looking for unexpected spikes or drops. Sudden drops can indicate lost data or system outages; sudden increases may signal unexpected usage surges.
+4. **Lineage**: According to [Barr](https://towardsdatascience.com/introducing-the-five-pillars-of-data-observability-e73734b263d5), "When data breaks, the first question is always 'where?'" Data lineage traces the data journey from source to destination, visualizing transformations and storage locations to identify the source of errors.
+5. **Schema**: Monitors changes in data structure or types to prevent pipeline failures.
 
 ## 3.2.2 Monitoring Data Quality
 
-**Monitoring Data Quality**
-
-- Volume
-- Distribution
-- Null Values
-- Freshness
-Identify and focus on most important metrics (check what stakeholders care about, and talk with source system owners).
+Focus your monitoring efforts on the metrics that matter most. The core dimensions to track are **volume**, **distribution**, **null values**, and **freshness**. Identify the most important metrics by checking what stakeholders care about and talking with source system owners.
 
 
 ## 3.2.3 Observability Tools
@@ -74,8 +49,8 @@ Identify and focus on most important metrics (check what stakeholders care about
 ![](/data-engineering-specialization-website/images/cd3cd7f0-368b-4ad6-b595-91ff95e55de6.png)
 
 
-**AWS Cloudwatch**
+**AWS CloudWatch**
 
-Monitoring on AWS
+AWS's built-in monitoring service for tracking infrastructure and application metrics.
 
 ![](/data-engineering-specialization-website/images/d602344c-befd-49ae-8d1c-9a6983035691.png)

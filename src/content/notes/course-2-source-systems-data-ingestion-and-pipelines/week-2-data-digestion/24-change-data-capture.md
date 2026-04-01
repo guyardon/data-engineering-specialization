@@ -13,102 +13,55 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 ## 2.4.1 CDC Fundamentals
 
-**Change Data Capture (CDC)**
+**Change Data Capture (CDC)** is a method for extracting each change event (insert, update, delete) that occurs in a database and making it available for downstream systems. It solves the fundamental problem of keeping storage systems in sync with source data.
 
+**Ways to Keep Storage Systems In Sync**
 
-**Definition**
-
-Change data capture (CDC) is a method for extracting each change event (insert, update, delete) that occurs in a database and making it more available for downstream systems
-
-
-**Ways to ensure Storage Systems are In-Sync with Data in Source System**
-
-- Full Snapshots/ Full load
-- Update all the data in the storage systems
-- In case of tabular data - deleting all the old data and extracting all the rows from a source table
-- Ensures consistency, but for high volume data can be processing and memory heavy
-- Suitable for applications where there's no need for frequent data updates
-- Incremental (differential) load
-- only load updates and changes since the last read from the source system
-- e.g. utilize a "last_updated_at" column and update based on these columns. may require more complex logic.
-- When working with databases, this processes is called "Change Data Capture" (CDC).
+- **Full Snapshot / Full Load**: Delete all old data and re-extract every row from the source table. This ensures consistency but becomes processing- and memory-heavy at high volumes. Best suited for applications without frequent update requirements.
+- **Incremental (Differential) Load**: Only load updates and changes since the last read, for example by using a `last_updated_at` column. This requires more complex logic but is far more efficient. When applied to databases, this process is called **Change Data Capture (CDC)**.
 
 **Use Cases for CDC**
 
-- Synchronize data across different databases
-- e.g. PostgreSQL system that supports an app. Periodically we want to update our storage system (data warehouse) based on the table changes to support analytics.
-- e.g. CDC to capture changes in on-premises databases and apply those changes to on-cloud databases
-- Capture historical changes for auditing or other business purposes (e.g. regulations, insights, etc)
-- Enable microservices to track any changes in the source database (e.g. CDC captures changes from purchance service, and relays information to shipment service and customer service).
+- **Database synchronization**: Keep a data warehouse updated with changes from a production PostgreSQL database, or replicate on-premises databases to the cloud.
+- **Audit trails**: Capture historical changes for regulatory compliance, business insights, or auditing.
+- **Microservices communication**: CDC captures changes from one service (e.g., purchases) and relays them to downstream services (e.g., shipment, customer notifications).
 
 
 ## 2.4.2 CDC Approaches and Implementation
 
-**Approaches to CDC**
+CDC can be implemented using either a push or pull model, each with different latency characteristics.
 
-- **Push**
-- Logic that captures changes in source database → changes are pushed to target system. 
-- Target systems are updated with latest data in near-real-time.
-- **Pull**
-- The target system continuously polls the source database to check for changes and then pulls updates when changes occur.
-- If changes are batched before pull requests, this can cause a lag in the target system.
+**Push**: Logic in the source database captures changes and pushes them to the target system in near-real-time.
 
+**Pull**: The target system continuously polls the source database for changes and pulls updates when they occur. Batching before pull requests can introduce lag.
 
 **CDC Implementation Patterns**
 
-- **Batch-oriented or query-based CDC (pull-based)**
-- Query the database to check for changes (based on a "last_modified" column. 
-- Get changed rows and update target table
-- Can be slow since we have to scan rows.
-- **Continuous/Log-based CDC (pull-based)**
-- Each change in the database is logged (every create, update, read) in case of failure to restore database state.
-- We can check the log records (by writing custom code or using a tool such as Debezium)
-- Send changes to a streaming platform, such as Apache Kafka. 
-- Advantages: capture changes in real-time, no computational overhead, no need for extra column in source database.
-- **Trigger-based CDC (push-based)**
-- A trigger is a stored function that you can configure to run when a specific column changes. 
-- The triggers informs (pushes to) the CDC of the changes in the source databases.
-- Disadvantage: too many triggers can impact the write performance of the source database.
+- **Batch-oriented / Query-based CDC (pull-based)**: Queries the database for changes based on a `last_modified` column, then updates the target table. Can be slow since it requires scanning rows.
+- **Continuous / Log-based CDC (pull-based)**: Reads the database's transaction log (where every create, update, and delete is recorded for failure recovery). Changes are sent to a streaming platform like Apache Kafka using tools such as **Debezium**. Advantages include real-time capture, no computational overhead on the source, and no need for extra columns.
+- **Trigger-based CDC (push-based)**: A stored function configured to fire when a specific column changes, pushing updates to the CDC system. The downside is that too many triggers can degrade write performance on the source database.
 
 **CDC Tools:**
 
 - Debezium
 - AWS DMS
 - Kafka Connect API
-- Airbyte log-based CDC.
+- Airbyte log-based CDC
 ---
 
 
 ## 2.4.3 General Considerations for Choosing Ingestion Tools
 
-**Summary: General Consideration for Choosing Ingestion Tools**
-
+Selecting the right ingestion tool requires evaluating both the data characteristics and your reliability requirements.
 
 **Characteristics of the Data**
 
-- **Data Type and Structure**
-- Structured/ unstructured/ semi structured
-- **Data Volume**
-- Data size in bytes that you need to ingest
-- If data is needed to be transferred over the network that has a limited bandwidth, you may ned to reduce the payload into smaller sections
-- In case of streaming ingestion, you need a tool that can handle the maximum expected message size. E.g. Kinesis data stream supports a message size of 1 MB. Kafka defaults to 1 MB but can be configured to support 20 MB or more.
-- Is the amount of data you ingest expected to grow over time?
-- **Latency Requirements**
-- How fast/often do we need to operate on the data?
-- What is the use case?
-- **Data Quality**
-- Does the data need post-processing before downstream use?
-- What post processing is required to serve the data?
-- **Changes in Schema**
-- If schema changes are expected (new columns, changing types, renaming columns) use tools that automatically detect schema changes.
-- Ensure good communication between you and the upstream stakeholder.
+- **Data Type and Structure**: Structured, unstructured, or semi-structured.
+- **Data Volume**: Consider payload size, network bandwidth constraints, and whether you need to split data into smaller sections. For streaming, ensure the tool handles your maximum expected message size (e.g., Kinesis supports 1 MB per message; Kafka defaults to 1 MB but can be configured to 20 MB+). Also consider whether data volume will grow over time.
+- **Latency Requirements**: How fast and how often do you need to operate on the data?
+- **Data Quality**: Does the data need post-processing before downstream use?
+- **Changes in Schema**: If schema changes are expected (new columns, type changes, renames), use tools that automatically detect schema changes. Maintain good communication with upstream stakeholders.
 
 **Reliability and Durability**
 
-Reliability
-
-- ingestion systems are preforming their intended function properly
-Durability
-
-- Data isn't lost or corrupted.
-Evaluate the tradeoffs between the cost of losing data vs building an appropriate level of redundancy.
+**Reliability** means ingestion systems perform their intended function properly. **Durability** means data isn't lost or corrupted. Evaluate the tradeoffs between the cost of losing data versus building an appropriate level of redundancy.

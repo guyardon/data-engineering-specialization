@@ -26,98 +26,86 @@ notionId: "144969a7-aa01-805a-8d43-f23e81e41cd5"
 
 **The Job of the Data Engineer**
 
-The job of the data engineer is to get raw data from somewhere, turn it into something useful, and make it available to downstream users.
+At its core, the data engineer's job is to get raw data from somewhere, transform it into something useful, and make it available to downstream consumers.
 
 
 
 ## 1.1.2 The History of Data and Data Engineering
 
+Data engineering didn't appear overnight — it evolved alongside decades of database and computing innovation.
 
-1960s: First computerized databases
+- **1960s:** First computerized databases
+- **1970s:** Relational databases emerge; IBM develops SQL
+- **1980s:** Data warehouses developed to support analytics
+- **1990s:** Data modeling for Business Intelligence (BI); dot-com boom drives web-first companies and backend systems (servers, databases, storage)
+- **2000s:** Big Data era begins, led by large tech companies
+- **Late 2000s–2010s:** Big Data tools proliferate
+- **Today:** "Big Data Engineers" have evolved into "Data Engineers"
 
-1970s: Relational databases emerge; IBM develops SQL
-
-1980s: Development of data warehouses to transform and support analytics
-
-1990s: Data modeling approaches defined for Business Intelligence (BI); dot-com boom; rise of web-first companies; emergence of backend systems (servers, databases, and storage solutions)
-
-2000s: Emergence of the Big Data Era (led by large tech companies)
-
-Late 2000s and 2010s: Big Data Tools
-
-Today: "Big Data Engineers" evolve into "Data Engineers"
-
-Today's Data Engineer:
-
-- Builds powerful and scalable technologies using existing tools
-- Achieves business goals
+Today's data engineer builds powerful, scalable systems using existing tools — with a focus on achieving business goals rather than inventing infrastructure from scratch.
 
 
 ## 1.1.3 The Data Engineer Among Other Stakeholders
 
-**Downstream stakeholders:**
+Data engineers sit between the teams that produce data and the teams that consume it.
 
 **Upstream Stakeholders:**
 
-- Software Engineers (e.g. the ones generating the data)
+- Software engineers and other teams generating the data
 
-Communication with upstream stakeholders to understand the data you’re ingesting, or anything that might disrupt the data pipeline
+**Downstream stakeholders:**
 
-Communication with downstream stakeholders to  understand how the data you’re serving relates to their unique goals, and how the data you’re serving adds business value.
+- Analysts, data scientists, ML engineers, and business users consuming the data
+
+Communication with **upstream** stakeholders matters for understanding the data you're ingesting and catching anything that might disrupt the pipeline. Communication with **downstream** stakeholders matters for understanding how the data you serve relates to their goals and where it adds business value.
 
 
 ## 1.1.4 Business Value
 
+The most important question for a data engineer: how does your work add value to the organization? Don't get hung up on every new technology — focus on what drives business outcomes.
 
-How to add value to the organization as a data engineer?
+Value can take many forms:
 
-Don’t get hung up on every new technology, and find what brings business value.
-
-What does it mean to add value?
-
-- revenue growth
-- successful product launch
-- reduce costs
-- help the stakeholders achieve their goals (analysis, ML Engineers, marketing professionals)
-- etc.
-
+- Revenue growth
+- Successful product launches
+- Cost reduction
+- Helping stakeholders achieve their goals (analysts, ML engineers, marketing teams)
 
 
 ## 1.1.5 Gathering System Requirements
 
+Once you understand the business need, translate it into system requirements. These fall into two categories:
 
-System Requirements should satisfy:
+- **Functional requirements** — what the system should be able to do
+- **Non-functional requirements** — how the system accomplishes what it needs to do (performance, reliability, scalability)
 
-System Requirements
-
-- Functional requirements (What the system should be able to do)
-- Non-functional requirements (How the system accomplishes what it needs to do)
-
-Take into account cost and security requirements
+Cost and security constraints should be factored in from the start.
 
 
 
 ## 1.1.6 Translating Stakeholder Needs into Specific Requirements
 
+Turning vague stakeholder needs into concrete requirements takes structured discovery:
 
 - Learn what existing data systems or solutions are in place
-- Learn what pain points or problems there are with existing solutions
-- Learn what actions stakeholders plan to take with the data
-- Identify other stakeholders you’ll need to talk to if you’re  still missing information on existing systems or planned actions
-
+- Identify pain points or problems with current solutions
+- Understand what actions stakeholders plan to take with the data
+- Identify other stakeholders you need to talk to if gaps remain
 
 
 ## 1.1.7 Thinking Like a Data Engineer
 
-1. Identify business goals and stakeholder needs
-1. Explore existing systems and stakeholder requirements
-2. Ask stakeholders about their intended actions with the data product
-2. Define system requirements
-1. Functional requirements (the "what")
-2. Non-functional requirements (the "how")
-3. Document conclusions
-3. Choose tools and technologies
-1. Identify tools and technologies to meet non-functional requirements
-2. Perform cost/benefit analysis to choose between comparable tools and technologies
-3. Prototype your system to align with stakeholder needs
-4. Build, evaluate, iterate, and evolve data system
+Putting it all together, here is a repeatable framework for approaching any data engineering problem:
+
+1. **Identify business goals and stakeholder needs**
+   1. Explore existing systems and stakeholder requirements
+   2. Ask stakeholders about their intended actions with the data product
+2. **Define system requirements**
+   1. Functional requirements (the "what")
+   2. Non-functional requirements (the "how")
+   3. Document conclusions
+3. **Choose tools and technologies**
+   1. Identify tools and technologies to meet non-functional requirements
+   2. Perform cost/benefit analysis to choose between comparable options
+   3. Prototype your system to align with stakeholder needs
+4. **Build, evaluate, iterate, and evolve** the data system

@@ -10,83 +10,45 @@ order: 1
 notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 ---
 
-
-**Introduction**
-
-Data ingestion is the process of acquiring raw data from various sources. This week covers different ingestion patterns, batch and streaming ingestion requirements, and key AWS tools for data ingestion.
+Data ingestion is the process of acquiring raw data from various sources. This section covers different ingestion patterns, batch and streaming requirements, and key AWS tools for data ingestion.
 
 ![](/data-engineering-specialization-website/images/93a1c497-3f13-4e25-8e7b-d9d87b6f5643.png)
 
 ---
 
-
-**Week Overview**
-
-- Batch & Streaming Ingestion Patterns
-- Requirements for Batch Ingestion from a REST API
-- Requirements for Streaming Ingestion
----
-
 ## 1.1.1 Data Ingestion on a Continuum
 
+Data ingestion isn't a binary choice between batch and streaming -- it exists on a continuum determined by how you bound your data.
 
 **Unbounded vs. Bounded Data**
 
-- **Unbounded Data:** Continuous stream of events (stream ingestion)
-- **Bounded Data:** Data ingested in chunks (batch ingestion)
-- Time-based ingestion
-- Size-based ingestion
-![](/data-engineering-specialization-website/images/5733cc62-1f85-4e29-8062-7037f4bcb069.png)
+- **Unbounded Data:** Continuous stream of events (stream ingestion).
+- **Bounded Data:** Data ingested in chunks (batch ingestion), either time-based or size-based.
 
+![](/data-engineering-specialization-website/images/5733cc62-1f85-4e29-8062-7037f4bcb069.png)
 
 **Ways to Ingest Data**
 
+**Using Connectors:** JDBC/ODBC APIs that support time-based or size-based ingestion.
 
-**Using Connectors:**
+**Using Ingestion Tools:** Services like **AWS Glue ETL** automate regular data ingestion on a schedule.
 
-- JDBC/IDBC API
-- Supports time/size-based ingestion
+**Using APIs:** Protocol-based ingestion that requires careful attention to ingestion limits per request, API call frequency, and the complexity of custom connection code tied to external documentation.
 
-**Using Ingestion Tools:**
-
-- **AWS Glue ETL** – Automates regular data ingestion
-
-**Using APIs:**
-
-- Protocol-based ingestion
-- Considerations:
-- Ingestion limits per request
-- API call frequency
-- Complexity due to reliance on documentation, data owners, and custom API connection code
-
-**Ingesting Data from Files**
+**Ingesting Data from Files:**
 
 - **Manual File Download**
-- **Secure File Transfer:**
-- SFTP (Secure File Transfer Protocol)
-- SCP (Secure Copy Protocol)
+- **Secure File Transfer:** SFTP (Secure File Transfer Protocol) or SCP (Secure Copy Protocol)
 
-**Ingesting Data from Streaming Systems**
+**Ingesting Data from Streaming Systems:** Via **Message Queues** or **Streaming Platforms**.
 
-- **Message Queues**
-- **Streaming Platforms**
 ---
-
 
 **Popular AWS Data Ingestion Tools**
 
+**AWS Glue ETL** ingests, transforms, and loads data from AWS sources (RDS, S3, Redshift). It uses Apache Spark for distributed processing and is serverless with automated scaling.
 
-**AWS Glue ETL**
-
-- Ingests, transforms, and loads data from AWS sources (RDS, S3, Redshift)
-- Uses Apache Spark for distributed processing
-- Serverless and automated scaling
-
-**Amazon EMR**
-
-- Managed cluster platform for big data processing (Hadoop, Spark)
-- Supports large-scale transformations and ingestion
-- Available in serverless and provisioned modes
+**Amazon EMR** is a managed cluster platform for big data processing (Hadoop, Spark). It supports large-scale transformations and ingestion and is available in serverless and provisioned modes.
 
 **AWS Glue ETL vs. Amazon EMR**
 
@@ -95,40 +57,36 @@ Data ingestion is the process of acquiring raw data from various sources. This w
 | **Ease of Use** | Serverless, minimal setup | Requires configuration |
 | **Scaling** | Automated scaling | Custom resource allocation |
 
-
-**AWS DMS (Data Migration Service)**
-
-- Moves data between databases without transformation
-- Supports migrations between different database engines
-- Available in serverless and provisioned modes
+**AWS DMS (Data Migration Service)** moves data between databases without transformation, supports migrations between different database engines, and is available in serverless and provisioned modes.
 
 **Other AWS Ingestion Services**
 
-- **AWS Snow Family:** Physical transfer appliances (Snowball, Snowcone) for large-scale migration
-- **AWS Transfer Family:** Secure file transfers to/from Amazon S3 using SFTP, FTP
+- **AWS Snow Family:** Physical transfer appliances (Snowball, Snowcone) for large-scale migration.
+- **AWS Transfer Family:** Secure file transfers to/from Amazon S3 using SFTP, FTP.
 
-**Third-Party Ingestion Tools**
+**Third-Party Ingestion Tools:** **Airbyte, Matillion, Fivetran** -- cloud-based ETL tools.
 
-- **Airbyte, Matillion, Fivetran** – Cloud-based ETL tools
 ---
-
 
 **Streaming Ingestion Tools**
 
 - **Amazon Kinesis Data Streams**
 - **Amazon Managed Streaming for Apache Kafka (MSK)**
+
 Both enable real-time data ingestion, processing, and analytics.
 
 ---
 
-
 **Key Considerations: Batch vs. Streaming Ingestion**
 
-- **Use Case:** Real-time ingestion is useful if it provides tangible business value.
+Choosing between batch and streaming ingestion comes down to business value versus operational complexity.
+
+- **Use Case:** Real-time ingestion is only worthwhile if it provides tangible business value.
 - **Machine Learning:** Batch for model training; streaming for real-time predictions.
-- **Dashboards & Reporting:** Decide between real-time and batch updates.
+- **Dashboards & Reporting:** Decide between real-time and batch updates based on stakeholder needs.
 - **Latency:** Consider millisecond updates vs. micro-batching.
 - **Cost:** Streaming is more complex and expensive.
-- **System Readiness:** Can both source and destination systems handle real-time data?
+- **System Readiness:** Both source and destination systems must handle real-time data.
 - **Reliability & Availability:** Streaming requires high availability.
-💡 **Recommendation:** Use real-time streaming only if the business case justifies the trade-offs.
+
+**Recommendation:** Use real-time streaming only if the business case justifies the trade-offs.

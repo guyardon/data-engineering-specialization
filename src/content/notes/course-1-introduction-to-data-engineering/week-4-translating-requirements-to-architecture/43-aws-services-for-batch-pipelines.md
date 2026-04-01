@@ -12,36 +12,19 @@ notionId: "18d969a7-aa01-808e-8260-ce7edc5dc3a7"
 
 ## 4.3.1 AWS Services for Batch Pipelines
 
-ETL Pipeline for batch data
+A typical batch ETL pipeline starts with a source system (e.g., Amazon RDS) and needs an extraction and transformation layer. Running this on a raw EC2 instance works but means managing software installation, security, and all the complexity of a cloud server yourself.
 
-- Source system: e.g Amazon RDS
-- Extract/ Transform: e.g. EC2 Instance
-The problem with this approach is that you would need to set up installing software, managing security, and all the complexities of managing a server on the cloud
+**AWS Lambda** offers a serverless alternative — you write a function to extract data from the source system with no infrastructure to manage. However, Lambda has a 15-minute timeout per invocation and limited memory and CPU, so it is best suited for lightweight tasks.
 
-Serverless solution: AWS Lambda
+**Serverless Tools for Batch Processing:**
 
-- Lambda function - extract data from source system
-- Limitations: 15 minute timeout for each function call, limitations on memory on CPI
-- Requires you to write custom code for your use case
+- **Amazon EMR** — more control, designed as a big data processing tool
+- **AWS Glue ETL** — more convenience; Glue Crawler automatically discovers and classifies data, Glue Data Catalog serves as a central metadata repository, and Glue Visual ETL lets you design pipelines graphically. A good starting point for most teams.
 
-Serverless Tools for Batch Processing:
+**Load/Serve:**
 
-- Amazon EMR
-- More control
-- Designed as a big data tool
-- AWS Glue ETL
-- More convenience
-- AWS Glue crawler automatically discovers and classifies data and creates metadata
-- AWS Glue Data catalog is a central repository with info about all your data assets
-- Glue visual ETL to design your pipeline
-- Good to start with this
+Where you land the processed data depends on the use case:
 
-Load/Serve:
-
-- If normalizing tabular data using a star schema - we can store it in another RDS instance
-- If we need to perform complex analytical queries on massive datasets - Amazon Redshift
-- ML Model can be stored on an S3 instance
-- Flexible
-- Scalable
-- Cost-effecive
-
+- **Amazon RDS** — if normalizing tabular data using a star schema
+- **Amazon Redshift** — if running complex analytical queries on massive datasets
+- **Amazon S3** — for ML model artifacts or any workload that benefits from flexible, scalable, cost-effective object storage

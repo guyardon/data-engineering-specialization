@@ -14,122 +14,56 @@ notionId: "146969a7-aa01-8042-9f80-da699a7409de"
 
 ## 2.1.1 Data Generation in Source Systems
 
-This is the first stage of the data engineering lifecycle
+The data engineering lifecycle begins at the source. Data can originate from a wide variety of systems, and understanding those systems is the first step toward building reliable pipelines.
 
-Data can come from various sources:
+- **Databases** — relational databases, NoSQL stores (key-value, document)
+- **Files** — text, audio, video, and other formats
+- **APIs** — data returned as JSON or XML from programmatic requests
+- **Data sharing platforms** — internal datasets or third-party providers
+- **IoT devices** — fleets of sensors that typically feed into a database, API, or sharing platform
 
-- Database
-- Relational databases
-- NoSQL databases (key-value stores, document stores)
-- Files
-- Text, audio, video, etc.
-- APIs
-- Application Programming Interface
-- data returned as .json or .xml files from request
-- Data sharing platforms
-- internal data user or third party
-- IoT devices
-- “Swarm of IoT devices”
-- Sent to a database, and made available via API or data sharing platform
-
-The upstream stakeholders of the data generation are commonly software engineers or third party platforms.
-
-Source systems are often unpredictable:
-
-It is important to understand how the source systems are set up (interact with the source system owners), and understand how the data might change.
+The upstream stakeholders for data generation are usually software engineers or third-party platform owners. Source systems are often unpredictable, so it is important to build relationships with source system owners and understand how the data and its schema might change over time.
 
 
 
 ## 2.1.2 Ingestion
 
-Ingestion means moving raw data from source systems into the data pipeline for further processing.
+**Ingestion** is the process of moving raw data from source systems into the data pipeline for further processing. The key design decision here is frequency.
 
-Frequency of Ingestion
-
-- Batch vs. stream Ingestion
-- Batch Ingestion
-- Based on predetermined time interval or preset size threshold
-- Stream Ingestion
-- Need to use event-streaming platform or message queue
-- Continuous near real-time ingestion
-- Data available shortly after it is produced
-- What to consider?
-- real-time actions
-- time, money, maintenance, downtime
-- stream ingestion only when there is a business use-case for streaming. 
-- Often data engineers choose where the boundary between batch and streaming occurs.
+**Batch ingestion** processes data on a predetermined time interval or once a size threshold is reached. **Stream ingestion** uses an event-streaming platform or message queue to provide continuous, near-real-time data availability shortly after production. Streaming adds cost, complexity, and maintenance burden, so it should only be adopted when there is a clear business use case. In practice, data engineers often decide where the boundary between batch and streaming falls.
 
 
 
 ## 2.1.3 Data Storage
 
-Raw hardware ingredients:
+Storage sits at every stage of the lifecycle. The raw hardware ingredients trade off against each other in predictable ways:
 
-- SSDs
-- Magnetic Disks (2-3 times cheaper than SSDs)
-- RAM (faster reads and writes, 30-50 times more expensive than SSD, volatile).
-Process components (part of CPU):
+- **SSDs** — solid-state, general purpose
+- **Magnetic disks** — 2-3x cheaper than SSDs
+- **RAM** — fastest reads and writes, but 30-50x more expensive than SSD and volatile
 
-- Networking
-- Compression
-- Serialization
-- Caching
+Process-level components such as networking, compression, serialization, and caching also influence storage performance.
 
-As a data engineer, you’ll work with storage systems such as:
-
-- Database management systems,
-- Object storage
-- Apache Iceberg
-- Cache/Memory-based storage
-- Streaming storage
-
-Storage Abstractions:
-
-- Data Warehouse
-- Data Lake
-- Data Lakehouse
-
-These allow to configure:
-
-- Latency
-- Scalability
-- Cost
+Data engineers typically work with **database management systems**, **object storage**, **Apache Iceberg**, **cache/memory-based stores**, and **streaming storage**. These sit behind higher-level abstractions — **data warehouses**, **data lakes**, and **data lakehouses** — that let you configure latency, scalability, and cost to match your workload.
 
 ## 2.1.4 Data Transformation
 
-The “turn it into something useful” stage
+Transformation is where raw data becomes something useful. It breaks down into three parts:
 
-3 Parts:
-
-- Queries
-- Insert a request to read requests from a database or other storage systems, e.g. cleaning, joining, aggregating and filtering data
-- Modeling
-- Choosing a coherent structure for your data to make it useful for the business
-- Transformation
-- Manipulating, enhancing and saving data for downstream use
+- **Queries** — requests to read from a database or storage system, including cleaning, joining, aggregating, and filtering
+- **Modeling** — choosing a coherent structure that makes data useful for the business
+- **Transformation** — manipulating, enhancing, and saving data for downstream consumption
 
 ## 2.1.5 Serving Data
 
-Analytics, ML and Reverse ETL
+The final stage delivers data to end consumers across three main channels.
 
-Analytics:
+**Analytics** is the process of identifying key insights and patterns within data:
 
-The process of identifying key insights and patterns within data
+- **Business Intelligence** — exploring historical or current data to discover insights, typically through reports and dashboards
+- **Operational Analytics** — monitoring real-time data for immediate action
+- **Embedded Analytics** — customer-facing analytics built directly into a product
 
-- Business Intelligence
-- Explore historical or current business data to discover insights
-- Usually used served data to create reports and dashboards
-- Operational Analytics
-- Monitoring real-time data for immediate action
-- Embedded Analytics
-- Eternal or customer facing analytics (i.e. creating dashboards inside a product).
+**Machine Learning** consumes served data through feature stores, real-time inference endpoints, and data lineage tracking.
 
-Machine Learning
-
-- Serving feature stores
-- Serving data for realtime inference
-- Track data history and lineage
-
-Reverse ETL
-
-- Feeding back transformed data to source systems
+**Reverse ETL** closes the loop by feeding transformed data back into source systems.

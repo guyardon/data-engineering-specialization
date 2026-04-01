@@ -12,26 +12,12 @@ notionId: "18d969a7-aa01-80dc-9629-c246ca2a0883"
 
 ## 4.3.1 AWS Services for Streaming Pipelines
 
-Amazon Kinesis Data Streams
+AWS offers two primary managed services for streaming data ingestion.
 
-- Data producers send data to Kinesis
-- Any type of data can be sent
-- Minimum retention time: 24 hours
-- Kinesis sends data streams to data consumers (software)
-- Either pass to storage, real time analysis
+**Amazon Kinesis Data Streams** accepts any type of data from producers, retains it for a minimum of 24 hours, and delivers it to consumer applications for storage or real-time analysis.
 
-Amazon Managed Streaming for Apache Kafka (Amazon MSK)
+**Amazon Managed Streaming for Apache Kafka (Amazon MSK)** runs open-source Kafka. Data engineers interact with the Kafka data plane — which MSK manages — to create topics, produce data, and consume data.
 
-- Runs open source versions of Kafka
-- Data engineer interacts with Kafka Data Plane that MSK manages for you to create topics, produce, and consume data
+Both services scale to handle petabyte-level data volumes with millisecond latency. **Kinesis** is more user-friendly and reduces operational overhead, while **MSK** is the better choice if your team has Kafka experience or needs a high degree of flexibility and control.
 
-Both can scale up to handle petabyte-level data volumes with millisecond latency
-
-Kinesis is considered more suer friendly and reduces operational overhead, while MSK is good if you have technical experience with Kafka, or need high degree of flexibility and control.
-
-Amazon Data Firehouse
-
-- Integrates with Amazon Kinesis Data Stream
-- Simplifies the process of writing custom code for creating connection, reading stream, chunking data and storing data.
-
-
+**Amazon Data Firehose** integrates with Kinesis Data Streams to simplify the downstream work — it handles creating connections, reading from the stream, chunking data, and writing to storage, eliminating the need for custom code.

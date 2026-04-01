@@ -12,20 +12,13 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 ## 1.1.2 ETL vs. ELT
 
+The order in which you extract, transform, and load data has significant implications for pipeline speed, flexibility, and data quality.
+
 ![](/data-engineering-specialization-website/images/b3d34b42-a540-4f17-ab01-e20c5386ee3e.png)
 
+**ETL (Extract-Transform-Load)** extracts raw data from the source, transforms it in a staging area, then loads the transformed data into the target destination.
 
-**ETL (Extract-Transform-Load)**
-
-- Extracts raw data from the source
-- Transforms data in a staging area
-- Loads transformed data into the target destination
-
-**ELT (Extract-Load-Transform)**
-
-- Loads raw data into a cloud data warehouse (e.g., Redshift, Snowflake)
-- Transforms data within the warehouse
-- Allows flexible transformations later
+**ELT (Extract-Load-Transform)** loads raw data directly into a cloud data warehouse (e.g., Redshift, Snowflake), then transforms it within the warehouse. This allows flexible transformations to be applied later.
 
 **Advantages of ELT**
 
@@ -35,7 +28,7 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 **Downsides of ELT**
 
-- Risk of an "EL pipeline" (no transformation, leading to a data swamp)
+The main risk is creating an "EL pipeline" where no transformation ever happens, turning your data warehouse into a data swamp.
 
 **Comparison of ETL vs. ELT**
 
@@ -52,26 +45,11 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 ## 1.1.3 REST API
 
+APIs are a fundamental ingestion mechanism. Jeff Bezos famously enforced API-based communication within Amazon, a mandate that laid the foundation for AWS.
 
-**API Mandate**
+**What is an API?** A set of rules and specifications for programmatic communication between applications, typically including metadata, documentation, authentication, and error handling.
 
-- Jeff Bezos enforced API-based communication within Amazon, leading to the foundation of AWS.
-
-**What is an API?**
-
-- A set of rules and specifications for programmatic communication between applications.
-
-**API Features**
-
-- Metadata
-- Documentation
-- Authentication
-- Error Handling
-
-**REST API (Representational State Transfer)**
-
-- Uses HTTP as a communication protocol
-- Most common API type
+**REST API (Representational State Transfer)** is the most common API type, using HTTP as its communication protocol.
 
 **HTTP Request Types**
 

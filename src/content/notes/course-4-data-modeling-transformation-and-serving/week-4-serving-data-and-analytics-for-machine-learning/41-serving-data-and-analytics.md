@@ -15,48 +15,31 @@ notionId: "20a969a7-aa01-800d-8146-c81f183ff15e"
 
 **Overview**
 
+The final stage of the data engineering lifecycle is serving -- delivering processed data to downstream consumers for analytics and machine learning.
+
 **Serving Data - Analytical Use Cases**
 
-- Business Intelligence
-- Dashboards and reports
-- Operational Analytics
-  - Monitor data to inform immediate action
-  - Serve data within the required latency
-- Embedded Analytics
-- Client facing data product or dashboard
+- **Business Intelligence** -- Dashboards and reports for strategic decision-making
+- **Operational Analytics** -- Monitoring data to inform immediate action, served within required latency constraints
+- **Embedded Analytics** -- Client-facing data products or dashboards
 
 **Serving Data - Machine Learning Use Cases**
 
-- End Users:
-- Data Scientist/ ML Engineer
-- Aquire, transform and deliver the data necessary for model training
-- Semantic Layer:
-- Document definitions
-- Derive business metrics
-- Create a common language for data
-- Ways to serve data:
+The primary end users are data scientists and ML engineers. The data engineer's role is to acquire, transform, and deliver the data necessary for model training.
+
+A **semantic layer** documents definitions, derives business metrics, and creates a common language for data across the organization.
+
+**Ways to serve data:**
 - Table
 - View
 - Materialized View
-- Ways data scientists accept data for model training:
-- As files (for ad hoc requests)
-  - txt files: language modeling
-  - table formats: tabular ml
-  - image formats: computer vision
-- From databases and data warehouses
-  - accessing data via querying
-  - benefits: imposes order and structure through schema
-  - gives fine-grained permissions and controls
-  - High performance for queries
-- From streaming systems
-- service data in real time
-- enables low latency analytical queries across historical and current data
-  - e.g. operational analytics database
-- effectively combining the features of an OLAP database with a stream-processing system
-- Data management
-- ensures data correctness, consistency and trustworthiness
-- Data definition: definition of column names
-- Data logic: formulas fro deriving metrics from the data
+
+**Ways data scientists accept data for model training:**
+- **As files** (for ad hoc requests) -- text files for language modeling, table formats for tabular ML, image formats for computer vision
+- **From databases and data warehouses** -- Access via queries, with the benefits of schema enforcement, fine-grained permissions, and high query performance
+- **From streaming systems** -- Serve data in real time, enabling low-latency analytical queries across both historical and current data. This effectively combines the features of an OLAP database with a stream-processing system (e.g., operational analytics databases).
+
+**Data management** ensures correctness, consistency, and trustworthiness through clear data definitions (column names) and data logic (formulas for deriving metrics).
 
 Semantic Layer
 

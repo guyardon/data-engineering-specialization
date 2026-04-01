@@ -15,26 +15,19 @@ notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 
 **Modeling and Processing Unstructured Data for Machine Learning**
 
+Unstructured data -- images, text, audio -- requires specialized preprocessing before it can be fed into ML models. This section covers the techniques for images and text.
 
 **Modeling Image Data for ML Algorithms**
 
-- Traditional ML Algorithms:
-- Expect data to be in tabular form
-- Problem with treating images as tabular data:
-  - Loss of spatial information that can be extracted from the relative location of pixels
-  - Flattenning 1000 pixels by 1000 pixels - vector of size 1 million - very intensive on compute and memory and can affect the performance of the ML algorithm
-- Alternative Approach
-- Convolutional Neural Network
-  - Each layer tries to identify more image features to help with the ML task
-    - First layers: generic features
-    - Deeper layers: complex patterns and features
-  - In practice, ML teams start with pre-trained CNN models and fine tune them on specific task and data
-- Preparing images for Deep Learning models:
-- Augmentations:
-  - Resizing
-  - Scaling features
-  - Flipping, Rotating, Cropping
-  - Adjusting Brightness
+Traditional ML algorithms expect tabular input, but treating images as flat tabular data loses spatial information and creates extremely large feature vectors (a 1000x1000 image becomes a vector of 1 million values), which is computationally expensive and can degrade model performance.
+
+The preferred alternative is a **Convolutional Neural Network (CNN)**. Each layer identifies progressively more complex features -- early layers detect generic patterns while deeper layers capture complex structures. In practice, ML teams start with **pre-trained CNN models** and fine-tune them on their specific task and data.
+
+**Preparing images for deep learning models** typically involves augmentations:
+- Resizing
+- Scaling features
+- Flipping, rotating, cropping
+- Adjusting brightness
 
 Example Code for Augmenting Images with Tensorflow
 
@@ -74,33 +67,15 @@ image, label = augment(image)
 
 **Preprocessing Text for Analysis and Text Classification**
 
-- Some examples of NLP Tasks:
-- sentiment analysis of product reviews
-- classification of news articles
-- chatbots and virtual assistants
-- span detection
-- customer segmentation
-- product recommendations
-- Why we still need to preprocess textual data
-- Might contain typos, inconsistencies and repetitions
-- Not all words or characters are relevant to the NLP task
-- Training LLMs is expensive and time consuming
-- We might want to combine text features with other types of features such as categorical, numeric.
+NLP tasks span a wide range -- sentiment analysis, article classification, chatbots, spam detection, customer segmentation, and product recommendations. Despite advances in language models, text preprocessing remains important: raw text contains typos, inconsistencies, and irrelevant characters; training LLMs is expensive; and text features often need to be combined with categorical or numeric features.
 
-Preprocessing Text Workflow
+**Preprocessing Text Workflow**
 
-1. Cleaning
-1. Removing punctuation, extra spaces, characters that add no meaning
-2. Normalization
-1. Converting text to consistent format: transforming to lower case, converting numbers or symbols to characters, expanding contractions
-3. Tokenization
-1. Split each review into individual tokens (words, subwords or short sentences)
-2. The easiest tokenization method converts each word into a token
-4. Removal of Stop Words
-1. "is", "are", "the", "for", "a"
-2. some libraries that do this: spaCy, NLTK, Gensim, TextBlob
-5. Lemmatization
-1. Replacing each word with its base form or lemma (e.g. getting/got to get)
+1. **Cleaning** -- Remove punctuation, extra spaces, and meaningless characters
+2. **Normalization** -- Convert text to a consistent format: lowercase, expand contractions, convert numbers/symbols to words
+3. **Tokenization** -- Split text into individual tokens (words, subwords, or short sentences). The simplest method converts each word into a token.
+4. **Removal of Stop Words** -- Filter out common words like "is," "are," "the," "for," "a." Libraries: spaCy, NLTK, Gensim, TextBlob.
+5. **Lemmatization** -- Replace each word with its base form or lemma (e.g. "getting"/"got" becomes "get")
 
 ```python
 import pandas as pd
@@ -217,55 +192,31 @@ def preprocess_text(text, nlp, special_characters = ['~','@', '#', '$', '%', '^'
 
 **Text Vectorization and Embedding**
 
-The next stage after pre-preocessing hte text data is converting words, sub-words, characters, or even sentences into tokens (depending on the scale).
+After preprocessing, text must be converted into numerical representations. The approach depends on the scale and complexity of the task.
 
 **Traditional Vectorization**
 
-- Bag of Words
-- TF-IDF (Term Frequency Inverse Document Frequency)
-
-These methods assign a number to a word based on the frequency of its occurrence in a document/corpus
-
-- Several or many documents in a corpus
-- A document can be a customer review, and the corpus the collection of all reviews
-- The vocabulary consists of all unique pre-processed words
+Traditional methods assign numbers to words based on their frequency within documents and across the corpus. A **corpus** is a collection of documents (e.g. all customer reviews), and the **vocabulary** is the set of all unique preprocessed words.
 
 **Bag of Words**
 
-- Binary vectors, the length of the number of documents in the corpus
-- 1 in the index corresponding to the document if the word exists in it
-- Problem with this method: more weight is given based on frequency, however high frequency words might have little meaning, whereas low frequency words can be more significant to the task.
+Bag of Words creates binary vectors whose length matches the number of documents in the corpus. A `1` at a given index indicates the word appears in that document. The limitation: high-frequency words get more weight, but they may carry little meaning, while rare words that are more significant to the task get underweighted.
 ![](/data-engineering-specialization-website/images/6b312fd4-79e8-4792-900a-5b09e27ead0b.png)
 
 **TF-IDF**
 
-- Account for the weight and rarity of each word
-- TF: the number of times the term occurred in a document divided by the length of that document
-- IDF: how common or rare that word is in the entire corpus
-- Easily computed with scikit-learn
+**TF-IDF** (Term Frequency-Inverse Document Frequency) accounts for both the weight and rarity of each word. **TF** is the number of times a term appears in a document divided by the document length. **IDF** measures how common or rare that word is across the entire corpus. It is easily computed with scikit-learn.
 ![](/data-engineering-specialization-website/images/3944827b-0dd0-4b55-8107-353869e2587d.png)
 
-These tokenization methods are useful for smaller datasets and when "key" words have significance to the task (e.g. sentiment analysis)
-
-Problems:
-
-- High dimensional vector with very sparse values
-- No meaning to nearby words
+These methods work well for smaller datasets where key words have significance to the task (e.g. sentiment analysis), but they produce high-dimensional sparse vectors and ignore word proximity.
 
 **Word Embeddings**
 
-- Vector that captures the semantic meaning of the word
-- word2vec, GLOVE
-- Trained to learn the embeddings of wrods from their occurrences
-- Word embeddings do not take into account the position of words in a sentence
-- To solve this - use sentence embeddings
-- Takes into account the semantic meaning of the sentence
-- Lower dimension than the vector generated by TF-IDF
-- Pre-Trained NLP models:
-  - Open Source:
-    - SentenceTransformers (sbert.net)
-  - Closed Source:
-    - OpenAI, Anthropic, Google
+A word embedding is a dense vector that captures semantic meaning. Models like **word2vec** and **GloVe** learn embeddings from word co-occurrences. However, word embeddings ignore position within a sentence. **Sentence embeddings** solve this by capturing the semantic meaning of entire sentences in lower-dimensional vectors than TF-IDF produces.
+
+Pre-trained NLP models for embeddings:
+- **Open Source**: SentenceTransformers (sbert.net)
+- **Closed Source**: OpenAI, Anthropic, Google
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -293,10 +244,7 @@ print(sim) # array([0.5106675, 0.13981295])
 
 ```
 
-What we can do with these embeddings:
-
-- Features to train an ML algorithm
-- Clustering, or similarity search
+Embeddings can be used as features for ML algorithms, or for clustering and similarity search.
 
 Example: Vectorizing Text with Scikit-Learn
 

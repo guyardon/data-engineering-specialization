@@ -14,166 +14,81 @@ notionId: "18c969a7-aa01-80ab-b4fd-ee68b1385af5"
 
 ## 3.2.1 Choosing Tools and Technologies
 
-Types of software solutions:
+Technology choices shape the entire data stack. Software solutions generally fall into three categories: **open source**, **managed open source**, and **proprietary**. The end goal should always drive the decision.
 
-- Open source
-- Managed open source
-- Proprietary
+Key considerations include:
 
-Keep in mind the end goal!
-
-Considerations:
-
-- Location
-- On-prem
-- Cloud
-- Hybird
-- Other considerations
-- Cost optimization
-- Team’s size and capabilities
+- **Location** — on-premises, cloud, or hybrid
+- **Cost optimization** — total spend across the solution's lifecycle
+- **Team size and capabilities** — what your team can realistically build and maintain
 
 
 ## 3.2.2 Location
 
-On premises
+Where your infrastructure lives has major implications for cost, control, and agility.
 
-- Company owns and maintains the hardware and software solutions for their data stack
-- Provisioning
-- Maintaining
-- Updating
-- Scaling
+**On-premises** — the company owns and maintains all hardware and software, handling provisioning, maintenance, updates, and scaling in-house.
 
-Cloud
+**Cloud** — a cloud provider owns and maintains hardware in data centers. You rent compute and storage resources without provisioning or maintaining any physical infrastructure.
 
-- The cloud owns and maintains the hardware in data centers
-- You rent the compute and storage resources
-- You don’t need to maintain or provision any hardware
+**Hybrid** — some companies keep certain data systems on-prem due to regulations, security, or client privacy concerns while running others in the cloud.
 
-Hybrid
-
-- Some companies choose to (or are required to) keep some of the data systems on-prem
-- Regulations, security, client privacy concerns
-
-In these courses - the focus is building a data system on the cloud.
+This course focuses on building data systems in the cloud.
 
 
 ## 3.2.3 Monolith vs. Modular Systems
 
 **Monolithic System**
 
-- Self contained
-- Single codebase
-- May have tightly coupled components
-- Hard to maintain
-- At a certain point, the entire architecture may be rewritten
+A monolithic system is self-contained with a single codebase and tightly coupled components. It becomes increasingly hard to maintain over time, and at a certain point the entire architecture may need to be rewritten.
 
 **Modular System**
 
-- Built with loosely coupled systems
-- Application is broken down into self-contained areas of concern
-- Micro-services enable modular systems
-- Each service is deployed as a single unit
-- Interoperability
-- Flexible and reversible decisions
-- Continuous improvement
+A modular system is built from loosely coupled, self-contained services. Each micro-service is deployed independently, enabling interoperability, flexible and reversible decisions, and continuous improvement.
 
 ## 3.2.4 Cost Optimization and Business Value
 
-- Total cost of ownership (TCO)
-- Total estimated cost of a solution or project or initiative over its entire lifecycle, including direct and indirect costs
-  - Direct Costs:
-    - Salaries
-    - Cloud Bills
-    - Software subscriptions
-  - Indirect costs (overhead):
-    - Network downtime
-    - IT Support
-    - Loss of productivity
+Understanding costs is essential to making sound technology decisions.
+
+**Total Cost of Ownership (TCO)** is the total estimated cost of a solution over its entire lifecycle, including:
+
+- **Direct costs:** salaries, cloud bills, software subscriptions
+- **Indirect costs (overhead):** network downtime, IT support, lost productivity
+
 **Costs of Hardware/Software:**
 
-  - Capital Expenses (CapEx)
-    - Upfront payments for long term fixed assets
-      - (Before the cloud era)
-    - Slowly depreciates over time
-  - Operational Expenses (OpEx)
-    - Expense associated with running the day-to-day operations (”pay-as-you-go”)
-    - Wasn’t really an option before the cloud
-- Total opportunity cost of ownership (TOCO)
-- The cost of lost opportunities that you incur in choosing a particular tool or technology
-- There will always be a cost of changing components to newer technologies - therefore it is important to build flexible systems.
-- It’s important to recognize the components that are likely to change:
-  - Immutable technologies (likely aren’t going away anytime soon):
-    - Object storage
-    - Networking
-    - SQL
-  - Transitory technologies (data stack that are rapidly evolving):
-    - Stream processing
-    - Orchestration
-    - AI
+- **Capital Expenses (CapEx)** — upfront payments for long-term fixed assets (common before the cloud era), which depreciate slowly over time
+- **Operational Expenses (OpEx)** — day-to-day "pay-as-you-go" costs, made practical by cloud computing
 
-FinOps
+**Total Opportunity Cost of Ownership (TOCO)** captures the cost of lost opportunities from choosing a particular tool. Switching technologies always has a cost, which is why building flexible systems matters. When evaluating components, distinguish between:
 
-- Minimize TCO and TOCO
-- Maximize revenues
+- **Immutable technologies** (unlikely to change soon): object storage, networking, SQL
+- **Transitory technologies** (rapidly evolving): stream processing, orchestration, AI
+
+**FinOps** ties it all together — minimize TCO and TOCO while maximizing revenue.
 
 ## 3.2.5 Build vs. Buy
 
-- Customized solutions by building it yourself
+Building a custom solution gives you exactly what you need, avoids licensing fees, and eliminates vendor dependency. However, for most cases this is not recommended unless no existing solution fits. There is no need to reinvent the wheel.
 
-Benefits:
+Existing solutions come in three flavors: **open source**, **commercial open-source**, and **proprietary**.
 
-- Get exactly the solution you need
-- Avoid licensing fees
-- Avoid being at the mercy of a vendor
+Key questions to ask:
 
-For most cases - this is not recommended, unless there is no existing solution out there. No need to reinvent the wheel.
-
-Using existing solutions
-
-- open source
-- commercial open-source
-- proprietary non-open source
-
-Considerations:
-
-- Does you team have the bandwidth and capabilities to implement an open source solution?
-- Are you a small team? Could using a managed or proprietary service free up your time?
-- How much are you saving?
-- What is the total cost to build or maintain a system
-- Do you get some advantage by building your own custom solutions
+- Does your team have the bandwidth and capabilities to implement and maintain an open-source solution?
+- Could a managed or proprietary service free up a small team's time?
+- What is the total cost to build versus buy and maintain?
+- Does building in-house provide a genuine competitive advantage?
 - Are you avoiding undifferentiated heavy lifting?
 
 
 
 ## 3.2.6 Server, Container, and Serverless Compute Options
 
-Computing Options:
+Three compute models offer different trade-offs between control and convenience.
 
-Server
+**Server** — you set up and manage the server (e.g., Amazon EC2), handling OS updates, package installation, patching, networking, scaling, and security yourself.
 
-- You set up and manage the server (e.g. Amazon EC2 system)
-- Update the OS
-- Install/update packages
-- Patch software
-- Networking, scaling and security
+**Container** — a modular unit that packages application code and dependencies to run on a server. Containers are lightweight and portable; you manage the application layer while the infrastructure is handled separately.
 
-Container:
-
-- Modular unit that packages code and dependencies to run on a server
-- Lightweight and portable
-- You set up the application code and dependencies
-
-Serverless
-
-- Serverless means you don’t need to set up or maintain the servers, they remain behind the scenes.
-- Automatic scalling
-- Availability and fault tolerance
-- Pay-as-you-go
-- Benefits:
-- Execute small chucks of code on as-needed basis
-- Run services on as-needed basis
-- Pay-as-you-go.
-- When to use?
-- When its more cost-effective
-- Good for small and discrete tasks, but not for heavy compute applications or those that require memory power.
-
+**Serverless** — the cloud provider manages servers entirely behind the scenes, providing automatic scaling, availability, fault tolerance, and pay-as-you-go pricing. Serverless is ideal for small, discrete tasks executed on demand. It is generally not suited for heavy compute workloads or memory-intensive applications. Use it when it is more cost-effective than the alternatives.

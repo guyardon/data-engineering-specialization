@@ -13,29 +13,14 @@ notionId: "18d969a7-aa01-805f-981f-c3b5e3dee330"
 
 ## 4.1.1 Requirements
 
-Hierarchy of Needs:
+Before building anything, data engineers need to understand what they are building and why. Requirements follow a hierarchy of needs:
 
-1. **Business Goals**
-- Growing revenue
-- Growing market share
-- Growing user base
-2. **Stakeholder Needs (Individual employees)**
-1. Proper resources, tools and management
-2. Need robust data systems
+1. **Business Goals** — growing revenue, market share, or user base
+2. **Stakeholder Needs** — individual employees need proper resources, tools, management, and robust data systems to do their work
 3. **System Requirements**
-1. *Functional*
-  1. Specific functionality - what the system will be able to do
-2. *Non-functional*
-  1. Characteristics or attributes of the system: latency, scalability, reliability, maintainability, cost, security
+   1. *Functional* — specific functionality the system must provide
+   2. *Non-functional* — characteristics and attributes of the system: latency, scalability, reliability, maintainability, cost, security
 
 ## 4.1.2 Evaluating Tradeoffs
 
-Timeline
-
-Budget
-
-Scope (features of the system)
-
-Iron Triangle - if you increase one, the others will also increase
-
-
+Every project is constrained by three forces: **timeline**, **budget**, and **scope** (features of the system). These form the **Iron Triangle** — increasing one dimension inevitably puts pressure on the others.

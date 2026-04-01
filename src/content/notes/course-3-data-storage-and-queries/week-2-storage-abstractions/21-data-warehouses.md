@@ -15,21 +15,18 @@ notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 
 **Overview**
 
-**Storage Hierarchy**
+This week covers three storage abstractions, each building on the last:
 
-1. **Data Warehouse**
-1. Cloud data warehouse
-2. **Data Lake**
-1. Supports growing storage needs
-3. **Data Lakehouse**
-1. Combines the advantages of data warehouses and data lakes
+1. **Data Warehouse** — the classic analytical store, now available as cloud-managed services
+2. **Data Lake** — a central repository that supports growing, schema-flexible storage needs
+3. **Data Lakehouse** — combines the strengths of warehouses and lakes into a single architecture
 
 
 ## 2.1.2 Data Warehouse Concepts
 
 **Data Warehouse**
 
-Bill Inman's Definition: *A subject-oriented, integrated, nonvolatile, time-variant collection of data in support of management's decisions*
+Bill Inmon's Definition: *A subject-oriented, integrated, nonvolatile, time-variant collection of data in support of management's decisions*
 
 **Key Structural Ideas**
 
@@ -43,18 +40,14 @@ Bill Inman's Definition: *A subject-oriented, integrated, nonvolatile, time-vari
 
 **Modern Cloud Data Warehouses**
 
-- Data warehouses typically implement MPP (massively parallel processing)
-- In cloud data warehouses, clusters can be scaled dynamically based on needs
-- Examples:
-- Amazon Redshift
-- Google Big Query
-- Snowflake
-- Support ELT (Extract-Load-Transform)
-- Raw unprocessed data is loaded into a staging area within the data warehouse
-- Then transformation is performed in staging area to leverage MPP
-- Supports Columnar for high performance analytical storage
-- Seperation of compute and storage to optimize cost and performance
-- Similar to traditional data warehouses, stores data that is highly structured, and models data in a way that supports analytical queries
+Modern cloud data warehouses implement **MPP** (massively parallel processing) and can scale clusters dynamically based on workload. Examples include **Amazon Redshift**, **Google BigQuery**, and **Snowflake**.
+
+Key characteristics:
+
+- **ELT pattern** — raw data is loaded into a staging area first, then transformed in place to leverage MPP compute
+- **Columnar storage** — optimized for high-performance analytical queries
+- **Separation of compute and storage** — allows independent scaling to optimize cost and performance
+- Like traditional warehouses, they store highly structured data modeled to support analytical queries
 
 **Amazon Redshift MPP Architecture**
 
@@ -62,5 +55,4 @@ Bill Inman's Definition: *A subject-oriented, integrated, nonvolatile, time-vari
 
 ![](/data-engineering-specialization-website/images/c17213d6-8e0f-406b-86ff-780be90634c2.png)
 
-- Client application sends a query request into the data warehouse
-- The leader node creates an execution plan, compiles the code, and distributes it to the appropriate compute nodes slices that contains data thats relevant to the query.
+When a client application sends a query, the **leader node** creates an execution plan, compiles the code, and distributes it to the appropriate compute node slices that hold data relevant to the query.

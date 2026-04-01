@@ -13,77 +13,45 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 ## 1.4.1 Inmon vs. Kimball Modeling Approaches
 
-**Inman vs. Kimball Data Modeling Approaches for Data Warehouses**
+**Inmon vs. Kimball Data Modeling Approaches for Data Warehouses**
 
-- The data warehouse was created with the goal of separating the source system from the analytical system
-- Data Warehouse Definition:
-- A subject-oriented, integrated, non-volatile, and invariant collection of data in support of management's decisions
-- The data warehouse contains granular corporate data. Data in the data warehouse is able to be used for many purposes, including sitting and waiting for future requirements which are unknown today
+The data warehouse was created to separate source systems from analytical systems. Bill Inmon defined it as a **subject-oriented, integrated, non-volatile, and invariant collection of data** in support of management's decisions. It contains granular corporate data that can serve many purposes, including future requirements that are unknown today.
 
+**Inmon Modeling Approach**
 
-**Inman Modeling Approach**
-
-- store data in the data warehouse in highly normalized 3rd normal form
-- provide additional data marts, normalized for specific departments (e.g. in star schemas)
+The Inmon approach stores data in the warehouse in highly **normalized third normal form**, then provides additional data marts (often as star schemas) for specific departments.
 ![](/data-engineering-specialization-website/images/365d1881-2ead-431f-a81b-338ce0a55c71.png)
 
 
 **Kimball Data Modeling Approach**
 
-- serve data that's structured as star schemas directly in the data warehouse
-- This allows faster modeling and iteration, but more redundancy
+The Kimball approach serves data structured as **star schemas directly in the data warehouse**. This enables faster modeling and iteration, but introduces more redundancy.
 ![](/data-engineering-specialization-website/images/3d7abbcc-bd15-45d0-afd7-2f9869953fef.png)
 
 
 **What to Choose**
 
-- Choose Inman if:
-- Data quality is your highest priority
-- The analysis requirements are not defined
-- Choose Kimball if:
-- Quick insights are your highest priority
-- Rapid implementation and iteration
+- Choose **Inmon** if data quality is your highest priority or analysis requirements are not yet defined.
+- Choose **Kimball** if quick insights are your highest priority and you need rapid implementation and iteration.
 
 
 ## 1.4.2 Data Vault Modeling Approach
 
 **Data Vault Modeling Approach**
 
-- Inmon/Kimball focus on the structure of business logic in the data warehouse
-- Data Vault focuses on separating the structural aspects of data (business entities and how they're related to each other)
-- Uses seperate tables to represent core business concepts, the relationships between theose concepts, and the descriptive attributes
-- Allows flexible, agile and scalable data warehouse structure by keeping the data as closely aligned to the business as possible, even while the business and data are changing
-- 3 Layers
-- Staging Layer
-- Enterprise Data Warehouse Layer
-- Information Delivery Layer
-- No notion of good, bad or conformed data in a data vault
-- Only change the structure in which data is stored
-- Allows you to trace the data back to its source
-- Helps you avoid restructuring the data when business requirements change
+While Inmon and Kimball focus on how business logic is structured in the warehouse, **Data Vault** focuses on separating the structural aspects of data -- business entities and their relationships. It uses separate tables for core business concepts, the relationships between them, and descriptive attributes. This separation keeps the warehouse flexible, agile, and scalable even as the business and its data evolve.
+
+Key characteristics of Data Vault:
+- Three layers: Staging, Enterprise Data Warehouse, and Information Delivery
+- No notion of "good," "bad," or "conformed" data -- it only changes the storage structure
+- Full traceability back to source systems
+- Minimal restructuring when business requirements change
 
 **3 Types of Tables in a Data Vault:**
 
-- Hub: Stores a unique list of business keys
-- Business key
-- Hash key 
-  - calculated as the hash of the business key)
-  - used as the Hub primary key
-- Load date
-  - date which the business key was first loaded
-- Record source
-  - the source of the business key
-- Link: Connects two or more hubs
-- Link table connects two or more hubs
-- e.g. to connect order and customer hubs, we can use an "order_customer" link table
-- Each link must contain:
-  - primary and business key from parent hub
-  - load date of a row
-  - source for the record
-  - the primary key is the hash of the business key of the parent hub
-- Satellite: Contains attributes that provide context for hubs and links
-- Much contain the record source
-- Primary key should consist of a hash key of the parent hub and load date
+- **Hub**: Stores a unique list of business keys, along with a hash key (used as the primary key), load date (when the key was first loaded), and record source.
+- **Link**: Connects two or more hubs. For example, an `order_customer` link table connects the order and customer hubs. Each link contains primary and business keys from parent hubs, a load date, and a record source. The primary key is the hash of the parent hub's business key.
+- **Satellite**: Contains descriptive attributes that provide context for hubs and links. Its primary key consists of the parent hub's hash key and the load date, plus the record source.
 ![](/data-engineering-specialization-website/images/6845e8b4-6d09-46b5-b722-4e19a19b3e7f.png)
 
 
@@ -93,34 +61,28 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 **Background**
 
-- Inman/Kimball models were developed when data warehouses were expensive, on-premisis, and resource constrained, tightly coupled compute and storage
+The Inmon and Kimball models were developed when data warehouses were expensive, on-premises, and resource-constrained, with tightly coupled compute and storage. Modern cloud infrastructure has changed the calculus.
 
 **One Big Table**
 
-- Wide table (many columns - can be thousands)
-- Can be nested, contain various data types
-- Highly denormalized
-- No need for complex joins
-- Supports fast analytical queries
+The One Big Table approach uses a single **wide table** (potentially thousands of columns) that is highly denormalized. It can contain nested and varied data types, requires no complex joins, and supports fast analytical queries.
 
 **Why is it Popular**
 
 - Low cost of cloud storage
-- Nested data allows for flexible schemas
-- Columnar storage helps optimize the storage and processing
-- Wide tables are sparse
-- Columnar database - reading nulls is free
+- Nested data allows flexible schemas
+- Columnar storage optimizes both storage and processing
+- Wide tables are sparse, and in columnar databases reading nulls is free
 
 **Cons**
 
-- You might lose business logic in analytics
-- You need complex data structures to store nested data
-- Can have poorer update and aggregation performance
+- Business logic can get lost in analytics
+- Complex data structures are needed to store nested data
+- Update and aggregation performance can suffer
 
 **When to Use:**
 
-- A lot of data that needs more flexibility that a traditional data modeling approach might provide
-
+One Big Table works well when you have a large volume of data that needs more flexibility than traditional modeling approaches provide.
 
 **Summary of Modeling Approaches**
 
@@ -133,10 +95,7 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 **DBT**
 
-- Warps SQL statemens that create fact/dimension tables with a create statement
-- Helps document and validate data within the data warehouse
-- dbt core
-- open source command line tool
-- communicate with your databases through adapters (e.g. dbt-postgres)
-- dbt cloud
-- runs dbt core in a hosted environment with a browser based interface
+**dbt** (data build tool) wraps SQL statements that create fact and dimension tables with a `CREATE` statement, and helps document and validate data within the data warehouse.
+
+- **dbt core**: An open-source command-line tool that communicates with databases through adapters (e.g. `dbt-postgres`).
+- **dbt cloud**: Runs dbt core in a hosted environment with a browser-based interface.
