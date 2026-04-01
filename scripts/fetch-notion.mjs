@@ -483,45 +483,38 @@ async function run() {
               mdxContent,
             );
           } else {
-            // Has subsections — use those as leaves
+            // Has subsections — MERGE into parent section per D-01
+            let content = await fetchPageContent(section.id);
             for (let ssi = 0; ssi < sectionChildren.length; ssi++) {
               const sub = sectionChildren[ssi];
-              console.log(`      Subsection ${ssi + 1}: ${sub.title}`);
-
-              // Check if subsection itself has more children
+              console.log(`      Merging subsection ${ssi + 1}: ${sub.title}`);
+              const subContent = await fetchPageContent(sub.id);
+              content += `\n\n## ${sub.title}\n\n${subContent}`;
+              // Check for deeper nesting
               const subChildren = await getChildPages(sub.id);
-
-              let content;
-              if (subChildren.length === 0) {
-                content = await fetchPageContent(sub.id);
-              } else {
-                // Even deeper — collect all content recursively into one page
-                content = await fetchPageContent(sub.id);
-                for (const deep of subChildren) {
-                  const deepContent = await fetchPageContent(deep.id);
-                  content += `\n## ${deep.title}\n\n${deepContent}`;
-                }
+              for (const deep of subChildren) {
+                const deepContent = await fetchPageContent(deep.id);
+                content += `\n\n### ${deep.title}\n\n${deepContent}`;
               }
-
-              const subSlug = slugify(sub.title.replace(/^[^\w]+/, ""));
-              const mdxContent = buildMdx({
-                title: sub.title,
-                course: course.title,
-                courseSlug,
-                courseOrder: ci + 1,
-                week: week.title,
-                weekSlug,
-                weekOrder: wi + 1,
-                order: (si + 1) * 100 + ssi + 1,
-                notionId: sub.id,
-                content,
-              });
-              const safeSlug = subSlug || `section-${si + 1}-${ssi + 1}`;
-              fs.writeFileSync(
-                path.join(weekDir, `${safeSlug}.md`),
-                mdxContent,
-              );
             }
+            const sectionSlug = slugify(section.title.replace(/^[^\w]+/, ""));
+            const mdxContent = buildMdx({
+              title: section.title,
+              course: course.title,
+              courseSlug,
+              courseOrder: ci + 1,
+              week: week.title,
+              weekSlug,
+              weekOrder: wi + 1,
+              order: si + 1,
+              notionId: section.id,
+              content,
+            });
+            const safeSlug = sectionSlug || `section-${si + 1}`;
+            fs.writeFileSync(
+              path.join(weekDir, `${safeSlug}.md`),
+              mdxContent,
+            );
           }
         }
       }
