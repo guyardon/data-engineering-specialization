@@ -2,7 +2,7 @@
 const { id = "search" } = Astro.props;
 ---
 
-<div id={id} class="search-wrapper"></div>
+<div id={id} class="search-wrapper" data-search-id={id}></div>
 
 <style is:global>
   .search-wrapper {
@@ -68,19 +68,22 @@ const { id = "search" } = Astro.props;
 
 <script>
   async function initSearch() {
-    try {
-      // @ts-ignore — generated at build time
-      const { PagefindUI } = await import("/pagefind/pagefind-ui.js");
-      new PagefindUI({
-        element: "#search",
-        showSubResults: false,
-        showImages: false,
-        resetStyles: false,
-      });
-    } catch {
-      // Dev mode fallback: create placeholder with safe DOM APIs
-      const container = document.getElementById("search");
-      if (container && container.children.length === 0) {
+    const containers = document.querySelectorAll("[data-search-id]");
+    for (const container of containers) {
+      const searchId = container.getAttribute("data-search-id");
+      if (!searchId) continue;
+      try {
+        // @ts-ignore — generated at build time
+        const { PagefindUI } = await import("/pagefind/pagefind-ui.js");
+        new PagefindUI({
+          element: `#${searchId}`,
+          showSubResults: false,
+          showImages: false,
+          resetStyles: false,
+        });
+      } catch {
+        // Dev mode fallback: create placeholder with safe DOM APIs
+        if (container.children.length === 0) {
         const wrapper = document.createElement("div");
         wrapper.style.cssText = "display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1.25rem;border:1px solid var(--line);border-radius:10px;color:var(--fg-soft);font-family:var(--font-sans);font-size:0.9rem;background:var(--bg-card);";
 
@@ -109,6 +112,7 @@ const { id = "search" } = Astro.props;
         wrapper.appendChild(svg);
         wrapper.appendChild(span);
         container.appendChild(wrapper);
+      }
       }
     }
   }

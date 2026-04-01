@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { BASE } from "../lib/base";
 import Logo from "./Logo.astro";
 import ThemeToggle from "./ThemeToggle.astro";
+import SearchBar from "./SearchBar.astro";
 
 const notes = await getCollection("notes");
 const currentSlug = Astro.props.currentSlug as string;
@@ -117,6 +118,23 @@ const activeWeekSlug = currentNote?.data.weekSlug;
         </svg>
       </button>
     </div>
+  </div>
+
+  <div class="sidebar-search">
+    <SearchBar id="sidebar-search" />
+  </div>
+
+  <div class="nav-controls">
+    <button id="expand-all" class="nav-control-btn" aria-label="Expand all" title="Expand all">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+    <button id="collapse-all" class="nav-control-btn" aria-label="Collapse all" title="Collapse all">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
   </div>
 
   <div class="nav-tree">
@@ -343,6 +361,36 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     font-weight: 500;
   }
 
+  .sidebar-search {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-controls {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.35rem 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-control-btn {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--fg-soft);
+    cursor: pointer;
+    padding: 0.2rem 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .nav-control-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .sidebar {
@@ -363,3 +411,23 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     }
   }
 </style>
+
+<style is:global>
+  .sidebar-search .pagefind-ui .pagefind-ui__search-input {
+    padding: 0.5rem 0.75rem 0.5rem 2rem !important;
+    font-size: 0.8rem !important;
+    border-radius: 8px !important;
+  }
+  .sidebar-search .search-wrapper {
+    max-width: none !important;
+  }
+</style>
+
+<script>
+  document.getElementById("expand-all")?.addEventListener("click", () => {
+    document.querySelectorAll(".nav-tree details").forEach((d) => d.setAttribute("open", ""));
+  });
+  document.getElementById("collapse-all")?.addEventListener("click", () => {
+    document.querySelectorAll(".nav-tree details").forEach((d) => d.removeAttribute("open"));
+  });
+</script>
