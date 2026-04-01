@@ -153,6 +153,9 @@ async function richTextToMd(richText) {
       if (rt.annotations?.strikethrough) return `~~${text}~~`;
       if (rt.annotations?.underline) return `<u>${text}</u>`;
       if (rt.type === "mention") return text;
+      if (rt.href) {
+        text = `[${text}](${rt.href})`;
+      }
       return text;
     })
     .join("");
@@ -315,7 +318,7 @@ async function processBlocks(blocks, depth = 0, imageBasePath = "/images") {
               row.table_row.cells.map((cell) => richTextToMd(cell)),
             );
             mdRows.push(`| ${cells.join(" | ")} |`);
-            if (r === 0 && hasHeader) {
+            if (r === 0) {
               mdRows.push(`| ${cells.map(() => "---").join(" | ")} |`);
             }
           }
