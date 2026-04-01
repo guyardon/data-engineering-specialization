@@ -124,19 +124,6 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     <SearchBar id="sidebar-search" />
   </div>
 
-  <div class="nav-controls">
-    <button id="expand-all" class="nav-control-btn" aria-label="Expand all" title="Expand all">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
-    </button>
-    <button id="collapse-all" class="nav-control-btn" aria-label="Collapse all" title="Collapse all">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="18 15 12 9 6 15"></polyline>
-      </svg>
-    </button>
-  </div>
-
   <div class="nav-tree">
     {
       courses.map((course) => {
@@ -235,7 +222,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   }
 
   .nav-emoji {
-    font-size: 0.85em;
+    font-size: 1.1em;
     margin-right: 0.1rem;
   }
 
@@ -366,31 +353,6 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     border-bottom: 1px solid var(--line);
   }
 
-  .nav-controls {
-    display: flex;
-    gap: 0.25rem;
-    padding: 0.35rem 1rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .nav-control-btn {
-    background: none;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    color: var(--fg-soft);
-    cursor: pointer;
-    padding: 0.2rem 0.35rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .nav-control-btn:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-
   /* Mobile */
   @media (max-width: 768px) {
     .sidebar {
@@ -424,10 +386,19 @@ const activeWeekSlug = currentNote?.data.weekSlug;
 </style>
 
 <script>
-  document.getElementById("expand-all")?.addEventListener("click", () => {
-    document.querySelectorAll(".nav-tree details").forEach((d) => d.setAttribute("open", ""));
-  });
-  document.getElementById("collapse-all")?.addEventListener("click", () => {
-    document.querySelectorAll(".nav-tree details").forEach((d) => d.removeAttribute("open"));
+  document.querySelectorAll(".course-details").forEach((course) => {
+    course.querySelector(".course-summary")?.addEventListener("click", (e) => {
+      // After the browser toggles the course details, sync all week details
+      requestAnimationFrame(() => {
+        const isOpen = course.hasAttribute("open");
+        course.querySelectorAll(".week-details").forEach((week) => {
+          if (isOpen) {
+            week.setAttribute("open", "");
+          } else {
+            week.removeAttribute("open");
+          }
+        });
+      });
+    });
   });
 </script>
