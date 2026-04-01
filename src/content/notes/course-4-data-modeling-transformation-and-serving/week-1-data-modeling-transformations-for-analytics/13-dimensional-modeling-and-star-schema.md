@@ -15,32 +15,17 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 **Dimensional Modeling - Star Schema**
 
-- Normalized models focus on connecting data entities and modeling the relationships to reduce data redundancy
-- Star schema (dimensional data model) focuses on:
-- structuring the data for faster analytical queries
-- delivers data that is more understandable to business users
+While normalized models focus on connecting data entities and reducing redundancy, the **star schema** (a dimensional data model) is designed for faster analytical queries and delivers data that is more understandable to business users.
 
 **Fact Table**
 
-- contains quantitative business measurements that result from a business event or process
-- e.g. business event: order a ride share
-  - facts: trip duration, trip price, tip paid, trip delays, etc.
-  - these are all unique to the business event
-- Each row contains the facts fo a particular event
-- Immutable (append only)
-- Typically narrow and long (not a lot of columns, but may rows)
-- Grain:
-- all rides by all customers in one day
-- all rides by one customer on one day
-- one ride by one customer (atomic grain)
-- Atomic grain:
-  - most detailed level at which data is capture by a given event
+A fact table contains quantitative business measurements that result from a business event or process. For example, a rideshare order event produces facts like trip duration, trip price, tip paid, and trip delays -- all unique to that event. Each row captures the facts of a particular event.
+
+Fact tables are **immutable** (append-only) and typically **narrow and long** -- few columns but many rows. The **grain** defines the level of detail: all rides by all customers in one day, all rides by one customer in one day, or one ride by one customer (the **atomic grain**, which is the most detailed level at which data is captured).
 
 **Dimension Tables**
 
-- Provide the reference data, attributes, and relational context for the event sin the fact table
-- Describe the events' who, what, where, and when
-- often have many columns (wide and short), i.e. lots of descriptive columns but fewer rows
+Dimension tables provide the reference data, attributes, and relational context for the events in the fact table. They describe the **who, what, where, and when** of each event. Dimension tables are often **wide and short** -- many descriptive columns but fewer rows.
 
 
 ## 1.3.2 Fact-Dimension Relationships and Analytical Queries
@@ -49,9 +34,7 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 ![](/data-engineering-specialization-website/images/a43dd950-04a8-4625-831b-f1f86c7beb9e.png)
 
-- different fact tables of different star schemas can be connected to each other via a dimension table (called a conformed dimension)
-- fact tables are connected to dimension tables through **Foreign Keys**
-- each dimension is defined by a **Primary Key**
+Different fact tables from separate star schemas can connect to each other through a shared dimension table, called a **conformed dimension**. Fact tables link to dimension tables through **foreign keys**, and each dimension is identified by a **primary key**.
 ![](/data-engineering-specialization-website/images/c307c2ba-06fc-4dfe-8357-ca56da6e4e6c.png)
 
 ![](/data-engineering-specialization-website/images/bf7b521a-577a-4775-a9d9-c9d91059ec04.png)
@@ -59,8 +42,7 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 **Using Star Schemas to Perform Analytical Queries**
 
-- apply aggregate queries to find sum, average, maximum, etc. of a fact measure in the fact table
-- use a dimension table to filter or group the facts
+Star schemas enable aggregate queries (sum, average, maximum, etc.) on fact measures, using dimension tables to filter or group the results.
 ![](/data-engineering-specialization-website/images/b1ecbedb-45aa-427f-83c3-697476ba56ef.png)
 
 ![](/data-engineering-specialization-website/images/97b7f8db-4bb3-4545-a51f-de63de50da5e.png)
@@ -70,28 +52,18 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 **From Normalized Model to Star Schema**
 
-- Data can be in normalized form in a relational databases, but may be needed to be converted to star schemas for data specific marts
-
+Data often starts in normalized form in relational databases but needs to be converted into star schemas for domain-specific data marts.
 
 **4 Key Steps in Designing a Star Schema**
 
-- Select the business process
-- Declare the grain (best - atomic)
-- Identify the dimensions
-- Identify the facts
-
+1. Select the business process
+2. Declare the grain (atomic is best)
+3. Identify the dimensions
+4. Identify the facts
 
 **Surrogate Keys**
 
-- Sometimes, instead of defining one of the columns as a primary key (e.g. in a stores table, the store_id), we may want to define a new "surrogate key".
-- e.g. the store id is a string
-- we can do MD5(store_id) to create a surrogate key
-- Several ways to do this:
-- Create a sequence of integers and assign one integer to each store
-- Use a hash function to generate a unique surrogate key
-  - supported by many DBMSs like PostgreSQL and MySQL
-  - Example: MD5
-
+Instead of using a natural column as the primary key (e.g. `store_id`), you can define a **surrogate key** -- a synthetic identifier generated independently of the source data. Common approaches include creating a sequence of integers or using a hash function (e.g. MD5) to generate a unique key. Most DBMSs like PostgreSQL and MySQL support hash-based surrogate keys.
 
 **SQL Statements to Create a Star Schema from Normalized Form**
 

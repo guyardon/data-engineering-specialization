@@ -15,127 +15,69 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 
 **The Join Statement**
 
-- one of the most time consuming query operations
-- Example of inner join
-- Combines data only from the rows that share a matching customer id from both tables
+Joins are one of the most time-consuming query operations. An inner join, for example, combines only the rows that share a matching key across both tables.
+
 ![](/data-engineering-specialization-website/images/9f861c1e-fd7b-4a70-a34e-e214962ff3a8.png)
 
 **3 Common Methods for Implementing Join**
 
-- **Method 1: Nested Loop Join O(n * m)**
-- For each index in big table, scan entire joined table for the corresponding join index
-- **Method 2: Index-based Nested Loop **
-- (search on B-Tree) - O (n log m)
-- For each index in big table, scan for indices in b-tree structure
-- **Method 3: Hash-Join**
-- uses a hash function to map rows from big table to joined table to buckets based on the value of the join attribute
-- O (n * num_buckets), where maybe num_buckets &lt;&lt; m
+- **Nested Loop Join** — O(n * m). For each row in the outer table, scan the entire inner table for matching join keys. Simple but slow.
+- **Index-based Nested Loop** — O(n log m). For each row in the outer table, look up the join key in the inner table's B-Tree index.
+- **Hash Join** — O(n * num_buckets), where num_buckets << m. A hash function maps rows from both tables into buckets based on the join attribute, then matches are found within each bucket.
+
 ![](/data-engineering-specialization-website/images/fd73b6a9-7fa8-430a-8e9a-60186ad8f1d6.png)
 
-- More Efficient Queries
-- Option 1 : Data needs to normalized in a way that will reduce the number of joins needed later on for analysis and serving. (example: use a fact table and dimension tables)
-- Option 2: Use a one-big-table approach
-  - No joins needed in downstream tasks
+To reduce join overhead in practice, you can either normalize data to minimize joins needed for analysis (e.g., using fact and dimension tables) or adopt a **one-big-table** approach that eliminates downstream joins entirely.
 
-- Challenge: when there are are many-to-many relationships
-  - e.g. "order" can be associated with many "payments" but ALSO "payment" can be associated with many "orders"
-  - row explosion - when a query returns more rows that what is anticipated
-    - check your query to see if it correctly describes what you intended to do
-    - e.g. in the above example, add a table that correctly maps "payment" to "orderNumber"
+A common pitfall is **row explosion** from many-to-many relationships — for example, when an "order" maps to many "payments" and a "payment" maps to many "orders." The query returns far more rows than expected. The fix is to verify your query logic and, if needed, introduce a mapping table that correctly describes the relationship.
 
 ## 3.3.2 Aggregate Queries
 
 **Aggregate Queries**
 
-- Used to compute summary value of a column (e.g. sum, average, max, min, and count of values)
+Aggregations compute summary values over a column — SUM, AVG, MAX, MIN, COUNT.
 
 ```sql
 SELECT MIN(price) from orders
-
 
 **can either do a full table scan O(n)**
 
 **or faster index-scan on b-tree if available O(log n)**
 ```
 
-- We can also use GROUP BY in these types of queries which will return multiple rows for each group instead of aggregating the whole table
-- partitioning can be done using a sorting algorithm or hash function
-- you can use an index to group the rows
+Adding **GROUP BY** returns one result per group instead of a single value for the whole table. Grouping can be done via sorting algorithms, hash functions, or indexes.
+
 ```sql
 SELECT MIN(price) from orders GROUP BY country
 ```
 
-- For large dataset, aggregating queries (analytical queries) is faster for columnar storage
-- You only transfer the relevant columns from disk to memory, and not all rows
+For large datasets, aggregation queries run faster on **columnar storage** because only the relevant columns are transferred from disk to memory — not every row.
 
 
 ## 3.3.3 Amazon Redshift and Cloud Data Warehouse
 
 **Amazon Redshift and Cloud Data Warehouse**
 
-- Features of Amazon Redshift
-- Columnar data storage
-  - Stores data column-wise in disk
-  - Faster for OLAP workloads/ analytical queries
-- Massively parallel processing (MPP)
-  - Leader node and multiple compute nodes
-  - Each node is responsible for storing a portion of the data and processing queries on that data
-  - Each compute node is partitioned into splices
-    - Uses a portion of the compute nodes memory and disk space to process a portion of the data assigned to the node
-  - Leader node
-    - Parses the request
-    - Forms an execution plan
-    - Compiles code and sends workload to compute nodes
-    - Gets results from compute nodes and returns the query result
-  - Performance of query
-    - Depends on number/ type of nodes
-- Data compression
-  - Redshift reads compressed data into memory and decompresses it as needed
-  - More memory available, and faster queries
+Amazon Redshift is a cloud data warehouse built around three performance pillars:
 
-Other factors which affect query performance
+- **Columnar storage** — data is stored column-wise on disk, making OLAP and analytical queries significantly faster
+- **Massively Parallel Processing (MPP)** — a leader node parses requests, forms execution plans, and distributes workload across compute nodes. Each compute node is partitioned into slices, each using a portion of the node's memory and disk to process its share of data.
+- **Data compression** — Redshift reads compressed data into memory and decompresses on the fly, freeing up memory and speeding queries
 
-- Distribution style
-- defines how the data is divided across compute nodes
-- Two different styles
-  - uniform distribution across nodes, improves performance by utilizing resources efficiently by balancing worloads
-  - minimize data movement across nodes, which reduces network traffic, reduce query cost, and improve performance
-- Styles:
-  - AUTO
-    - assigns optimal distribution style
-  - EVEN
-    - round-robin distribution - most appropriate when there are no joins
-  - KEY
-    - distribute rows based on specific columns
-  - ALL
-    - full copy of the entire table is distributed to each node - useful for frequently joining smaller tables to a larger table, because it eliminates data shuffling
-- Sort Key
-- stores data on disk based on a sort key
-- helps query optimizer determine optimal query plan, reducing the amount of data that needs to be scanned
-- speeds up queries
-- sort key for OLAP databases is analogous to how OLTP databases use indexes
+**Distribution Style** defines how data is divided across compute nodes. The goal is to balance workloads evenly while minimizing data movement:
+
+- **AUTO** — Redshift picks the optimal style
+- **EVEN** — round-robin distribution; best when no joins are needed
+- **KEY** — rows distributed based on a specific column; co-locates join partners
+- **ALL** — full table copy on every node; useful for frequently joined small dimension tables
+
+**Sort Key** stores data on disk in a defined order, helping the query optimizer reduce the amount of data scanned — analogous to how OLTP databases use indexes.
 
 
 ## 3.3.4 Additional Query Strategies
 
 **Additional Query Strategy**
 
-- **Leverage Query Caching**
-- Running a complex query frequently can be costly
-- Many databases allow you to query results
-- Query caching can reduce the load on your database and enhance the user experience
-- **Prioritize Readability**
-- Less likely to contain errors
-- Simpler to debug
-- Easier to collaborate on
-- Use CTEs (temporary results set that you can reference in your query)
-- **Vacuuming to Reduce Table Bloat**
-- table bloat:
-  - the data size on the disk exceeds the actual data size
-  - this can happen due to the database keeping outdated blocks in disk storage
-  - slow queries
-  - suboptimal and inaccurate execution plans
-  - inefficient indexes
-- Vacuuming
-  - removes the dead records
-  - critical for relational databases such as PostgreSQL and MySQL
+- **Leverage Query Caching** — frequently running complex queries is expensive. Many databases cache query results, reducing load and improving response times.
+- **Prioritize Readability** — readable SQL is less error-prone, simpler to debug, and easier to collaborate on. Use CTEs to break complex logic into named, reusable steps.
+- **Vacuuming to Reduce Table Bloat** — over time, databases accumulate outdated blocks on disk, causing **table bloat** (data size on disk exceeds actual data size). This leads to slow queries, inaccurate execution plans, and inefficient indexes. **Vacuuming** removes dead records and is critical for relational databases like PostgreSQL and MySQL.

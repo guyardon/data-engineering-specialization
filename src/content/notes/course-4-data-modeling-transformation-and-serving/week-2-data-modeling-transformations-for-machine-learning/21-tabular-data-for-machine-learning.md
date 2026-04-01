@@ -15,6 +15,8 @@ notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 
 **Modeling and Processing Tabular Data for Machine Learning**
 
+This section covers how data engineers prepare tabular data for machine learning workflows, starting with a brief ML primer.
+
 ---
 
 
@@ -22,14 +24,12 @@ notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 
 **Supervised Learning**
 
-- Learn from features and labels
-- Types of labels:
-- Categorical - Classification Models
-- Numerical - Regression Models
+In supervised learning, models learn from **features** (inputs) and **labels** (outputs). When labels are categorical the task is **classification**; when labels are numerical it is **regression**.
+
 **Unsupervised Learning**
 
-- No Labels
-- E.g. clustering and grouping similar features
+Unsupervised learning operates without labels. Common applications include clustering and grouping records with similar features.
+
 ---
 
 
@@ -37,36 +37,18 @@ notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 
 **Machine Learning Lifecycle**
 
-- **Scoping**
-- Defining Project
-- **Data **
-- Defining data and establishing baseline
-- Labeling and organizing data
-- **Algorithm Development**
-- Select and train the model
-  - Split the data into training and test sets
-  - Use training set to train several ML algorithms
-- Perform error analysis
-  - Select the best model through cross validation
-  - Evaluate the model performance using the test set
-- Feedback to data stage
-  - Fix something in the collected data
-  - Add more features
-  - Collect more data
-- **Deployment**
-- Write software to deploy in production
-- Monitor and Maintain
-  - Check to make sure the system's performance is good and reliable
+The ML lifecycle has four major stages:
+
+- **Scoping** -- Define the project goals and success criteria.
+- **Data** -- Define data requirements, establish baselines, and handle labeling and organization.
+- **Algorithm Development** -- Split data into training and test sets, train several algorithms, perform error analysis via cross-validation, evaluate on the test set, and iterate by fixing data issues, adding features, or collecting more data.
+- **Deployment** -- Write production software, then monitor and maintain system performance and reliability.
 ![](/data-engineering-specialization-website/images/d2fde354-621d-4e8b-87e0-16c05b40374a.png)
 
-The role of the Data Engineer in the ML/AI Team:
+**The role of the Data Engineer in the ML/AI Team:**
 
-- Help the organization adopt a data centric approach to ML
-- Enhance the ML system by collecting high quality data
-- "Garbage in, garbage out"
-- How a data engineer can help in the ML deployment phase:
-- Prepare and serve the data that is needed for the deployed model
-- Serve an updated set of data to re-train and update the model
+Data engineers help organizations adopt a **data-centric approach** to ML by collecting high-quality data -- because "garbage in, garbage out." During deployment, they prepare and serve the data the model needs, and provide updated datasets for retraining.
+
 ---
 
 
@@ -74,24 +56,19 @@ The role of the Data Engineer in the ML/AI Team:
 
 **Feature Engineering for Tabular Data**
 
-Feature engineering Any change or preprocessing done to a raw column and any creation of new features, for example:
+Feature engineering is any change or preprocessing applied to raw columns, or the creation of new features. The main techniques include:
 
-- **Handling missing values**
-- Delete the entire column or row (if there's no risk of losing valuable data)
-- Impute the missing values with summary statistics (e.g. column mean/median/ or values from a similar record)
-- **Feature scaling**
-- Features need to be scaled for gradient descent algorithms to converge well
-- Features also need to be scaled when ML algorithms are based on distance metrics
-- Types:
-  - Standardization (subtract mean and divide standard deviation). Result: column has mean=0 and standard deviation=1
-  - Min-Max scaling (subtract min and divide by max-min). Result: column has minimum=0 and maximum=1
-- **Converting categorical columns into numerical ones**
-- Types:
-  - One-hot encoding (convert categorical columns into into several columns (one column per category). The values are either 0 or 1. Can increase the number of columns in the dataset
-  - Ordinal Encoding: (convert categorical column into integer column, based on the ordering of the categories). For example, converting account types: basic=0, platinum=1, family=2.
-  - Hashing: converting categories into a hash values
-  - Embeddings 
-- **Creating new columns by combining or modifying existing columns**
+- **Handling missing values** -- Delete entire columns or rows (if no valuable data is lost), or impute missing values with summary statistics like the column mean, median, or values from similar records.
+- **Feature scaling** -- Required for gradient descent algorithms to converge well, and for ML algorithms based on distance metrics. Two common types:
+  - **Standardization**: subtract the mean and divide by standard deviation (result: mean=0, std=1)
+  - **Min-Max scaling**: subtract the min and divide by (max - min) (result: range [0, 1])
+- **Converting categorical columns into numerical ones**:
+  - **One-hot encoding**: creates a binary column per category (0 or 1), which can increase dimensionality
+  - **Ordinal encoding**: maps categories to integers based on ordering (e.g. basic=0, platinum=1, family=2)
+  - **Hashing**: converts categories into hash values
+  - **Embeddings**: dense vector representations
+- **Creating new columns** by combining or modifying existing columns
+
 ---
 
 
@@ -129,7 +106,7 @@ for col in ['Subscription Type', 'Contract Length']:
 	print(col)
 	print(data[col].value_counts(normalize=True))
 	print('\n')
-	
+
 
 **get features and labels**
 features = data.iloc[:, 0:-1] # all columns except last
@@ -140,8 +117,8 @@ Steps to prepare the data for training an ML model:
 
 1. Split the data into training and test sets
 2. Process the training/test data
-1. Standardize numerical columns
-2. One hot encoding for categorical columns
+   1. Standardize numerical columns
+   2. One-hot encode categorical columns
 3. Combine processed columns with the Customer ID into a pandas dataframe
 4. Save the dataframe to a parquet file
 
@@ -151,10 +128,10 @@ from sklearn.preprocessing import StandardScalar, OneHotEncoder
 
 
 **split into train/test sets**
-X_train, X_test, y_train, y_test = train_test_split(features, 
-																										labels, 
-																										test_size=0.2, 
-                                           
+X_train, X_test, y_train, y_test = train_test_split(features,
+																										labels,
+																										test_size=0.2,
+
 ```
 
 ```python
@@ -204,7 +181,7 @@ encoder.fit(X_train_categorical)
 
 
 **encoder.transform: prepares the labels of the output columns**
-X_train_encoded = encoder.transform(X_train_categorical) 
+X_train_encoded = encoder.transform(X_train_categorical)
 
 
 **returns sparse matrix**
@@ -225,8 +202,8 @@ X_train_encoded_df = pd.DataFrame(x_train_encoded.todense(), # converts sparse m
 X_train_transf = pd.concat([X_train['CustomerID'],
                             X_train_scaled_df,
                             X_train_encoded_df], axis=1)
-                            
-X_train_transf.to_parquet("train.parquet")  
+
+X_train_transf.to_parquet("train.parquet")
 
 
 **do the same for test set...**

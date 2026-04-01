@@ -15,10 +15,8 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 
 **Understanding Query Performance**
 
-- EXPLAIN command
-- Sequence of steps to execute the query
-- resource consumption
-- performance statistics in each query stage
+The **EXPLAIN** command reveals the execution plan the DBMS has chosen for a query — the sequence of steps, resource consumption, and performance statistics at each stage. It is the primary tool for diagnosing slow queries.
+
 ![](/data-engineering-specialization-website/images/451f5889-b5e5-4f22-af21-e817e978b524.png)
 
 
@@ -26,13 +24,8 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 
 **Advanced SQL Queries**
 
-- SELECT DISTINCT
-- CASE
-- SQL functions
-- SQL Booelan Expressions
-- Common Table Expressions (CTEs)
-- Subqueries
-- SQL Window Functions
+Beyond basic SELECT/FROM/WHERE, SQL offers several powerful constructs for shaping data: **SELECT DISTINCT**, **CASE** expressions, **SQL functions**, **boolean expressions**, **Common Table Expressions (CTEs)**, **subqueries**, and **window functions**.
+
 ```sql
 
 **DATA Manipulation Operations**
@@ -64,10 +57,7 @@ FROM fact_rental
 JOIN dim_staff ON fact_rental.staff_id = dim_staff.staff_id;
 ```
 
-- DISTINCT returns only distinct rows (combination of staff_id, staff_name, and customer_id)
-- CONCAT() is a function that concatenates strings
-- SUBSTR() extracts the first letter of the first word
-- These functions depend on the SQL server being used
+**DISTINCT** returns only unique combinations of the selected columns. **CONCAT()** concatenates strings, and **SUBSTR()** extracts a substring — both are server-specific functions.
 
 Another Example
 
@@ -87,13 +77,10 @@ WHERE dim_customer.country IN ("United States", "Canada")
 LIMIT 5;
 ```
 
-- Note the Use of CASE-WHEN-THEN-ELSE-END
-- Note the use of WHERE and IN
-- Note the use of BETWEEN
+This query uses **CASE-WHEN-THEN-ELSE-END** to create a computed column, **IN** to filter on a set of values, and **BETWEEN** for range filtering.
 
-If we want to perform a query, which produces a table as a result, and then want to perform additional queries on the result of the previous queries, we can use CTEs to define temporary results.
+**Common Table Expressions (CTEs)** let you define temporary result sets that subsequent queries can reference. They start with `WITH <cte_name> AS (<query>)` and are especially useful for breaking complex queries into readable steps.
 
-- CTEs start with WITH &lt;cte_name&gt; AS ( &lt;query&gt;)
 ```sql
 WITH staff_customer_pairs AS (
 	SELECT DISTINCT
@@ -108,7 +95,7 @@ FROM staff_customer_pairs
 GROUP BY staff_name
 ```
 
-Another example, using 2 chained CTEs
+CTEs can be chained — the output of one feeds into the next:
 
 ```sql
 WITH customer_payment_info AS (
@@ -135,7 +122,7 @@ SELECT MAX(percent_on_time_payment)
 FROM customer_percent_on_time_payment
 ```
 
-Subquery Example
+**Subqueries** embed a query inside another query, useful for simple filtering:
 
 ```sql
 SELECT film_id, length
@@ -143,10 +130,8 @@ FROM dim_film
 WHERE length > (SELECT AVG(length) from dim_film)
 ```
 
-Window Functions
+**Window Functions** apply aggregate or ranking functions over a sliding range of rows without collapsing them into a single output — each row remains separate.
 
-- Allows you to apply an aggregate or ranking function over a particular window or range of rows
-- Does not group rows into a single output row: each row remains seperate.
 ```sql
 
 **Subquery Template**
@@ -206,31 +191,19 @@ ORDER BY
 
 **Index Deep Dive**
 
-- An index is a separate data structure that has its own disk space and contains information that refers to the actual table
-- DBMS's query optimizer checks whether an index is present and if using an index-based plan to execute a query will be more efficient
-- Data in indexes is not stored in a table, but rather in blocks, which are linked together which maintains together the order
-- The physical location of the blocks does not matter
-- The structure facilitates the update of the index when data is inserted or deleted
+An **index** is a separate data structure with its own disk space that contains references back to the actual table. The DBMS query optimizer checks whether an index exists and whether an index-based plan would be more efficient than a full scan.
+
+Index data is stored in **blocks** linked together to maintain order — the physical location of these blocks on disk does not matter. This linked structure also makes it efficient to update the index when rows are inserted or deleted.
+
 ![](/data-engineering-specialization-website/images/82fb3668-2de5-44b0-87ea-2e1c6b34bdc9.png)
 
-- To retrieve data that has an index structure:
-- The Balanced Search Tree (B-Tree) needs to be traversed
-  - Number of children nodes are evenly distributed
-  - Traversing the tree takes O(log n) time
-- If the database does not contain unique elements, once the database finds the leaf node, it needs to traverse horizontally across a chain of leaf nodes to retrieve all rows with a desired index value
-  - Can be as expensive as traversing the entire tree
-  - Query optimizer checks whether this operation is efficient or not
-- Strategy:
-- create index structure that will improve the performance of the most performance-sensitive queries
-- do not overload the database with many indexes
+To retrieve indexed data, the DBMS traverses a **Balanced Search Tree (B-Tree)** where children are evenly distributed, giving O(log n) lookup time. If the indexed column contains non-unique values, the search may need to traverse a chain of leaf nodes horizontally — potentially as expensive as scanning the full tree. The query optimizer evaluates whether this trade-off is worthwhile.
+
+The strategy: create indexes that improve performance of your most critical queries, but avoid overloading the database with too many indexes.
+
 ![](/data-engineering-specialization-website/images/530c0a6a-e128-4b8d-8ff4-80ac187ade10.png)
 
-- Columnar Storage
-- The ideas also exist for column-orientated relational databases
-- On Amazon RedShift, we can define a sort key on one or more columns
-  - sorts the data according to the sort key
-  - then stores the sorted data on disk
-- On Google BigQuery this is called a cluster key
+**Columnar Storage** applies the same ideas. On **Amazon Redshift**, you define a **sort key** on one or more columns — data is sorted by that key and stored on disk accordingly. On **Google BigQuery**, the equivalent is a **cluster key**.
 
 Example:
 
@@ -282,12 +255,10 @@ WHERE ordernumber = 10101
 
 **Retrieving Only the Data You Need**
 
-- SELECT * FROM order
-- Large amounts of data needs to be transferred from disk to memory
-- Select * can be expensive for pay-as-you go databases on the cloud
-- Instead, use a pruning technique
-- Exclude irrelevant data from being scanned in your query
-- e.g. row based pruning
+Running `SELECT * FROM orders` forces large amounts of data to be transferred from disk to memory and can be expensive on pay-as-you-go cloud databases. Instead, use **pruning techniques** to exclude irrelevant data from being scanned.
+
+**Row-based pruning** — filter rows using indexes or WHERE clauses:
+
 ```sql
 
 **Use index/cluster key**
@@ -300,11 +271,13 @@ SELECT * from payment
 WHERE rental_id = 1;
 ```
 
-- e.g. column based pruning
+**Column-based pruning** — select only the columns you need:
+
 ```sql
 SELECT customer_id, rental_id
 FROM payment;
 ```
 
-- e.g. Partition pruning (scan specific partitions based on a partition key)
+**Partition pruning** — scan only specific partitions based on a partition key:
+
 ![](/data-engineering-specialization-website/images/deacfa3a-5f03-4d86-a5f0-d9a652b6a0f5.png)

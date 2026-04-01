@@ -15,61 +15,42 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 
 **Graph Databases**
 
-- Nodes represent data items
-- Edges represent connections between the data items
-- Models complex connections between data entities
-- We can also store the same data in relational databases, but in graph databases, "relationships are first class citizens".
-- We an traverse the graph structure to query relationships
-- Its more complicated to query a relational database to query relationships
-- Use cases:
-- recommending products
-- modeling social networks
-- representing network and IT operations
-- tracing data lineage
-- simulating supply chain logistics
-- fraud detection
-- knowledge graph
-- Examples:
-- neo4j
-- ArangoDB
-- Amazon Neptune
-- Example of Graph Query Languages:
-- Cypher
-- Gremlin
-- SparQL
+Graph databases model data as **nodes** (entities) connected by **edges** (relationships). While the same data could live in a relational database, graph databases treat relationships as first-class citizens, making it natural to traverse connections through graph queries rather than complex SQL joins.
+
+Common use cases:
+
+- Recommending products
+- Modeling social networks
+- Representing network and IT operations
+- Tracing data lineage
+- Simulating supply chain logistics
+- Fraud detection
+- Knowledge graphs
+
+Popular graph databases include **Neo4j**, **ArangoDB**, and **Amazon Neptune**. Query languages for graphs include **Cypher**, **Gremlin**, and **SPARQL**.
 
 
 ## 1.4.2 Vector Databases
 
 **Vector Databases**
 
-- Enable efficiently query data based on semantic similarities
-- Called "Similarity Search"
-- Use cases:
-- recommendation systems
-- anomaly detection
-- text generation
-- Today, the most common use case is vector embeddings
-- Similarity search by various metrics such as Euclidean Distnace, cosine distance, etc.
-- Popular algorithm
-- K Nearest Neighbours
-- Optimized via A-NN (approximate)
-- Vector databases support ANN
+Vector databases are optimized for **similarity search** — efficiently querying data based on semantic closeness rather than exact matches. Use cases include recommendation systems, anomaly detection, and text generation. Today, the most common application is storing and querying **vector embeddings**.
+
+Similarity is measured using metrics like Euclidean distance or cosine distance. The core algorithm is **K-Nearest Neighbors (KNN)**, which is typically optimized via **Approximate Nearest Neighbors (ANN)** for performance at scale.
 
 
 ## 1.4.3 Neo4j Graph Database and Cypher Query Language
 
 **Neo4j Graph Database & Cypher Query Language**
 
-- Relationship between data is modeled using the Property Graph Model
-- Describes what type of nodes are in the graph and how these nodes can be related (edge types)
-- Node Label: type of node
-- Relationship type: edge type
-- Node Properties
-- Relationship properties
-- Creating a graph database in Neo4j:
-- Instructions describing the graph model (e.g. from a csv file)
-- Cypher query language allows to query from the graph
+Neo4j uses the **Property Graph Model** to describe the structure of a graph: what types of nodes exist, how they relate, and what properties they carry.
+
+- **Node Label** — the type of a node
+- **Relationship Type** — the type of an edge
+- **Node Properties** and **Relationship Properties** — key-value attributes
+
+To create a graph database in Neo4j, you provide instructions describing the graph model (e.g., importing from a CSV file). The **Cypher** query language lets you query the graph using a pattern-matching syntax:
+
 ```sql
 MATCH pattern RETURN result
 MATCH (n) return n
@@ -84,6 +65,4 @@ Match ()-[r:Orders]->()-[part:PART_OF]->(c: Category) return c.categoryName, AVG
 Match (p:Product)-[:PART_OF]->[c.Category] where c.categoryName = "Meat/Poultry" return p.ProductName, p.unitPrice
 ```
 
-- Denote node with ()
-- Denote relationship with []
-- Denote path with (source node)-[r]→(target node)
+The syntax is intuitive: `()` denotes a node, `[]` denotes a relationship, and `(source)-[r]->(target)` denotes a directed path.

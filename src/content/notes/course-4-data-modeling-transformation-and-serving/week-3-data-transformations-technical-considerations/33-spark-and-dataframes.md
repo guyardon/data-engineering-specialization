@@ -13,15 +13,9 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 ## 3.3.1 Spark Overview and Architecture
 
-**:spark_: Distributed Processing Framework - Spark**
+**Distributed Processing Framework - Spark**
 
-- Started at UC Berkeley in 2009 to address the shortcomings of MapReduce
-- Memory storage for intermediate results
-- Interactive processing of the data
-- Modern Spark Features include
-- Stream processing
-- ML/graphing libraries
-- New features are continuously added
+Apache Spark started at UC Berkeley in 2009 to address MapReduce's shortcomings -- primarily by storing intermediate results in memory and enabling interactive data processing. Modern Spark includes stream processing, ML/graphing libraries, and a continuously expanding feature set.
 
 ![](/data-engineering-specialization-website/images/f02da27a-5058-4a43-b2f9-b83ef90d1d36.png)
 
@@ -30,34 +24,19 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 **Spark Application Architecture**
 
-**Consists of a cluster of nodes**
+A Spark application runs on a cluster of nodes with three roles:
 
-- **Driver Node**
-- Central controller of a spark application
-- **Cluster Manager Node**
-- Allocates memory resources across a cluster and manages these resources
-- **Worker Nodes**
-- Each node contains a **Spark Executor**
-- Spark Executor executes tasks assigned to it by the driver
+- **Driver Node** -- The central controller of the Spark application
+- **Cluster Manager Node** -- Allocates and manages memory resources across the cluster
+- **Worker Nodes** -- Each contains a **Spark Executor** that runs tasks assigned by the driver
 
 **Spark Partitioning Scheme**
 
-- Breaks up data into partitions when loading it from disk
-- Allocates partitions to spark executors based on proximity in the network
-- Each CPU core gets a partition of data to work on
+Spark breaks data into partitions when loading from disk, allocates partitions to executors based on network proximity, and assigns one partition per CPU core.
 
 **Writing a Spark Application**
 
-- **SparkSession** object is the single unified entry point to Spark's functionality, for example:
-- Define dataframes
-- Read data from sources
-- Perform SQL queries
-- Driver Node translates instructions (Python/ Scala, etc) into **Spark Jobs**
-- executed one-by-one based on the job's priority
-- each job is translates into a sequence of stages (represented as a DAG)
-- Each stage is represented by tasks that run in parallel
-- Stages with shared dependencies are run serially
-- Stages with independent dependencies are run in parallel
+The **SparkSession** object is the single unified entry point to all Spark functionality -- defining DataFrames, reading data sources, and running SQL queries. The Driver Node translates instructions (Python, Scala, etc.) into **Spark Jobs**, which execute sequentially by priority. Each job compiles into a DAG of **stages**, and each stage contains **tasks** that run in parallel. Stages with shared dependencies run serially; those with independent dependencies run in parallel.
 
 ![](/data-engineering-specialization-website/images/ff665232-a359-4af1-8f32-2a5ed35ba338.png)
 
@@ -68,36 +47,29 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 **Spark DataFrames Overview**
 
-- Spark DataFrames enable working with large, distributed tabular datasets
-- Abstracts the complexity of distributed computation
-- Built on top of RDDs (Resilient Distributed Datasets)
+Spark DataFrames provide a high-level abstraction for working with large, distributed tabular datasets, hiding the complexity of distributed computation. They are built on top of **RDDs** (Resilient Distributed Datasets).
 
 **Spark DataFrames vs RDDs**
 
-- RDDs: low-level, manual optimization needed
-- DataFrames: high-level, expressive API (e.g., `filter`, `select`, `groupBy`)
-- Both are immutable and fault-tolerant
+RDDs are low-level and require manual optimization. DataFrames offer an expressive API (`filter`, `select`, `groupBy`) with automatic optimization. Both are immutable and fault-tolerant.
 
 **Transformations vs Actions**
 
-- **Transformations**: `select`, `filter`, `join`, `groupBy`
-- Lazily evaluated
-- Return new DataFrames, don't modify originals
-- **Actions**: `count`, `show`, `save`
-- Trigger execution of transformations
+- **Transformations** (`select`, `filter`, `join`, `groupBy`) are lazily evaluated and return new DataFrames without modifying originals.
+- **Actions** (`count`, `show`, `save`) trigger the actual execution of queued transformations.
 
 **Key Spark Concepts**
 
-- **Immutability** → Original data is never modified
-- **Lineage** → Keeps a record of transformations for fault recovery
-- **Lazy Evaluation** → Optimizes execution by deferring computations
+- **Immutability** -- Original data is never modified
+- **Lineage** -- A record of transformations enables fault recovery
+- **Lazy Evaluation** -- Defers computation to optimize the execution plan
 
 
 ## 3.3.3 Basic PySpark DataFrame Operations
 
 **Basic PySpark DataFrame Operations**
 
-This section outlines fundamental operations for working with Spark DataFrames, including creation, manipulation, cleaning, aggregation, and the use of user-defined functions (UDFs).
+This section covers fundamental operations for working with Spark DataFrames: creation, manipulation, cleaning, aggregation, and user-defined functions (UDFs).
 
 ---
 
@@ -182,7 +154,7 @@ transactions_df.show(5)
 ---
 
 
-**🔍 Selecting & Summarizing Columns**
+**Selecting and Summarizing Columns**
 
 ```python
 print(transactions_df.columns)
@@ -194,9 +166,9 @@ transactions_df.select("price", "quantity", "country").describe().show(5)
 ---
 
 
-**✏️ Manipulating DataFrames**
+**Manipulating DataFrames**
 
-**Add a new column/ Modify an existing Column:**
+**Add a new column / Modify an existing column:**
 
 ```python
 from pyspark.sql.functions import col
@@ -225,7 +197,7 @@ transactions_df = transactions_df.drop("description")
 ---
 
 
-**🧹 Data Cleaning**
+**Data Cleaning**
 
 **Remove nulls:**
 
@@ -244,7 +216,7 @@ transactions_df = transactions_df.filter(transactions_df.quantity > 0)
 ---
 
 
-**📊 Aggregation**
+**Aggregation**
 
 **Total amount per order ID:**
 
@@ -263,7 +235,7 @@ transactions_df.groupBy("country").count().orderBy("count", ascending=False).sho
 ---
 
 
-**🔧 User-Defined Functions (UDFs)**
+**User-Defined Functions (UDFs)**
 
 **Using a UDF to convert to uppercase:**
 
@@ -292,6 +264,4 @@ transactions_df = transactions_df.withColumn("country", toUpper("country"))
 
 ```
 
-**⚠️ Performance Note:**
-
-Python UDFs are less efficient due to serialization overhead between the JVM and Python. For optimal performance, consider writing UDFs in Scala or Java and registering them for use in Python.
+**Performance Note:** Python UDFs are less efficient due to serialization overhead between the JVM and Python. For optimal performance, consider writing UDFs in Scala or Java and registering them for use in Python.

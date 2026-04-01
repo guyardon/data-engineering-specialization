@@ -15,18 +15,9 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 **Normalization**
 
-- a data modeling practice typically applied to relational databases to remove the redundancy of data within a database and ensure referential integrity between tables
-- defined by Edgar Codd, with objectives:
-- to free the collection of relations from undesirable insertion, update and deletion dependencies
-- to reduce the need for restructuring the collections of relations as new types of data are introduced
-- In the example:
-- first normal form:
-  - sort of a one-big-table
-  - to update a customer name, multiple rows need to be changed
-  - to add a new column, all rows must be set
-- In the third normal form
-  - to change a name, change a single row in the customers table
-  - to add a new column, add a new table mapping shipment ids, order ids, and ship details
+Normalization is a data modeling practice typically applied to relational databases to eliminate data redundancy and ensure referential integrity between tables. It was defined by Edgar Codd with two core objectives: freeing relations from undesirable insertion, update, and deletion dependencies, and reducing the need to restructure relations as new data types are introduced.
+
+Consider the difference between first and third normal form. In first normal form, data lives in a single wide table -- updating a customer name requires changing multiple rows, and adding a new column affects every row. In third normal form, changing a name means updating a single row in the customers table, and new attributes can be added through dedicated tables.
 ![](/data-engineering-specialization-website/images/a08fb08d-89c7-4a9d-bd31-eb01cbdba83f.png)
 
 
@@ -34,39 +25,23 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 **Denormalized Form**
 
-- data is in one table
-- some columns contain nested json data
-- contains redundant data
+In denormalized form, all data sits in one table. Some columns may contain nested JSON data, and the table contains significant redundancy.
 ![](/data-engineering-specialization-website/images/9bd278fb-3329-4ec4-a02b-6b682d98f774.png)
 
 
 **1st Normal Form**
 
-- Each column must be unique, and have a single value
-- Table must have a unique primary key
-- In the example, order id + order number create unique primary key
+First normal form requires that each column is unique and holds a single value, and the table has a unique primary key. In the example, `order_id` + `order_number` together form the composite primary key.
 
 **2nd Normal Form**
 
-- the requirements of 1NF must be met
-- partial dependencies must be removed
-- a partial dependency is a subset of non-key columns that depend on some columns in the composite key
-- Can still contain transitive dependency
-- a non-key column depends on another non-key column
-- in the example, 
-  - in order items: price and name depends on sku
-  - in orders: customername and address depend on customer id
+Second normal form builds on 1NF by removing **partial dependencies** -- cases where a subset of non-key columns depends on only some columns in a composite key. However, 2NF can still contain **transitive dependencies**, where a non-key column depends on another non-key column. In the example, `price` and `name` depend on `sku` in order items, while `customername` and `address` depend on `customer_id` in orders.
 ![](/data-engineering-specialization-website/images/d501fe47-00c9-4669-bd22-21c5a7fec895.png)
 
 
 **3rd Normal Form**
 
-- meets all requirements from 2ND
-- does not have transitive dependencies
-- in this stage the data is considered "Normalized"
+Third normal form meets all 2NF requirements and eliminates transitive dependencies. At this stage, the data is considered **normalized**.
 ![](/data-engineering-specialization-website/images/a52ab7ca-11fa-4a66-b428-1ab80707d8b3.png)
 
-- The degree of normalization depends on use case
-- No one-size-fits all solution
-- Sometimes denormalization has performance advantages since it doesn't require join operations between table
-- normalize form can ensure better read and write operations and better data integrity
+The right degree of normalization depends on the use case -- there is no one-size-fits-all solution. Denormalization can offer performance advantages by avoiding joins, while normalized form ensures better read/write operations and stronger data integrity.

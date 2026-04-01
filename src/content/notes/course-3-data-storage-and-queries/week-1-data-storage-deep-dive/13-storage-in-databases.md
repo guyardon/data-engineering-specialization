@@ -15,66 +15,40 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 
 **Introduction**
 
+A database management system sits between your application and the raw storage hardware. Understanding its architecture helps explain why different databases perform differently.
 
 **Database Management System (DBMS)**
 
-- the software layer for database systems
-- both for relational databases or nonrelational databases such as graph databases
-- DBMS architecture
-- **transport system**
-- **query processor**
-- **execution engine**
-- **storage engine**
-  - serialization
-  - arrangement of data on disk
-  - indexing
-    - a data structure that helps you efficiently locate data
-    - instead of scanning all rows O(n), we perform binary search O(log n)
-  - modern storage engines
-    - improved performance on SSDs
-    - handle modern data types and structures
-    - columnar support for analytical applications
+The DBMS is the software layer that manages both relational and non-relational databases (such as graph databases). Its architecture consists of four main components:
+
+- **Transport system** — handles client connections
+- **Query processor** — parses and optimizes queries
+- **Execution engine** — runs the query plan
+- **Storage engine** — manages how data is serialized, arranged on disk, and indexed. An **index** is a data structure that lets you locate data in O(log n) time via binary search instead of scanning all rows in O(n). Modern storage engines are optimized for SSDs, handle modern data types, and offer columnar support for analytical workloads.
 
 **In-Memory Storage Systems**
 
-- Fast, low latency
-- volatile
-- use cases: caching, real-time, gaming
-- e.g. Key-value stores
-- Memcached
-  - key value store to cache database query results or API calls
-  - used when its acceptable for data to be lost
-- Redis
-  - key-value store that supports more complex data types
-  - supports high performance applications that can tolerate minor data loss
+In-memory stores trade durability for speed — they are fast and low-latency, but volatile. Common use cases include caching, real-time applications, and gaming.
+
+- **Memcached** — a key-value store for caching database query results or API calls; acceptable when data loss is tolerable.
+- **Redis** — a key-value store supporting richer data types; suited for high-performance applications that can tolerate minor data loss.
 
 
 ## 1.3.2 Row vs. Column Storage
 
 **Row vs. Column Storage**
 
-- row oriented storage → each row in a table stored as a consecutive sequence of bytes in memory
-- good for OLTP (fast read/write, low latency)
-- bad for analytical queries (we have to iterate over all columns across rows, when we are are only interested in a single column
-- Example:
-  - 1 million rows, 30 columns, 100 bytes per entry
-  - data transfer speed: 200 mb/s
-  - How long would it take to perform the following query:
+The way data is physically arranged on disk has a dramatic impact on query performance.
+
+**Row-oriented storage** stores each row as a consecutive sequence of bytes. This layout is ideal for **OLTP** workloads where you frequently read or write entire rows with low latency. However, it is inefficient for analytical queries that only need a single column — the system must still scan every column across every row.
+
+Consider a table with 1 million rows, 30 columns, and 100 bytes per entry at a 200 MB/s transfer speed. A simple `SELECT SUM(price)` query would need to load the entire table:
+
 ```sql
 SELECT SUM(price)
 FROM my_table
 ```
 
-  - Solution:
-    - We would have to iterate over the entire table for row oriented storage to load from disk to RAM
-    - 1m x 30 x 100bytes = 3000x1m bytes = 3000 MB
-    - transfer time = 3000 MB / 200 MB/s = 15 sec!
-- If there were 1 billion rows
-  - In row-storage: this would be over 4 hours, not scalable
-  - In column storage this would take 8 minutes
-    - solution:
-    - 1b x 100bytes = 1G x 100 bytes = 1000 M x 100 bytes = 100,000 MB
-    - 100,000 MB / 200 MB/s = 500 sec = 8.33 minutes
-- column storage
-- excellent for OLAP (analytical queries)
-- terrible for transactional workloads
+That is 1M x 30 x 100 bytes = 3,000 MB, taking about 15 seconds. At 1 billion rows, row storage would take over 4 hours — clearly not scalable.
+
+**Column-oriented storage** stores each column contiguously. For the same billion-row query, only the single `price` column needs to be read: 1B x 100 bytes = 100,000 MB, which takes roughly 8.3 minutes. Column storage is excellent for **OLAP** analytical queries but terrible for transactional workloads that touch entire rows.

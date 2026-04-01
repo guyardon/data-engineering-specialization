@@ -15,32 +15,26 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 
 **Streaming Queries**
 
-
 **Overview**
 
-- Query patterns need to reflect the real time nature of the data
-- SQL Queries on continuously streaming data is enabled by:
-- Apache Flink
-- Spark Streaming
-- Kafka also allows querying data by windowed queries
-- Windowing techniques:
-- Session window
-  - useful for handling events that arrive at irregular intervals
-  - groups events that arrive together, and filters out periods with no events
-  - Need to specify gap of inactivity (lower bound)
-  - aggregations are computed on sessions, and after a gap of inactivity a new session is created
-- Fixed-time (Tumbling) window
-  - Each window has the size size in time
-  - Non overlapping
-- Sliding window
-  - Overlapping fixed-time windows
-- Joining Data Streams
+When data arrives continuously, query patterns must reflect that real-time nature. Frameworks like **Apache Flink**, **Spark Streaming**, and **Kafka** enable SQL queries over streaming data, typically using windowing techniques to bound the otherwise infinite stream.
+
+**Windowing techniques:**
+
+- **Session window** — groups events that arrive together and filters out periods of inactivity. You specify a gap-of-inactivity threshold; aggregations are computed per session, and a new session starts after each gap. Useful for events arriving at irregular intervals.
+- **Fixed-time (Tumbling) window** — divides the stream into non-overlapping windows of equal duration.
+- **Sliding window** — like tumbling windows, but overlapping — each window advances by a fixed step that is smaller than the window size.
+
+**Joining Data Streams** is also possible, combining records from two or more streams based on matching keys within a time window.
+
 ![](/data-engineering-specialization-website/images/7d48148e-5530-4388-86d7-6da77315ff57.png)
 
 
 ## 3.4.2 Deploying with Amazon Managed Service for Apache Flink
 
 **Deploying an Application with Amazon Managed Service for Apache Flink**
+
+AWS provides a fully managed service for running Apache Flink applications, handling infrastructure provisioning, scaling, and fault tolerance so you can focus on writing streaming logic.
 
 ![](/data-engineering-specialization-website/images/6f598b43-b313-4d98-89b7-ef9cab0b67f3.png)
 

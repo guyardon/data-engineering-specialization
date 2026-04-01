@@ -14,81 +14,51 @@ notionId: "146969a7-aa01-8018-8e73-f2b8bce0869a"
 
 ## 2.3.1 The Data Engineering Lifecycle on AWS
 
-Source Systems on AWS:
+Each stage of the data engineering lifecycle maps to concrete AWS services. Here is how they break down.
 
-- Databases:
-- Amazon Relational Database Service (RDS)
-  - Create database instances with relational database of your choice
-  - Simplifies the operational overhead of hosting a relational database server
-- Amazon DynamoDB
-  - A serverless NoSQL database option
-  - Create stand-alone tables that can be very large
-  - Flexible schema
-  - Best suited for applications that require low latency access to large volumes of data
-- Streaming Sources
-- Amazon Kinesis Data Streams
-- Amazon Simple Queue Service (SQS)
-- Amazon Managed Streaming for Apache Kafka (MSK)
-Ingestion
+**Source Systems**
 
-- From a Database:
-- AWS Database Migration Service (MGS)
-- AWS Glue
-- From a Streaming Source
-- Amazon Kinesis Data Streams
-- Amazon Data Firehouse
-- Amazon SQS
-- Amazon MSK
-Storage
+- **Databases:**
+  - **Amazon RDS** — create managed instances of your preferred relational database, reducing operational overhead
+  - **Amazon DynamoDB** — a serverless NoSQL option with flexible schemas, best suited for low-latency access to large volumes of data
+- **Streaming Sources:**
+  - Amazon Kinesis Data Streams
+  - Amazon Simple Queue Service (SQS)
+  - Amazon Managed Streaming for Apache Kafka (MSK)
 
-- Traditional Data Warehouse
-- Amazon Redshift
-- Amazon Simple Storage Service (S3)
-- Lakehouse Arrangement (access structured and unstructured data in an object storage lake house)
-Transformation
+**Ingestion**
 
-- Data Processing Tools:
-- AWS Glue
-- Apache Spark
-- dbt
-Serving
+- From a database: AWS Database Migration Service (DMS), AWS Glue
+- From a streaming source: Amazon Kinesis Data Streams, Amazon Data Firehose, Amazon SQS, Amazon MSK
 
-- Business Intelligence or Analytics
-- For querying structure or unstructured data:
-  - Amazon Athena
-  - Amazon Redhisft
-- For dashboarding tools:
-  - Amazon QuickSight
-  - Apache Superset
-  - Metabase
-- AI/ML
-- Serve batch data for model training and work with vector databases
+**Storage**
+
+- **Amazon Redshift** — traditional cloud data warehouse
+- **Amazon S3** — object storage, also the foundation for a lakehouse arrangement that can handle both structured and unstructured data
+
+**Transformation**
+
+- AWS Glue, Apache Spark, dbt
+
+**Serving**
+
+- **Analytics and BI:**
+  - Querying: Amazon Athena, Amazon Redshift
+  - Dashboarding: Amazon QuickSight, Apache Superset, Metabase
+- **AI/ML:** Serve batch data for model training and work with vector databases
 
 ## 2.3.2 The Undercurrents in AWS
 
-Security
+The undercurrents also have direct AWS counterparts.
 
-- Shared responsibility model on AWS
-- Identity and Access Management (IAM)
-- Set permissions based on roles
-Data Management
+**Security** — AWS uses a shared responsibility model. **IAM** (Identity and Access Management) enforces permissions based on roles.
 
-- Use AWS Glue, Glue Crawler, Glue Data Catalog
-- Discover, create, and manage metadata for data stored in AWS storage systems
-DataOps
+**Data Management** — AWS Glue, Glue Crawler, and Glue Data Catalog discover, create, and manage metadata for data stored across AWS storage systems.
 
-- Amazon CloudWatch
-- Collects metrics and provides monitoring features for cloud resources, applications and on-prem resources.
-- Amazon Simple Notification Service (SNS)
-Orchestration
+**DataOps** — **Amazon CloudWatch** collects metrics and provides monitoring for cloud resources, applications, and on-prem systems. **Amazon SNS** (Simple Notification Service) handles alerting.
 
-- Apache Airflow (the industry standard)
-Architecture
+**Orchestration** — Apache Airflow remains the industry standard, available as a managed service through Amazon MWAA.
 
-- AWS Well-Architected Framework
-Software Engineering
+**Architecture** — The AWS Well-Architected Framework provides the guiding principles.
 
-- AWS Cloud9 IDE for development hosted on EC2
-- AWS CodeDeploy to automate code deployment
-- Git and GitHub for source code management.
-
+**Software Engineering** — AWS Cloud9 IDE (hosted on EC2) for development, AWS CodeDeploy for automated deployments, and Git/GitHub for source code management.

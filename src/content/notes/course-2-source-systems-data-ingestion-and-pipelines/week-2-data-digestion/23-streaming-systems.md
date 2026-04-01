@@ -13,86 +13,39 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 ## 2.3.1 Streaming Concepts
 
-**Streaming Systems**
-
+Streaming systems come in two flavors, and the distinction matters for how you design your consumers.
 
 **Message Queues vs. Event Streaming Platforms**
 
-- Message Queue
-- A buffer used to deliver messages asynchronously
-- FIFO basis
-- Event Streaming Platform
-- Append only persistent log
-- Event router distributes messages in the log to the subscribers
-- It's possible to replay or re-process messages
+A **Message Queue** is a buffer that delivers messages asynchronously on a FIFO basis. Once a message is consumed, it's gone.
+
+An **Event Streaming Platform** is an append-only persistent log where an event router distributes messages to subscribers. The key differentiator is that messages can be **replayed or re-processed** since they persist in the log.
 
 
 ## 2.3.2 Apache Kafka
 
-**Apache Kakfa**
+**Apache Kafka** is the most widely adopted open-source event streaming platform. Its architecture consists of three main layers:
 
-- Open source event streaming platform
-- Event producers:
-- send or push messages over the network to a Kafka cluster
-- Kafka cluster
-- Contains one or more servers (called brokers)
-- Message streams are split up into "topics"
-- Retains messages to allow replaying or reprocessing messages as needed
-- Topics
-- A category that holds a collection of related events
-- Analogy to a road to a city
-- A topic is made up of partitions (logs)
-- Partitions (logs):
-- Ordered immutable sequences of messages
-- Analogy to lanes on the highway
-- It's the job of the producer to distribute the messages to partitions
-- Partition Strategy:
-  - Round robin strategy
-  - Based on message key
-- Can only be assigned to a single consumer
-- Event Consumers
-- read or pull messages from the Kafka cluster
-- subscribe to one or more topics
+**Event Producers** send or push messages over the network to a **Kafka cluster**, which contains one or more servers called **brokers**. The cluster retains messages to allow replaying or reprocessing as needed.
+
+Message streams are organized into **topics** -- categories that hold collections of related events. Each topic is made up of **partitions (logs)**, which are ordered, immutable sequences of messages. Producers distribute messages to partitions using either a **round-robin strategy** or based on a **message key**. Each partition can only be assigned to a single consumer.
+
+**Event Consumers** read or pull messages from the Kafka cluster and subscribe to one or more topics.
 
 
 ## 2.3.3 Kinesis Data Streams
 
-**Kinesis Data Streams**
+**Kinesis Data Streams** is AWS's managed alternative to a Kafka cluster, with analogous concepts under different names.
 
-- Analogous to Kafka cluster
-- Message streams are split up into "streams" (analogous to topics in Kafka)
-- Stream
-- Made up of shards (analogous to partitions in Kafka)
-- To determine the number of shards to configure when setting up the system - we need to determine the size and rate of read/write operations
-- Read Operations
-- Up to 5 operations per second
-- Max total read rate: 2MB/s
-- Write Operation
-- Up to 1000 records per second per shard
-- Max total write rate: 1MB/s
-- Data Record
-- Partition Key (used to determine shard)
-  - e.g. use customer ID as partition key
-- Sequence number
-- Binary large object (BLOB)
-- Shared vs. Enhanced Fan-Out
-- Shared fan out is when consumers share a shard's read capacity
-- Enhanced fan-out is when consumers are able to read at the full read capacity of the shard
-- To consume/process data stored in Kinesis Data Streams:
-- We can use AWS services such as:
-  - AWS Lambda
-  - Amazon Managed Service for Apache Flink
-  - AWS Glue'
-- We can also write our custom consumers using the Amazon Kinesis Client Library (KCL)
-- We can connect consumers to other AWS services such as AWS Data Firehose to store data in S3
+Message streams are split into **streams** (analogous to Kafka topics), which are made up of **shards** (analogous to partitions). When setting up, you need to determine the number of shards based on read/write throughput:
 
-Kinesis in "on-demand" Mode
+- **Read Operations**: Up to 5 per second, max total read rate of 2 MB/s per shard.
+- **Write Operations**: Up to 1,000 records per second per shard, max total write rate of 1 MB/s.
 
-- automatically manage the scaling of shards up or down as needed
-- Only charged for what you use
-- More convenient from an operational perspective
-Kinesis in "Provisioned" Mode
+Each **Data Record** contains a **Partition Key** (determines the shard), a **Sequence Number**, and a **Binary Large Object (BLOB)**.
 
-- Manually specify the number of shards
-- Manually add more shards when needed
-- A good fit if you have predictable traffic and/or want to control your costs more carefully
+**Shared vs. Enhanced Fan-Out:** With shared fan-out, consumers share a shard's read capacity. Enhanced fan-out gives each consumer the full read capacity of the shard.
+
+**Consuming data from Kinesis Data Streams** can be done with AWS services like **AWS Lambda**, **Amazon Managed Service for Apache Flink**, or **AWS Glue**. You can also write custom consumers using the **Amazon Kinesis Client Library (KCL)** or connect to **AWS Data Firehose** to store data in S3.
+
+**On-Demand Mode** automatically scales shards up or down and charges only for what you use -- more convenient operationally. **Provisioned Mode** requires manually specifying and adjusting shard counts, making it a better fit for predictable traffic patterns or tighter cost control.

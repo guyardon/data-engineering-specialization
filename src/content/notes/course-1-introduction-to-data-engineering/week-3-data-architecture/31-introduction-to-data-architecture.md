@@ -17,153 +17,112 @@ notionId: "18c969a7-aa01-8012-908e-cb0e0b1f7b79"
 
 **Enterprise Architecture:**
 
-- “the design of systems to **support change in enterprise**, achieved by flexible and reversible decisions reached through a careful evaluation of trade-offs”
-- Domains:
-- Business architecture
-  - Product or service strategy and business model
-- Application architecture
-  - Structure and interaction of key applications
-- Technical architecture
-  - interaction of software and hardware components
-- Data architecture
-  - supporting the evolving data needs
-- Change management
-- adapt to organizational changes
-- “one-way” (impossible to reverse) and “two-way” (possible to reverse) door decisions. Depends on the stakes involved..
+Enterprise architecture is *"the design of systems to **support change in enterprise**, achieved by flexible and reversible decisions reached through a careful evaluation of trade-offs."* It spans several domains:
 
-**Conway’s Law:**
+- **Business architecture** — product or service strategy and business model
+- **Application architecture** — structure and interaction of key applications
+- **Technical architecture** — interaction of software and hardware components
+- **Data architecture** — supporting the evolving data needs of the organization
 
-- “Any organization that designs a system will produce a design whose structure is a copy of the organization’s communication structure”
-- E.g. if the departments are isolated, the systems they create will be isolated. If departments work together, they can use shared data systems. 
+A key concept in enterprise architecture is **change management** — adapting to organizational changes. Decisions fall into two categories: "one-way door" decisions that are impossible to reverse and "two-way door" decisions that can be undone. The distinction depends on the stakes involved.
+
+**Conway's Law:**
+
+*"Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure."* In practice, isolated departments build isolated systems; collaborative departments build shared data platforms.
 
 
 ## 3.1.2 Principles of Good Architecture
 
 **Principles of Good Architecture**
 
-
-How data architecture impacts other teams and individuals:
+Good data architecture has a direct impact on how effectively other teams and individuals can use data.
 
 **Choose common components wisely**:
 
-- “Wise Choice”
-- Common components facilitate team collaboration. 
-- Need to identify tools that benefit all teams.
+Common components facilitate team collaboration. The key is identifying tools that benefit all teams rather than optimizing for one group.
 
 ---
 
 **Always be architecting**:
 
-- Make reversible
--  2 way doors 
-- Support the needs of today but also the needs of tomorrow
-- Build loosely coupled systems 
-- Components that can be swapped out and replaced without having to redesign the system
-- Components should interface via an API
+Architecture is never finished. Make reversible "two-way door" decisions, support today's needs while anticipating tomorrow's, and build **loosely coupled systems** — components that can be swapped out without redesigning the entire system, interfacing via APIs.
+
 ---
 
 **Plan for Failure:**
 
-1. Availability: the percentage of time an IT service or a component is expected to be in an operable state:
-1. 99.5% availability - 44 hour downtime in a year
-2. 99.99% availability - 1 hour downtime in a year
-2. Reliability - the probability of a particular service or component performing its intended function during a particular time interval.
-3. Durability - the ability of a storage system to withstand data loss due to hardware, software failures or natural disasters. (e.g. Amazon S3 Durability is 99.99999999999% (11 decimal places) durable.
-4. Recovery time objective: maximum acceptable time for a service or a system outage (RTO)
-5. Recovery point objective (RPO) A definition of the acceptable state after recovery (e.g. maximum acceptable data loss)
+Designing for failure means understanding several key metrics:
+
+1. **Availability** — the percentage of time a service is in an operable state (e.g., 99.5% = ~44 hours of downtime/year; 99.99% = ~1 hour/year)
+2. **Reliability** — the probability a service performs its intended function during a given time interval
+3. **Durability** — the ability of a storage system to withstand data loss from hardware failures, software failures, or natural disasters (e.g., Amazon S3 offers 99.999999999% durability)
+4. **Recovery Time Objective (RTO)** — the maximum acceptable duration for a service outage
+5. **Recovery Point Objective (RPO)** — the maximum acceptable data loss after recovery
 
 **Prioritize security**
 
 **Embrace FinOps**
 
-- Large unforeseen costs
-- Missed opportunities for revenues
+FinOps guards against large unforeseen costs and missed revenue opportunities by making cloud spending a first-class engineering concern.
 
 
 ## 3.1.3 Batch and Streaming Architectures
 
 **Batch Architectures**
 
-- Data is processed (ingested and transformed) in batches
-- Real-time analysis is not critical
+In batch architectures, data is ingested and transformed in discrete chunks, and real-time analysis is not critical.
 
 **ETL (Extract-Transform-Load) Architecture:**
 
-- Extract batches and store in staging area
-- Transform data into usable format (standardize, clean up, model the data)
-- Load into data warehouse for storage and serving
+- Extract batches of data and store them in a staging area
+- Transform the data into a usable format (standardize, clean, model)
+- Load the results into a data warehouse for storage and serving
 
-**ELT (Extract-Load-Transform) Architecture: **
+**ELT (Extract-Load-Transform) Architecture:**
 
 - Extract batches of data
-- Load the data into a data warehouse
-- Perform the transformations inside the data warehouse
+- Load directly into a data warehouse
+- Perform transformations inside the warehouse
 
-ELT is becoming more popular because of modern cloud data warehouses.
+ELT is becoming more popular thanks to the power of modern cloud data warehouses.
 
 **Downstream Use-cases:**
 
 - Analytics and reports
 - Machine learning
-- Reverse ETL (Processed data is sent back to the source systems)
+- Reverse ETL (processed data sent back to source systems)
 
 **Data Mart**
 
-- Optional subset of a data warehouse for a specific department/ function/ business area
-- Comes after transformation but before serving
-- May have its own stages of transformation
+A **data mart** is an optional subset of a data warehouse scoped to a specific department, function, or business area. It sits after transformation but before serving, and may have its own additional transformation stages.
 
 
 **Streaming Architectures**
 
-- At its source, the data is a continuous stream of events
+In streaming architectures, data originates as a continuous stream of events rather than discrete batches.
 
 ![](/data-engineering-specialization-website/images/a21164ad1.png)
 
-Event streaming platform:
+Key technologies include **Apache Kafka** as the event streaming platform, and tools like **Apache Storm** and **Samza** for streaming and real-time analytics.
 
-- Apache Kafka
+Batch and stream architectures can be combined. The **Lambda Architecture** runs parallel batch and streaming systems with a unified serving layer that aggregates results from both, though it has fallen out of favor due to its complexity. The **Kappa Architecture** uses a single stream-processing system that retains some historical data, but it has not seen wide adoption either.
 
-Streaming and real-time analytics:
-
-- Apache storm
-- Samza
-
-Batch + stream architectures can be combined into a **Lambda Architecture.**
-
-- Parallel systems for streaming and batch processing
-- Serving layer is combined (i.e. data is aggregated from both batch and streaming systems into a single view)
-- Not so popular anymore
-
-**Kappa Architecture**
-
-- Stream processing architecture that retains some historical data
-- Not widely adopted
-
-Tools for unifying multiple code paths:
-
-- Google Dataflow
-- Beam
-
-**Apache Flink** allows to combine stream processing and batch processing by providing a single system. Batch processing is simply stream processing where data is bounded.
+Tools like **Google Dataflow** and **Beam** attempt to unify multiple code paths. **Apache Flink** takes this further by providing a single system for both stream and batch processing — treating batch as simply bounded streaming.
 
 **Today:**
 
-Batch is a “special case” of streaming. 
+The prevailing view is that batch is a "special case" of streaming.
 
 
 ## 3.1.4 Architecting for Compliance
 
 **Architecting for Compliance**
 
-- General Data Protection Regulation (GDPR)
-- Enacted in the EU in 2018
-- To collect personal information you must ask for consent from the individual, and they have the right to ask for their data to be deleted.
-- Similar regulations in other countries
-- Systems need to be constantly complying with the regulations of today and tomorrow. 
-- Building loosely coupled systems allows to swap components that comply with new regulations.
+Regulatory compliance is a non-negotiable concern in data architecture. The **General Data Protection Regulation (GDPR)**, enacted in the EU in 2018, requires explicit consent to collect personal information and grants individuals the right to request deletion. Similar regulations exist in other countries and are evolving constantly.
 
-Industry Regulations:
+Systems must continuously comply with current and future regulations. Building loosely coupled architectures makes it possible to swap in components that meet new requirements without rebuilding everything.
 
-- Medical Industry: Health Insurance Portability and Accountability Act
-- Financial Industry: Sarbanes Oxley Act in the US. 
+**Industry-specific regulations** add further constraints:
+
+- Medical: Health Insurance Portability and Accountability Act (HIPAA)
+- Financial: Sarbanes-Oxley Act (SOX) in the US
