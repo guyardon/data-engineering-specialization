@@ -43,14 +43,12 @@ Plans:
 2. All block types (code, tables, callouts, images, nested lists) render as valid markdown
 3. All images download to public/images/ and are correctly referenced in markdown
 4. Frontmatter matches content.config.ts schema for every generated file
-   **Plans**: 4 plans
+   **Plans**: 2 plans
 
 Plans:
 
-- [ ] 02-01: Run fetch script; audit output for all block type coverage gaps
-- [ ] 02-02: Fix code blocks (language tags), callouts, and nested list rendering
-- [ ] 02-03: Fix image handling: correct paths, filenames, markdown references
-- [ ] 02-04: Validate all frontmatter fields match Zod schema; fix any mismatches
+- [ ] 02-01-PLAN.md — Fix richTextToMd href, table separator, and flatten subsection traversal
+- [ ] 02-02-PLAN.md — Run script, validate output, verify all block types and frontmatter
 
 ### Phase 3: UI Design System & Layout
 
