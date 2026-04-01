@@ -1,0 +1,139 @@
+---
+import "../styles/global.css";
+import { BASE } from "../lib/base";
+import { getCollection } from "astro:content";
+import Logo from "../components/Logo.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+const notes = await getCollection("notes");
+
+function getCourseStats(courseSlug: string) {
+  const courseNotes = notes.filter((n) => n.data.courseSlug === courseSlug);
+  const weeks = new Set(courseNotes.map((n) => n.data.weekSlug));
+  return { weeks: weeks.size, sections: courseNotes.length };
+}
+
+const courses = [
+  {
+    number: 1,
+    emoji: "\u{1F4CA}",
+    title: "Introduction to Data Engineering",
+    description: "Think like a data engineer — lifecycle, undercurrents, cloud platforms, and architecture fundamentals.",
+    href: `${BASE}/notes/course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer/`,
+    ...getCourseStats("course-1-introduction-to-data-engineering"),
+  },
+  {
+    number: 2,
+    emoji: "\u{1F50C}",
+    title: "Source Systems, Data Ingestion and Pipelines",
+    description: "Source systems, ingestion patterns, DataOps practices, and pipeline orchestration with Airflow.",
+    href: `${BASE}/notes/course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems/`,
+    ...getCourseStats("course-2-source-systems-data-ingestion-and-pipelines"),
+  },
+  {
+    number: 3,
+    emoji: "\u{1F5C4}",
+    title: "Data Storage and Queries",
+    description: "Storage systems, warehouses, lakes, lakehouses, and query optimization techniques.",
+    href: `${BASE}/notes/course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals/`,
+    ...getCourseStats("course-3-data-storage-and-queries"),
+  },
+  {
+    number: 4,
+    emoji: "\u{2699}",
+    title: "Data Modeling, Transformation, and Serving",
+    description: "Data modeling for analytics and ML, Spark transformations, and data serving strategies.",
+    href: `${BASE}/notes/course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/11-data-modeling-fundamentals/`,
+    ...getCourseStats("course-4-data-modeling-transformation-and-serving"),
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Engineering Specialization — Notes & Study Guide</title>
+    <link rel="icon" type="image/svg+xml" href={`${BASE}/favicon.svg`} />
+    <script is:inline>
+      (function() {
+        var saved = localStorage.getItem("theme");
+        if (saved === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+        } else if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="home">
+      <header class="home-topbar">
+        <Logo />
+        <ThemeToggle />
+      </header>
+
+      <section class="home-hero">
+        <h1 class="home-title">Data Engineering Specialization</h1>
+        <p class="home-subtitle">
+          Course notes and study guide for the DeepLearning.AI Data Engineering
+          Professional Certificate.
+        </p>
+      </section>
+
+      <div class="home-search">
+        <div class="search-placeholder">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Search notes...</span>
+        </div>
+      </div>
+
+      <section class="home-courses">
+        {courses.map((course) => (
+          <a href={course.href} class="course-card">
+            <div class="course-card-header">
+              <span class="course-badge">
+                <span class="course-emoji">{course.emoji}</span> Course {course.number}
+              </span>
+            </div>
+            <h2 class="course-card-title">{course.title}</h2>
+            <p class="course-card-desc">{course.description}</p>
+            <span class="course-card-meta">
+              {course.weeks} weeks &middot; {course.sections} sections
+            </span>
+          </a>
+        ))}
+      </section>
+
+      <footer class="home-footer">
+        <p>Built with Astro. Notes from the DeepLearning.AI Data Engineering Specialization on Coursera.</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+.home { max-width: 760px; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2.5rem); min-height: 100vh; display: flex; flex-direction: column; }
+.home-topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 2rem; border-bottom: 1px solid var(--line); margin-bottom: 3rem; }
+.home-hero { text-align: center; margin-bottom: 2.5rem; }
+.home-title { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--fg); margin-bottom: 0.75rem; line-height: 1.2; }
+.home-subtitle { font-family: var(--font-sans); font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--fg-muted); line-height: 1.6; max-width: 520px; margin: 0 auto; }
+.home-search { margin-bottom: 3rem; display: flex; justify-content: center; }
+.search-placeholder { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.25rem; border: 1px solid var(--line); border-radius: 10px; color: var(--fg-soft); font-family: var(--font-sans); font-size: 0.9rem; width: 100%; max-width: 480px; background: var(--bg-card); cursor: text; }
+.home-courses { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 3rem; }
+.course-card { display: flex; flex-direction: column; padding: clamp(1rem, 2vw, 1.5rem); background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; text-decoration: none; transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; }
+.course-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 4px 16px var(--shadow-soft); }
+.course-card-header { margin-bottom: 0.5rem; }
+.course-badge { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg-soft); font-family: var(--font-sans); }
+.course-emoji { font-size: 0.85rem; }
+.course-card-title { font-family: var(--font-serif); font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 600; color: var(--fg); margin-bottom: 0.5rem; line-height: 1.35; }
+.course-card-desc { font-family: var(--font-sans); font-size: 0.85rem; color: var(--fg-muted); line-height: 1.55; flex: 1; margin-bottom: 0.75rem; }
+.course-card-meta { font-size: 0.75rem; color: var(--fg-soft); font-family: var(--font-sans); }
+.home-footer { margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--line); text-align: center; }
+.home-footer p { font-size: 0.78rem; color: var(--fg-soft); font-family: var(--font-sans); }
+@media (max-width: 640px) { .home-courses { grid-template-columns: 1fr; } }
+</style>
