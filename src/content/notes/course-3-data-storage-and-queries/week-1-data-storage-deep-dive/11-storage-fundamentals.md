@@ -10,12 +10,14 @@ order: 1
 notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 ---
 
-
 ## 1.1.1 Introduction and Storage Hierarchy
 
 **Introduction**
 
 Storage in data engineering spans multiple layers, from physical hardware up through high-level abstractions. Understanding this hierarchy is essential for making informed decisions about cost, performance, and scalability.
+
+
+---
 
 **Hierarchal View of Storage:**
 
@@ -26,6 +28,9 @@ Storage in data engineering spans multiple layers, from physical hardware up thr
   - **OLAP** (Online Analytical Processing) — focused on analytical operations like aggregation and summarization
 - **Storage Abstractions** — Data Warehouses, Data Lakes, Data Lakehouses
 
+
+---
+
 **Course Overview**
 
 **Week 1** covers serialization and compression, physical component characteristics, row vs. column databases, graph and vector databases, cloud storage paradigms (block, object, file), and storage cost-performance trade-offs.
@@ -33,7 +38,6 @@ Storage in data engineering spans multiple layers, from physical hardware up thr
 **Week 2** focuses on choosing the right abstraction for storing data.
 
 **Week 3** digs into how queries work, how storage choices affect query performance, and techniques for optimization.
-
 
 ## 1.1.2 Raw Ingredients of Storage Systems
 
@@ -87,20 +91,28 @@ Two useful encoding techniques for columnar data:
 
 ![](/data-engineering-specialization-website/images/a6508f11-eae2-4537-a198-4c0248a11e68.png)
 
-
 ## 1.1.3 Cloud Storage Options
 
 **Cloud Storage Options**
 
 Cloud providers offer three main storage paradigms, each optimized for different access patterns.
 
+
+---
+
 **File Storage**
 
 File storage organizes data into a directory tree, where each directory contains metadata (name, owner, permissions, last modified date). A typical path looks like `/home/username/filename.txt`. It is ideal for centralized access to files shared across multiple users or hosts. AWS offers **EFS** (Elastic File System), which handles networking, scaling, and configuration automatically. File storage is often built on top of block storage. The downside is slower read/write performance due to the overhead of maintaining the file hierarchy.
 
+
+---
+
 **Block Storage**
 
 Block storage divides files into small, fixed-size blocks on disk (magnetic or SSD), each identified by a unique key in a lookup table. Individual blocks can be retrieved and modified efficiently, and blocks can be distributed across multiple disks for higher scalability and durability. This makes block storage ideal for **OLTP** systems that perform frequent, small read/write operations with low latency. It also provides persistent storage to virtual machines like EC2 instances. The default block store for EC2 is **EBS** (Elastic Block Store), which offers SSDs for latency-sensitive workloads and magnetic disks for infrequently accessed data.
+
+
+---
 
 **Object Storage**
 

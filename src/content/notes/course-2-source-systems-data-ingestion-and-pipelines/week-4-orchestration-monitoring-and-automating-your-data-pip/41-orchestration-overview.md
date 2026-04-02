@@ -10,10 +10,12 @@ order: 1
 notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 ---
 
-
 ## 4.1.1 Introduction to Orchestration
 
 Orchestration is what turns a collection of scripts into a reliable, observable data pipeline. This section traces its evolution from cron jobs to modern workflow engines.
+
+
+---
 
 **Before Orchestration**
 
@@ -25,13 +27,17 @@ Before dedicated orchestration tools, engineers relied on **cron** -- a CLI util
 
 This "pure scheduling approach" has significant drawbacks: if one task fails, the entire pipeline fails with no built-in monitoring, alerts, or visibility into what went wrong. Cron is still useful for simple repetitive tasks with no downstream dependencies or during prototyping.
 
+---
+
 **Evolution of Orchestration Tools**
 
 - Late 2000s: **Dataswarm** (Facebook)
-- 2010s: **Apache Oozie** (limited to Hadoop clusters)
-- 2014: **Airflow** (Airbnb)
-- 2019: **Apache Airflow** (graduated to top-level Apache project)
-- Today: **Prefect** (more scalable orchestration), **Dagster/Mage** (built-in data quality testing)
+- 2010s: `Apache Oozie` (limited to `Hadoop` clusters)
+- 2014: `Airflow` (Airbnb)
+- 2019: `Apache Airflow` (graduated to top-level Apache project)
+- Today: `Prefect` (more scalable orchestration), `Dagster`/`Mage` (built-in data quality testing)
+
+---
 
 **Airflow Advantages**
 
@@ -39,16 +45,20 @@ This "pure scheduling approach" has significant drawbacks: if one task fails, th
 - Open source with a very active community
 - Available as a managed service on AWS and GCP
 
+---
+
 **Airflow Challenges**
 
 - Scalability limitations
 - Ensuring data integrity
 - No support for streaming pipelines
 
-
 ## 4.1.2 Orchestration Basics
 
 Orchestration adds structure and reliability on top of simple scheduling.
+
+
+---
 
 **Pros:**
 
@@ -57,18 +67,23 @@ Orchestration adds structure and reliability on top of simple scheduling.
 - Get alerts on failures
 - Create fallback plans
 
+---
+
 **Cons:**
 
 - More operational overhead than simple cron scheduling
 
-
 ## 4.1.3 Airflow Architecture
 
-Airflow organizes workflows as **Directed Acyclic Graphs (DAGs)** -- graph representations where nodes are jobs and edges define the flow of data. "Directed" means data flows one way; "acyclic" means no circular dependencies. DAGs are defined in Python.
+`Airflow` organizes workflows as **Directed Acyclic Graphs (DAGs)** -- graph representations where nodes are jobs and edges define the flow of data. "Directed" means data flows one way; "acyclic" means no circular dependencies. DAGs are defined in Python.
 
-**Airflow UI** lets you visualize your DAGs, trigger runs, monitor task progress, and troubleshoot issues.
+**`Airflow` UI** lets you visualize your DAGs, trigger runs, monitor task progress, and troubleshoot issues.
 
-**Trigger conditions** can be time-based or event-based (e.g., presence of a file in an S3 bucket).
+---
+
+**Trigger conditions** can be time-based or event-based (e.g., presence of a file in an `S3` bucket).
+
+---
 
 **Monitoring, logging, and alerts** include built-in data quality checks such as schema verification, null value checks, and range validation.
 
@@ -79,6 +94,11 @@ Airflow organizes workflows as **Directed Acyclic Graphs (DAGs)** -- graph repre
 ![](/data-engineering-specialization-website/images/fd33ecda-3321-4f35-812f-e81ab12dd8ef.png)
 
 ![](/data-engineering-specialization-website/images/45902bc4-5075-4911-adf7-f45968cddda6.png)
+
+---
+
+
+---
 
 **Airflow - Core Components**
 

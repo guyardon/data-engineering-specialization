@@ -10,10 +10,9 @@ order: 3
 notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 ---
 
-
 ## 4.3.1 Taskflow API Basics
 
-The **Taskflow API** is Airflow's modern, decorator-based approach to defining DAGs and tasks. Instead of instantiating a DAG object in a context manager, you use `@dag` to wrap the DAG definition and `@task` to wrap individual tasks. This eliminates the need to manually track task IDs, function names, and task variable names.
+The **Taskflow API** is `Airflow`'s modern, decorator-based approach to defining DAGs and tasks. Instead of instantiating a DAG object in a context manager, you use `@dag` to wrap the DAG definition and `@task` to wrap individual tasks. This eliminates the need to manually track task IDs, function names, and task variable names.
 
 ![](/data-engineering-specialization-website/images/eccc4e22-5920-4f48-a8b1-370544df42ef.png)
 
@@ -25,10 +24,12 @@ For passing data between tasks, you have two options: use the context dictionary
 
 ![](/data-engineering-specialization-website/images/497f224c-4544-4e27-a589-2dafdda12422.png)
 
-
 ## 4.3.2 Taskflow API vs. Traditional Paradigm
 
 The two examples below implement the same branching DAG -- one using the traditional context manager with PythonOperators, the other using the Taskflow API. Comparing them highlights how much boilerplate the Taskflow API eliminates.
+
+
+---
 
 **Traditional Paradigm:**
 
@@ -82,6 +83,8 @@ Key points in the traditional approach:
 - **BranchPythonOperator** returns the task ID of the downstream task to execute based on a condition.
 - XComs are pushed and pulled via `context['ti']`.
 - The final **EmptyOperator** uses `trigger_rule='none_failed_min_one_success'` so it executes regardless of which branch ran.
+
+---
 
 **Taskflow API:**
 
@@ -142,4 +145,4 @@ Key differences in the Taskflow approach:
 - The `task_instance` (`ti`) object is passed directly to tasks that need XCom access or runtime metadata.
 - When a `@task`-decorated function **returns a value**, it is **automatically pushed to XCom** -- no explicit `xcom_push` needed.
 - Task relationships use the same `>>` syntax, but each task is "called" (e.g., `extract_from_api()`). This calls the decorator, which returns a DAG Node object rather than executing the task. The bit-shift operator is overloaded to set upstream/downstream relationships.
-- Calling the DAG function (e.g., `example_branching()`) triggers the `@dag` decorator to register the DAG with Airflow -- it does not execute the DAG.
+- Calling the DAG function (e.g., `example_branching()`) triggers the `@dag` decorator to register the DAG with `Airflow` -- it does not execute the DAG.

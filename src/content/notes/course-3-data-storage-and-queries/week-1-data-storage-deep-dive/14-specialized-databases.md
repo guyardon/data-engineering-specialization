@@ -10,7 +10,6 @@ order: 4
 notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 ---
 
-
 ## 1.4.1 Graph Databases
 
 **Graph Databases**
@@ -27,8 +26,7 @@ Common use cases:
 - Fraud detection
 - Knowledge graphs
 
-Popular graph databases include **Neo4j**, **ArangoDB**, and **Amazon Neptune**. Query languages for graphs include **Cypher**, **Gremlin**, and **SPARQL**.
-
+Popular graph databases include `Neo4j`, **ArangoDB**, and **Amazon Neptune**. Query languages for graphs include **Cypher**, **Gremlin**, and **SPARQL**.
 
 ## 1.4.2 Vector Databases
 
@@ -37,7 +35,6 @@ Popular graph databases include **Neo4j**, **ArangoDB**, and **Amazon Neptune**.
 Vector databases are optimized for **similarity search** — efficiently querying data based on semantic closeness rather than exact matches. Use cases include recommendation systems, anomaly detection, and text generation. Today, the most common application is storing and querying **vector embeddings**.
 
 Similarity is measured using metrics like Euclidean distance or cosine distance. The core algorithm is **K-Nearest Neighbors (KNN)**, which is typically optimized via **Approximate Nearest Neighbors (ANN)** for performance at scale.
-
 
 ## 1.4.3 Neo4j Graph Database and Cypher Query Language
 

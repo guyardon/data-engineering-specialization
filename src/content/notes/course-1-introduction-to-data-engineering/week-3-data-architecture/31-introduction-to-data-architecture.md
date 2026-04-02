@@ -26,6 +26,8 @@ Enterprise architecture is *"the design of systems to **support change in enterp
 
 A key concept in enterprise architecture is **change management** — adapting to organizational changes. Decisions fall into two categories: "one-way door" decisions that are impossible to reverse and "two-way door" decisions that can be undone. The distinction depends on the stakes involved.
 
+---
+
 **Conway's Law:**
 
 *"Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure."* In practice, isolated departments build isolated systems; collaborative departments build shared data platforms.
@@ -55,11 +57,15 @@ Designing for failure means understanding several key metrics:
 
 1. **Availability** — the percentage of time a service is in an operable state (e.g., 99.5% = ~44 hours of downtime/year; 99.99% = ~1 hour/year)
 2. **Reliability** — the probability a service performs its intended function during a given time interval
-3. **Durability** — the ability of a storage system to withstand data loss from hardware failures, software failures, or natural disasters (e.g., Amazon S3 offers 99.999999999% durability)
+3. **Durability** — the ability of a storage system to withstand data loss from hardware failures, software failures, or natural disasters (e.g., `Amazon S3` offers 99.999999999% durability)
 4. **Recovery Time Objective (RTO)** — the maximum acceptable duration for a service outage
 5. **Recovery Point Objective (RPO)** — the maximum acceptable data loss after recovery
 
+---
+
 **Prioritize security**
+
+---
 
 **Embrace FinOps**
 
@@ -86,16 +92,21 @@ In batch architectures, data is ingested and transformed in discrete chunks, and
 
 ELT is becoming more popular thanks to the power of modern cloud data warehouses.
 
+---
+
 **Downstream Use-cases:**
 
 - Analytics and reports
 - Machine learning
 - Reverse ETL (processed data sent back to source systems)
 
+---
+
 **Data Mart**
 
 A **data mart** is an optional subset of a data warehouse scoped to a specific department, function, or business area. It sits after transformation but before serving, and may have its own additional transformation stages.
 
+---
 
 **Streaming Architectures**
 
@@ -103,11 +114,13 @@ In streaming architectures, data originates as a continuous stream of events rat
 
 ![](/data-engineering-specialization-website/images/a21164ad1.png)
 
-Key technologies include **Apache Kafka** as the event streaming platform, and tools like **Apache Storm** and **Samza** for streaming and real-time analytics.
+Key technologies include `Apache Kafka` as the event streaming platform, and tools like `Apache Storm` and `Samza` for streaming and real-time analytics.
 
 Batch and stream architectures can be combined. The **Lambda Architecture** runs parallel batch and streaming systems with a unified serving layer that aggregates results from both, though it has fallen out of favor due to its complexity. The **Kappa Architecture** uses a single stream-processing system that retains some historical data, but it has not seen wide adoption either.
 
-Tools like **Google Dataflow** and **Beam** attempt to unify multiple code paths. **Apache Flink** takes this further by providing a single system for both stream and batch processing — treating batch as simply bounded streaming.
+Tools like `Google Dataflow` and `Beam` attempt to unify multiple code paths. `Apache Flink` takes this further by providing a single system for both stream and batch processing — treating batch as simply bounded streaming.
+
+---
 
 **Today:**
 

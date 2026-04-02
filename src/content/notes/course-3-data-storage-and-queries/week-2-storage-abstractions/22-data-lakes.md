@@ -10,7 +10,6 @@ order: 2
 notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 ---
 
-
 ## 2.2.1 Data Lake Architecture
 
 **Data Lakes - Key Architectural Ideas**

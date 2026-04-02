@@ -10,12 +10,14 @@ order: 1
 notionId: "20a969a7-aa01-800d-8146-c81f183ff15e"
 ---
 
-
 ## 4.1.1 Serving Data for Analytics and ML
 
 **Overview**
 
 The final stage of the data engineering lifecycle is serving -- delivering processed data to downstream consumers for analytics and machine learning.
+
+
+---
 
 **Serving Data - Analytical Use Cases**
 
@@ -23,16 +25,25 @@ The final stage of the data engineering lifecycle is serving -- delivering proce
 - **Operational Analytics** -- Monitoring data to inform immediate action, served within required latency constraints
 - **Embedded Analytics** -- Client-facing data products or dashboards
 
+
+---
+
 **Serving Data - Machine Learning Use Cases**
 
 The primary end users are data scientists and ML engineers. The data engineer's role is to acquire, transform, and deliver the data necessary for model training.
 
 A **semantic layer** documents definitions, derives business metrics, and creates a common language for data across the organization.
 
+
+---
+
 **Ways to serve data:**
 - Table
 - View
 - Materialized View
+
+
+---
 
 **Ways data scientists accept data for model training:**
 - **As files** (for ad hoc requests) -- text files for language modeling, table formats for tabular ML, image formats for computer vision
@@ -44,7 +55,6 @@ A **semantic layer** documents definitions, derives business metrics, and create
 Semantic Layer
 
 ![](/data-engineering-specialization-website/images/14fcf985-2d48-4f6d-b059-a967ec9a1582.png)
-
 
 ## 4.1.2 Views and Materialized Views
 

@@ -20,9 +20,13 @@ notionId: "144969a7-aa01-805a-8d43-f23e81e41cd5"
 
 ![](/data-engineering-specialization-website/images/74eac90a-63fd-4888-a527-be16a27f3703.png)
 
+---
+
 **Data Pipeline Definition**
 
 *The combination of architecture, systems, and processes that move data through the data engineering lifecycle.*
+
+---
 
 **The Job of the Data Engineer**
 
@@ -35,7 +39,7 @@ At its core, the data engineer's job is to get raw data from somewhere, transfor
 Data engineering didn't appear overnight — it evolved alongside decades of database and computing innovation.
 
 - **1960s:** First computerized databases
-- **1970s:** Relational databases emerge; IBM develops SQL
+- **1970s:** Relational databases emerge; IBM develops `SQL`
 - **1980s:** Data warehouses developed to support analytics
 - **1990s:** Data modeling for Business Intelligence (BI); dot-com boom drives web-first companies and backend systems (servers, databases, storage)
 - **2000s:** Big Data era begins, led by large tech companies
@@ -52,6 +56,8 @@ Data engineers sit between the teams that produce data and the teams that consum
 **Upstream Stakeholders:**
 
 - Software engineers and other teams generating the data
+
+---
 
 **Downstream stakeholders:**
 

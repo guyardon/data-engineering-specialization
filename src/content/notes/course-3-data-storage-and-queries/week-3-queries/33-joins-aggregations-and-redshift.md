@@ -10,7 +10,6 @@ order: 3
 notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 ---
 
-
 ## 3.3.1 Joins and Join Methods
 
 **The Join Statement**
@@ -18,6 +17,9 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 Joins are one of the most time-consuming query operations. An inner join, for example, combines only the rows that share a matching key across both tables.
 
 ![](/data-engineering-specialization-website/images/9f861c1e-fd7b-4a70-a34e-e214962ff3a8.png)
+
+
+---
 
 **3 Common Methods for Implementing Join**
 
@@ -40,19 +42,18 @@ Aggregations compute summary values over a column — SUM, AVG, MAX, MIN, COUNT.
 ```sql
 SELECT MIN(price) from orders
 
-**can either do a full table scan O(n)**
+# can either do a full table scan O(n)
 
-**or faster index-scan on b-tree if available O(log n)**
+# or faster index-scan on b-tree if available O(log n)
 ```
 
-Adding **GROUP BY** returns one result per group instead of a single value for the whole table. Grouping can be done via sorting algorithms, hash functions, or indexes.
+Adding `GROUP BY` returns one result per group instead of a single value for the whole table. Grouping can be done via sorting algorithms, hash functions, or indexes.
 
 ```sql
 SELECT MIN(price) from orders GROUP BY country
 ```
 
 For large datasets, aggregation queries run faster on **columnar storage** because only the relevant columns are transferred from disk to memory — not every row.
-
 
 ## 3.3.3 Amazon Redshift and Cloud Data Warehouse
 
@@ -72,7 +73,6 @@ Amazon Redshift is a cloud data warehouse built around three performance pillars
 - **ALL** — full table copy on every node; useful for frequently joined small dimension tables
 
 **Sort Key** stores data on disk in a defined order, helping the query optimizer reduce the amount of data scanned — analogous to how OLTP databases use indexes.
-
 
 ## 3.3.4 Additional Query Strategies
 

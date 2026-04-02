@@ -10,10 +10,12 @@ order: 3
 notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 ---
 
-
 ## 2.3.1 The Data Lakehouse Architecture
 
 **Data Lakehouse**
+
+
+---
 
 **The Data Lakehouse Architecture**
 
@@ -30,8 +32,8 @@ The lakehouse architecture is made possible by **open table formats** — specia
 Leading open table formats:
 
 - **Databricks Delta Lake**
-- **Apache Iceberg**
-- **Apache Hudi** (Hadoop Update Delete Incremental)
+- `Apache Iceberg`
+- `Apache Hudi` (Hadoop Update Delete Incremental)
 
 Key features shared across these formats:
 

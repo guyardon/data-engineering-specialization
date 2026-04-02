@@ -10,26 +10,23 @@ order: 2
 notionId: "190969a7-aa01-8092-8369-c7d9471a0a7a"
 ---
 
-This lesson covers how to connect to source systems programmatically, secure access with IAM, and understand the networking fundamentals that underpin cloud infrastructure.
-
----
+This lesson covers how to connect to source systems programmatically, secure access with `IAM`, and understand the networking fundamentals that underpin cloud infrastructure.
 
 ## 1.2.1 Connecting to Source Systems
 
-There are several ways to connect to source systems on AWS. For example, **boto3** connects to Amazon DynamoDB via Python, while the **mysql CLI** connects to Amazon RDS MySQL databases.
+There are several ways to connect to source systems on AWS. For example, `boto3` connects to `Amazon DynamoDB` via Python, while the `mysql` CLI connects to `Amazon RDS` `MySQL` databases.
 
-To find the endpoint and port number in the AWS console (e.g., for Amazon RDS), navigate to the sidebar, select Databases, then check the Connections and Security tab.
+To find the endpoint and port number in the AWS console (e.g., for `Amazon RDS`), navigate to the sidebar, select Databases, then check the Connections and Security tab.
 
 The programmatic approach is preferred because it's more repeatable and traceable:
 
 - **CLI**
-- **Python SDK (boto3)**
+- **Python SDK (`boto3`)**
 - **API Connectors** (e.g., JDBC/ODBC API)
----
 
 ## 1.2.2 Connecting to an Amazon RDS Instance
 
-Connecting to an existing MySQL instance requires three pieces of information: the **database hostname/endpoint**, the **database port**, and a **username and password**. You can retrieve these from the AWS Management Console or the CLI.
+Connecting to an existing `MySQL` instance requires three pieces of information: the **database hostname/endpoint**, the **database port**, and a **username and password**. You can retrieve these from the AWS Management Console or the CLI.
 
 **AWS CloudShell** provides a browser-based shell with CLI access to AWS resources. To connect:
 
@@ -37,7 +34,7 @@ Connecting to an existing MySQL instance requires three pieces of information: t
 mysql --host=[hostname] --port=[port number] --user=[database user name] --password=[database user password]
 ```
 
-This command is MySQL-specific, but equivalent commands exist for other databases. To retrieve the endpoint and port via CLI, use the `describe-db-instances` command:
+This command is `MySQL`-specific, but equivalent commands exist for other databases. To retrieve the endpoint and port via CLI, use the `describe-db-instances` command:
 
 ```
 aws rds describe-db-instances --filters "Name=engine,Values=mysql" --query "*[].[DBInstanceIdentifier,Endpoint.Address,Endpoint.Port,MasterUsername]"
@@ -45,7 +42,9 @@ aws rds describe-db-instances --filters "Name=engine,Values=mysql" --query "*[].
 
 After connecting, you interact with the database using SQL queries. Type `exit` or `\q` to disconnect.
 
-**Connecting through Python** requires the **pymysql** package, which establishes a connection via its `connect` method. Use boto3 to retrieve credentials programmatically:
+---
+
+**Connecting through Python** requires the `pymysql` package, which establishes a connection via its `connect` method. Use `boto3` to retrieve credentials programmatically:
 
 ![](/data-engineering-specialization-website/images/e34caa4a-4d77-4334-9f3a-c7311b7097d2.png)
 
@@ -55,41 +54,45 @@ Then connect using `pymysql.connect()`:
 
 ![](/data-engineering-specialization-website/images/bcefdf29-78ac-490c-b355-1b235e7e1de7.png)
 
----
-
 ## 1.2.3 Basics of IAM and Permissions
 
-**IAM (Identity and Access Management)** is the framework for managing permissions in the cloud. Security on the cloud rests on three pillars: encryption methods, IAM, and networking protocols.
+`IAM` **(Identity and Access Management)** is the framework for managing permissions in the cloud. Security on the cloud rests on three pillars: encryption methods, `IAM`, and networking protocols.
 
 Half of all cloud data breaches are caused by human error -- things like leaving confidential data on a public S3 bucket, committing access credentials to GitHub, or granting unnecessary admin access.
 
-IAM addresses this through the **principle of least privilege**: every identity gets only the permissions it needs. Permissions define which actions an identity can perform on a specific set of resources.
+`IAM` addresses this through the **principle of least privilege**: every identity gets only the permissions it needs. Permissions define which actions an identity can perform on a specific set of resources.
 
-**AWS IAM** uses policies to grant permissions, organized in a hierarchy:
+**AWS `IAM`** uses policies to grant permissions, organized in a hierarchy:
 
 - **Root user**: Unrestricted access to all resources.
-- **IAM user**: Specific permissions via username/password or access key.
-- **IAM group**: A collection of users that inherit permissions from the group policy.
-- **IAM role**: Temporary permissions assumed by a user, application, or service.
-  - **Example 1:** Let's say you run a code on an EC2 instance that needs to read from S3. By default, the EC2 instance does not have permission to read from S3. You can transfer your credentials to EC2, but this is not secure. A better approach is to create a role, attach the required policy to read from S3, and allow the EC2 instance to assume this role.
-  - **Example 2:** Let's say you run a Glue ETL job and want it to write the ingested and transformed data to S3. You can create a role with permissions to write to S3, then allow Glue ETL to assume this role.
----
+- **`IAM` user**: Specific permissions via username/password or access key.
+- **`IAM` group**: A collection of users that inherit permissions from the group policy.
+- **`IAM` role**: Temporary permissions assumed by a user, application, or service.
+  - **Example 1:** Let's say you run a code on an `EC2` instance that needs to read from `S3`. By default, the `EC2` instance does not have permission to read from `S3`. You can transfer your credentials to `EC2`, but this is not secure. A better approach is to create a role, attach the required policy to read from `S3`, and allow the `EC2` instance to assume this role.
+  - **Example 2:** Let's say you run a `Glue` ETL job and want it to write the ingested and transformed data to `S3`. You can create a role with permissions to write to `S3`, then allow `Glue` ETL to assume this role.
 
 ## 1.2.4 Basics of Networking in the Cloud
 
 Cloud providers organize their infrastructure into a physical hierarchy that directly impacts how you design and secure your systems.
 
+
+---
+
 **Hierarchy:**
 
 - **Region** contains multiple **Availability Zones**, each with one or more physical data centers.
 
-A **Virtual Private Cloud (VPC)** is a smaller network that spans multiple availability zones within a region, providing fine-grained control over resource access:
+---
+
+A `VPC` **(Virtual Private Cloud)** is a smaller network that spans multiple availability zones within a region, providing fine-grained control over resource access:
 
 - **Public subnet** -- for internet-facing resources.
 - **Private subnet** -- for internal resources.
 - Each subnet can have its own security rules (**Network ACLs**) and routing configurations through internet gateways.
 
 Data and resources are replicated across availability zones to ensure resilience if a data center goes down.
+
+---
 
 **Region considerations:**
 
@@ -100,21 +103,30 @@ Data and resources are replicated across availability zones to ensure resilience
 
 ## 1.2.5 AWS Networking Overview - VPCs and Subnets
 
-This section walks through building a complete networking setup for a web application running on EC2 that queries an RDS database.
+This section walks through building a complete networking setup for a web application running on `EC2` that queries an `RDS` database.
 
-**Core networking concepts:** Amazon VPCs, subnets, gateways, route tables, network ACLs, and security groups.
+**Core networking concepts:** Amazon `VPC`s, subnets, gateways, route tables, network ACLs, and security groups.
 
 ![](/data-engineering-specialization-website/images/d795bf77-fe26-4786-b6df-952c2c581c96.png)
 
+---
+
+
+---
+
 **Configuring the VPC**
 
-A **Default VPC** exists in each region and can be used for experimentation, but should not be used for production workloads. To create a custom VPC: Console -> VPC -> Create VPC, then provide a name, private IP address range, and region.
+A **Default VPC** exists in each region and can be used for experimentation, but should not be used for production workloads. To create a custom `VPC`: Console -> VPC -> Create VPC, then provide a name, private IP address range, and region.
 
-**IPv4 CIDR (Classless Inter-Domain Routing)** defines the range of private IP addresses available within the VPC. For example, `10.0.0.0/16` means the first 16 bits (two octets) are the network portion, leaving the rest for host addresses. Any resource deployed into the VPC gets a private IP from this range.
+**IPv4 CIDR (Classless Inter-Domain Routing)** defines the range of private IP addresses available within the `VPC`. For example, `10.0.0.0/16` means the first 16 bits (two octets) are the network portion, leaving the rest for host addresses. Any resource deployed into the `VPC` gets a private IP from this range.
+
+---
 
 **Configuring Subnets**
 
-Each subnet is associated with a specific Availability Zone. In the VPC dashboard, create subnets and assign them CIDR blocks (e.g., `10.0.1.0/24` and `10.0.2.0/24` in different AZs). At this point, no subnets have internet access.
+Each subnet is associated with a specific Availability Zone. In the `VPC` dashboard, create subnets and assign them CIDR blocks (e.g., `10.0.1.0/24` and `10.0.2.0/24` in different AZs). At this point, no subnets have internet access.
+
+---
 
 **Configuring Internet Connectivity**
 
@@ -122,16 +134,20 @@ Three components enable internet access:
 
 - **Internet Gateway**: Supports inbound and outbound traffic -- the "door" to the outside internet from public subnets.
 - **NAT Gateway (Network Address Translation)**: Allows resources in a private subnet to reach the internet for outbound traffic only, without exposing them to inbound connections.
-- **ALB (Application Load Balancer)**: Distributes incoming traffic across multiple backend targets, keeping EC2 instances private while ensuring responsiveness and availability.
+- **ALB (Application Load Balancer)**: Distributes incoming traffic across multiple backend targets, keeping `EC2` instances private while ensuring responsiveness and availability.
+
+---
 
 **Configuring Route Tables**
 
-Route tables direct network traffic within your VPC. A default route table allows internal VPC communication but not internet access.
+Route tables direct network traffic within your `VPC`. A default route table allows internal `VPC` communication but not internet access.
 
 - **Public subnets**: Route internet-bound traffic (`0.0.0.0/0`) to the internet gateway.
 - **Private subnets**: Route internet-bound traffic to the NAT gateway in the public subnet.
 
 In practice, what makes a subnet public or private is its route table configuration.
+
+---
 
 **Network Access Control Lists (ACLs) and Security Groups**
 
@@ -140,8 +156,8 @@ In practice, what makes a subnet public or private is its route table configurat
 A typical security group chain looks like this:
 
 - The ALB's security group allows HTTP (port 80) and HTTPS (port 443) from the internet (`0.0.0.0/0`).
-- The EC2 instance's security group references the ALB's security group as its source.
-- The RDS instance's security group references the EC2 security group as its source.
+- The `EC2` instance's security group references the ALB's security group as its source.
+- The `RDS` instance's security group references the `EC2` security group as its source.
 
 ![](/data-engineering-specialization-website/images/29944dd5-e008-4d6e-ace9-c5b61719e35b.png)
 
@@ -151,8 +167,8 @@ A typical security group chain looks like this:
 
 **Summary of Networking on AWS:**
 
-- **VPCs and Subnets** define a private network on AWS.
-- **Route Tables** direct traffic within the VPC to the internet.
+- **`VPC`s and Subnets** define a private network on AWS.
+- **Route Tables** direct traffic within the `VPC` to the internet.
 - **Public Subnets** point to the internet gateway for internet access.
 - **Private Subnets** route through the NAT gateway for secure outbound connections.
 - **Security Groups** act as stateful virtual firewalls at the instance level.

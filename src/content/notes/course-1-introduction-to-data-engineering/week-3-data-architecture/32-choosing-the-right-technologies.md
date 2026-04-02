@@ -29,7 +29,11 @@ Where your infrastructure lives has major implications for cost, control, and ag
 
 **On-premises** — the company owns and maintains all hardware and software, handling provisioning, maintenance, updates, and scaling in-house.
 
+---
+
 **Cloud** — a cloud provider owns and maintains hardware in data centers. You rent compute and storage resources without provisioning or maintaining any physical infrastructure.
+
+---
 
 **Hybrid** — some companies keep certain data systems on-prem due to regulations, security, or client privacy concerns while running others in the cloud.
 
@@ -41,6 +45,8 @@ This course focuses on building data systems in the cloud.
 **Monolithic System**
 
 A monolithic system is self-contained with a single codebase and tightly coupled components. It becomes increasingly hard to maintain over time, and at a certain point the entire architecture may need to be rewritten.
+
+---
 
 **Modular System**
 
@@ -55,14 +61,18 @@ Understanding costs is essential to making sound technology decisions.
 - **Direct costs:** salaries, cloud bills, software subscriptions
 - **Indirect costs (overhead):** network downtime, IT support, lost productivity
 
+---
+
 **Costs of Hardware/Software:**
 
 - **Capital Expenses (CapEx)** — upfront payments for long-term fixed assets (common before the cloud era), which depreciate slowly over time
 - **Operational Expenses (OpEx)** — day-to-day "pay-as-you-go" costs, made practical by cloud computing
 
+---
+
 **Total Opportunity Cost of Ownership (TOCO)** captures the cost of lost opportunities from choosing a particular tool. Switching technologies always has a cost, which is why building flexible systems matters. When evaluating components, distinguish between:
 
-- **Immutable technologies** (unlikely to change soon): object storage, networking, SQL
+- **Immutable technologies** (unlikely to change soon): object storage, networking, `SQL`
 - **Transitory technologies** (rapidly evolving): stream processing, orchestration, AI
 
 **FinOps** ties it all together — minimize TCO and TOCO while maximizing revenue.
@@ -87,8 +97,12 @@ Key questions to ask:
 
 Three compute models offer different trade-offs between control and convenience.
 
-**Server** — you set up and manage the server (e.g., Amazon EC2), handling OS updates, package installation, patching, networking, scaling, and security yourself.
+**Server** — you set up and manage the server (e.g., `Amazon EC2`), handling OS updates, package installation, patching, networking, scaling, and security yourself.
+
+---
 
 **Container** — a modular unit that packages application code and dependencies to run on a server. Containers are lightweight and portable; you manage the application layer while the infrastructure is handled separately.
+
+---
 
 **Serverless** — the cloud provider manages servers entirely behind the scenes, providing automatic scaling, availability, fault tolerance, and pay-as-you-go pricing. Serverless is ideal for small, discrete tasks executed on demand. It is generally not suited for heavy compute workloads or memory-intensive applications. Use it when it is more cost-effective than the alternatives.
