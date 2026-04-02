@@ -10,14 +10,17 @@ order: 2
 notionId: "1d3969a7-aa01-80e3-b264-c6789380bcaa"
 ---
 
-
 ## 3.2.1 Observability Concepts
 
 Data observability borrows from DevOps observability but focuses on the health of data itself, not just the systems that process it.
 
 **DevOps Observability** monitors metrics like CPU/RAM usage and response time to quickly detect anomalies, identify problems, prevent downtime, and ensure reliable software products.
 
+---
+
 **Data Observability** monitors the health of data and data systems, ensuring high-quality data that is accurate, complete, discoverable, and available in a timely manner. Upstream changes -- such as source systems changing their data structure -- should be expected and mitigated proactively.
+
+---
 
 **Key questions to ask** (from Barr Moses, CEO of Monte Carlo):
 
@@ -26,6 +29,11 @@ Data observability borrows from DevOps observability but focuses on the health o
 - Are fields within expected ranges?
 - Is the null rate higher or lower than it should be?
 - Has the schema changed?
+
+---
+
+
+---
 
 **5 Pillars of Data Observability:**
 
@@ -39,17 +47,20 @@ Data observability borrows from DevOps observability but focuses on the health o
 
 Focus your monitoring efforts on the metrics that matter most. The core dimensions to track are **volume**, **distribution**, **null values**, and **freshness**. Identify the most important metrics by checking what stakeholders care about and talking with source system owners.
 
-
 ## 3.2.3 Observability Tools
 
 **Great Expectations**
+
+
+---
 
 **Core Components**
 
 ![](/data-engineering-specialization-website/images/cd3cd7f0-368b-4ad6-b595-91ff95e55de6.png)
 
+---
 
-**AWS CloudWatch**
+**`CloudWatch`**
 
 AWS's built-in monitoring service for tracking infrastructure and application metrics.
 

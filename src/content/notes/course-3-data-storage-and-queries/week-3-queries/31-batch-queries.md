@@ -10,16 +10,21 @@ order: 1
 notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 ---
 
-
 ## 3.1.1 Query Fundamentals
 
 **Overview**
 
 How data is stored and managed directly affects both query performance and the performance of the storage systems themselves. This week explores those relationships.
 
+
+---
+
 **Query Definition**
 
 A **query** is a statement written in a specific query language to retrieve or act on data. Examples include SQL queries against an RDBMS, SQL-like queries against Amazon S3, and Cypher queries against a Neo4j graph database.
+
+
+---
 
 **Query Languages**
 
@@ -35,6 +40,9 @@ SQL and its relatives are **declarative** — you describe *what* data you want,
 **Batch Queries**
 
 A batch query travels through several stages within the DBMS before returning results.
+
+
+---
 
 **The Life of a Query**
 

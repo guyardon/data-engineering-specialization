@@ -10,7 +10,6 @@ order: 1
 notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 ---
 
-
 ## 2.1.1 Storage Hierarchy Overview
 
 **Overview**
@@ -21,12 +20,14 @@ This week covers three storage abstractions, each building on the last:
 2. **Data Lake** — a central repository that supports growing, schema-flexible storage needs
 3. **Data Lakehouse** — combines the strengths of warehouses and lakes into a single architecture
 
-
 ## 2.1.2 Data Warehouse Concepts
 
 **Data Warehouse**
 
 Bill Inmon's Definition: *A subject-oriented, integrated, nonvolatile, time-variant collection of data in support of management's decisions*
+
+
+---
 
 **Key Structural Ideas**
 
@@ -40,7 +41,7 @@ Bill Inmon's Definition: *A subject-oriented, integrated, nonvolatile, time-vari
 
 **Modern Cloud Data Warehouses**
 
-Modern cloud data warehouses implement **MPP** (massively parallel processing) and can scale clusters dynamically based on workload. Examples include **Amazon Redshift**, **Google BigQuery**, and **Snowflake**.
+Modern cloud data warehouses implement **MPP** (massively parallel processing) and can scale clusters dynamically based on workload. Examples include `Amazon Redshift`, **Google BigQuery**, and **Snowflake**.
 
 Key characteristics:
 
@@ -48,6 +49,9 @@ Key characteristics:
 - **Columnar storage** — optimized for high-performance analytical queries
 - **Separation of compute and storage** — allows independent scaling to optimize cost and performance
 - Like traditional warehouses, they store highly structured data modeled to support analytical queries
+
+
+---
 
 **Amazon Redshift MPP Architecture**
 

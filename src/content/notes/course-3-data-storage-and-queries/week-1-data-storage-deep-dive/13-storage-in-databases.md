@@ -10,12 +10,14 @@ order: 3
 notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 ---
 
-
 ## 1.3.1 Database Management Systems
 
 **Introduction**
 
 A database management system sits between your application and the raw storage hardware. Understanding its architecture helps explain why different databases perform differently.
+
+
+---
 
 **Database Management System (DBMS)**
 
@@ -26,13 +28,15 @@ The DBMS is the software layer that manages both relational and non-relational d
 - **Execution engine** — runs the query plan
 - **Storage engine** — manages how data is serialized, arranged on disk, and indexed. An **index** is a data structure that lets you locate data in O(log n) time via binary search instead of scanning all rows in O(n). Modern storage engines are optimized for SSDs, handle modern data types, and offer columnar support for analytical workloads.
 
+
+---
+
 **In-Memory Storage Systems**
 
 In-memory stores trade durability for speed — they are fast and low-latency, but volatile. Common use cases include caching, real-time applications, and gaming.
 
 - **Memcached** — a key-value store for caching database query results or API calls; acceptable when data loss is tolerable.
-- **Redis** — a key-value store supporting richer data types; suited for high-performance applications that can tolerate minor data loss.
-
+- `Redis` — a key-value store supporting richer data types; suited for high-performance applications that can tolerate minor data loss.
 
 ## 1.3.2 Row vs. Column Storage
 

@@ -52,7 +52,7 @@ Just as DevOps improves the development process and quality of software products
 
 DataOps is a set of cultural habits and practices built on communication, collaboration, continuous improvement, and rapid iteration. Its two main pillars are:
 
-- **Automation** — in DevOps this means CI/CD; in DataOps it means automated change management across code, configuration, environments, and data pipelines, often powered by orchestration frameworks like Apache Airflow
+- **Automation** — in DevOps this means CI/CD; in DataOps it means automated change management across code, configuration, environments, and data pipelines, often powered by orchestration frameworks like `Apache Airflow`
 - **Observability and monitoring** — everything fails eventually, so the goal is to detect failures before they reach downstream consumers (ML models, analytics dashboards, reports) and have a clear incident response process
 
 
@@ -65,10 +65,10 @@ Manually running individual tasks works for prototyping but is unsustainable in 
 
 The most popular orchestration tools today include:
 
-- Apache Airflow (industry standard)
-- Dagster
-- Prefect
-- Mage
+- `Apache Airflow` (industry standard)
+- `Dagster`
+- `Prefect`
+- `Mage`
 
 These frameworks model workflows as **Directed Acyclic Graphs (DAGs)** — directed (data flows one way), acyclic (no backward loops), and composed of nodes and edges. Tasks can be triggered by events, and monitoring or alerting is configured alongside them.
 
@@ -80,8 +80,8 @@ Software engineering — the design, development, deployment, and maintenance of
 
 Common languages and frameworks span a wide range:
 
-- SQL, Apache Spark, Kafka
-- Python, Java, Scala, Bash
-- Occasionally R, Rust, and Go
+- `SQL`, `Apache Spark`, `Kafka`
+- `Python`, `Java`, `Scala`, `Bash`
+- Occasionally `R`, `Rust`, and `Go`
 
-In practice, the most common day-to-day tools are **SQL**, **Python**, and **Bash**.
+In practice, the most common day-to-day tools are `SQL`, `Python`, and `Bash`.

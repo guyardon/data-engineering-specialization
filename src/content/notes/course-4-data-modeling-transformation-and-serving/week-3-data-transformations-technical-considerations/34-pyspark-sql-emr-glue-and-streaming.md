@@ -10,16 +10,21 @@ order: 4
 notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 ---
 
-
 ## 3.4.1 PySpark SQL
 
 **PySpark SQL Introduction**
 
 PySpark supports three approaches to data transformation: SQL-based manipulation, Python-based DataFrame operations, and a hybrid of both. All approaches run on the **same computation engine** and compile to the **same low-level code**.
 
+
+---
+
 **Creating a Temporary View**
 
 A **temporary view** is a virtual table that exists only while the Spark session is active. It lets you write SQL queries against a DataFrame without physically storing data.
+
+
+---
 
 **Code Example**
 
@@ -29,9 +34,14 @@ spark.sql("SELECT * FROM orders").show()
 ```
 
 
+---
+
 **Running SQL Queries**
 
 Use the Spark session's `.sql()` method with a SQL string, which returns a DataFrame with the result.
+
+
+---
 
 **Example: Total Amount Spent Per Order**
 
@@ -60,6 +70,8 @@ spark.sql("SELECT DISTINCT udf_to_lower(Country) FROM orders").show()
 ```
 
 
+---
+
 **Joining Multiple Views**
 
 To join data from multiple DataFrames in SQL:
@@ -67,6 +79,9 @@ To join data from multiple DataFrames in SQL:
 1. Create another DataFrame (e.g., `product_category_df`)
 2. Register it as a temporary view (e.g., `items`)
 3. Join the views using appropriate keys
+
+
+---
 
 **Example: Average Amount by Category**
 
@@ -80,16 +95,21 @@ spark.sql("""
 """).show()
 ```
 
-
 ## 3.4.2 Amazon EMR
 
-**Amazon EMR**
+`Amazon EMR`
 
 Amazon EMR is AWS's managed big data platform for scalable, distributed computing.
+
+
+---
 
 **Overview**
 
 EMR enables distributed processing using clusters of EC2 instances and supports frameworks like Apache Spark, Hadoop, Hive, Presto, Flink, and HBase. It integrates natively with AWS services (S3, DynamoDB, RDS, Redshift) and decouples compute from storage via S3, allowing multiple EMR clusters to process the same dataset concurrently.
+
+
+---
 
 **How It Works**
 
@@ -97,10 +117,15 @@ EMR utilizes a cluster of nodes, each processing part of a job in parallel. Clus
 ![](/data-engineering-specialization-website/images/c54198cd-3e49-427b-b7ca-473955b23b44.png)
 
 
+---
+
 **EMR Studio and Serverless**
 
 - **EMR Studio**: A browser-based IDE (built on Jupyter Notebooks) for interactive data analysis and job execution.
 - **EMR Serverless**: Eliminates manual cluster management with automatic scaling.
+
+
+---
 
 **Setting Up an EMR Serverless Application**
 
@@ -110,15 +135,24 @@ EMR utilizes a cluster of nodes, each processing part of a job in parallel. Clus
 4. Choose setup options for batch or interactive workloads, and enable the interactive endpoint for EMR Studio
 5. Click "Create and Start Application"
 
+
+---
+
 **Configuring EMR Studio**
 
 To enable interactive workspaces, edit Studio settings and configure the IAM role (for AWS resource interaction) and S3 storage location (for workspace backups).
+
+
+---
 
 **Creating a Workspace and Notebook**
 
 1. Create a new workspace (e.g., *example workspace*) and launch it
 2. Attach the notebook to the EMR Serverless application, selecting compute resources and IAM role
 3. Open the notebook and choose the PySpark kernel
+
+
+---
 
 **Running a Spark Job**
 
@@ -128,11 +162,13 @@ EMR abstracts infrastructure management so you can focus on data workflows. EMR 
 
 ## 3.4.3 AWS Glue
 
-**AWS Glue**
+`AWS Glue`
 
 AWS Glue is a **serverless data integration service** for ingesting, transforming, and loading data. It uses Apache Spark under the hood and supports data from databases, object stores (S3), logs, APIs, and streaming platforms. Transformed data can be loaded into downstream databases, data lakes, or warehouses.
 ![](/data-engineering-specialization-website/images/0a3f8fc8-7b04-4f52-a49f-85e2f077be12.png)
 
+
+---
 
 **Glue Jobs**
 
@@ -149,23 +185,31 @@ ETL pipelines in AWS Glue are called **Glue jobs**. There are three ways to crea
 
 Glue jobs can be orchestrated using **Glue triggers, blueprints, and workflows**.
 
+
+---
+
 **Data Catalog and Governance**
 
 AWS Glue includes a **centralized data catalog** for managing metadata and enabling governance. **Glue Crawlers** scan data sources to populate the catalog with schema, data types, structure, and partitioning information -- essential for building data lakes and lakehouses.
+
+
+---
 
 **Serverless and Scalable**
 
 Glue is fully serverless. Jobs scale with **Data Processing Units (DPUs)**, starting small and expanding as needed.
 
+
+---
+
 **Integrations**
 
 The Glue Data Catalog integrates with:
-- **Amazon Athena** -- Run SQL queries over your data
+- `Amazon Athena` -- Run SQL queries over your data
 - **Amazon QuickSight** -- Build BI dashboards
 - **Amazon SageMaker** -- Build, train, and deploy ML models
 
 ---
-
 
 ## 3.4.4 AWS Glue Visual ETL
 
@@ -173,11 +217,16 @@ The Glue Data Catalog integrates with:
 
 Glue Visual ETL is a low-code, no-code interface in AWS Glue Studio for designing ETL pipelines. It generates a PySpark `glue_job.py` script automatically from a visual canvas, supporting sources (e.g., RDS), transforms (e.g., SQL queries), and targets (e.g., S3).
 
+
+---
+
 **Purpose**
 
 The typical workflow is to ingest normalized data from relational sources (e.g., Amazon RDS), apply transformations to model it into a star schema, and load the results into an Amazon S3 data lake.
 ![](/data-engineering-specialization-website/images/7c1c27e4-db5f-4353-acc6-54b530b99847.png)
 
+
+---
 
 **glue_job.py Walkthrough**
 
@@ -187,6 +236,9 @@ The generated script includes:
 - **Argument parsing**: `getResolvedOptions` for JOB_NAME, connections, database, and S3 path
 - **Context setup**: SparkContext, GlueContext, and Glue job initialization
 - **ETL logic**: Extract via JDBC from source tables, transform with SQL to build dimension and fact tables, and load to S3 in Parquet format
+
+
+---
 
 **Visual ETL Walkthrough**
 
@@ -208,9 +260,14 @@ Open Glue Studio and create a new Visual ETL job with a blank canvas.
 ![](/data-engineering-specialization-website/images/d2bf5624-7b9c-4666-baff-4d3b901ab1ad.png)
 
 
+---
+
 **Running the Glue Job**
 
 Configure job details (number of workers, timeout, IAM role), save and run the job, then monitor until "Succeeded." Verify output by browsing the S3 `processed_data` folders for parquet files.
+
+
+---
 
 **Summary**
 
@@ -245,7 +302,7 @@ job = Job(glueContext)
 job.init(args["JOB_NAME"], args)
 
 
-**Extract data from source tables**
+# Extract data from source tables
 customers = glueContext.create_dynamic_frame.from_options(
     connection_type="mysql",
     connection_options={
@@ -297,7 +354,7 @@ productlines = glueContext.create_dynamic_frame.from_options(
 )
 
 
-**Transform data to build a star schema**
+# Transform data to build a star schema
 sql_query_dim_customers = """
 with dim_customers as (
     select
@@ -406,7 +463,7 @@ fact_orders = sparkSqlQuery(
 )
 
 
-**Load transformed data into S3**
+# Load transformed data into S3
 
 dim_customers_to_s3 = glueContext.getSink(
     path=f"{args['target_path']}/dim_customers/",
@@ -476,12 +533,14 @@ job.commit()
 
 ```
 
-
 ## 3.4.5 DataFrames vs. SQL and Streaming
 
 **PySpark - DataFrames vs. SQL**
 
 PySpark offers two equivalent approaches for data transformation, and you can combine them freely since they compile to the same underlying code.
+
+
+---
 
 **Choosing Between SQL and Python**
 
@@ -499,9 +558,11 @@ PySpark offers two equivalent approaches for data transformation, and you can co
 | **Use Case Suitability** | Preferred for complex logic and reusable components | Preferred for simple, declarative data manipulation |
 
 
+---
+
 **Spark vs. Pandas**
 
-| **Aspect** | **Pandas** | **Spark** |
+| **Aspect** | **Pandas** | `Spark` |
 | --- | --- | --- |
 | **Data Size** | Suitable for small datasets that fit entirely in memory | Designed for large datasets that exceed memory limits |
 | **Execution Mode** | Runs on a single machine | Distributed computing across multiple nodes or cloud clusters |
@@ -512,10 +573,15 @@ PySpark offers two equivalent approaches for data transformation, and you can co
 | **Overhead** | Low overhead | Higher overhead due to distributed nature |
 | **Recommendation** | Use when simplicity and speed for small data are priorities | Use when scalability, fault tolerance, and distributed processing are needed |
 
+
+---
+
 **Choosing the Right Tool for Batch Transformation**
 
 The decision depends on data size, hardware specifications, and the desired trade-offs between performance and maintainability. SQL is simpler for straightforward tasks, while Python is more flexible and modular for complex logic.
 
+
+---
 
 **Streaming Transformations**
 

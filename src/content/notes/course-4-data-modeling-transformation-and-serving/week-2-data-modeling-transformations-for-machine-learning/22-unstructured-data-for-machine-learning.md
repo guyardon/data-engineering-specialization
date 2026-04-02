@@ -10,12 +10,14 @@ order: 2
 notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 ---
 
-
 ## 2.2.1 Image Data for Machine Learning
 
 **Modeling and Processing Unstructured Data for Machine Learning**
 
 Unstructured data -- images, text, audio -- requires specialized preprocessing before it can be fed into ML models. This section covers the techniques for images and text.
+
+
+---
 
 **Modeling Image Data for ML Algorithms**
 
@@ -37,15 +39,15 @@ import matplotlib.pyplot as plt
 import tensorflow_datasets as tfds
 
 
-**load the dataset**
+# load the dataset
 dataset = tfds.load('cats_vs_dogs', split='train', as_supervised=True)
 
 def resize_normalize(image, label, image_size=150):
 
-**resize the image**
+# resize the image
   image = tf.image.resize(image, [image_size, image_size])
 
-**normalize the image**
+# normalize the image
   image = (image / 255.0)
   return image, label
 
@@ -62,12 +64,14 @@ image, label = augment(image)
 
 ```
 
-
 ## 2.2.2 Text Preprocessing and Classification
 
 **Preprocessing Text for Analysis and Text Classification**
 
 NLP tasks span a wide range -- sentiment analysis, article classification, chatbots, spam detection, customer segmentation, and product recommendations. Despite advances in language models, text preprocessing remains important: raw text contains typos, inconsistencies, and irrelevant characters; training LLMs is expensive; and text features often need to be combined with categorical or numeric features.
+
+
+---
 
 **Preprocessing Text Workflow**
 
@@ -85,9 +89,9 @@ import spacy
 import numpy as np
 
 
-**A dictionary expanding common contractions**
+# A dictionary expanding common contractions
 
-**See: github.com/dipanjanS/practical-machine-learning-with-python**
+# See: github.com/dipanjanS/practical-machine-learning-with-python
 CONTRACTION_MAP = {
     "ain't": "is not",
     "aren't": "are not",
@@ -187,21 +191,29 @@ def preprocess_text(text, nlp, special_characters = ['~','@', '#', '$', '%', '^'
 
 ```
 
-
 ## 2.2.3 Text Vectorization and Embeddings
 
 **Text Vectorization and Embedding**
 
 After preprocessing, text must be converted into numerical representations. The approach depends on the scale and complexity of the task.
 
+
+---
+
 **Traditional Vectorization**
 
 Traditional methods assign numbers to words based on their frequency within documents and across the corpus. A **corpus** is a collection of documents (e.g. all customer reviews), and the **vocabulary** is the set of all unique preprocessed words.
+
+
+---
 
 **Bag of Words**
 
 Bag of Words creates binary vectors whose length matches the number of documents in the corpus. A `1` at a given index indicates the word appears in that document. The limitation: high-frequency words get more weight, but they may carry little meaning, while rare words that are more significant to the task get underweighted.
 ![](/data-engineering-specialization-website/images/6b312fd4-79e8-4792-900a-5b09e27ead0b.png)
+
+
+---
 
 **TF-IDF**
 
@@ -209,6 +221,9 @@ Bag of Words creates binary vectors whose length matches the number of documents
 ![](/data-engineering-specialization-website/images/3944827b-0dd0-4b55-8107-353869e2587d.png)
 
 These methods work well for smaller datasets where key words have significance to the task (e.g. sentiment analysis), but they produce high-dimensional sparse vectors and ignore word proximity.
+
+
+---
 
 **Word Embeddings**
 
@@ -223,7 +238,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-**load a pre-trained sentence transformer model**
+# load a pre-trained sentence transformer model
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
 sentences = [
@@ -233,7 +248,7 @@ sentences = [
 	]
 
 
-**encode sentences**
+# encode sentences
 embeddings = embedder.encode(sentences)
 
 print(embeddings.shape) # (3, 384)
@@ -256,11 +271,11 @@ reviews = ["this wonderful price amount you get",
          "I buy this my son his hair thin"]
 
 
-**bag of words**
+# bag of words
 vectorizer_bag_words = CountVectorizer(token_pattern='(?u)\\b\\w+\\b')
 
 
-**fit-transform**
+# fit-transform
 vectorizer_bag_words.fit(reviews)
 reviews_bag_words = vectorizer_bag_words.transform(reviews)
 

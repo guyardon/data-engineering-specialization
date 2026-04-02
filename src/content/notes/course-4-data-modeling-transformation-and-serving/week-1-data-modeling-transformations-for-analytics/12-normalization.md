@@ -10,7 +10,6 @@ order: 2
 notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 ---
 
-
 ## 1.2.1 Normalization Fundamentals
 
 **Normalization**
@@ -20,7 +19,6 @@ Normalization is a data modeling practice typically applied to relational databa
 Consider the difference between first and third normal form. In first normal form, data lives in a single wide table -- updating a customer name requires changing multiple rows, and adding a new column affects every row. In third normal form, changing a name means updating a single row in the customers table, and new attributes can be added through dedicated tables.
 ![](/data-engineering-specialization-website/images/a08fb08d-89c7-4a9d-bd31-eb01cbdba83f.png)
 
-
 ## 1.2.2 Normal Forms
 
 **Denormalized Form**
@@ -29,15 +27,22 @@ In denormalized form, all data sits in one table. Some columns may contain neste
 ![](/data-engineering-specialization-website/images/9bd278fb-3329-4ec4-a02b-6b682d98f774.png)
 
 
+---
+
 **1st Normal Form**
 
 First normal form requires that each column is unique and holds a single value, and the table has a unique primary key. In the example, `order_id` + `order_number` together form the composite primary key.
+
+
+---
 
 **2nd Normal Form**
 
 Second normal form builds on 1NF by removing **partial dependencies** -- cases where a subset of non-key columns depends on only some columns in a composite key. However, 2NF can still contain **transitive dependencies**, where a non-key column depends on another non-key column. In the example, `price` and `name` depend on `sku` in order items, while `customername` and `address` depend on `customer_id` in orders.
 ![](/data-engineering-specialization-website/images/d501fe47-00c9-4669-bd22-21c5a7fec895.png)
 
+
+---
 
 **3rd Normal Form**
 

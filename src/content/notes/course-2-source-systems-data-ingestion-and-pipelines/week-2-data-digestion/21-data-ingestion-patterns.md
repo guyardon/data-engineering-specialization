@@ -14,11 +14,12 @@ Data ingestion is the process of acquiring raw data from various sources. This s
 
 ![](/data-engineering-specialization-website/images/93a1c497-3f13-4e25-8e7b-d9d87b6f5643.png)
 
----
-
 ## 1.1.1 Data Ingestion on a Continuum
 
 Data ingestion isn't a binary choice between batch and streaming -- it exists on a continuum determined by how you bound your data.
+
+
+---
 
 **Unbounded vs. Bounded Data**
 
@@ -27,13 +28,18 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 
 ![](/data-engineering-specialization-website/images/5733cc62-1f85-4e29-8062-7037f4bcb069.png)
 
+---
+
 **Ways to Ingest Data**
 
 **Using Connectors:** JDBC/ODBC APIs that support time-based or size-based ingestion.
 
-**Using Ingestion Tools:** Services like **AWS Glue ETL** automate regular data ingestion on a schedule.
+**Using Ingestion Tools:** Services like `AWS Glue` ETL automate regular data ingestion on a schedule.
 
 **Using APIs:** Protocol-based ingestion that requires careful attention to ingestion limits per request, API call frequency, and the complexity of custom connection code tied to external documentation.
+
+
+---
 
 **Ingesting Data from Files:**
 
@@ -46,32 +52,36 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 
 **Popular AWS Data Ingestion Tools**
 
-**AWS Glue ETL** ingests, transforms, and loads data from AWS sources (RDS, S3, Redshift). It uses Apache Spark for distributed processing and is serverless with automated scaling.
+`AWS Glue` ETL ingests, transforms, and loads data from AWS sources (`RDS`, `S3`, `Redshift`). It uses `Apache Spark` for distributed processing and is serverless with automated scaling.
 
-**Amazon EMR** is a managed cluster platform for big data processing (Hadoop, Spark). It supports large-scale transformations and ingestion and is available in serverless and provisioned modes.
+`Amazon EMR` is a managed cluster platform for big data processing (`Hadoop`, `Spark`). It supports large-scale transformations and ingestion and is available in serverless and provisioned modes.
 
-**AWS Glue ETL vs. Amazon EMR**
+---
 
-| Feature | AWS Glue ETL | Amazon EMR |
+**`AWS Glue` ETL vs. `Amazon EMR`**
+
+| Feature | `AWS Glue` ETL | `Amazon EMR` |
 | --- | --- | --- |
 | **Ease of Use** | Serverless, minimal setup | Requires configuration |
 | **Scaling** | Automated scaling | Custom resource allocation |
 
-**AWS DMS (Data Migration Service)** moves data between databases without transformation, supports migrations between different database engines, and is available in serverless and provisioned modes.
+`AWS DMS` (Data Migration Service) moves data between databases without transformation, supports migrations between different database engines, and is available in serverless and provisioned modes.
+
+---
 
 **Other AWS Ingestion Services**
 
 - **AWS Snow Family:** Physical transfer appliances (Snowball, Snowcone) for large-scale migration.
-- **AWS Transfer Family:** Secure file transfers to/from Amazon S3 using SFTP, FTP.
+- **AWS Transfer Family:** Secure file transfers to/from `Amazon S3` using SFTP, FTP.
 
-**Third-Party Ingestion Tools:** **Airbyte, Matillion, Fivetran** -- cloud-based ETL tools.
+**Third-Party Ingestion Tools:** `Airbyte`, `Matillion`, `Fivetran` -- cloud-based ETL tools.
 
 ---
 
 **Streaming Ingestion Tools**
 
-- **Amazon Kinesis Data Streams**
-- **Amazon Managed Streaming for Apache Kafka (MSK)**
+- `Amazon Kinesis` Data Streams
+- Amazon Managed Streaming for `Apache Kafka` (MSK)
 
 Both enable real-time data ingestion, processing, and analytics.
 

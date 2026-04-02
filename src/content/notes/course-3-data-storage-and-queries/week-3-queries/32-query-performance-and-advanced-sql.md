@@ -10,7 +10,6 @@ order: 2
 notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 ---
 
-
 ## 3.2.1 Understanding Query Performance
 
 **Understanding Query Performance**
@@ -18,7 +17,6 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 The **EXPLAIN** command reveals the execution plan the DBMS has chosen for a query — the sequence of steps, resource consumption, and performance statistics at each stage. It is the primary tool for diagnosing slow queries.
 
 ![](/data-engineering-specialization-website/images/451f5889-b5e5-4f22-af21-e817e978b524.png)
-
 
 ## 3.2.2 Advanced SQL Queries
 
@@ -28,14 +26,14 @@ Beyond basic SELECT/FROM/WHERE, SQL offers several powerful constructs for shapi
 
 ```sql
 
-**DATA Manipulation Operations**
+# DATA Manipulation Operations
 CREATE
 INSERT INTO
 UPDATE
 DELETE
 
 
-**COMMON SQL COMMANDS**
+# COMMON SQL COMMANDS
 SELECT
 COUNT(), SUM(), AVG(), MIN(), MAX()
 FROM
@@ -134,7 +132,7 @@ WHERE length > (SELECT AVG(length) from dim_film)
 
 ```sql
 
-**Subquery Template**
+# Subquery Template
 SELECT column_name1,
 ranking_function() OVER (
 	PARTITION BY column_name1
@@ -143,7 +141,7 @@ ranking_function() OVER (
 FROM table_name;
 
 
-**example of ranking functions:**
+# example of ranking functions:
 rank()
 row_number()
 ```
@@ -152,7 +150,7 @@ Window Function Example
 
 ```sql
 
-**lets start with a query**
+# lets start with a query
 SELECT
 fact_rental.customer_id,
 dim_category.name,
@@ -164,17 +162,17 @@ GROUP BY fact_rental.customer_id, dim_category.name
 ORDER BY fact_rental.customer_id, average_rental_days DESC
 
 
-**now convert the query to a CTE**
+# now convert the query to a CTE
 WITH customer_info as (
 
-**<previous query here>**
+# <previous query here>
 )
 SELECT
 	customer_id,
 	name,
 	average_rental_days
 
-**now comes the window function**
+# now comes the window function
 rank() over (
 	PARTITION BY customer_id
 	ORDER BY average_rental_days DESC
@@ -185,7 +183,6 @@ ORDER BY
 	customer_id,
 	rank category
 ```
-
 
 ## 3.2.3 Index Deep Dive
 
@@ -203,15 +200,15 @@ The strategy: create indexes that improve performance of your most critical quer
 
 ![](/data-engineering-specialization-website/images/530c0a6a-e128-4b8d-8ff4-80ac187ade10.png)
 
-**Columnar Storage** applies the same ideas. On **Amazon Redshift**, you define a **sort key** on one or more columns — data is sorted by that key and stored on disk accordingly. On **Google BigQuery**, the equivalent is a **cluster key**.
+**Columnar Storage** applies the same ideas. On `Amazon Redshift`, you define a **sort key** on one or more columns — data is sorted by that key and stored on disk accordingly. On **Google BigQuery**, the equivalent is a **cluster key**.
 
 Example:
 
 ```sql
 
-**will perform index scan since employee_id**
+# will perform index scan since employee_id
 
-**is defined as the primary key for this table**
+# is defined as the primary key for this table
 EXPLAIN
 SELECT first_name, last_name
 FROM employees
@@ -220,36 +217,35 @@ WHERE employee_id = 123
 
 ```sql
 
-**orderdetails table has a *composite* primary key**
+# orderdetails table has a *composite* primary key
 
-**(productcode, ordernumber)**
+# (productcode, ordernumber)
 
-**the index is created on the productcode column**
+# the index is created on the productcode column
 
-***since its defined first***
+# *since its defined first*
 
-**because of the mismatch between the index**
+# because of the mismatch between the index
 
-**and the primary key, the DBMS will perform**
+# and the primary key, the DBMS will perform
 
-**a full table scan on orderdetails (seq scan)**
+# a full table scan on orderdetails (seq scan)
 EXPLAIN
 SELECT productcode, priceeach
 FROM orderdetails
 WHERE ordernumber = 10101
 
 
-**if we choose the *composite* primary key**
+# if we choose the *composite* primary key
 
-**to be (ordernumber, productcode)**
+# to be (ordernumber, productcode)
 
-**since ordernumber is first, the DBMS**
+# since ordernumber is first, the DBMS
 
-**will create an index on ordernumber (since its first)**
+# will create an index on ordernumber (since its first)
 
-**and filtering based on it will use the index.**
+# and filtering based on it will use the index.
 ```
-
 
 ## 3.2.4 Retrieving Only the Data You Need
 
@@ -261,12 +257,12 @@ Running `SELECT * FROM orders` forces large amounts of data to be transferred fr
 
 ```sql
 
-**Use index/cluster key**
+# Use index/cluster key
 CREATE INDEX rental_idx
 ON payment (rental_id);
 
 
-**Filter out rows with WHERE**
+# Filter out rows with WHERE
 SELECT * from payment
 WHERE rental_id = 1;
 ```

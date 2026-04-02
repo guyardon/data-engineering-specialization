@@ -10,27 +10,31 @@ order: 2
 notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 ---
 
-
 ## 3.2.1 Hadoop Background and HDFS
 
 **Distributed Processing Framework - Hadoop**
 
 Hadoop emerged from the big data era of the late 1990s and 2000s, when traditional monolithic data warehouses could not handle massive data volumes and commodity hardware became cheap and ubiquitous.
 
+
+---
+
 **Historical Background**
 
 Several innovations in large-scale distributed storage and computing laid the groundwork for Hadoop's architecture.
 
+
+---
+
 **Hadoop Distributed File System**
 
-**HDFS** combines compute and storage on the same nodes, unlike **object storage** which has limited compute support for internal processing. Large files are broken into **blocks** of a few hundred megabytes each.
+`HDFS` combines compute and storage on the same nodes, unlike **object storage** which has limited compute support for internal processing. Large files are broken into **blocks** of a few hundred megabytes each.
 
 The file system is managed by the **NameNode**, which handles directories, file metadata, and a detailed catalog describing where file blocks reside in the cluster.
 
 A typical HDFS configuration includes:
 - **Replication**: each block is replicated across 3 **DataNodes**, increasing durability and availability
-- **Combined compute and storage**: enables in-place data processing via **MapReduce**
-
+- **Combined compute and storage**: enables in-place data processing via `MapReduce`
 
 ## 3.2.2 Hadoop MapReduce
 
@@ -48,8 +52,11 @@ Example: SQL Query in MapReduce
 In the diagram below, keys (in yellow/red) are user IDs and values are counts.
 ![](/data-engineering-specialization-website/images/d6a542c5-c54a-4d2c-8592-2a7d08fe7fdf.png)
 
+
+---
+
 **Shortcomings of MapReduce**
 
 MapReduce writes to disk at every intermediate step -- never to memory. This simplifies state and workflow management and minimizes memory consumption, but results in high disk bandwidth utilization and increased processing time.
 
-Newer approaches like **Spark** improved on this with **in-memory caching**. RAM is faster than SSD/HDD in both transfer speed and seek time, delivering dramatic speedups. Spark treats data as a distributed set that resides in memory, using disk only as a fallback when data overflows available memory.
+Newer approaches like `Spark` improved on this with **in-memory caching**. RAM is faster than SSD/HDD in both transfer speed and seek time, delivering dramatic speedups. Spark treats data as a distributed set that resides in memory, using disk only as a fallback when data overflows available memory.

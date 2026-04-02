@@ -10,14 +10,19 @@ order: 4
 notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 ---
 
-
 ## 3.4.1 Streaming Query Patterns
 
 **Streaming Queries**
 
+
+---
+
 **Overview**
 
-When data arrives continuously, query patterns must reflect that real-time nature. Frameworks like **Apache Flink**, **Spark Streaming**, and **Kafka** enable SQL queries over streaming data, typically using windowing techniques to bound the otherwise infinite stream.
+When data arrives continuously, query patterns must reflect that real-time nature. Frameworks like `Apache Flink`, **Spark Streaming**, and `Kafka` enable SQL queries over streaming data, typically using windowing techniques to bound the otherwise infinite stream.
+
+
+---
 
 **Windowing techniques:**
 
@@ -28,7 +33,6 @@ When data arrives continuously, query patterns must reflect that real-time natur
 **Joining Data Streams** is also possible, combining records from two or more streams based on matching keys within a time window.
 
 ![](/data-engineering-specialization-website/images/7d48148e-5530-4388-86d7-6da77315ff57.png)
-
 
 ## 3.4.2 Deploying with Amazon Managed Service for Apache Flink
 

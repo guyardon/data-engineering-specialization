@@ -18,7 +18,7 @@ The data engineering lifecycle begins at the source. Data can originate from a w
 
 - **Databases** — relational databases, NoSQL stores (key-value, document)
 - **Files** — text, audio, video, and other formats
-- **APIs** — data returned as JSON or XML from programmatic requests
+- **APIs** — data returned as `JSON` or XML from programmatic requests
 - **Data sharing platforms** — internal datasets or third-party providers
 - **IoT devices** — fleets of sensors that typically feed into a database, API, or sharing platform
 
@@ -44,7 +44,7 @@ Storage sits at every stage of the lifecycle. The raw hardware ingredients trade
 
 Process-level components such as networking, compression, serialization, and caching also influence storage performance.
 
-Data engineers typically work with **database management systems**, **object storage**, **Apache Iceberg**, **cache/memory-based stores**, and **streaming storage**. These sit behind higher-level abstractions — **data warehouses**, **data lakes**, and **data lakehouses** — that let you configure latency, scalability, and cost to match your workload.
+Data engineers typically work with **database management systems**, **object storage**, `Apache Iceberg`, **cache/memory-based stores**, and **streaming storage**. These sit behind higher-level abstractions — **data warehouses**, **data lakes**, and **data lakehouses** — that let you configure latency, scalability, and cost to match your workload.
 
 ## 2.1.4 Data Transformation
 
@@ -64,6 +64,10 @@ The final stage delivers data to end consumers across three main channels.
 - **Operational Analytics** — monitoring real-time data for immediate action
 - **Embedded Analytics** — customer-facing analytics built directly into a product
 
+---
+
 **Machine Learning** consumes served data through feature stores, real-time inference endpoints, and data lineage tracking.
+
+---
 
 **Reverse ETL** closes the loop by feeding transformed data back into source systems.

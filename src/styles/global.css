@@ -225,7 +225,19 @@
   }
 
   .prose hr {
-    border-color: var(--line);
-    margin: 2rem 0;
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 1.5rem 0;
+    opacity: 0.5;
+  }
+
+  /* Bold sub-topic titles (standalone <p> containing only <strong>) */
+  .prose p:has(> strong:only-child) {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--fg);
+    font-family: var(--font-sans);
   }
 }
