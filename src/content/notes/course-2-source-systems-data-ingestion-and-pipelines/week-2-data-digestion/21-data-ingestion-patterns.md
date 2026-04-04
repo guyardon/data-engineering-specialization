@@ -12,7 +12,7 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 Data ingestion is the process of acquiring raw data from various sources. This section covers different ingestion patterns, batch and streaming requirements, and key AWS tools for data ingestion.
 
-## 1.1.1 Data Ingestion on a Continuum
+## 2.1.1 Data Ingestion on a Continuum
 
 Data ingestion isn't a binary choice between batch and streaming -- it exists on a continuum determined by how you bound your data.
 
@@ -24,7 +24,7 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 <img src="/data-engineering-specialization-website/images/diagrams/ingestion-continuum-dark.svg" alt="Data Ingestion Continuum" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization-website/images/diagrams/ingestion-continuum.svg" alt="Data Ingestion Continuum" class="diagram diagram-light" />
 
-## 1.1.2 Ways to Ingest Data
+## 2.1.2 Ways to Ingest Data
 
 **Using Connectors:** JDBC/ODBC APIs that support time-based or size-based ingestion.
 
@@ -75,7 +75,7 @@ Via **Message Queues** or **Streaming Platforms**.
 
 Both enable real-time data ingestion, processing, and analytics.
 
-## 1.1.3 Key Considerations: Batch vs. Streaming Ingestion
+## 2.1.3 Key Considerations: Batch vs. Streaming Ingestion
 
 Choosing between batch and streaming ingestion comes down to business value versus operational complexity.
 
