@@ -54,16 +54,19 @@ Use for: AWS/GCP/Azure architecture diagrams, infrastructure diagrams, anything 
 - **Critical: all `diagrams` library diagrams on the same page must share identical style config** — extract colors and attrs into a shared `gen(dark)` function. Only the content/connections should differ between diagrams.
 
 ### Theme switching (both libraries)
+The site uses `base: "/data-engineering-specialization-website"` — all image `src` paths must include this prefix.
 ```html
-<img src="...-dark.svg" alt="..." class="diagram diagram-dark" />
-<img src="...svg" alt="..." class="diagram diagram-light" />
+<img src="/data-engineering-specialization-website/images/diagrams/name-dark.svg" alt="..." class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/name.svg" alt="..." class="diagram diagram-light" />
 ```
 CSS in `src/styles/global.css` handles show/hide based on `[data-theme]`.
 
 ## Workflow
+- At the start of each session, kill any existing Astro dev servers (`kill $(lsof -ti :4321 2>/dev/null)`) then run `npm run dev` in the background so the user can preview changes live. Note the port in case it auto-increments.
 - Always run `npm run build` automatically after any content or style change — don't wait to be asked
 - Commit frequently — after each logical unit of work (a diagram, a content change, a style fix). Break changes into multiple conventional commits grouped by context.
 - For diagrams: build, embed, and rebuild the site, then wait for user review before committing.
+- **Critical:** All asset paths in markdown must include the base path prefix `/data-engineering-specialization-website/`. Never use bare `/images/...` paths — they will 404.
 
 ## Content conventions
 - `backticks` for tools/products (S3, Airflow, dbt)
