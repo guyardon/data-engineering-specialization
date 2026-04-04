@@ -34,16 +34,35 @@ GRAY = ("#868e96", "#dee2e6")
 
 
 def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg,
-        "fillStyle": fill, "strokeWidth": 2,
-        "strokeStyle": "dashed" if dashed else "solid", "roughness": 1,
-        "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"):
@@ -52,52 +71,117 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": align, "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid,
-        "strokeColor": color, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": align,
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def line(id, x, y, pts, stroke, dash=False, op=100):
-    els.append({
-        "type": "line", "id": id, "x": x, "y": y,
-        "width": abs(pts[-1][0] - pts[0][0]), "height": abs(pts[-1][1] - pts[0][1]),
-        "angle": 0, "points": pts,
-        "startArrowhead": None, "endArrowhead": None,
-        "startBinding": None, "endBinding": None, "elbowed": False,
-        "strokeColor": stroke, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "dashed" if dash else "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "line",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": abs(pts[-1][0] - pts[0][0]),
+            "height": abs(pts[-1][1] - pts[0][1]),
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": None,
+            "startBinding": None,
+            "endBinding": None,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append({
-        "type": "arrow", "id": id, "x": x, "y": y,
-        "width": pts[-1][0] - pts[0][0], "height": pts[-1][1] - pts[0][1],
-        "angle": 0, "points": pts,
-        "startArrowhead": None, "endArrowhead": "arrow",
-        "startBinding": sb, "endBinding": eb, "elbowed": False,
-        "strokeColor": stroke, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "dashed" if dash else "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "arrow",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": pts[-1][0] - pts[0][0],
+            "height": pts[-1][1] - pts[0][1],
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": "arrow",
+            "startBinding": sb,
+            "endBinding": eb,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 # === LAYOUT CONSTANTS ===
@@ -139,12 +223,25 @@ first_x = TIMELINE_X0 + 20  # offset from start
 # === BUILD DIAGRAM ===
 
 # Title
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "Evolution of Orchestration Tools", 32, color="#1e1e1e")
+txt(
+    "title",
+    PAD_X,
+    TITLE_Y,
+    CONTENT_W,
+    TITLE_H,
+    "Evolution of Orchestration Tools",
+    32,
+    color="#1e1e1e",
+)
 
 # Timeline arrow (horizontal, left to right)
-arr("timeline", TIMELINE_X0, TIMELINE_Y, [[0, 0], [TIMELINE_X1 - TIMELINE_X0, 0]],
-    GRAY[0])
+arr(
+    "timeline",
+    TIMELINE_X0,
+    TIMELINE_Y,
+    [[0, 0], [TIMELINE_X1 - TIMELINE_X0, 0]],
+    GRAY[0],
+)
 
 # Milestone boxes and connectors
 for i, (name, sub, color, pos) in enumerate(milestones):
@@ -172,8 +269,15 @@ for i, (name, sub, color, pos) in enumerate(milestones):
 
     # Small dot on the timeline
     dot_sz = 10
-    rect(dot_id, cx - dot_sz // 2, TIMELINE_Y - dot_sz // 2, dot_sz, dot_sz,
-         color[0], color[1])
+    rect(
+        dot_id,
+        cx - dot_sz // 2,
+        TIMELINE_Y - dot_sz // 2,
+        dot_sz,
+        dot_sz,
+        color[0],
+        color[1],
+    )
 
     # Card with bound title text (Rule 13) + free subtitle
     title_h = math.ceil((name.count("\n") + 1) * 22 * 1.25)
@@ -185,12 +289,28 @@ for i, (name, sub, color, pos) in enumerate(milestones):
     title_y = box_y + top_pad
     sub_y = title_y + title_h + gap
 
-    rect(card_id, box_x, box_y, BOX_W, BOX_H, color[0], color[1],
-         bnd=[{"id": card_t_id, "type": "text"}])
-    txt(card_t_id, box_x, title_y, BOX_W, title_h,
-        name, 22, color="#1e1e1e", cid=card_id)
-    txt(sub_id, box_x, sub_y, BOX_W, sub_h,
-        sub, 17, color=color[0])
+    rect(
+        card_id,
+        box_x,
+        box_y,
+        BOX_W,
+        BOX_H,
+        color[0],
+        color[1],
+        bnd=[{"id": card_t_id, "type": "text"}],
+    )
+    txt(
+        card_t_id,
+        box_x,
+        title_y,
+        BOX_W,
+        title_h,
+        name,
+        22,
+        color="#1e1e1e",
+        cid=card_id,
+    )
+    txt(sub_id, box_x, sub_y, BOX_W, sub_h, sub, 17, color=color[0])
 
 # === WRITE FILE ===
 name = sys.argv[1] if len(sys.argv) > 1 else "orchestration-timeline"

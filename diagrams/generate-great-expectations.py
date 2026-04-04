@@ -34,16 +34,35 @@ GRAY = ("#868e96", "#dee2e6")
 
 
 def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg,
-        "fillStyle": fill, "strokeWidth": 2,
-        "strokeStyle": "dashed" if dashed else "solid", "roughness": 1,
-        "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"):
@@ -52,35 +71,80 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": align, "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid,
-        "strokeColor": color, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": align,
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append({
-        "type": "arrow", "id": id, "x": x, "y": y,
-        "width": pts[-1][0] - pts[0][0], "height": pts[-1][1] - pts[0][1],
-        "angle": 0, "points": pts,
-        "startArrowhead": None, "endArrowhead": "arrow",
-        "startBinding": sb, "endBinding": eb, "elbowed": False,
-        "strokeColor": stroke, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "dashed" if dash else "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "arrow",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": pts[-1][0] - pts[0][0],
+            "height": pts[-1][1] - pts[0][1],
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": "arrow",
+            "startBinding": sb,
+            "endBinding": eb,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 # === LAYOUT — Vertical flow (4 stages stacked) ===
@@ -105,34 +169,65 @@ META_H = math.ceil(2 * 16 * 1.25)
 
 # Stage definitions
 stages = [
-    ("Data Context", BLUE, [
-        "Instantiate a data\ncontext object",
-    ]),
-    ("Data Sources", GREEN, [
-        "Declare the\ndata source",
-        "Declare the\ndata assets",
-        "Create a\nbatch_request",
-    ]),
-    ("Expectations", YELLOW, [
-        "Define\nexpectations",
-        "Create an\nexpectation suite",
-    ]),
-    ("Checkpoints", PURPLE, [
-        "Create a\ncheckpoint",
-        "Run validator —\ngenerate results",
-    ]),
+    (
+        "Data Context",
+        BLUE,
+        [
+            "Instantiate a data\ncontext object",
+        ],
+    ),
+    (
+        "Data Sources",
+        GREEN,
+        [
+            "Declare the\ndata source",
+            "Declare the\ndata assets",
+            "Create a\nbatch_request",
+        ],
+    ),
+    (
+        "Expectations",
+        YELLOW,
+        [
+            "Define\nexpectations",
+            "Create an\nexpectation suite",
+        ],
+    ),
+    (
+        "Checkpoints",
+        PURPLE,
+        [
+            "Create a\ncheckpoint",
+            "Run validator —\ngenerate results",
+        ],
+    ),
 ]
 
 # === BUILD DIAGRAM ===
 
 # Title
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "Great Expectations Workflow", 32, color="#1e1e1e")
+txt(
+    "title",
+    PAD_X,
+    TITLE_Y,
+    CONTENT_W,
+    TITLE_H,
+    "Great Expectations Workflow",
+    32,
+    color="#1e1e1e",
+)
 
 # Metadata note at top right
-txt("meta", PAD_X, STAGE_START - 15, CONTENT_W, META_H,
+txt(
+    "meta",
+    PAD_X,
+    STAGE_START - 15,
+    CONTENT_W,
+    META_H,
     "Metadata stores: Expectation Store, Validation Store, Checkpoint Store, Data Docs",
-    16, color=GRAY[0])
+    16,
+    color=GRAY[0],
+)
 
 cur_y = STAGE_START + META_H + 10
 
@@ -143,17 +238,39 @@ for si, (stage_name, color, steps) in enumerate(stages):
     container_h = HDR_H + container_inner_h + INNER_PAD
 
     container_id = f"container{si}"
-    rect(container_id, PAD_X, cur_y, CONTENT_W, container_h,
-         color[0], "transparent", dashed=True)
+    rect(
+        container_id,
+        PAD_X,
+        cur_y,
+        CONTENT_W,
+        container_h,
+        color[0],
+        "transparent",
+        dashed=True,
+    )
 
     # Header
     hdr_id = f"hdr{si}"
-    rect(hdr_id, PAD_X + INNER_PAD, cur_y + INNER_PAD,
-         CONTENT_W - 2 * INNER_PAD, HDR_H, color[0], color[1],
-         bnd=[{"id": f"hdr-t{si}", "type": "text"}])
-    txt(f"hdr-t{si}", PAD_X + INNER_PAD, cur_y + INNER_PAD,
-        CONTENT_W - 2 * INNER_PAD, HDR_H,
-        stage_name, 24, cid=hdr_id)
+    rect(
+        hdr_id,
+        PAD_X + INNER_PAD,
+        cur_y + INNER_PAD,
+        CONTENT_W - 2 * INNER_PAD,
+        HDR_H,
+        color[0],
+        color[1],
+        bnd=[{"id": f"hdr-t{si}", "type": "text"}],
+    )
+    txt(
+        f"hdr-t{si}",
+        PAD_X + INNER_PAD,
+        cur_y + INNER_PAD,
+        CONTENT_W - 2 * INNER_PAD,
+        HDR_H,
+        stage_name,
+        24,
+        cid=hdr_id,
+    )
 
     # Steps
     step_start_y = cur_y + INNER_PAD + HDR_H + INNER_PAD
@@ -163,11 +280,27 @@ for si, (stage_name, color, steps) in enumerate(stages):
     for ji, step_text in enumerate(steps):
         step_y = step_start_y + ji * (STEP_H + STEP_GAP)
         step_id = f"step{si}_{ji}"
-        rect(step_id, step_x, step_y, step_w, STEP_H,
-             color[0], color[1], opacity=60,
-             bnd=[{"id": f"step-t{si}_{ji}", "type": "text"}])
-        txt(f"step-t{si}_{ji}", step_x, step_y, step_w, STEP_H,
-            step_text, 20, cid=step_id)
+        rect(
+            step_id,
+            step_x,
+            step_y,
+            step_w,
+            STEP_H,
+            color[0],
+            color[1],
+            opacity=60,
+            bnd=[{"id": f"step-t{si}_{ji}", "type": "text"}],
+        )
+        txt(
+            f"step-t{si}_{ji}",
+            step_x,
+            step_y,
+            step_w,
+            STEP_H,
+            step_text,
+            20,
+            cid=step_id,
+        )
 
         # Arrow between steps within same stage
         if ji > 0:
@@ -175,10 +308,15 @@ for si, (stage_name, color, steps) in enumerate(stages):
             arr_id = f"arr-inner{si}_{ji}"
             arr_x = step_x + step_w // 2
             arr_y_start = step_y - STEP_GAP
-            arr(arr_id, arr_x, arr_y_start,
-                [[0, 0], [0, STEP_GAP]], color[0],
+            arr(
+                arr_id,
+                arr_x,
+                arr_y_start,
+                [[0, 0], [0, STEP_GAP]],
+                color[0],
                 sb={"elementId": prev_step_id, "focus": 0, "gap": 4},
-                eb={"elementId": step_id, "focus": 0, "gap": 4})
+                eb={"elementId": step_id, "focus": 0, "gap": 4},
+            )
 
     # Arrow between stages
     if si > 0:
@@ -186,10 +324,15 @@ for si, (stage_name, color, steps) in enumerate(stages):
         arr_id = f"arr-stage{si}"
         arr_x = PAD_X + CONTENT_W // 2
         arr_y_start = cur_y - STAGE_GAP
-        arr(arr_id, arr_x, arr_y_start,
-            [[0, 0], [0, STAGE_GAP]], GRAY[0],
+        arr(
+            arr_id,
+            arr_x,
+            arr_y_start,
+            [[0, 0], [0, STAGE_GAP]],
+            GRAY[0],
             sb={"elementId": prev_container_id, "focus": 0, "gap": 4},
-            eb={"elementId": container_id, "focus": 0, "gap": 4})
+            eb={"elementId": container_id, "focus": 0, "gap": 4},
+        )
 
     cur_y += container_h + STAGE_GAP
 
