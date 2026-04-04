@@ -12,17 +12,13 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 
 ## 3.1.1 Query Fundamentals
 
-**Overview**
-
 How data is stored and managed directly affects both query performance and the performance of the storage systems themselves. This week explores those relationships.
-
 
 ---
 
 **Query Definition**
 
-A **query** is a statement written in a specific query language to retrieve or act on data. Examples include SQL queries against an RDBMS, SQL-like queries against Amazon S3, and Cypher queries against a Neo4j graph database.
-
+A **query** is a statement written in a specific query language to retrieve or act on data. Examples include SQL queries against an RDBMS, SQL-like queries against `Amazon S3`, and Cypher queries against a `Neo4j` graph database.
 
 ---
 
@@ -37,18 +33,15 @@ SQL and its relatives are **declarative** — you describe *what* data you want,
 
 ## 3.1.2 The Life of a Query
 
-**Batch Queries**
-
 A batch query travels through several stages within the DBMS before returning results.
 
+<img src="/data-engineering-specialization-website/images/diagrams/query-lifecycle-dark.svg" alt="Query lifecycle stages from transport through storage engine" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/query-lifecycle.svg" alt="Query lifecycle stages from transport through storage engine" class="diagram diagram-light" style="max-height: 900px;" />
 
----
-
-**The Life of a Query**
-
-| **Database Management System Layer** | **Query Lifecycle Stage** | **Notes** |
-| --- | --- | --- |
-| Transport System | Query issued |  |
-| Query Processor | Query Parsing + Planning | The **query parser** converts the query to tokens, checks syntax, performs control checks, and compiles tokens to bytecode. The **query optimizer** then evaluates candidate execution plans — considering operation types, index availability, and data scan size — calculates the cost of each (I/O, computation, memory), and selects the least expensive plan. |
-| Execution Engine | Query execution | Executes the chosen plan. |
-| Storage Engine |  | Stores the results. |
+| Stage | Component | What Happens |
+|---|---|---|
+| **1. Transport** | Network layer | Client sends the SQL query over a network connection to the DBMS |
+| **2. Parsing** | Query parser | Tokenizes the query, checks syntax, validates access permissions, compiles tokens to bytecode |
+| **3. Optimization** | Query optimizer | Evaluates candidate execution plans — considers operation types, index availability, data scan size — calculates the cost of each (I/O, computation, memory) and selects the least expensive |
+| **4. Execution** | Execution engine | Executes the chosen plan against the storage layer |
+| **5. Storage** | Storage engine | Reads/writes data blocks on disk and returns results back up the chain |
