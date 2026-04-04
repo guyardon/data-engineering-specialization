@@ -1,48 +1,139 @@
-import json, math, os
+import json
+import math
+import os
 
 data = {
-    "type": "excalidraw", "version": 2,
+    "type": "excalidraw",
+    "version": 2,
     "source": "https://excalidraw.com",
-    "elements": [], "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None}, "files": {}
+    "elements": [],
+    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
+    "files": {},
 }
 els = data["elements"]
 seed = 3000
 
-def ns():
-    global seed; seed += 1; return seed
 
-def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2):
-    els.append({"type":"rectangle","id":id,"x":x,"y":y,"width":w,"height":h,"angle":0,
-        "strokeColor":stroke,"backgroundColor":bg,"fillStyle":fill,"strokeWidth":sw,
-        "strokeStyle":"dashed" if dashed else "solid","roughness":1,"opacity":opacity,
-        "roundness":{"type":3},"seed":ns(),"version":1,"versionNonce":ns(),
-        "isDeleted":False,"groupIds":[],"boundElements":bnd or [],
-        "frameId":None,"link":None,"locked":False,"updated":1710000000000})
+def ns():
+    global seed
+    seed += 1
+    return seed
+
+
+def rect(
+    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
+):
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": sw,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
+
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, valign="middle"):
-    els.append({"type":"text","id":id,"x":x,"y":y,"width":w,"height":h,"angle":0,
-        "text":t,"originalText":t,"fontSize":sz,"fontFamily":1,
-        "textAlign":"center","verticalAlign":valign,"lineHeight":1.25,"autoResize":True,
-        "containerId":cid,"strokeColor":color,"backgroundColor":"transparent",
-        "fillStyle":"solid","strokeWidth":2,"strokeStyle":"solid","roughness":1,"opacity":op,
-        "seed":ns(),"version":1,"versionNonce":ns(),
-        "isDeleted":False,"groupIds":[],"boundElements":[],
-        "frameId":None,"link":None,"locked":False,"updated":1710000000000})
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": valign,
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
+
 
 def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append({"type":"arrow","id":id,"x":x,"y":y,
-        "width":abs(pts[-1][0]-pts[0][0]),"height":abs(pts[-1][1]-pts[0][1]),"angle":0,
-        "points":pts,"startArrowhead":None,"endArrowhead":"arrow",
-        "startBinding":sb,"endBinding":eb,"elbowed":False,
-        "strokeColor":stroke,"backgroundColor":"transparent",
-        "fillStyle":"solid","strokeWidth":2,"strokeStyle":"dashed" if dash else "solid",
-        "roughness":1,"opacity":op,
-        "seed":ns(),"version":1,"versionNonce":ns(),
-        "isDeleted":False,"groupIds":[],"boundElements":[],
-        "frameId":None,"link":None,"locked":False,"updated":1710000000000})
+    els.append(
+        {
+            "type": "arrow",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": abs(pts[-1][0] - pts[0][0]),
+            "height": abs(pts[-1][1] - pts[0][1]),
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": "arrow",
+            "startBinding": sb,
+            "endBinding": eb,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
+
 
 def th(text, font_size):
-    return math.ceil((text.count('\n') + 1) * font_size * 1.25)
+    return math.ceil((text.count("\n") + 1) * font_size * 1.25)
+
 
 # ── Layout constants ──
 CANVAS_W = 860
@@ -65,25 +156,38 @@ MAIN_TITLE_H = 70
 TITLE_GAP = 25
 START_Y = TITLE_Y + MAIN_TITLE_H + TITLE_GAP
 
-txt("title", PAD_X, TITLE_Y, CONTENT_W, MAIN_TITLE_H,
-    "Requirements Hierarchy\nof Needs", 28)
+txt(
+    "title",
+    PAD_X,
+    TITLE_Y,
+    CONTENT_W,
+    MAIN_TITLE_H,
+    "Requirements Hierarchy\nof Needs",
+    28,
+)
 
 # ── Card data (top to bottom) ──
 cards = [
     {
-        "id": "biz", "title": "Business Goals",
+        "id": "biz",
+        "title": "Business Goals",
         "subtitle": "Revenue, market share,\nuser growth",
-        "stroke": "#1971c2", "bg": "#a5d8ff",
+        "stroke": "#1971c2",
+        "bg": "#a5d8ff",
     },
     {
-        "id": "stake", "title": "Stakeholder Needs",
+        "id": "stake",
+        "title": "Stakeholder Needs",
         "subtitle": "Resources, tools,\ndata systems",
-        "stroke": "#2f9e44", "bg": "#b2f2bb",
+        "stroke": "#2f9e44",
+        "bg": "#b2f2bb",
     },
     {
-        "id": "sys", "title": "System Requirements",
+        "id": "sys",
+        "title": "System Requirements",
         "subtitle": None,
-        "stroke": "#6741d9", "bg": "#d0bfff",
+        "stroke": "#6741d9",
+        "bg": "#d0bfff",
     },
 ]
 
@@ -113,8 +217,7 @@ for i, c in enumerate(cards):
     if i < len(cards) - 1:
         bnd.append({"type": "arrow", "id": f"arr_{card_id}_{cards[i+1]['id']}"})
 
-    rect(card_id, PAD_X, cur_y, CARD_W, h,
-         c["stroke"], c["bg"], fill="solid", bnd=bnd)
+    rect(card_id, PAD_X, cur_y, CARD_W, h, c["stroke"], c["bg"], fill="solid", bnd=bnd)
 
     if c["subtitle"]:
         title_h = th(c["title"], FONT_TITLE)
@@ -125,15 +228,42 @@ for i, c in enumerate(cards):
         title_y = cur_y + top_pad
         sub_y = title_y + title_h + SUB_GAP
 
-        txt(title_id, PAD_X, title_y, CARD_W, title_h,
-            c["title"], FONT_TITLE, color="#1e1e1e", cid=card_id)
-        txt(sub_id, PAD_X, sub_y, CARD_W, sub_h,
-            c["subtitle"], FONT_SUB, color=c["stroke"], valign="top")
+        txt(
+            title_id,
+            PAD_X,
+            title_y,
+            CARD_W,
+            title_h,
+            c["title"],
+            FONT_TITLE,
+            color="#1e1e1e",
+            cid=card_id,
+        )
+        txt(
+            sub_id,
+            PAD_X,
+            sub_y,
+            CARD_W,
+            sub_h,
+            c["subtitle"],
+            FONT_SUB,
+            color=c["stroke"],
+            valign="top",
+        )
     else:
         title_h = th(c["title"], FONT_TITLE)
         centered_y = cur_y + (h - title_h) // 2
-        txt(title_id, PAD_X, centered_y, CARD_W, title_h,
-            c["title"], FONT_TITLE, color="#1e1e1e", cid=card_id)
+        txt(
+            title_id,
+            PAD_X,
+            centered_y,
+            CARD_W,
+            title_h,
+            c["title"],
+            FONT_TITLE,
+            color="#1e1e1e",
+            cid=card_id,
+        )
 
     card_positions[card_id] = {"y": cur_y, "h": h}
     cur_y += h + CARD_GAP
@@ -150,9 +280,15 @@ for i in range(len(cards) - 1):
     sb = {"elementId": src["id"], "focus": 0, "gap": 4, "fixedPoint": None}
     eb = {"elementId": tgt["id"], "focus": 0, "gap": 4, "fixedPoint": None}
 
-    arr(arrow_id, cx, src_bottom,
+    arr(
+        arrow_id,
+        cx,
+        src_bottom,
         [[0, 0], [0, tgt_top - src_bottom]],
-        "#868e96", sb=sb, eb=eb)
+        "#868e96",
+        sb=sb,
+        eb=eb,
+    )
 
 # ── Sub-cards for System Requirements (Functional / Non-functional) ──
 sys_bottom = card_positions["sys"]["y"] + card_positions["sys"]["h"]
@@ -160,14 +296,18 @@ sub_top = sys_bottom + CARD_GAP
 
 sub_cards = [
     {
-        "id": "func", "title": "Functional",
+        "id": "func",
+        "title": "Functional",
         "subtitle": "Specific functionality\nthe system must provide",
-        "stroke": "#c92a2a", "bg": "#ffc9c9",
+        "stroke": "#c92a2a",
+        "bg": "#ffc9c9",
     },
     {
-        "id": "nonfunc", "title": "Non-Functional",
+        "id": "nonfunc",
+        "title": "Non-Functional",
         "subtitle": "Latency, scalability,\nreliability, cost, security",
-        "stroke": "#e67700", "bg": "#ffec99",
+        "stroke": "#e67700",
+        "bg": "#ffec99",
     },
 ]
 
@@ -197,8 +337,17 @@ for j, sc in enumerate(sub_cards):
         {"type": "arrow", "id": f"arr_sys_{sc_id}"},
     ]
 
-    rect(sc_id, sc_x, sub_top, SUB_CARD_W, h,
-         sc["stroke"], sc["bg"], fill="solid", bnd=bnd)
+    rect(
+        sc_id,
+        sc_x,
+        sub_top,
+        SUB_CARD_W,
+        h,
+        sc["stroke"],
+        sc["bg"],
+        fill="solid",
+        bnd=bnd,
+    )
 
     title_h = th(sc["title"], FONT_TITLE)
     sub_h_val = th(sc["subtitle"], FONT_SUB)
@@ -208,10 +357,28 @@ for j, sc in enumerate(sub_cards):
     title_y = sub_top + top_pad
     sub_y = title_y + title_h + SUB_GAP
 
-    txt(title_id, sc_x, title_y, SUB_CARD_W, title_h,
-        sc["title"], FONT_TITLE, color="#1e1e1e", cid=sc_id)
-    txt(sub_id, sc_x, sub_y, SUB_CARD_W, sub_h_val,
-        sc["subtitle"], FONT_SUB, color=sc["stroke"], valign="top")
+    txt(
+        title_id,
+        sc_x,
+        title_y,
+        SUB_CARD_W,
+        title_h,
+        sc["title"],
+        FONT_TITLE,
+        color="#1e1e1e",
+        cid=sc_id,
+    )
+    txt(
+        sub_id,
+        sc_x,
+        sub_y,
+        SUB_CARD_W,
+        sub_h_val,
+        sc["subtitle"],
+        FONT_SUB,
+        color=sc["stroke"],
+        valign="top",
+    )
 
 # ── Fan-out arrows from System Requirements to sub-cards ──
 sys_cx = PAD_X + CARD_W // 2
@@ -228,13 +395,11 @@ for j, sc in enumerate(sub_cards):
     sb = {"elementId": "sys", "focus": dx / (CARD_W / 2), "gap": 4, "fixedPoint": None}
     eb = {"elementId": sc["id"], "focus": 0, "gap": 4, "fixedPoint": None}
 
-    arr(arrow_id, sys_cx, sys_bot,
-        [[0, 0], [dx, dy]],
-        "#6741d9", sb=sb, eb=eb)
+    arr(arrow_id, sys_cx, sys_bot, [[0, 0], [dx, dy]], "#6741d9", sb=sb, eb=eb)
 
 # ── Write file ──
 out_path = "diagrams/requirements-hierarchy.excalidraw"
 os.makedirs(os.path.dirname(out_path), exist_ok=True)
-with open(out_path, 'w') as f:
+with open(out_path, "w") as f:
     json.dump(data, f, indent=2)
 print(f"Done! Wrote {out_path}")

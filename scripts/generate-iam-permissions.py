@@ -43,17 +43,38 @@ GRAY = ("#868e96", "#dee2e6")
 # === HELPER FUNCTIONS ===
 
 
-def rect(id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg,
-        "fillStyle": fill, "strokeWidth": 2,
-        "strokeStyle": "dashed" if dashed else "solid", "roughness": 1,
-        "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+def rect(
+    id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None
+):
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
@@ -62,35 +83,80 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": "center", "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid,
-        "strokeColor": color, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append({
-        "type": "arrow", "id": id, "x": x, "y": y,
-        "width": pts[-1][0] - pts[0][0], "height": pts[-1][1] - pts[0][1],
-        "angle": 0, "points": pts,
-        "startArrowhead": None, "endArrowhead": "arrow",
-        "startBinding": sb, "endBinding": eb, "elbowed": False,
-        "strokeColor": stroke, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "dashed" if dash else "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "arrow",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": pts[-1][0] - pts[0][0],
+            "height": pts[-1][1] - pts[0][1],
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": "arrow",
+            "startBinding": sb,
+            "endBinding": eb,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 # === LAYOUT CONSTANTS ===
@@ -150,127 +216,278 @@ PRINCIPLE_H = math.ceil(1 * 19 * 1.25)
 # === BUILD DIAGRAM ===
 
 # --- Title ---
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "AWS IAM & Permissions", 32)
+txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "AWS IAM & Permissions", 32)
 
 # --- Three Pillars of Cloud Security ---
-txt("pillars_label", PAD_X, PILLARS_LABEL_Y, CONTENT_W, PILLARS_LABEL_H,
-    "Three Pillars of Cloud Security", 20, color=GRAY[0])
+txt(
+    "pillars_label",
+    PAD_X,
+    PILLARS_LABEL_Y,
+    CONTENT_W,
+    PILLARS_LABEL_H,
+    "Three Pillars of Cloud Security",
+    20,
+    color=GRAY[0],
+)
 
 p1_x = PILLARS_X0
 p2_x = PILLARS_X0 + PILLAR_W + PILLAR_GAP
 p3_x = PILLARS_X0 + 2 * (PILLAR_W + PILLAR_GAP)
 
-rect("p1", p1_x, PILLARS_Y, PILLAR_W, PILLAR_H, *CYAN,
-     bnd=[{"id": "p1t", "type": "text"}])
-txt("p1t", p1_x, PILLARS_Y, PILLAR_W, PILLAR_H,
-    "Encryption", 22, cid="p1")
+rect(
+    "p1",
+    p1_x,
+    PILLARS_Y,
+    PILLAR_W,
+    PILLAR_H,
+    *CYAN,
+    bnd=[{"id": "p1t", "type": "text"}],
+)
+txt("p1t", p1_x, PILLARS_Y, PILLAR_W, PILLAR_H, "Encryption", 22, cid="p1")
 
-rect("p2", p2_x, PILLARS_Y, PILLAR_W, PILLAR_H, *PURPLE,
-     bnd=[{"id": "p2t", "type": "text"}])
-txt("p2t", p2_x, PILLARS_Y, PILLAR_W, PILLAR_H,
-    "IAM", 22, cid="p2")
+rect(
+    "p2",
+    p2_x,
+    PILLARS_Y,
+    PILLAR_W,
+    PILLAR_H,
+    *PURPLE,
+    bnd=[{"id": "p2t", "type": "text"}],
+)
+txt("p2t", p2_x, PILLARS_Y, PILLAR_W, PILLAR_H, "IAM", 22, cid="p2")
 
-rect("p3", p3_x, PILLARS_Y, PILLAR_W, PILLAR_H, *GREEN,
-     bnd=[{"id": "p3t", "type": "text"}])
-txt("p3t", p3_x, PILLARS_Y, PILLAR_W, PILLAR_H,
-    "Networking", 22, cid="p3")
+rect(
+    "p3",
+    p3_x,
+    PILLARS_Y,
+    PILLAR_W,
+    PILLAR_H,
+    *GREEN,
+    bnd=[{"id": "p3t", "type": "text"}],
+)
+txt("p3t", p3_x, PILLARS_Y, PILLAR_W, PILLAR_H, "Networking", 22, cid="p3")
 
 # --- IAM Hierarchy label ---
-txt("hier_label", PAD_X, HIER_LABEL_Y, CONTENT_W, HIER_LABEL_H,
-    "IAM Identity Hierarchy", 20, color=GRAY[0])
+txt(
+    "hier_label",
+    PAD_X,
+    HIER_LABEL_Y,
+    CONTENT_W,
+    HIER_LABEL_H,
+    "IAM Identity Hierarchy",
+    20,
+    color=GRAY[0],
+)
 
 # --- Root User ---
-rect("root", HIER_X, ROOT_Y, BOX_W, BOX_H, *RED,
-     bnd=[{"id": "root_t", "type": "text"}])
-txt("root_t", HIER_X, ROOT_Y, BOX_W, BOX_H,
-    "Root User\nUnrestricted access", 22, cid="root")
+rect("root", HIER_X, ROOT_Y, BOX_W, BOX_H, *RED, bnd=[{"id": "root_t", "type": "text"}])
+txt(
+    "root_t",
+    HIER_X,
+    ROOT_Y,
+    BOX_W,
+    BOX_H,
+    "Root User\nUnrestricted access",
+    22,
+    cid="root",
+)
 
 # --- IAM User ---
-rect("user", HIER_X, USER_Y, BOX_W, BOX_H, *BLUE,
-     bnd=[{"id": "user_t", "type": "text"}])
-txt("user_t", HIER_X, USER_Y, BOX_W, BOX_H,
-    "IAM User\nSpecific permissions", 22, cid="user")
+rect(
+    "user", HIER_X, USER_Y, BOX_W, BOX_H, *BLUE, bnd=[{"id": "user_t", "type": "text"}]
+)
+txt(
+    "user_t",
+    HIER_X,
+    USER_Y,
+    BOX_W,
+    BOX_H,
+    "IAM User\nSpecific permissions",
+    22,
+    cid="user",
+)
 
 # --- IAM Group ---
-rect("group", HIER_X, GROUP_Y, BOX_W, BOX_H, *GREEN,
-     bnd=[{"id": "group_t", "type": "text"}])
-txt("group_t", HIER_X, GROUP_Y, BOX_W, BOX_H,
-    "IAM Group\nInherited permissions", 22, cid="group")
+rect(
+    "group",
+    HIER_X,
+    GROUP_Y,
+    BOX_W,
+    BOX_H,
+    *GREEN,
+    bnd=[{"id": "group_t", "type": "text"}],
+)
+txt(
+    "group_t",
+    HIER_X,
+    GROUP_Y,
+    BOX_W,
+    BOX_H,
+    "IAM Group\nInherited permissions",
+    22,
+    cid="group",
+)
 
 # --- IAM Role ---
-rect("role", HIER_X, ROLE_Y, BOX_W, BOX_H, *YELLOW,
-     bnd=[{"id": "role_t", "type": "text"}])
-txt("role_t", HIER_X, ROLE_Y, BOX_W, BOX_H,
-    "IAM Role\nTemporary permissions", 22, cid="role")
+rect(
+    "role",
+    HIER_X,
+    ROLE_Y,
+    BOX_W,
+    BOX_H,
+    *YELLOW,
+    bnd=[{"id": "role_t", "type": "text"}],
+)
+txt(
+    "role_t",
+    HIER_X,
+    ROLE_Y,
+    BOX_W,
+    BOX_H,
+    "IAM Role\nTemporary permissions",
+    22,
+    cid="role",
+)
 
 # --- Arrows between hierarchy boxes ---
 arrow_x = HIER_X + BOX_W // 2
 
-arr("a_root_user", arrow_x, ROOT_Y + BOX_H, [[0, 0], [0, BOX_GAP]],
+arr(
+    "a_root_user",
+    arrow_x,
+    ROOT_Y + BOX_H,
+    [[0, 0], [0, BOX_GAP]],
     RED[0],
     sb={"elementId": "root", "focus": 0, "gap": 4},
-    eb={"elementId": "user", "focus": 0, "gap": 4})
+    eb={"elementId": "user", "focus": 0, "gap": 4},
+)
 
-arr("a_user_group", arrow_x, USER_Y + BOX_H, [[0, 0], [0, BOX_GAP]],
+arr(
+    "a_user_group",
+    arrow_x,
+    USER_Y + BOX_H,
+    [[0, 0], [0, BOX_GAP]],
     BLUE[0],
     sb={"elementId": "user", "focus": 0, "gap": 4},
-    eb={"elementId": "group", "focus": 0, "gap": 4})
+    eb={"elementId": "group", "focus": 0, "gap": 4},
+)
 
-arr("a_group_role", arrow_x, GROUP_Y + BOX_H, [[0, 0], [0, BOX_GAP]],
+arr(
+    "a_group_role",
+    arrow_x,
+    GROUP_Y + BOX_H,
+    [[0, 0], [0, BOX_GAP]],
     GREEN[0],
     sb={"elementId": "group", "focus": 0, "gap": 4},
-    eb={"elementId": "role", "focus": 0, "gap": 4})
+    eb={"elementId": "role", "focus": 0, "gap": 4},
+)
 
 # --- Role Example label ---
-txt("ex_label", PAD_X, EXAMPLE_Y, CONTENT_W, EXAMPLE_LABEL_H,
-    "Role Assumption Example", 20, color=GRAY[0])
+txt(
+    "ex_label",
+    PAD_X,
+    EXAMPLE_Y,
+    CONTENT_W,
+    EXAMPLE_LABEL_H,
+    "Role Assumption Example",
+    20,
+    color=GRAY[0],
+)
 
 # EC2
 ex1_x = EX_X0
-rect("ec2", ex1_x, EX_Y, EX_BOX_W, EX_BOX_H, *BLUE,
-     bnd=[{"id": "ec2_t", "type": "text"}])
-txt("ec2_t", ex1_x, EX_Y, EX_BOX_W, EX_BOX_H,
-    "EC2 Instance", 22, cid="ec2")
+rect(
+    "ec2", ex1_x, EX_Y, EX_BOX_W, EX_BOX_H, *BLUE, bnd=[{"id": "ec2_t", "type": "text"}]
+)
+txt("ec2_t", ex1_x, EX_Y, EX_BOX_W, EX_BOX_H, "EC2 Instance", 22, cid="ec2")
 
 # IAM Role (in example)
 ex2_x = EX_X0 + EX_BOX_W + EX_GAP
-rect("ex_role", ex2_x, EX_Y, EX_BOX_W, EX_BOX_H, *YELLOW,
-     bnd=[{"id": "ex_role_t", "type": "text"}])
-txt("ex_role_t", ex2_x, EX_Y, EX_BOX_W, EX_BOX_H,
-    "IAM Role\nS3 Read Policy", 20, cid="ex_role")
+rect(
+    "ex_role",
+    ex2_x,
+    EX_Y,
+    EX_BOX_W,
+    EX_BOX_H,
+    *YELLOW,
+    bnd=[{"id": "ex_role_t", "type": "text"}],
+)
+txt(
+    "ex_role_t",
+    ex2_x,
+    EX_Y,
+    EX_BOX_W,
+    EX_BOX_H,
+    "IAM Role\nS3 Read Policy",
+    20,
+    cid="ex_role",
+)
 
 # S3
 ex3_x = EX_X0 + 2 * (EX_BOX_W + EX_GAP)
-rect("s3", ex3_x, EX_Y, EX_BOX_W, EX_BOX_H, *GREEN,
-     bnd=[{"id": "s3_t", "type": "text"}])
-txt("s3_t", ex3_x, EX_Y, EX_BOX_W, EX_BOX_H,
-    "S3 Bucket", 22, cid="s3")
+rect(
+    "s3", ex3_x, EX_Y, EX_BOX_W, EX_BOX_H, *GREEN, bnd=[{"id": "s3_t", "type": "text"}]
+)
+txt("s3_t", ex3_x, EX_Y, EX_BOX_W, EX_BOX_H, "S3 Bucket", 22, cid="s3")
 
 # Arrows for example
 ex_arrow_y = EX_Y + EX_BOX_H // 2
 
-arr("a_ec2_role", ex1_x + EX_BOX_W, ex_arrow_y,
-    [[0, 0], [EX_GAP, 0]], BLUE[0],
+arr(
+    "a_ec2_role",
+    ex1_x + EX_BOX_W,
+    ex_arrow_y,
+    [[0, 0], [EX_GAP, 0]],
+    BLUE[0],
     sb={"elementId": "ec2", "focus": 0, "gap": 4},
-    eb={"elementId": "ex_role", "focus": 0, "gap": 4})
+    eb={"elementId": "ex_role", "focus": 0, "gap": 4},
+)
 
-arr("a_role_s3", ex2_x + EX_BOX_W, ex_arrow_y,
-    [[0, 0], [EX_GAP, 0]], YELLOW[0],
+arr(
+    "a_role_s3",
+    ex2_x + EX_BOX_W,
+    ex_arrow_y,
+    [[0, 0], [EX_GAP, 0]],
+    YELLOW[0],
     sb={"elementId": "ex_role", "focus": 0, "gap": 4},
-    eb={"elementId": "s3", "focus": 0, "gap": 4})
+    eb={"elementId": "s3", "focus": 0, "gap": 4},
+)
 
 # Labels on example arrows
 arr_label_h = math.ceil(1 * 17 * 1.25)
-txt("assume_label", ex1_x + EX_BOX_W, EX_Y - 22,
-    EX_GAP, arr_label_h, "assumes", 17, color=BLUE[0])
+txt(
+    "assume_label",
+    ex1_x + EX_BOX_W,
+    EX_Y - 22,
+    EX_GAP,
+    arr_label_h,
+    "assumes",
+    17,
+    color=BLUE[0],
+)
 
-txt("grants_label", ex2_x + EX_BOX_W, EX_Y - 22,
-    EX_GAP, arr_label_h, "grants access", 17, color=YELLOW[0])
+txt(
+    "grants_label",
+    ex2_x + EX_BOX_W,
+    EX_Y - 22,
+    EX_GAP,
+    arr_label_h,
+    "grants access",
+    17,
+    color=YELLOW[0],
+)
 
 # --- Principle of least privilege ---
-txt("principle", PAD_X, PRINCIPLE_Y, CONTENT_W, PRINCIPLE_H,
-    "Principle of Least Privilege — every identity gets only the permissions it needs", 19, color=GRAY[0])
+txt(
+    "principle",
+    PAD_X,
+    PRINCIPLE_Y,
+    CONTENT_W,
+    PRINCIPLE_H,
+    "Principle of Least Privilege — every identity gets only the permissions it needs",
+    19,
+    color=GRAY[0],
+)
 
 
 # === VERIFY ===

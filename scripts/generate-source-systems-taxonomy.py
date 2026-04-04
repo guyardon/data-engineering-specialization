@@ -32,16 +32,35 @@ GRAY = ("#868e96", "#dee2e6")
 
 
 def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg,
-        "fillStyle": fill, "strokeWidth": 2,
-        "strokeStyle": "dashed" if dashed else "solid", "roughness": 1,
-        "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
@@ -50,35 +69,80 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": "center", "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid,
-        "strokeColor": color, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append({
-        "type": "arrow", "id": id, "x": x, "y": y,
-        "width": abs(pts[-1][0] - pts[0][0]), "height": abs(pts[-1][1] - pts[0][1]),
-        "angle": 0, "points": pts,
-        "startArrowhead": None, "endArrowhead": "arrow",
-        "startBinding": sb, "endBinding": eb, "elbowed": False,
-        "strokeColor": stroke, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "dashed" if dash else "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "arrow",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": abs(pts[-1][0] - pts[0][0]),
+            "height": abs(pts[-1][1] - pts[0][1]),
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": "arrow",
+            "startBinding": sb,
+            "endBinding": eb,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 # === LAYOUT CONSTANTS ===
@@ -129,106 +193,269 @@ PILL_Y3 = PILL_Y2 + PILL_H + PILL_GAP  # 345
 # === BUILD DIAGRAM ===
 
 # Title
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "Source Systems", TITLE_FSZ)
+txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "Source Systems", TITLE_FSZ)
 
 # --- Column 1: Databases (BLUE) ---
-rect("db-hdr", COL1_X, HDR_Y, COL_W, HDR_H, *BLUE,
-     bnd=[{"id": "db-title", "type": "text"}])
-txt("db-title", COL1_X, HDR_TITLE_Y, COL_W, title_h,
-    "Databases", HDR_TITLE_FSZ, cid="db-hdr")
-txt("db-sub", COL1_X, HDR_SUB_Y, COL_W, sub_h,
-    "CRUD via DBMS", HDR_SUB_FSZ, color=BLUE[0])
+rect(
+    "db-hdr",
+    COL1_X,
+    HDR_Y,
+    COL_W,
+    HDR_H,
+    *BLUE,
+    bnd=[{"id": "db-title", "type": "text"}],
+)
+txt(
+    "db-title",
+    COL1_X,
+    HDR_TITLE_Y,
+    COL_W,
+    title_h,
+    "Databases",
+    HDR_TITLE_FSZ,
+    cid="db-hdr",
+)
+txt(
+    "db-sub",
+    COL1_X,
+    HDR_SUB_Y,
+    COL_W,
+    sub_h,
+    "CRUD via DBMS",
+    HDR_SUB_FSZ,
+    color=BLUE[0],
+)
 
 pill1_x = COL1_X + PILL_INSET
-rect("db-rel", pill1_x, PILL_Y1, PILL_W, PILL_H, *BLUE,
-     bnd=[{"id": "db-rel-t", "type": "text"}])
-txt("db-rel-t", pill1_x, PILL_Y1, PILL_W, PILL_H,
-    "Relational (SQL)", 22, cid="db-rel")
+rect(
+    "db-rel",
+    pill1_x,
+    PILL_Y1,
+    PILL_W,
+    PILL_H,
+    *BLUE,
+    bnd=[{"id": "db-rel-t", "type": "text"}],
+)
+txt("db-rel-t", pill1_x, PILL_Y1, PILL_W, PILL_H, "Relational (SQL)", 22, cid="db-rel")
 
-rect("db-nosql", pill1_x, PILL_Y2, PILL_W, PILL_H, *BLUE,
-     bnd=[{"id": "db-nosql-t", "type": "text"}])
-txt("db-nosql-t", pill1_x, PILL_Y2, PILL_W, PILL_H,
-    "NoSQL", 22, cid="db-nosql")
+rect(
+    "db-nosql",
+    pill1_x,
+    PILL_Y2,
+    PILL_W,
+    PILL_H,
+    *BLUE,
+    bnd=[{"id": "db-nosql-t", "type": "text"}],
+)
+txt("db-nosql-t", pill1_x, PILL_Y2, PILL_W, PILL_H, "NoSQL", 22, cid="db-nosql")
 
 # Arrows from header to pills
-arr("a-db1", COL1_X + COL_W // 2, HDR_Y + HDR_H,
-    [[0, 0], [0, ARR_GAP]], BLUE[0],
+arr(
+    "a-db1",
+    COL1_X + COL_W // 2,
+    HDR_Y + HDR_H,
+    [[0, 0], [0, ARR_GAP]],
+    BLUE[0],
     sb={"elementId": "db-hdr", "focus": 0, "gap": 4},
-    eb={"elementId": "db-rel", "focus": 0, "gap": 4})
+    eb={"elementId": "db-rel", "focus": 0, "gap": 4},
+)
 
-arr("a-db2", COL1_X + COL_W // 2, PILL_Y1 + PILL_H,
-    [[0, 0], [0, PILL_GAP]], BLUE[0],
+arr(
+    "a-db2",
+    COL1_X + COL_W // 2,
+    PILL_Y1 + PILL_H,
+    [[0, 0], [0, PILL_GAP]],
+    BLUE[0],
     sb={"elementId": "db-rel", "focus": 0, "gap": 4},
-    eb={"elementId": "db-nosql", "focus": 0, "gap": 4})
+    eb={"elementId": "db-nosql", "focus": 0, "gap": 4},
+)
 
 # --- Column 2: Files (GREEN) ---
-rect("files-hdr", COL2_X, HDR_Y, COL_W, HDR_H, *GREEN,
-     bnd=[{"id": "files-title", "type": "text"}])
-txt("files-title", COL2_X, HDR_TITLE_Y, COL_W, title_h,
-    "Files", HDR_TITLE_FSZ, cid="files-hdr")
-txt("files-sub", COL2_X, HDR_SUB_Y, COL_W, sub_h,
-    "Various formats", HDR_SUB_FSZ, color=GREEN[0])
+rect(
+    "files-hdr",
+    COL2_X,
+    HDR_Y,
+    COL_W,
+    HDR_H,
+    *GREEN,
+    bnd=[{"id": "files-title", "type": "text"}],
+)
+txt(
+    "files-title",
+    COL2_X,
+    HDR_TITLE_Y,
+    COL_W,
+    title_h,
+    "Files",
+    HDR_TITLE_FSZ,
+    cid="files-hdr",
+)
+txt(
+    "files-sub",
+    COL2_X,
+    HDR_SUB_Y,
+    COL_W,
+    sub_h,
+    "Various formats",
+    HDR_SUB_FSZ,
+    color=GREEN[0],
+)
 
 pill2_x = COL2_X + PILL_INSET
-rect("f-struct", pill2_x, PILL_Y1, PILL_W, PILL_H, *GREEN,
-     bnd=[{"id": "f-struct-t", "type": "text"}])
-txt("f-struct-t", pill2_x, PILL_Y1, PILL_W, PILL_H,
-    "Structured", 22, cid="f-struct")
+rect(
+    "f-struct",
+    pill2_x,
+    PILL_Y1,
+    PILL_W,
+    PILL_H,
+    *GREEN,
+    bnd=[{"id": "f-struct-t", "type": "text"}],
+)
+txt("f-struct-t", pill2_x, PILL_Y1, PILL_W, PILL_H, "Structured", 22, cid="f-struct")
 
-rect("f-semi", pill2_x, PILL_Y2, PILL_W, PILL_H, *GREEN,
-     bnd=[{"id": "f-semi-t", "type": "text"}])
-txt("f-semi-t", pill2_x, PILL_Y2, PILL_W, PILL_H,
-    "Semi-structured", 22, cid="f-semi")
+rect(
+    "f-semi",
+    pill2_x,
+    PILL_Y2,
+    PILL_W,
+    PILL_H,
+    *GREEN,
+    bnd=[{"id": "f-semi-t", "type": "text"}],
+)
+txt("f-semi-t", pill2_x, PILL_Y2, PILL_W, PILL_H, "Semi-structured", 22, cid="f-semi")
 
-rect("f-unstruct", pill2_x, PILL_Y3, PILL_W, PILL_H, *GREEN,
-     bnd=[{"id": "f-unstruct-t", "type": "text"}])
-txt("f-unstruct-t", pill2_x, PILL_Y3, PILL_W, PILL_H,
-    "Unstructured", 22, cid="f-unstruct")
+rect(
+    "f-unstruct",
+    pill2_x,
+    PILL_Y3,
+    PILL_W,
+    PILL_H,
+    *GREEN,
+    bnd=[{"id": "f-unstruct-t", "type": "text"}],
+)
+txt(
+    "f-unstruct-t",
+    pill2_x,
+    PILL_Y3,
+    PILL_W,
+    PILL_H,
+    "Unstructured",
+    22,
+    cid="f-unstruct",
+)
 
-arr("a-f1", COL2_X + COL_W // 2, HDR_Y + HDR_H,
-    [[0, 0], [0, ARR_GAP]], GREEN[0],
+arr(
+    "a-f1",
+    COL2_X + COL_W // 2,
+    HDR_Y + HDR_H,
+    [[0, 0], [0, ARR_GAP]],
+    GREEN[0],
     sb={"elementId": "files-hdr", "focus": 0, "gap": 4},
-    eb={"elementId": "f-struct", "focus": 0, "gap": 4})
+    eb={"elementId": "f-struct", "focus": 0, "gap": 4},
+)
 
-arr("a-f2", COL2_X + COL_W // 2, PILL_Y1 + PILL_H,
-    [[0, 0], [0, PILL_GAP]], GREEN[0],
+arr(
+    "a-f2",
+    COL2_X + COL_W // 2,
+    PILL_Y1 + PILL_H,
+    [[0, 0], [0, PILL_GAP]],
+    GREEN[0],
     sb={"elementId": "f-struct", "focus": 0, "gap": 4},
-    eb={"elementId": "f-semi", "focus": 0, "gap": 4})
+    eb={"elementId": "f-semi", "focus": 0, "gap": 4},
+)
 
-arr("a-f3", COL2_X + COL_W // 2, PILL_Y2 + PILL_H,
-    [[0, 0], [0, PILL_GAP]], GREEN[0],
+arr(
+    "a-f3",
+    COL2_X + COL_W // 2,
+    PILL_Y2 + PILL_H,
+    [[0, 0], [0, PILL_GAP]],
+    GREEN[0],
     sb={"elementId": "f-semi", "focus": 0, "gap": 4},
-    eb={"elementId": "f-unstruct", "focus": 0, "gap": 4})
+    eb={"elementId": "f-unstruct", "focus": 0, "gap": 4},
+)
 
 # --- Column 3: Streaming (PURPLE) ---
-rect("stream-hdr", COL3_X, HDR_Y, COL_W, HDR_H, *PURPLE,
-     bnd=[{"id": "stream-title", "type": "text"}])
-txt("stream-title", COL3_X, HDR_TITLE_Y, COL_W, title_h,
-    "Streaming", HDR_TITLE_FSZ, cid="stream-hdr")
-txt("stream-sub", COL3_X, HDR_SUB_Y, COL_W, sub_h,
-    "Real-time data flow", HDR_SUB_FSZ, color=PURPLE[0])
+rect(
+    "stream-hdr",
+    COL3_X,
+    HDR_Y,
+    COL_W,
+    HDR_H,
+    *PURPLE,
+    bnd=[{"id": "stream-title", "type": "text"}],
+)
+txt(
+    "stream-title",
+    COL3_X,
+    HDR_TITLE_Y,
+    COL_W,
+    title_h,
+    "Streaming",
+    HDR_TITLE_FSZ,
+    cid="stream-hdr",
+)
+txt(
+    "stream-sub",
+    COL3_X,
+    HDR_SUB_Y,
+    COL_W,
+    sub_h,
+    "Real-time data flow",
+    HDR_SUB_FSZ,
+    color=PURPLE[0],
+)
 
 pill3_x = COL3_X + PILL_INSET
-rect("s-mq", pill3_x, PILL_Y1, PILL_W, PILL_H, *PURPLE,
-     bnd=[{"id": "s-mq-t", "type": "text"}])
-txt("s-mq-t", pill3_x, PILL_Y1, PILL_W, PILL_H,
-    "Message Queues", 22, cid="s-mq")
+rect(
+    "s-mq",
+    pill3_x,
+    PILL_Y1,
+    PILL_W,
+    PILL_H,
+    *PURPLE,
+    bnd=[{"id": "s-mq-t", "type": "text"}],
+)
+txt("s-mq-t", pill3_x, PILL_Y1, PILL_W, PILL_H, "Message Queues", 22, cid="s-mq")
 
-rect("s-plat", pill3_x, PILL_Y2, PILL_W, PILL_H, *PURPLE,
-     bnd=[{"id": "s-plat-t", "type": "text"}])
-txt("s-plat-t", pill3_x, PILL_Y2, PILL_W, PILL_H,
-    "Streaming Platforms", 22, cid="s-plat")
+rect(
+    "s-plat",
+    pill3_x,
+    PILL_Y2,
+    PILL_W,
+    PILL_H,
+    *PURPLE,
+    bnd=[{"id": "s-plat-t", "type": "text"}],
+)
+txt(
+    "s-plat-t",
+    pill3_x,
+    PILL_Y2,
+    PILL_W,
+    PILL_H,
+    "Streaming Platforms",
+    22,
+    cid="s-plat",
+)
 
-arr("a-s1", COL3_X + COL_W // 2, HDR_Y + HDR_H,
-    [[0, 0], [0, ARR_GAP]], PURPLE[0],
+arr(
+    "a-s1",
+    COL3_X + COL_W // 2,
+    HDR_Y + HDR_H,
+    [[0, 0], [0, ARR_GAP]],
+    PURPLE[0],
     sb={"elementId": "stream-hdr", "focus": 0, "gap": 4},
-    eb={"elementId": "s-mq", "focus": 0, "gap": 4})
+    eb={"elementId": "s-mq", "focus": 0, "gap": 4},
+)
 
-arr("a-s2", COL3_X + COL_W // 2, PILL_Y1 + PILL_H,
-    [[0, 0], [0, PILL_GAP]], PURPLE[0],
+arr(
+    "a-s2",
+    COL3_X + COL_W // 2,
+    PILL_Y1 + PILL_H,
+    [[0, 0], [0, PILL_GAP]],
+    PURPLE[0],
     sb={"elementId": "s-mq", "focus": 0, "gap": 4},
-    eb={"elementId": "s-plat", "focus": 0, "gap": 4})
+    eb={"elementId": "s-plat", "focus": 0, "gap": 4},
+)
 
 
 # === VERIFY ===

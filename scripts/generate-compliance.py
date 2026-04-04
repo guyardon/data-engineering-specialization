@@ -23,16 +23,38 @@ def ns():
     return seed
 
 
-def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg, "fillStyle": fill,
-        "strokeWidth": sw, "strokeStyle": "dashed" if dashed else "solid",
-        "roughness": 1, "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+def rect(
+    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
+):
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": sw,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
@@ -41,50 +63,126 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": "center", "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid, "strokeColor": color,
-        "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "solid", "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt_free(id, x, y, w, h, t, sz, color="#868e96"):
     """Free text element (not bound to any container)."""
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": "center", "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": None, "strokeColor": color,
-        "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "solid", "roughness": 1, "opacity": 100,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": None,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append({
-        "type": "arrow", "id": id, "x": x, "y": y,
-        "width": abs(pts[-1][0] - pts[0][0]), "height": abs(pts[-1][1] - pts[0][1]),
-        "angle": 0, "points": pts, "startArrowhead": None, "endArrowhead": "arrow",
-        "startBinding": sb, "endBinding": eb, "elbowed": False,
-        "strokeColor": stroke, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "dashed" if dash else "solid",
-        "roughness": 1, "opacity": op, "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "arrow",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": abs(pts[-1][0] - pts[0][0]),
+            "height": abs(pts[-1][1] - pts[0][1]),
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": "arrow",
+            "startBinding": sb,
+            "endBinding": eb,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
-def dual_text_positions(box_y, box_h, title_text, title_sz, subtitle_text, subtitle_sz, gap=6):
+def dual_text_positions(
+    box_y, box_h, title_text, title_sz, subtitle_text, subtitle_sz, gap=6
+):
     """Calculate y positions for title + subtitle within a box."""
     title_lines = title_text.count("\n") + 1
     subtitle_lines = subtitle_text.count("\n") + 1
@@ -138,8 +236,15 @@ ARCH_H = 100
 # ---------------------------------------------------------------------------
 title_text = "Architecting for Compliance"
 title_w = math.ceil(len(title_text) * FONT_DIAGRAM_TITLE * 0.55 + 40)
-txt("title", CENTER_X - title_w // 2, TITLE_Y, title_w, TITLE_H,
-    title_text, FONT_DIAGRAM_TITLE)
+txt(
+    "title",
+    CENTER_X - title_w // 2,
+    TITLE_Y,
+    title_w,
+    TITLE_H,
+    title_text,
+    FONT_DIAGRAM_TITLE,
+)
 
 # ---------------------------------------------------------------------------
 # Center: Regulatory Compliance box (red) — single bound text, no subtitle
@@ -147,24 +252,45 @@ txt("title", CENTER_X - title_w // 2, TITLE_Y, title_w, TITLE_H,
 comp_x = CENTER_X - CENTER_BOX_W // 2
 comp_y = CENTER_TOP
 
-rect("compliance", comp_x, comp_y, CENTER_BOX_W, CENTER_BOX_H,
-     "#c92a2a", "#ffc9c9",
-     bnd=[
-         {"id": "compliance-t", "type": "text"},
-         {"id": "arr-comp-gdpr", "type": "arrow"},
-         {"id": "arr-comp-hipaa", "type": "arrow"},
-         {"id": "arr-comp-sox", "type": "arrow"},
-     ])
-txt("compliance-t", comp_x, comp_y, CENTER_BOX_W, CENTER_BOX_H,
-    "Regulatory\nCompliance", FONT_CENTER, cid="compliance")
+rect(
+    "compliance",
+    comp_x,
+    comp_y,
+    CENTER_BOX_W,
+    CENTER_BOX_H,
+    "#c92a2a",
+    "#ffc9c9",
+    bnd=[
+        {"id": "compliance-t", "type": "text"},
+        {"id": "arr-comp-gdpr", "type": "arrow"},
+        {"id": "arr-comp-hipaa", "type": "arrow"},
+        {"id": "arr-comp-sox", "type": "arrow"},
+    ],
+)
+txt(
+    "compliance-t",
+    comp_x,
+    comp_y,
+    CENTER_BOX_W,
+    CENTER_BOX_H,
+    "Regulatory\nCompliance",
+    FONT_CENTER,
+    cid="compliance",
+)
 
 # ---------------------------------------------------------------------------
 # Regulation boxes: GDPR, HIPAA, SOX — dual text (title + subtitle)
 # ---------------------------------------------------------------------------
 regulations = [
-    ("gdpr",  "GDPR",  "EU Data Protection\nConsent & Right\nto Delete", "#1971c2", "#a5d8ff"),
-    ("hipaa", "HIPAA", "Medical Data\nProtection",                       "#2f9e44", "#b2f2bb"),
-    ("sox",   "SOX",   "Financial\nReporting",                           "#6741d9", "#d0bfff"),
+    (
+        "gdpr",
+        "GDPR",
+        "EU Data Protection\nConsent & Right\nto Delete",
+        "#1971c2",
+        "#a5d8ff",
+    ),
+    ("hipaa", "HIPAA", "Medical Data\nProtection", "#2f9e44", "#b2f2bb"),
+    ("sox", "SOX", "Financial\nReporting", "#6741d9", "#d0bfff"),
 ]
 
 for i, (rid, title, subtitle, stroke, bg) in enumerate(regulations):
@@ -173,12 +299,20 @@ for i, (rid, title, subtitle, stroke, bg) in enumerate(regulations):
     tid = f"{rid}-t"
     sid = f"{rid}-sub"
 
-    rect(rid, bx, by, REG_BOX_W, REG_BOX_H, stroke, bg,
-         bnd=[
-             {"id": tid, "type": "text"},
-             {"id": f"arr-comp-{rid}", "type": "arrow"},
-             {"id": f"arr-{rid}-arch", "type": "arrow"},
-         ])
+    rect(
+        rid,
+        bx,
+        by,
+        REG_BOX_W,
+        REG_BOX_H,
+        stroke,
+        bg,
+        bnd=[
+            {"id": tid, "type": "text"},
+            {"id": f"arr-comp-{rid}", "type": "arrow"},
+            {"id": f"arr-{rid}-arch", "type": "arrow"},
+        ],
+    )
 
     # Calculate dual text positions
     title_y, title_h, sub_y, sub_h = dual_text_positions(
@@ -186,12 +320,20 @@ for i, (rid, title, subtitle, stroke, bg) in enumerate(regulations):
     )
 
     # Bound title text
-    txt(tid, bx, title_y, REG_BOX_W, title_h, title, FONT_BOX_TITLE,
-        color="#1e1e1e", cid=rid)
+    txt(
+        tid,
+        bx,
+        title_y,
+        REG_BOX_W,
+        title_h,
+        title,
+        FONT_BOX_TITLE,
+        color="#1e1e1e",
+        cid=rid,
+    )
 
     # Free subtitle text (not bound to container)
-    txt_free(sid, bx, sub_y, REG_BOX_W, sub_h, subtitle, FONT_SUBTITLE,
-             color=stroke)
+    txt_free(sid, bx, sub_y, REG_BOX_W, sub_h, subtitle, FONT_SUBTITLE, color=stroke)
 
 # ---------------------------------------------------------------------------
 # Arrows: Compliance center -> each regulation box
@@ -209,9 +351,15 @@ for i, (rid, _, _, stroke, _) in enumerate(regulations):
     dx = reg_cx - comp_cx
     dy = reg_top - comp_bottom
 
-    arr(f"arr-comp-{rid}", ax, ay, [[0, 0], [dx, dy]], stroke,
+    arr(
+        f"arr-comp-{rid}",
+        ax,
+        ay,
+        [[0, 0], [dx, dy]],
+        stroke,
         sb={"elementId": "compliance", "focus": 0, "gap": 5, "fixedPoint": None},
-        eb={"elementId": rid, "focus": 0, "gap": 5, "fixedPoint": None})
+        eb={"elementId": rid, "focus": 0, "gap": 5, "fixedPoint": None},
+    )
 
 # ---------------------------------------------------------------------------
 # Bottom: Loosely Coupled Architecture box (yellow/orange) — dual text
@@ -224,14 +372,21 @@ arch_subtitle = "Swap components to meet\nnew requirements"
 FONT_ARCH_TITLE = 22
 FONT_ARCH_SUB = 16
 
-rect("arch", arch_x, arch_y, ARCH_W, ARCH_H,
-     "#e67700", "#ffec99",
-     bnd=[
-         {"id": "arch-t", "type": "text"},
-         {"id": "arr-gdpr-arch", "type": "arrow"},
-         {"id": "arr-hipaa-arch", "type": "arrow"},
-         {"id": "arr-sox-arch", "type": "arrow"},
-     ])
+rect(
+    "arch",
+    arch_x,
+    arch_y,
+    ARCH_W,
+    ARCH_H,
+    "#e67700",
+    "#ffec99",
+    bnd=[
+        {"id": "arch-t", "type": "text"},
+        {"id": "arr-gdpr-arch", "type": "arrow"},
+        {"id": "arr-hipaa-arch", "type": "arrow"},
+        {"id": "arr-sox-arch", "type": "arrow"},
+    ],
+)
 
 # Calculate dual text positions for architecture box
 arch_ty, arch_th, arch_sy, arch_sh = dual_text_positions(
@@ -239,12 +394,29 @@ arch_ty, arch_th, arch_sy, arch_sh = dual_text_positions(
 )
 
 # Bound title text
-txt("arch-t", arch_x, arch_ty, ARCH_W, arch_th, arch_title, FONT_ARCH_TITLE,
-    color="#1e1e1e", cid="arch")
+txt(
+    "arch-t",
+    arch_x,
+    arch_ty,
+    ARCH_W,
+    arch_th,
+    arch_title,
+    FONT_ARCH_TITLE,
+    color="#1e1e1e",
+    cid="arch",
+)
 
 # Free subtitle text
-txt_free("arch-sub", arch_x, arch_sy, ARCH_W, arch_sh, arch_subtitle, FONT_ARCH_SUB,
-         color="#e67700")
+txt_free(
+    "arch-sub",
+    arch_x,
+    arch_sy,
+    ARCH_W,
+    arch_sh,
+    arch_subtitle,
+    FONT_ARCH_SUB,
+    color="#e67700",
+)
 
 # ---------------------------------------------------------------------------
 # Arrows: each regulation box -> architecture box (dashed)
@@ -262,9 +434,16 @@ for i, (rid, _, _, stroke, _) in enumerate(regulations):
     dx = arch_cx - reg_cx
     dy = arch_top_y - reg_bottom
 
-    arr(f"arr-{rid}-arch", ax, ay, [[0, 0], [dx, dy]], stroke, dash=True,
+    arr(
+        f"arr-{rid}-arch",
+        ax,
+        ay,
+        [[0, 0], [dx, dy]],
+        stroke,
+        dash=True,
         sb={"elementId": rid, "focus": 0, "gap": 5, "fixedPoint": None},
-        eb={"elementId": "arch", "focus": 0, "gap": 5, "fixedPoint": None})
+        eb={"elementId": "arch", "focus": 0, "gap": 5, "fixedPoint": None},
+    )
 
 # ---------------------------------------------------------------------------
 # Write output

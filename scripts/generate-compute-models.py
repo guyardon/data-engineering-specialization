@@ -1,44 +1,103 @@
-import json, math, os
+import json
+import math
+import os
 
 data = {
-    "type": "excalidraw", "version": 2,
+    "type": "excalidraw",
+    "version": 2,
     "source": "https://excalidraw.com",
     "elements": [],
     "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {}
+    "files": {},
 }
 els = data["elements"]
 seed = 8000
 
-def ns():
-    global seed; seed += 1; return seed
 
-def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h, "angle": 0,
-        "strokeColor": stroke, "backgroundColor": bg, "fillStyle": fill, "strokeWidth": sw,
-        "strokeStyle": "dashed" if dashed else "solid", "roughness": 1, "opacity": opacity,
-        "roundness": {"type": 3}, "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000
-    })
+def ns():
+    global seed
+    seed += 1
+    return seed
+
+
+def rect(
+    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
+):
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": sw,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
+
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
     if cid:
-        num_lines = t.count('\n') + 1
+        num_lines = t.count("\n") + 1
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h, "angle": 0,
-        "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": "center", "verticalAlign": "middle", "lineHeight": 1.25, "autoResize": True,
-        "containerId": cid, "strokeColor": color, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid", "roughness": 1,
-        "opacity": op, "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
+
 
 # === LAYOUT CONSTANTS ===
 LAYER_W = 160
@@ -72,7 +131,7 @@ columns = [
             ("Runtime", RED_STROKE, RED_BG),
             ("OS", RED_STROKE, RED_BG),
             ("Hardware", GRAY_STROKE, GRAY_BG),
-        ]
+        ],
     },
     {
         "label": "Container",
@@ -83,7 +142,7 @@ columns = [
             ("Container\nRuntime", GRAY_STROKE, GRAY_BG),
             ("OS", GRAY_STROKE, GRAY_BG),
             ("Hardware", GRAY_STROKE, GRAY_BG),
-        ]
+        ],
     },
     {
         "label": "Serverless",
@@ -94,7 +153,7 @@ columns = [
             ("Runtime", GRAY_STROKE, GRAY_BG),
             ("OS", GRAY_STROKE, GRAY_BG),
             ("Hardware", GRAY_STROKE, GRAY_BG),
-        ]
+        ],
     },
 ]
 
@@ -127,7 +186,9 @@ SUB_Y = STACK_TOP + STACK_H + SUB_GAP
 COL_XS = [0, LAYER_W + COL_GAP, 2 * (LAYER_W + COL_GAP)]
 
 # === CREATE TITLE ===
-txt("title", TITLE_X, TITLE_Y, TITLE_W, TITLE_H, "Compute Models", TITLE_FONT, "#1e1e1e")
+txt(
+    "title", TITLE_X, TITLE_Y, TITLE_W, TITLE_H, "Compute Models", TITLE_FONT, "#1e1e1e"
+)
 
 # === CREATE COLUMNS ===
 for ci, col in enumerate(columns):
@@ -135,8 +196,16 @@ for ci, col in enumerate(columns):
     prefix = f"c{ci}"
 
     # Column label (free text, not bound)
-    txt(f"{prefix}-label", cx, LABEL_Y, LAYER_W, LABEL_H,
-        col["label"], LABEL_FONT, "#1e1e1e")
+    txt(
+        f"{prefix}-label",
+        cx,
+        LABEL_Y,
+        LAYER_W,
+        LABEL_H,
+        col["label"],
+        LABEL_FONT,
+        "#1e1e1e",
+    )
 
     # Layer stack (top to bottom: Application, Runtime/ContainerRuntime, OS, Hardware)
     for li, (layer_name, l_stroke, l_bg) in enumerate(col["layers"]):
@@ -144,16 +213,42 @@ for ci, col in enumerate(columns):
         layer_id = f"{prefix}-layer-{li}"
         layer_txt_id = f"{prefix}-ltxt-{li}"
 
-        rect(layer_id, cx, ly, LAYER_W, LAYER_H, l_stroke, l_bg, fill="solid",
-             bnd=[{"id": layer_txt_id, "type": "text"}])
-        txt(layer_txt_id, cx, ly, LAYER_W, LAYER_H,
-            layer_name, LAYER_FONT, "#1e1e1e", cid=layer_id)
+        rect(
+            layer_id,
+            cx,
+            ly,
+            LAYER_W,
+            LAYER_H,
+            l_stroke,
+            l_bg,
+            fill="solid",
+            bnd=[{"id": layer_txt_id, "type": "text"}],
+        )
+        txt(
+            layer_txt_id,
+            cx,
+            ly,
+            LAYER_W,
+            LAYER_H,
+            layer_name,
+            LAYER_FONT,
+            "#1e1e1e",
+            cid=layer_id,
+        )
 
     # Subtitle (free text, uses column stroke color per Rule 14)
-    sub_lines = col["subtitle"].count('\n') + 1
+    sub_lines = col["subtitle"].count("\n") + 1
     sub_h = math.ceil(sub_lines * SUB_FONT * 1.25)
-    txt(f"{prefix}-sub", cx, SUB_Y, LAYER_W, sub_h,
-        col["subtitle"], SUB_FONT, col["stroke"])
+    txt(
+        f"{prefix}-sub",
+        cx,
+        SUB_Y,
+        LAYER_W,
+        sub_h,
+        col["subtitle"],
+        SUB_FONT,
+        col["stroke"],
+    )
 
 # === LEGEND ===
 LEGEND_GAP = 30
@@ -172,18 +267,52 @@ legend_start_x = (TOTAL_W - legend_total_w) // 2
 
 # Item 1: "You Manage" - use blue as representative color
 item1_x = legend_start_x
-rect("leg-box1", item1_x, LEGEND_Y, LEGEND_BOX_SZ, LEGEND_BOX_SZ,
-     BLUE_STROKE, BLUE_BG, fill="solid", sw=1)
+rect(
+    "leg-box1",
+    item1_x,
+    LEGEND_Y,
+    LEGEND_BOX_SZ,
+    LEGEND_BOX_SZ,
+    BLUE_STROKE,
+    BLUE_BG,
+    fill="solid",
+    sw=1,
+)
 leg_txt_h = math.ceil(1 * SUB_FONT * 1.25)
-txt("leg-txt1", item1_x + LEGEND_BOX_SZ + 6, LEGEND_Y - 2, LEGEND_TEXT_W, leg_txt_h,
-    "You Manage", SUB_FONT, "#1e1e1e")
+txt(
+    "leg-txt1",
+    item1_x + LEGEND_BOX_SZ + 6,
+    LEGEND_Y - 2,
+    LEGEND_TEXT_W,
+    leg_txt_h,
+    "You Manage",
+    SUB_FONT,
+    "#1e1e1e",
+)
 
 # Item 2: "Provider Manages"
 item2_x = item1_x + LEGEND_ITEM_W + LEGEND_SPACING
-rect("leg-box2", item2_x, LEGEND_Y, LEGEND_BOX_SZ, LEGEND_BOX_SZ,
-     GRAY_STROKE, GRAY_BG, fill="solid", sw=1)
-txt("leg-txt2", item2_x + LEGEND_BOX_SZ + 6, LEGEND_Y - 2, LEGEND_TEXT_W, leg_txt_h,
-    "Provider Manages", SUB_FONT, "#1e1e1e")
+rect(
+    "leg-box2",
+    item2_x,
+    LEGEND_Y,
+    LEGEND_BOX_SZ,
+    LEGEND_BOX_SZ,
+    GRAY_STROKE,
+    GRAY_BG,
+    fill="solid",
+    sw=1,
+)
+txt(
+    "leg-txt2",
+    item2_x + LEGEND_BOX_SZ + 6,
+    LEGEND_Y - 2,
+    LEGEND_TEXT_W,
+    leg_txt_h,
+    "Provider Manages",
+    SUB_FONT,
+    "#1e1e1e",
+)
 
 # === VERIFY POSITIONS ===
 print(f"Title: y={TITLE_Y} to {TITLE_Y + TITLE_H}")
@@ -195,9 +324,11 @@ print(f"Total width: {TOTAL_W}")
 print(f"Column Xs: {COL_XS}")
 
 # === WRITE FILE ===
-out_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "diagrams")
+out_dir = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "diagrams"
+)
 os.makedirs(out_dir, exist_ok=True)
 out_path = os.path.join(out_dir, "compute-models.excalidraw")
-with open(out_path, 'w') as f:
+with open(out_path, "w") as f:
     json.dump(data, f, indent=2)
 print(f"\nWrote {out_path}")
