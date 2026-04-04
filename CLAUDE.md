@@ -24,6 +24,7 @@ Use for: AWS/GCP/Azure architecture diagrams, infrastructure diagrams, anything 
 - Generate via Python script with `from diagrams import Diagram`
 - Export both light (white bg) and dark (`#0f0f13` bg) PNG versions
 - Output: `public/images/diagrams/*.png` and `*-dark.png`
+- Skill source repo: `/Users/guyardon/Repositories/aws-diagrams-skill`
 - Reference scripts: `scripts/generate-batch-pipeline-aws.py`, `scripts/generate-streaming-pipeline-aws.py`
 - **Graph attributes:**
   - DPI: `150`
@@ -62,6 +63,7 @@ CSS in `src/styles/global.css` handles show/hide based on `[data-theme]`.
 ## Workflow
 - Always run `npm run build` automatically after any content or style change — don't wait to be asked
 - Commit frequently — after each logical unit of work (a diagram, a content change, a style fix). Break changes into multiple conventional commits grouped by context.
+- For diagrams: build, embed, and rebuild the site, then wait for user review before committing.
 
 ## Content conventions
 - `backticks` for tools/products (S3, Airflow, dbt)
