@@ -12,89 +12,60 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 ## 3.1.1 Batch Transformation Overview
 
-**Batch Transformations**
+The **transformation stage** is where raw data is manipulated and enhanced for downstream stakeholders. Transformations serve three purposes:
 
-The transformation stage is where raw data is manipulated and enhanced for downstream stakeholders. This section covers the technical considerations for batch transformations.
-
-
----
-
-**Transformation Stage**
-
-Transformations serve three purposes: manipulate and enhance data for downstream consumers, leverage massively parallel processing for data modeling (star schemas, data vaults, etc.), and define zones for stages of transformed data (raw, cleaned, enriched).
-
+1. **Manipulate and enhance data** for downstream consumers
+2. **Leverage massively parallel processing** for data modeling (star schemas, data vaults, etc.)
+3. **Define zones** for stages of transformed data (raw, cleaned, enriched)
 
 ---
 
 **Technical Considerations**
 
-For **batch transformations**, the key factors are data size, hardware specifications, and performance requirements. For **streaming transformations**, latency requirements dominate. The traditional approach is to run transformations on a single machine or use a distributed processing tool, writing logic in SQL or Python.
-
-
----
-
-**Week Overview**
-
-
----
-
-**Batch Transformations**
-- Transformation use cases
-- Distributed processing frameworks:
-  - **Hadoop MapReduce**: disk-based storage and processing. Considered legacy due to complexity, high scaling costs, and significant maintenance -- but important to understand since it influenced many modern technologies.
-  - `Spark`: memory-based processing framework
-- Comparison of SQL-based vs. Python-based transformations
-- Lab: Transforming data with Apache Spark
-- AWS expert: Generating Glue processing jobs with Glue Studio
-
-
----
-
-**Streaming Transformations**
-- Transformation use cases
-- Micro-batch vs. true streaming processing tools
-- Lab: Implement a CDC pipeline using Apache Kafka and Apache Flink
+| Factor | Batch | Streaming |
+|---|---|---|
+| **Primary constraint** | Data size, hardware specs, performance requirements | Latency requirements |
+| **Approach** | Single machine or distributed processing framework | Event-driven or micro-batch |
+| **Logic** | SQL or Python | SQL, Python, or framework-specific APIs |
 
 ## 3.1.2 ETL Patterns and Use Cases
 
-**Batch Transformation Patterns and Use Cases**
-
-
----
-
 **ETL vs. ELT vs. EtLT**
 
-![](/data-engineering-specialization-website/images/533b35b2-1d38-4f8d-80ba-741e6b1c2577.png)
-
-The third approach, **EtLT**, applies simple transformations (like cleaning) before loading into the data warehouse, then performs heavier transformations (like modeling into star schemas) inside the warehouse.
-
+| Pattern | How it Works | Best For |
+|---|---|---|
+| **ETL** | Transform data *before* loading into the target | Legacy warehouses, limited target compute |
+| **ELT** | Load raw data first, then transform *inside* the target | Cloud warehouses with strong compute (Redshift, BigQuery) |
+| **EtLT** | Light transforms before load (cleaning), heavy transforms after (modeling) | Hybrid — clean early, model late |
 
 ---
 
 **Transformations for Data Modeling**
 
-![](/data-engineering-specialization-website/images/1fd6d4b5-06ed-4cf9-90bc-e191041c6bbb.png)
-
+Convert normalized source data into analytical models — star schemas, data vaults, one-big-table — optimized for downstream queries.
 
 ---
 
-**Transformations for Data Cleaning (Data Wrangling)**
+**Transformations for Data Cleaning (Wrangling)**
 
-![](/data-engineering-specialization-website/images/bd34135f-782a-4ee5-ab5c-b5c8b2929500.png)
+| Operation | Example |
+|---|---|
+| **Deduplication** | Remove duplicate records |
+| **Type casting** | Convert string dates to date types |
+| **Null handling** | Impute or drop missing values |
+| **Standardization** | Normalize formats (phone numbers, addresses) |
+| **Filtering** | Remove invalid or irrelevant rows |
+| **Validation** | Assert business rules (e.g., price > 0) |
 
 ## 3.1.3 Data Updating and Change Data Capture
 
-**Transformations for Data Updating**
-
-A common use case is keeping the data warehouse in sync with source systems. There are two main approaches.
-
+A common use case is keeping the data warehouse in sync with source systems.
 
 ---
 
-**Truncate and reload data**
+**Truncate and Reload**
 
-Delete all records in the target system and reload from source. This works for small datasets or infrequent updates, but becomes very expensive at scale.
-
+Delete all records in the target and reload from source. Works for small datasets or infrequent updates, but becomes expensive at scale.
 
 ---
 
@@ -102,26 +73,23 @@ Delete all records in the target system and reload from source. This works for s
 
 CDC identifies changes in the source system and applies only those changes to the target. Changes can be detected through a `last_updated` column or database transaction logs (`I` for insert, `U` for update, `D` for delete).
 
+| Strategy | Behavior |
+|---|---|
+| **Insert-only** | Append new records without modifying old ones — new records include metadata to distinguish versions |
+| **Upsert / Merge** | Match by primary key — update on match, insert on no match |
 
 ---
 
-**Capture updates:**
-- **Insert-only pattern** -- Insert new records without modifying or deleting old ones. New records include additional information to distinguish them from previous versions.
-- **Upsert/merge pattern** -- Match source records against the target table by primary key or another logical condition. On match, replace the target record; on no match, insert the new record.
+**Handling Deletes**
 
-
----
-
-**Capture deletes:**
-- **Hard delete** -- Permanently remove a record from the target, typically for performance (storage/memory) or legal/compliance reasons.
-- **Soft delete** -- Mark the record as deleted so it can be filtered later.
-- **Insert-only with a deleted flag** -- Append a new record with a deletion marker.
-
+| Method | Description |
+|---|---|
+| **Hard delete** | Permanently remove the record — for performance or compliance |
+| **Soft delete** | Mark the record as deleted with a flag column |
+| **Insert-only with delete flag** | Append a new record with a deletion marker |
 
 ---
 
-**Insert Types**
+**Insert Performance**
 
-**Single-row inserts** work well for row-oriented OLTP databases but are problematic for column-oriented OLAP systems -- they put massive load on the system and are extremely inefficient for subsequent reads.
-
-**Micro-batch or batch inserts** are the preferred approach for OLAP systems.
+**Single-row inserts** work well for row-oriented OLTP databases but are inefficient for column-oriented OLAP systems — they create massive load and degrade read performance. **Micro-batch or batch inserts** are the preferred approach for OLAP.
