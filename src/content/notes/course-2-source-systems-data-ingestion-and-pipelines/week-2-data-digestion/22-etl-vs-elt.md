@@ -14,7 +14,8 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 The order in which you extract, transform, and load data has significant implications for pipeline speed, flexibility, and data quality.
 
-![](/data-engineering-specialization-website/images/b3d34b42-a540-4f17-ab01-e20c5386ee3e.png)
+<img src="/data-engineering-specialization-website/images/diagrams/etl-vs-elt-dark.svg" alt="ETL vs ELT comparison diagram" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/etl-vs-elt.svg" alt="ETL vs ELT comparison diagram" class="diagram diagram-light" />
 
 **ETL (Extract-Transform-Load)** extracts raw data from the source, transforms it in a staging area, then loads the transformed data into the target destination.
 

@@ -23,6 +23,9 @@ A **Message Queue** is a buffer that delivers messages asynchronously on a FIFO 
 
 An **Event Streaming Platform** is an append-only persistent log where an event router distributes messages to subscribers. The key differentiator is that messages can be **replayed or re-processed** since they persist in the log.
 
+<img src="/data-engineering-specialization-website/images/diagrams/streaming-concepts-dark.svg" alt="Message Queue vs Event Streaming Platform" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/streaming-concepts.svg" alt="Message Queue vs Event Streaming Platform" class="diagram diagram-light" />
+
 ## 2.3.2 Apache Kafka
 
 `Apache Kafka` is the most widely adopted open-source event streaming platform. Its architecture consists of three main layers:
@@ -32,6 +35,9 @@ An **Event Streaming Platform** is an append-only persistent log where an event 
 Message streams are organized into **topics** -- categories that hold collections of related events. Each topic is made up of **partitions (logs)**, which are ordered, immutable sequences of messages. Producers distribute messages to partitions using either a **round-robin strategy** or based on a **message key**. Each partition can only be assigned to a single consumer.
 
 **Event Consumers** read or pull messages from the `Kafka` cluster and subscribe to one or more topics.
+
+<img src="/data-engineering-specialization-website/images/diagrams/kafka-architecture-dark.svg" alt="Apache Kafka Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/kafka-architecture.svg" alt="Apache Kafka Architecture" class="diagram diagram-light" />
 
 ## 2.3.3 Kinesis Data Streams
 
@@ -43,6 +49,9 @@ Message streams are split into **streams** (analogous to `Kafka` topics), which 
 - **Write Operations**: Up to 1,000 records per second per shard, max total write rate of 1 MB/s.
 
 Each **Data Record** contains a **Partition Key** (determines the shard), a **Sequence Number**, and a **Binary Large Object (BLOB)**.
+
+<img src="/data-engineering-specialization-website/images/diagrams/kinesis-data-streams-aws-dark.png" alt="Kinesis Data Streams Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/kinesis-data-streams-aws.png" alt="Kinesis Data Streams Architecture" class="diagram diagram-light" />
 
 ---
 
