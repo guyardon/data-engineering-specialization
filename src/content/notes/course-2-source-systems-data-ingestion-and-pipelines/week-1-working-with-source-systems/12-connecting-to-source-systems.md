@@ -151,7 +151,8 @@ This section walks through building a complete networking setup for a web applic
 
 **Core networking concepts:** Amazon `VPC`s, subnets, gateways, route tables, network ACLs, and security groups.
 
-![](/data-engineering-specialization-website/images/d795bf77-fe26-4786-b6df-952c2c581c96.png)
+<img src="/data-engineering-specialization-website/images/diagrams/vpc-networking-aws-dark.png" alt="AWS VPC Networking" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/vpc-networking-aws.png" alt="AWS VPC Networking" class="diagram diagram-light" />
 
 ---
 
