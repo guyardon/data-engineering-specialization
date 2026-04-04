@@ -23,6 +23,9 @@ notionId: "1d3969a7-aa01-80e3-b264-c6789380bcaa"
 - **Observability and Monitoring**
 - **Incident Response**
 
+<img src="/data-engineering-specialization-website/images/diagrams/dataops-pillars-dark.svg" alt="DataOps 3 Pillars: Automation, Observability & Monitoring, Incident Response" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/dataops-pillars.svg" alt="DataOps 3 Pillars: Automation, Observability & Monitoring, Incident Response" class="diagram diagram-light" />
+
 ---
 
 **DataOps Automation**
@@ -31,24 +34,63 @@ CI/CD brings version control to both code (via git) and data (enabling rollback 
 
 ## 3.1.2 Infrastructure as Code with Terraform
 
-IaC replaces manual console clicking and fragile bash scripts with declarative configuration files that define your cloud resources.
-
-- Example: `AWS CloudFormation`
-![](/data-engineering-specialization-website/images/96636718-daae-4027-8b66-66d7734aa8c8.png)
-
-- `Terraform` Example
-![](/data-engineering-specialization-website/images/ac9500e8-8e79-40cd-83f4-68b6f3d04f00.png)
-
-![](/data-engineering-specialization-website/images/d04183f9-46bd-46e3-ab70-622047e826fe.png)
-
-`Terraform` uses **HCL (HashiCorp Configuration Language)**, a declarative language where you specify the desired end state of your infrastructure rather than the steps to get there. It is highly **idempotent** -- repeatedly executing the same HCL commands produces the same end result.
+IaC replaces manual console clicking and fragile bash scripts with declarative configuration files that define your cloud resources. `Terraform` uses **HCL (HashiCorp Configuration Language)**, a declarative language where you specify the desired end state of your infrastructure rather than the steps to get there. It is highly **idempotent** -- repeatedly executing the same HCL commands produces the same end result.
 
 By contrast, **Bash** is procedural: you must specify every step, handle all conditions, and manage error handling yourself, making it far more complex for infrastructure management.
 
----
+Both `AWS CloudFormation` and `Terraform` are IaC tools. The course labs use `CloudFormation` to provision the pipeline below:
 
+![](/data-engineering-specialization-website/images/96636718-daae-4027-8b66-66d7734aa8c8.png)
 
----
+**The HCL Syntax**
+
+Each resource block follows the pattern: `resource "<type>" "<name>" { ... }` with key-value pairs inside.
+
+```hcl
+# vpc.tf — create a VPC with a /16 CIDR block (65,536 IP addresses).
+# instance_tenancy = "default" means EC2 instances run on shared hardware.
+resource "aws_vpc" "main" {
+  cidr_block       = "10.0.0.0/16"
+  instance_tenancy = "default"
+
+  tags = {
+    Name = "main"
+  }
+}
+```
+
+```hcl
+# ec2.tf — launch an EC2 instance using an Ubuntu AMI looked up via a data source.
+# t3.micro is a small, burstable instance type (free tier eligible).
+resource "aws_instance" "web" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+```
+
+```hcl
+# s3.tf — create an S3 bucket for the data lake.
+# bucket_prefix generates a unique name using the project variable
+# and the AWS account ID from a data source.
+resource "aws_s3_bucket" "data_lake" {
+  bucket_prefix = "${var.project}-datalake-${data.aws_caller_identity.current.account_id}-"
+}
+
+# Block all public access to the data lake bucket.
+# References the bucket above via resource_type.resource_name.attribute.
+resource "aws_s3_bucket_public_access_block" "data_lake" {
+  bucket = aws_s3_bucket.data_lake.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+```
 
 **Terraform Workflow**
 
@@ -57,31 +99,51 @@ By contrast, **Bash** is procedural: you must specify every step, handle all con
 3. You approve the plan.
 4. `Terraform` applies the proposed steps.
 
+<img src="/data-engineering-specialization-website/images/diagrams/terraform-workflow-dark.svg" alt="Terraform workflow: Define HCL config, run CLI commands, provision cloud resources" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/terraform-workflow.svg" alt="Terraform workflow: Define HCL config, run CLI commands, provision cloud resources" class="diagram diagram-light" style="max-height: 900px;" />
+
 ## 3.1.3 Terraform Tutorials and Examples
 
 **Terraform Basic Example**
 
 This example creates an `EC2` instance and launches it in the default `VPC` of your selected region.
 
-
----
-
-**Initial Setup:**
-
 - Use any IDE and install `Terraform` in your environment.
 - Use AWS credentials to authenticate `Terraform`.
-- Create a `main.tf` config file structured into 5 sections:
-  - **Terraform settings**
-  - **Providers** (plugin/binary file to interact with external resources such as a cloud provider)
-  - **Resources**
-  - **Inputs**
-  - **Outputs**
+- Create a `main.tf` config file structured into 5 sections: **Terraform settings**, **Providers**, **Resources**, **Inputs**, and **Outputs**.
 
-![](/data-engineering-specialization-website/images/0a5fdf8e-e75a-4101-bb88-2c5d4ab87608.png)
+```hcl
+# main.tf — complete single-file Terraform config for an EC2 instance.
 
-![](/data-engineering-specialization-website/images/e4f04d8a-1487-40d9-ac54-700f40f578af.png)
+# Declare required providers and their version constraints.
+# "source" tells Terraform where to download the provider plugin.
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"   # download from HashiCorp registry
+      version = ">= 4.16"        # minimum provider version
+    }
+  }
 
-![](/data-engineering-specialization-website/images/03ae7301-5d2d-443c-9939-7726471e31bb.png)
+  required_version = ">= 1.2.0"  # minimum Terraform CLI version
+}
+
+# Configure the AWS provider with the target region.
+# Terraform uses this to authenticate and route API calls.
+provider "aws" {
+  region = "us-east-1"
+}
+
+# Launch an EC2 instance with the specified AMI and instance type.
+resource "aws_instance" "webserver" {
+  ami           = "ami-0453ec754f44f9a4a"  # Amazon Linux 2 AMI
+  instance_type = "t2.micro"               # free tier eligible
+
+  tags = {
+    Name = "ExampleServer"
+  }
+}
+```
 
 Core `Terraform` commands:
 
@@ -89,42 +151,100 @@ Core `Terraform` commands:
 - `terraform plan` -- creates an execution plan (`+` = new resource, `-` = destroyed, `~` = updated).
 - `terraform apply` -- shows the plan again, asks for approval, then applies it.
 
----
+**Defining Variables and Outputs**
 
-**Terraform Tutorial - Defining Variables and Outputs**
+Variables let you avoid hardcoding values that may change. Define them in your config and reference them using `var.<variable_name>` syntax. Variables can live in the same file or in a separate `.tfvars` file that `Terraform` automatically loads at plan/apply time.
 
-Variables let you avoid hardcoding values that may change. Define them in your config and reference them using `var.[x]` syntax:
+```hcl
+# main.tf — updated to use variables instead of hardcoded values.
 
-![](/data-engineering-specialization-website/images/cede24ea-cb43-4de8-805f-7e11438432d9.png)
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 4.16"
+    }
+  }
 
-![](/data-engineering-specialization-website/images/72b2fb77-22a7-4f83-add6-d7a2f4e29aa1.png)
+  required_version = ">= 1.2.0"
+}
 
-Variables can also live in a separate file ending with `.tfvars`:
+# Now using var.region instead of a hardcoded value.
+provider "aws" {
+  region = var.region
+}
 
-![](/data-engineering-specialization-website/images/5768039b-5738-4c01-8b13-8351446a5825.png)
+# The Name tag now references var.server_name instead of a literal string.
+resource "aws_instance" "webserver" {
+  ami           = "ami-0453ec754f44f9a4a"
+  instance_type = "t2.micro"
 
----
+  tags = {
+    Name = var.server_name
+  }
+}
 
-**Outputs:**
+# Variables make the config reusable across environments.
+# Each variable has a type and optional default value.
+variable "region" {
+  description = "region for aws resources"
+  type        = string
+  default     = "us-east-1"  # used when no value is provided
+}
 
-Every resource you create has attributes (documented in the `Terraform` docs). You can export these to print them to the console, use them in other parts of your infrastructure, or reference them in other `Terraform` workspaces.
+variable "server_name" {
+  description = "name of the server running the website"
+  type        = string
+  # no default — Terraform will prompt for this value at apply time
+}
 
-![](/data-engineering-specialization-website/images/a75df990-a0bc-41c5-bdfe-8c7df2eea0ab.png)
+# Export resource attributes so they can be viewed in the console,
+# referenced by other Terraform configs, or used in scripts.
+# Pattern: resource_type.resource_name.attribute
+output "server_id" {
+  description = "Instance ID of the webserver"
+  value       = aws_instance.webserver.id
+}
 
-Access outputs with `terraform output` (all outputs) or `terraform output [varname]` (specific output).
+output "server_arn" {
+  description = "ARN of the webserver"
+  value       = aws_instance.webserver.arn
+}
+```
 
----
+```hcl
+# terraform.tfvars — supply values for variables without defaults.
+# Terraform automatically loads this file when running plan/apply.
+server_name = "ExampleServer"
+```
+
+Access outputs with `terraform output` (all) or `terraform output server_id` (specific).
 
 **Organizing Terraform Files**
 
-Split `main.tf` into `variables.tf`, `outputs.tf`, and `providers.tf`. Define resources in `main.tf` or dedicated `[resource_name].tf` files.
+As configs grow, split `main.tf` into `variables.tf`, `outputs.tf`, and `providers.tf`. Define resources in `main.tf` or dedicated `[resource_name].tf` files.
 
----
+**Data Sources**
 
-**Terraform Data Sources**
+Data sources are `data` blocks that reference resources created outside `Terraform` or in another `Terraform` workspace. They are read-only -- they fetch info but don't create resources. Referenced using the pattern `data.<type>.<name>.<attribute>`.
 
-Data sources are `data` blocks that reference resources created outside `Terraform` or in another `Terraform` workspace.
+```hcl
+# main.tf — launch an EC2 instance inside a pre-existing subnet.
 
-**Example:** Creating a public subnet inside a `VPC` that was created in a previous example:
+# Look up an existing subnet created outside this config
+# (e.g., manually or in another Terraform workspace).
+data "aws_subnet" "selected_subnet" {
+  id = "subnet-0a4518da5927f157e"
+}
 
-![](/data-engineering-specialization-website/images/35475174-4416-4fab-94b2-5c7211009120.png)
+# Launch the webserver inside the looked-up subnet.
+resource "aws_instance" "webserver" {
+  ami           = "ami-0453ec754f44f9a4a"
+  instance_type = "t2.micro"
+  subnet_id     = data.aws_subnet.selected_subnet.id
+
+  tags = {
+    Name = var.server_name
+  }
+}
+```

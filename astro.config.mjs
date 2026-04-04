@@ -20,7 +20,11 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkGfm],
     shikiConfig: {
-      theme: "dark-plus",
+      themes: {
+        light: "light-plus",
+        dark: "dark-plus",
+      },
+      defaultColor: false,
     },
   },
 });
