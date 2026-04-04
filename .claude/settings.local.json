@@ -24,7 +24,32 @@
       "Bash(cd:*)",
       "WebFetch(domain:www.markdown.engineering)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(for f:*)",
+      "Bash(python3:*)",
+      "Bash(BASE=/Users/guyardon/Repositories/data-engineering-specialization-website/src/content/notes)",
+      "Read(//Users/guyardon/Repositories/data-engineering-specialization-website/$BASE/**)",
+      "Bash(lsof -ti:4321 -ti:4341)",
+      "Bash(xargs kill:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4341/data-engineering-specialization-website/)",
+      "Bash(claude mcp:*)",
+      "Bash(npx @fromsko/excalidraw-mcp-server --help)",
+      "Bash(timeout 10 npx @fromsko/excalidraw-mcp-server)",
+      "Bash(npm info:*)",
+      "Bash(lsof -ti:4341)",
+      "WebSearch",
+      "WebFetch(domain:docs.excalidraw.com)",
+      "WebFetch(domain:deepwiki.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(timeout 10 npx -y @fromsko/excalidraw-mcp-server)",
+      "Bash(npm search:*)",
+      "Bash(npm ls:*)",
+      "Bash(npx playwright:*)",
+      "Bash(npx excalidraw-brute-export-cli:*)",
+      "Bash(npx --yes astro build)",
+      "Bash(pip3 install:*)",
+      "Bash(brew list:*)",
+      "Bash(brew install:*)"
     ]
   }
 }
