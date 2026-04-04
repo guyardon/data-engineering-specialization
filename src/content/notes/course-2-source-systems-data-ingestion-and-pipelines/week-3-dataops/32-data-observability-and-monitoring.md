@@ -16,11 +16,7 @@ Data observability borrows from DevOps observability but focuses on the health o
 
 **DevOps Observability** monitors metrics like CPU/RAM usage and response time to quickly detect anomalies, identify problems, prevent downtime, and ensure reliable software products.
 
----
-
 **Data Observability** monitors the health of data and data systems, ensuring high-quality data that is accurate, complete, discoverable, and available in a timely manner. Upstream changes -- such as source systems changing their data structure -- should be expected and mitigated proactively.
-
----
 
 **Key questions to ask** (from Barr Moses, CEO of Monte Carlo):
 
@@ -30,10 +26,8 @@ Data observability borrows from DevOps observability but focuses on the health o
 - Is the null rate higher or lower than it should be?
 - Has the schema changed?
 
----
-
-
----
+<img src="/data-engineering-specialization-website/images/diagrams/observability-concepts-dark.svg" alt="Observability Concepts — DevOps vs Data Observability" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/observability-concepts.svg" alt="Observability Concepts — DevOps vs Data Observability" class="diagram diagram-light" />
 
 **5 Pillars of Data Observability:**
 
@@ -43,6 +37,9 @@ Data observability borrows from DevOps observability but focuses on the health o
 4. **Lineage**: According to [Barr](https://towardsdatascience.com/introducing-the-five-pillars-of-data-observability-e73734b263d5), "When data breaks, the first question is always 'where?'" Data lineage traces the data journey from source to destination, visualizing transformations and storage locations to identify the source of errors.
 5. **Schema**: Monitors changes in data structure or types to prevent pipeline failures.
 
+<img src="/data-engineering-specialization-website/images/diagrams/five-pillars-dark.svg" alt="5 Pillars of Data Observability" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/five-pillars.svg" alt="5 Pillars of Data Observability" class="diagram diagram-light" style="max-height: 900px;" />
+
 ## 3.2.2 Monitoring Data Quality
 
 Focus your monitoring efforts on the metrics that matter most. The core dimensions to track are **volume**, **distribution**, **null values**, and **freshness**. Identify the most important metrics by checking what stakeholders care about and talking with source system owners.
@@ -51,17 +48,18 @@ Focus your monitoring efforts on the metrics that matter most. The core dimensio
 
 **Great Expectations**
 
+`Great Expectations` (GX) is an open-source Python library for validating, documenting, and profiling data. It lets you define **expectations** — declarative assertions about what your data should look like — and run them automatically as part of your pipeline. When expectations fail, GX generates detailed reports showing exactly which rows or columns violated the rules, making it easy to catch data quality issues before they reach downstream consumers.
 
----
+GX stores all metadata — expectations, validation results, checkpoints, and data docs — in configurable backend stores, keeping your validation logic versioned and reproducible.
 
 **Core Components**
 
-![](/data-engineering-specialization-website/images/cd3cd7f0-368b-4ad6-b595-91ff95e55de6.png)
-
----
+<img src="/data-engineering-specialization-website/images/diagrams/great-expectations-workflow-dark.svg" alt="Great Expectations Workflow" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/great-expectations-workflow.svg" alt="Great Expectations Workflow" class="diagram diagram-light" style="max-height: 900px;" />
 
 **`CloudWatch`**
 
-AWS's built-in monitoring service for tracking infrastructure and application metrics.
+`CloudWatch` is AWS's built-in monitoring service for tracking infrastructure and application metrics. It collects **system-level metrics** (CPU, memory, disk, network) automatically from AWS resources, and supports **custom metrics** for application-specific measurements like transaction counts or API response times. `CloudWatch` **Alarms** let you define thresholds on any metric and trigger notifications or automated actions when those thresholds are breached. It retains metrics data for up to 15 months, enabling long-term trend analysis and capacity planning.
 
-![](/data-engineering-specialization-website/images/d602344c-befd-49ae-8d1c-9a6983035691.png)
+<img src="/data-engineering-specialization-website/images/diagrams/cloudwatch-dark.svg" alt="AWS CloudWatch" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/cloudwatch.svg" alt="AWS CloudWatch" class="diagram diagram-light" />

@@ -190,6 +190,16 @@
     line-height: 1.5;
   }
 
+  /* Shiki dual-theme: dark by default, light when [data-theme="light"] */
+  .prose pre.astro-code,
+  .prose pre.astro-code span {
+    color: var(--shiki-dark) !important;
+  }
+  [data-theme="light"] .prose pre.astro-code,
+  [data-theme="light"] .prose pre.astro-code span {
+    color: var(--shiki-light) !important;
+  }
+
   .prose pre:not(.astro-code) {
     background-color: var(--code-bg);
     border: 1px solid var(--line);
