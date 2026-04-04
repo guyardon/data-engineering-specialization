@@ -43,16 +43,35 @@ GRAY = ("#868e96", "#dee2e6")
 
 
 def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg,
-        "fillStyle": fill, "strokeWidth": 2,
-        "strokeStyle": "dashed" if dashed else "solid", "roughness": 1,
-        "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
@@ -61,35 +80,80 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": "center", "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid,
-        "strokeColor": color, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append({
-        "type": "arrow", "id": id, "x": x, "y": y,
-        "width": pts[-1][0] - pts[0][0], "height": pts[-1][1] - pts[0][1],
-        "angle": 0, "points": pts,
-        "startArrowhead": None, "endArrowhead": "arrow",
-        "startBinding": sb, "endBinding": eb, "elbowed": False,
-        "strokeColor": stroke, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "dashed" if dash else "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "arrow",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": pts[-1][0] - pts[0][0],
+            "height": pts[-1][1] - pts[0][1],
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": "arrow",
+            "startBinding": sb,
+            "endBinding": eb,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 # === LAYOUT CONSTANTS ===
@@ -114,12 +178,30 @@ Y += 45
 
 # Container box for config files
 CONTAINER_H = 220
-rect("cfg_container", PAD_X, Y, CONTENT_W, CONTAINER_H, PURPLE[0], PURPLE[1],
-     opacity=40, dashed=True,
-     bnd=[{"id": "a_cfg_to_tf", "type": "arrow"}])
+rect(
+    "cfg_container",
+    PAD_X,
+    Y,
+    CONTENT_W,
+    CONTAINER_H,
+    PURPLE[0],
+    PURPLE[1],
+    opacity=40,
+    dashed=True,
+    bnd=[{"id": "a_cfg_to_tf", "type": "arrow"}],
+)
 
 # Container label
-txt("cfg_label", PAD_X, Y + 8, CONTENT_W, 22, "HCL Configuration Files (.tf)", 20, color=PURPLE[0])
+txt(
+    "cfg_label",
+    PAD_X,
+    Y + 8,
+    CONTENT_W,
+    22,
+    "HCL Configuration Files (.tf)",
+    20,
+    color=PURPLE[0],
+)
 
 # Config file boxes inside container
 INNER_PAD = 20
@@ -140,27 +222,43 @@ files_col2 = [
 for j, (fname, desc) in enumerate(files_col1):
     fy = INNER_Y1 + j * (BOX_H + 15)
     fid = f"f1_{j}"
-    rect(fid, INNER_X1, fy, INNER_W, BOX_H, *PURPLE,
-         bnd=[{"id": f"t_{fid}", "type": "text"}])
-    txt(f"t_{fid}", INNER_X1, fy, INNER_W, BOX_H,
-        f"{fname}\n{desc}", 18, cid=fid)
+    rect(
+        fid,
+        INNER_X1,
+        fy,
+        INNER_W,
+        BOX_H,
+        *PURPLE,
+        bnd=[{"id": f"t_{fid}", "type": "text"}],
+    )
+    txt(f"t_{fid}", INNER_X1, fy, INNER_W, BOX_H, f"{fname}\n{desc}", 18, cid=fid)
 
 for j, (fname, desc) in enumerate(files_col2):
     fy = INNER_Y1 + j * (BOX_H + 15)
     fid = f"f2_{j}"
-    rect(fid, INNER_X2, fy, INNER_W, BOX_H, *PURPLE,
-         bnd=[{"id": f"t_{fid}", "type": "text"}])
-    txt(f"t_{fid}", INNER_X2, fy, INNER_W, BOX_H,
-        f"{fname}\n{desc}", 18, cid=fid)
+    rect(
+        fid,
+        INNER_X2,
+        fy,
+        INNER_W,
+        BOX_H,
+        *PURPLE,
+        bnd=[{"id": f"t_{fid}", "type": "text"}],
+    )
+    txt(f"t_{fid}", INNER_X2, fy, INNER_W, BOX_H, f"{fname}\n{desc}", 18, cid=fid)
 
 Y += CONTAINER_H
 
 # Arrow: config → terraform workflow
-arr("a_cfg_to_tf", CANVAS_W // 2, Y,
+arr(
+    "a_cfg_to_tf",
+    CANVAS_W // 2,
+    Y,
     [[0, 0], [0, SECTION_GAP]],
     PURPLE[0],
     sb={"elementId": "cfg_container", "focus": 0, "gap": 4},
-    eb={"elementId": "tf_container", "focus": 0, "gap": 4})
+    eb={"elementId": "tf_container", "focus": 0, "gap": 4},
+)
 
 Y += SECTION_GAP
 
@@ -170,10 +268,21 @@ Y += 45
 
 # Workflow steps container
 WORKFLOW_H = 230
-rect("tf_container", PAD_X, Y, CONTENT_W, WORKFLOW_H, BLUE[0], BLUE[1],
-     opacity=40, dashed=True,
-     bnd=[{"id": "a_cfg_to_tf", "type": "arrow"},
-          {"id": "a_tf_to_cloud", "type": "arrow"}])
+rect(
+    "tf_container",
+    PAD_X,
+    Y,
+    CONTENT_W,
+    WORKFLOW_H,
+    BLUE[0],
+    BLUE[1],
+    opacity=40,
+    dashed=True,
+    bnd=[
+        {"id": "a_cfg_to_tf", "type": "arrow"},
+        {"id": "a_tf_to_cloud", "type": "arrow"},
+    ],
+)
 
 txt("tf_label", PAD_X, Y + 8, CONTENT_W, 22, "Terraform Engine", 20, color=BLUE[0])
 
@@ -193,22 +302,31 @@ steps = [
 
 for i, (sid, cmd, desc, color) in enumerate(steps):
     sx = STEP_START_X + i * (STEP_W + STEP_GAP)
-    rect(sid, sx, STEP_Y, STEP_W, STEP_H, *color,
-         bnd=[{"id": f"t_{sid}", "type": "text"}])
-    txt(f"t_{sid}", sx, STEP_Y, STEP_W, STEP_H,
-        cmd, 19, cid=sid)
+    rect(
+        sid,
+        sx,
+        STEP_Y,
+        STEP_W,
+        STEP_H,
+        *color,
+        bnd=[{"id": f"t_{sid}", "type": "text"}],
+    )
+    txt(f"t_{sid}", sx, STEP_Y, STEP_W, STEP_H, cmd, 19, cid=sid)
     # Description below
-    txt(f"d_{sid}", sx, STEP_Y + STEP_H + 5, STEP_W, 35,
-        desc, 16, color=color[0])
+    txt(f"d_{sid}", sx, STEP_Y + STEP_H + 5, STEP_W, 35, desc, 16, color=color[0])
 
 # Arrows between steps
 for i in range(2):
     sx = STEP_START_X + i * (STEP_W + STEP_GAP) + STEP_W
-    arr(f"sa{i}", sx, STEP_Y + STEP_H // 2,
+    arr(
+        f"sa{i}",
+        sx,
+        STEP_Y + STEP_H // 2,
         [[0, 0], [STEP_GAP, 0]],
         steps[i][3][0],
         sb={"elementId": steps[i][0], "focus": 0, "gap": 4},
-        eb={"elementId": steps[i + 1][0], "focus": 0, "gap": 4})
+        eb={"elementId": steps[i + 1][0], "focus": 0, "gap": 4},
+    )
 
 # Key property labels
 PROP_Y = STEP_Y + STEP_H + 55
@@ -225,19 +343,30 @@ PROP_START_X = PAD_X + (CONTENT_W - TOTAL_PROPS_W) // 2
 for i, (label, color) in enumerate(props):
     px = PROP_START_X + i * (PROP_W + PROP_GAP)
     pid = f"prop{i}"
-    rect(pid, px, PROP_Y, PROP_W, 36, color[0], color[1],
-         bnd=[{"id": f"t_{pid}", "type": "text"}])
-    txt(f"t_{pid}", px, PROP_Y, PROP_W, 36,
-        label, 17, cid=pid)
+    rect(
+        pid,
+        px,
+        PROP_Y,
+        PROP_W,
+        36,
+        color[0],
+        color[1],
+        bnd=[{"id": f"t_{pid}", "type": "text"}],
+    )
+    txt(f"t_{pid}", px, PROP_Y, PROP_W, 36, label, 17, cid=pid)
 
 Y += WORKFLOW_H
 
 # Arrow: terraform → cloud resources
-arr("a_tf_to_cloud", CANVAS_W // 2, Y,
+arr(
+    "a_tf_to_cloud",
+    CANVAS_W // 2,
+    Y,
     [[0, 0], [0, SECTION_GAP]],
     BLUE[0],
     sb={"elementId": "tf_container", "focus": 0, "gap": 4},
-    eb={"elementId": "cloud_container", "focus": 0, "gap": 4})
+    eb={"elementId": "cloud_container", "focus": 0, "gap": 4},
+)
 
 Y += SECTION_GAP
 
@@ -246,11 +375,29 @@ txt("sec3_title", 0, Y, CANVAS_W, 35, "3. Cloud Infrastructure", 28)
 Y += 45
 
 CLOUD_H = 130
-rect("cloud_container", PAD_X, Y, CONTENT_W, CLOUD_H, GREEN[0], GREEN[1],
-     opacity=40, dashed=True,
-     bnd=[{"id": "a_tf_to_cloud", "type": "arrow"}])
+rect(
+    "cloud_container",
+    PAD_X,
+    Y,
+    CONTENT_W,
+    CLOUD_H,
+    GREEN[0],
+    GREEN[1],
+    opacity=40,
+    dashed=True,
+    bnd=[{"id": "a_tf_to_cloud", "type": "arrow"}],
+)
 
-txt("cloud_label", PAD_X, Y + 8, CONTENT_W, 22, "AWS Cloud Resources", 20, color=GREEN[0])
+txt(
+    "cloud_label",
+    PAD_X,
+    Y + 8,
+    CONTENT_W,
+    22,
+    "AWS Cloud Resources",
+    20,
+    color=GREEN[0],
+)
 
 # Resource pills
 RES_W = 120
@@ -264,10 +411,8 @@ RES_Y = Y + 50
 for i, res in enumerate(resources):
     rx = RES_START_X + i * (RES_W + RES_GAP)
     rid = f"r{i}"
-    rect(rid, rx, RES_Y, RES_W, RES_H, *GREEN,
-         bnd=[{"id": f"t_{rid}", "type": "text"}])
-    txt(f"t_{rid}", rx, RES_Y, RES_W, RES_H,
-        res, 20, cid=rid)
+    rect(rid, rx, RES_Y, RES_W, RES_H, *GREEN, bnd=[{"id": f"t_{rid}", "type": "text"}])
+    txt(f"t_{rid}", rx, RES_Y, RES_W, RES_H, res, 20, cid=rid)
 
 Y += CLOUD_H
 
@@ -275,7 +420,9 @@ Y += CLOUD_H
 print(f"Canvas width: {CANVAS_W}")
 print(f"Total height: ~{Y + 20}")
 print(f"Config section: 20 to ~{20 + 45 + 220}")
-print(f"Workflow section: ~{20 + 45 + 220 + SECTION_GAP} to ~{20 + 45 + 220 + SECTION_GAP + 45 + WORKFLOW_H}")
+print(
+    f"Workflow section: ~{20 + 45 + 220 + SECTION_GAP} to ~{20 + 45 + 220 + SECTION_GAP + 45 + WORKFLOW_H}"
+)
 print(f"Cloud section ends: ~{Y}")
 
 # === WRITE FILE ===

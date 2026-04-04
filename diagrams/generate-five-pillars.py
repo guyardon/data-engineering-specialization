@@ -34,16 +34,35 @@ CYAN = ("#0c8599", "#99e9f2")
 
 
 def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg,
-        "fillStyle": fill, "strokeWidth": 2,
-        "strokeStyle": "dashed" if dashed else "solid", "roughness": 1,
-        "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"):
@@ -52,18 +71,43 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": align, "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid,
-        "strokeColor": color, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": align,
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 # === LAYOUT CONSTANTS ===
@@ -84,17 +128,37 @@ CARDS_START = TITLE_Y + TITLE_H + 30
 
 # Pillars data
 pillars = [
-    ("Distribution", "Checks NULL rates, unique percentages,\nsummary stats, and expected ranges", BLUE),
-    ("Freshness", "How up-to-date the data is —\nwhen last updated and how frequently", GREEN),
+    (
+        "Distribution",
+        "Checks NULL rates, unique percentages,\nsummary stats, and expected ranges",
+        BLUE,
+    ),
+    (
+        "Freshness",
+        "How up-to-date the data is —\nwhen last updated and how frequently",
+        GREEN,
+    ),
     ("Volume", "Monitors data amounts for\nunexpected spikes or drops", YELLOW),
-    ("Lineage", "Traces data journey from source\nto destination to locate errors", PURPLE),
+    (
+        "Lineage",
+        "Traces data journey from source\nto destination to locate errors",
+        PURPLE,
+    ),
     ("Schema", "Monitors changes in data\nstructure or types", RED),
 ]
 
 # === BUILD DIAGRAM ===
 
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "5 Pillars of Data Observability", 32, color="#1e1e1e")
+txt(
+    "title",
+    PAD_X,
+    TITLE_Y,
+    CONTENT_W,
+    TITLE_H,
+    "5 Pillars of Data Observability",
+    32,
+    color="#1e1e1e",
+)
 
 for i, (name, desc, color) in enumerate(pillars):
     y = CARDS_START + i * (CARD_H + CARD_GAP)
@@ -104,10 +168,17 @@ for i, (name, desc, color) in enumerate(pillars):
     sub_id = f"sub{i}"
 
     # Number circle-ish badge
-    rect(num_id, PAD_X, y, NUM_W, CARD_H, color[0], color[1],
-         bnd=[{"id": f"num-t{i}", "type": "text"}])
-    txt(f"num-t{i}", PAD_X, y, NUM_W, CARD_H,
-        str(i + 1), 26, cid=num_id)
+    rect(
+        num_id,
+        PAD_X,
+        y,
+        NUM_W,
+        CARD_H,
+        color[0],
+        color[1],
+        bnd=[{"id": f"num-t{i}", "type": "text"}],
+    )
+    txt(f"num-t{i}", PAD_X, y, NUM_W, CARD_H, str(i + 1), 26, cid=num_id)
 
     # Card with title + subtitle (Rule 13)
     card_x = PAD_X + NUM_W + 15
@@ -123,12 +194,28 @@ for i, (name, desc, color) in enumerate(pillars):
     title_y = y + top_pad
     sub_y = title_y + title_h + gap
 
-    rect(card_id, card_x, y, CARD_W, CARD_H, color[0], color[1],
-         bnd=[{"id": card_t_id, "type": "text"}])
-    txt(card_t_id, card_x, title_y, CARD_W, title_h,
-        title_text, 24, color="#1e1e1e", cid=card_id)
-    txt(sub_id, card_x, sub_y, CARD_W, sub_h,
-        sub_text, 17, color=color[0])
+    rect(
+        card_id,
+        card_x,
+        y,
+        CARD_W,
+        CARD_H,
+        color[0],
+        color[1],
+        bnd=[{"id": card_t_id, "type": "text"}],
+    )
+    txt(
+        card_t_id,
+        card_x,
+        title_y,
+        CARD_W,
+        title_h,
+        title_text,
+        24,
+        color="#1e1e1e",
+        cid=card_id,
+    )
+    txt(sub_id, card_x, sub_y, CARD_W, sub_h, sub_text, 17, color=color[0])
 
 # === WRITE FILE ===
 name = sys.argv[1] if len(sys.argv) > 1 else "five-pillars"

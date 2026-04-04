@@ -38,28 +38,69 @@ GRAY = ("#868e96", "#dee2e6")
 
 
 def ellipse(id, x, y, w, h, stroke, bg, fill="hachure", bnd=None):
-    els.append({
-        "type": "ellipse", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg,
-        "fillStyle": fill, "strokeWidth": 2, "strokeStyle": "solid",
-        "roughness": 1, "opacity": 100, "roundness": {"type": 2},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "ellipse",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "roundness": {"type": 2},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
-def rect(id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg,
-        "fillStyle": fill, "strokeWidth": 2,
-        "strokeStyle": "dashed" if dashed else "solid", "roughness": 1,
-        "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+def rect(
+    id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None
+):
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"):
@@ -68,35 +109,80 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"
         actual_h = math.ceil(num_lines * sz * 1.25)
         y = y + (h - actual_h) // 2
         h = actual_h
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": align, "verticalAlign": "middle", "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid,
-        "strokeColor": color, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2, "strokeStyle": "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": align,
+            "verticalAlign": "middle",
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append({
-        "type": "arrow", "id": id, "x": x, "y": y,
-        "width": abs(pts[-1][0] - pts[0][0]), "height": abs(pts[-1][1] - pts[0][1]),
-        "angle": 0, "points": pts,
-        "startArrowhead": None, "endArrowhead": "arrow",
-        "startBinding": sb, "endBinding": eb, "elbowed": False,
-        "strokeColor": stroke, "backgroundColor": "transparent",
-        "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "dashed" if dash else "solid",
-        "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "arrow",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": abs(pts[-1][0] - pts[0][0]),
+            "height": abs(pts[-1][1] - pts[0][1]),
+            "angle": 0,
+            "points": pts,
+            "startArrowhead": None,
+            "endArrowhead": "arrow",
+            "startBinding": sb,
+            "endBinding": eb,
+            "elbowed": False,
+            "strokeColor": stroke,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "dashed" if dash else "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 # === LAYOUT ===
@@ -104,14 +190,21 @@ CANVAS_W = 650
 PAD_X = 25
 CONTENT_W = CANVAS_W - 2 * PAD_X
 NW = 130  # node width (ellipse)
-NH = 70   # node height (ellipse)
+NH = 70  # node height (ellipse)
 
 # Title
 TITLE_Y = 15
-txt("title", PAD_X, TITLE_Y, CONTENT_W, 40,
-    "Graph Database", 32)
-txt("sub", PAD_X, TITLE_Y + 38, CONTENT_W, 25,
-    "Nodes, edges, and properties", 17, color=PURPLE[0])
+txt("title", PAD_X, TITLE_Y, CONTENT_W, 40, "Graph Database", 32)
+txt(
+    "sub",
+    PAD_X,
+    TITLE_Y + 38,
+    CONTENT_W,
+    25,
+    "Nodes, edges, and properties",
+    17,
+    color=PURPLE[0],
+)
 
 # === NODES (diamond layout) ===
 #       Customer (top center)
@@ -132,83 +225,195 @@ CATEGORY_X = CANVAS_W - PAD_X - NW - 40
 CATEGORY_Y = 250
 
 # Customer node
-ellipse("customer", CUSTOMER_X, CUSTOMER_Y, NW, NH, *BLUE,
-        bnd=[{"id": "customer_t", "type": "text"}])
+ellipse(
+    "customer",
+    CUSTOMER_X,
+    CUSTOMER_Y,
+    NW,
+    NH,
+    *BLUE,
+    bnd=[{"id": "customer_t", "type": "text"}],
+)
 txt("customer_t", CUSTOMER_X, CUSTOMER_Y, NW, NH, "Customer", 20, cid="customer")
 
 # Properties label below Customer
-txt("customer_props", CUSTOMER_X - 10, CUSTOMER_Y + NH + 5, NW + 20, 25,
-    "name, email", 15, color=BLUE[0], op=70)
+txt(
+    "customer_props",
+    CUSTOMER_X - 10,
+    CUSTOMER_Y + NH + 5,
+    NW + 20,
+    25,
+    "name, email",
+    15,
+    color=BLUE[0],
+    op=70,
+)
 
 # Order node
-ellipse("order", ORDER_X, ORDER_Y, NW, NH, *GREEN,
-        bnd=[{"id": "order_t", "type": "text"}])
+ellipse(
+    "order", ORDER_X, ORDER_Y, NW, NH, *GREEN, bnd=[{"id": "order_t", "type": "text"}]
+)
 txt("order_t", ORDER_X, ORDER_Y, NW, NH, "Order", 20, cid="order")
 
 # Properties
-txt("order_props", ORDER_X - 10, ORDER_Y + NH + 5, NW + 20, 25,
-    "date, total", 15, color=GREEN[0], op=70)
+txt(
+    "order_props",
+    ORDER_X - 10,
+    ORDER_Y + NH + 5,
+    NW + 20,
+    25,
+    "date, total",
+    15,
+    color=GREEN[0],
+    op=70,
+)
 
 # Product node
-ellipse("product", PRODUCT_X, PRODUCT_Y, NW, NH, *YELLOW,
-        bnd=[{"id": "product_t", "type": "text"}])
+ellipse(
+    "product",
+    PRODUCT_X,
+    PRODUCT_Y,
+    NW,
+    NH,
+    *YELLOW,
+    bnd=[{"id": "product_t", "type": "text"}],
+)
 txt("product_t", PRODUCT_X, PRODUCT_Y, NW, NH, "Product", 20, cid="product")
 
 # Properties
-txt("product_props", PRODUCT_X - 15, PRODUCT_Y + NH + 5, NW + 30, 25,
-    "name, unitPrice", 15, color=YELLOW[0], op=70)
+txt(
+    "product_props",
+    PRODUCT_X - 15,
+    PRODUCT_Y + NH + 5,
+    NW + 30,
+    25,
+    "name, unitPrice",
+    15,
+    color=YELLOW[0],
+    op=70,
+)
 
 # Category node
-ellipse("category", CATEGORY_X, CATEGORY_Y, NW, NH, *PURPLE,
-        bnd=[{"id": "category_t", "type": "text"}])
+ellipse(
+    "category",
+    CATEGORY_X,
+    CATEGORY_Y,
+    NW,
+    NH,
+    *PURPLE,
+    bnd=[{"id": "category_t", "type": "text"}],
+)
 txt("category_t", CATEGORY_X, CATEGORY_Y, NW, NH, "Category", 20, cid="category")
 
 # Properties
-txt("category_props", CATEGORY_X - 10, CATEGORY_Y + NH + 5, NW + 20, 25,
-    "categoryName", 15, color=PURPLE[0], op=70)
+txt(
+    "category_props",
+    CATEGORY_X - 10,
+    CATEGORY_Y + NH + 5,
+    NW + 20,
+    25,
+    "categoryName",
+    15,
+    color=PURPLE[0],
+    op=70,
+)
 
 # === EDGES (arrows between nodes) ===
 
 # Customer → Order  (PLACES)
-arr("e_places", CUSTOMER_X + NW // 4, CUSTOMER_Y + NH,
+arr(
+    "e_places",
+    CUSTOMER_X + NW // 4,
+    CUSTOMER_Y + NH,
     [[0, 0], [ORDER_X + NW // 2 - CUSTOMER_X - NW // 4, ORDER_Y - CUSTOMER_Y - NH]],
     GREEN[0],
     sb={"elementId": "customer", "focus": 0, "gap": 4},
-    eb={"elementId": "order", "focus": 0, "gap": 4})
-txt("l_places", ORDER_X - 25, CUSTOMER_Y + NH + 20, 90, 25,
-    "PLACES", 16, color=GREEN[0])
+    eb={"elementId": "order", "focus": 0, "gap": 4},
+)
+txt(
+    "l_places", ORDER_X - 25, CUSTOMER_Y + NH + 20, 90, 25, "PLACES", 16, color=GREEN[0]
+)
 
 # Order → Product  (ORDERS)
-arr("e_orders", ORDER_X + NW, ORDER_Y + NH // 2,
+arr(
+    "e_orders",
+    ORDER_X + NW,
+    ORDER_Y + NH // 2,
     [[0, 0], [PRODUCT_X - ORDER_X - NW, 0]],
     YELLOW[0],
     sb={"elementId": "order", "focus": 0, "gap": 4},
-    eb={"elementId": "product", "focus": 0, "gap": 4})
-txt("l_orders", ORDER_X + NW + 10, ORDER_Y + NH // 2 - 28, 80, 25,
-    "ORDERS", 16, color=YELLOW[0])
+    eb={"elementId": "product", "focus": 0, "gap": 4},
+)
+txt(
+    "l_orders",
+    ORDER_X + NW + 10,
+    ORDER_Y + NH // 2 - 28,
+    80,
+    25,
+    "ORDERS",
+    16,
+    color=YELLOW[0],
+)
 
 # Product → Category  (PART_OF)
-arr("e_partof", PRODUCT_X + NW, PRODUCT_Y + NH // 2,
+arr(
+    "e_partof",
+    PRODUCT_X + NW,
+    PRODUCT_Y + NH // 2,
     [[0, 0], [CATEGORY_X - PRODUCT_X - NW, 0]],
     PURPLE[0],
     sb={"elementId": "product", "focus": 0, "gap": 4},
-    eb={"elementId": "category", "focus": 0, "gap": 4})
-txt("l_partof", PRODUCT_X + NW + 10, PRODUCT_Y + NH // 2 - 28, 80, 25,
-    "PART_OF", 16, color=PURPLE[0])
+    eb={"elementId": "category", "focus": 0, "gap": 4},
+)
+txt(
+    "l_partof",
+    PRODUCT_X + NW + 10,
+    PRODUCT_Y + NH // 2 - 28,
+    80,
+    25,
+    "PART_OF",
+    16,
+    color=PURPLE[0],
+)
 
 # Customer → Product  (diagonal, REVIEWED)
-arr("e_reviewed", CUSTOMER_X + 3 * NW // 4, CUSTOMER_Y + NH,
-    [[0, 0], [PRODUCT_X + NW // 2 - CUSTOMER_X - 3 * NW // 4, PRODUCT_Y - CUSTOMER_Y - NH]],
-    CYAN[0], dash=True,
+arr(
+    "e_reviewed",
+    CUSTOMER_X + 3 * NW // 4,
+    CUSTOMER_Y + NH,
+    [
+        [0, 0],
+        [PRODUCT_X + NW // 2 - CUSTOMER_X - 3 * NW // 4, PRODUCT_Y - CUSTOMER_Y - NH],
+    ],
+    CYAN[0],
+    dash=True,
     sb={"elementId": "customer", "focus": 0, "gap": 4},
-    eb={"elementId": "product", "focus": 0, "gap": 4})
-txt("l_reviewed", PRODUCT_X + NW - 10, CUSTOMER_Y + NH + 20, 100, 25,
-    "REVIEWED", 16, color=CYAN[0])
+    eb={"elementId": "product", "focus": 0, "gap": 4},
+)
+txt(
+    "l_reviewed",
+    PRODUCT_X + NW - 10,
+    CUSTOMER_Y + NH + 20,
+    100,
+    25,
+    "REVIEWED",
+    16,
+    color=CYAN[0],
+)
 
 # === Legend ===
 LEGEND_Y = 350
-txt("legend", PAD_X, LEGEND_Y, CONTENT_W, 25,
-    "() = Node (entity)     --> = Edge (relationship)     Properties = key-value attributes", 15, color=GRAY[0], op=70)
+txt(
+    "legend",
+    PAD_X,
+    LEGEND_Y,
+    CONTENT_W,
+    25,
+    "() = Node (entity)     --> = Edge (relationship)     Properties = key-value attributes",
+    15,
+    color=GRAY[0],
+    op=70,
+)
 
 
 # === WRITE ===
