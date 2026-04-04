@@ -61,6 +61,7 @@ CSS in `src/styles/global.css` handles show/hide based on `[data-theme]`.
 
 ## Workflow
 - Always run `npm run build` automatically after any content or style change — don't wait to be asked
+- Commit frequently — after each logical unit of work (a diagram, a content change, a style fix). Break changes into multiple conventional commits grouped by context.
 
 ## Content conventions
 - `backticks` for tools/products (S3, Airflow, dbt)
