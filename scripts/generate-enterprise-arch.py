@@ -23,16 +23,38 @@ def ns():
     return seed
 
 
-def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2):
-    els.append({
-        "type": "rectangle", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "strokeColor": stroke, "backgroundColor": bg, "fillStyle": fill,
-        "strokeWidth": sw, "strokeStyle": "dashed" if dashed else "solid",
-        "roughness": 1, "opacity": opacity, "roundness": {"type": 3},
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": bnd or [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+def rect(
+    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
+):
+    els.append(
+        {
+            "type": "rectangle",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "strokeColor": stroke,
+            "backgroundColor": bg,
+            "fillStyle": fill,
+            "strokeWidth": sw,
+            "strokeStyle": "dashed" if dashed else "solid",
+            "roughness": 1,
+            "opacity": opacity,
+            "roundness": {"type": 3},
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": bnd or [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, va="middle"):
@@ -41,17 +63,43 @@ def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, va="middle"):
     When cid is set (bound text), the y and h are manually set by the caller.
     When cid is None (free text), x/y/w/h are used as-is.
     """
-    els.append({
-        "type": "text", "id": id, "x": x, "y": y, "width": w, "height": h,
-        "angle": 0, "text": t, "originalText": t, "fontSize": sz, "fontFamily": 1,
-        "textAlign": "center", "verticalAlign": va, "lineHeight": 1.25,
-        "autoResize": True, "containerId": cid, "strokeColor": color,
-        "backgroundColor": "transparent", "fillStyle": "solid", "strokeWidth": 2,
-        "strokeStyle": "solid", "roughness": 1, "opacity": op,
-        "seed": ns(), "version": 1, "versionNonce": ns(),
-        "isDeleted": False, "groupIds": [], "boundElements": [],
-        "frameId": None, "link": None, "locked": False, "updated": 1710000000000,
-    })
+    els.append(
+        {
+            "type": "text",
+            "id": id,
+            "x": x,
+            "y": y,
+            "width": w,
+            "height": h,
+            "angle": 0,
+            "text": t,
+            "originalText": t,
+            "fontSize": sz,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": va,
+            "lineHeight": 1.25,
+            "autoResize": True,
+            "containerId": cid,
+            "strokeColor": color,
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": op,
+            "seed": ns(),
+            "version": 1,
+            "versionNonce": ns(),
+            "isDeleted": False,
+            "groupIds": [],
+            "boundElements": [],
+            "frameId": None,
+            "link": None,
+            "locked": False,
+            "updated": 1710000000000,
+        }
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -70,7 +118,7 @@ FONT_DECISION_TITLE = 22
 FONT_DOOR = 20
 
 # Title/subtitle positioning within each layer box (80h)
-TITLE_TEXT_H = math.ceil(1 * FONT_TITLE * 1.25)      # 30
+TITLE_TEXT_H = math.ceil(1 * FONT_TITLE * 1.25)  # 30
 SUBTITLE_TEXT_H = math.ceil(1 * FONT_SUBTITLE * 1.25)  # 20
 TITLE_SUBTITLE_GAP = 8
 COMBINED_H = TITLE_TEXT_H + TITLE_SUBTITLE_GAP + SUBTITLE_TEXT_H  # 58
@@ -86,18 +134,46 @@ STACK_TOP = TITLE_Y + TITLE_H + 30
 title_text = "Enterprise Architecture"
 title_w = math.ceil(len(title_text) * FONT_MAIN_TITLE * 0.65 + 40)
 title_center_x = MARGIN_LEFT + LAYER_W // 2
-txt("title", title_center_x - title_w // 2, TITLE_Y, title_w, TITLE_H,
-    title_text, FONT_MAIN_TITLE)
+txt(
+    "title",
+    title_center_x - title_w // 2,
+    TITLE_Y,
+    title_w,
+    TITLE_H,
+    title_text,
+    FONT_MAIN_TITLE,
+)
 
 # ---------------------------------------------------------------------------
 # 4 layers — each with bound title text + free subtitle text
 # ---------------------------------------------------------------------------
 layers = [
     # (id, title, subtitle, stroke, bg, strokeWidth)
-    ("biz",  "Business Architecture",    "Product & service strategy",     "#1971c2", "#a5d8ff", 2),
-    ("app",  "Application Architecture", "App structure & interaction",    "#6741d9", "#d0bfff", 2),
-    ("tech", "Technical Architecture",   "Software & hardware components", "#0c8599", "#99e9f2", 2),
-    ("data", "Data Architecture",        "Evolving data needs",            "#e67700", "#ffec99", 3),
+    (
+        "biz",
+        "Business Architecture",
+        "Product & service strategy",
+        "#1971c2",
+        "#a5d8ff",
+        2,
+    ),
+    (
+        "app",
+        "Application Architecture",
+        "App structure & interaction",
+        "#6741d9",
+        "#d0bfff",
+        2,
+    ),
+    (
+        "tech",
+        "Technical Architecture",
+        "Software & hardware components",
+        "#0c8599",
+        "#99e9f2",
+        2,
+    ),
+    ("data", "Data Architecture", "Evolving data needs", "#e67700", "#ffec99", 3),
 ]
 
 for i, (lid, title, subtitle, stroke, bg, sw) in enumerate(layers):
@@ -107,20 +183,49 @@ for i, (lid, title, subtitle, stroke, bg, sw) in enumerate(layers):
     subtitle_id = f"{lid}-sub"
 
     # Rectangle — only the title text is bound
-    rect(rect_id, MARGIN_LEFT, layer_y, LAYER_W, LAYER_H, stroke, bg, sw=sw,
-         bnd=[{"id": title_id, "type": "text"}])
+    rect(
+        rect_id,
+        MARGIN_LEFT,
+        layer_y,
+        LAYER_W,
+        LAYER_H,
+        stroke,
+        bg,
+        sw=sw,
+        bnd=[{"id": title_id, "type": "text"}],
+    )
 
     # Bound title text (containerId = rect_id)
     # y = box_y + (80 - 58) // 2 = box_y + 11
     t_y = layer_y + (LAYER_H - COMBINED_H) // 2
-    txt(title_id, MARGIN_LEFT, t_y, LAYER_W, TITLE_TEXT_H,
-        title, FONT_TITLE, color="#1e1e1e", cid=rect_id, va="middle")
+    txt(
+        title_id,
+        MARGIN_LEFT,
+        t_y,
+        LAYER_W,
+        TITLE_TEXT_H,
+        title,
+        FONT_TITLE,
+        color="#1e1e1e",
+        cid=rect_id,
+        va="middle",
+    )
 
     # Free subtitle text (containerId = None, positioned inside the box)
     # y = title_y + 30 + 8 = box_y + 49
     s_y = t_y + TITLE_TEXT_H + TITLE_SUBTITLE_GAP
-    txt(subtitle_id, MARGIN_LEFT, s_y, LAYER_W, SUBTITLE_TEXT_H,
-        subtitle, FONT_SUBTITLE, color=stroke, cid=None, va="middle")
+    txt(
+        subtitle_id,
+        MARGIN_LEFT,
+        s_y,
+        LAYER_W,
+        SUBTITLE_TEXT_H,
+        subtitle,
+        FONT_SUBTITLE,
+        color=stroke,
+        cid=None,
+        va="middle",
+    )
 
 # ---------------------------------------------------------------------------
 # Decision Categories section (below layers)
@@ -131,8 +236,15 @@ decision_title_y = stack_bottom + 40
 decision_title_h = math.ceil(FONT_DECISION_TITLE * 1.25)
 decision_text = "Decision Categories"
 decision_w = math.ceil(len(decision_text) * FONT_DECISION_TITLE * 0.65 + 40)
-txt("dec-title", title_center_x - decision_w // 2, decision_title_y, decision_w, decision_title_h,
-    decision_text, FONT_DECISION_TITLE)
+txt(
+    "dec-title",
+    title_center_x - decision_w // 2,
+    decision_title_y,
+    decision_w,
+    decision_title_h,
+    decision_text,
+    FONT_DECISION_TITLE,
+)
 
 # ---------------------------------------------------------------------------
 # One-Way / Two-Way Door boxes (centered below decision title)
@@ -147,15 +259,16 @@ doors_y = decision_title_y + decision_title_h + 15
 
 doors = [
     ("ow", "One-Way Door\nIrreversible", "#c92a2a", "#ffc9c9"),
-    ("tw", "Two-Way Door\nReversible",   "#2f9e44", "#b2f2bb"),
+    ("tw", "Two-Way Door\nReversible", "#2f9e44", "#b2f2bb"),
 ]
 
 for i, (did, label, stroke, bg) in enumerate(doors):
     dx = doors_x_start + i * (DOOR_W + DOOR_GAP)
     tid = f"{did}-t"
 
-    rect(did, dx, doors_y, DOOR_W, DOOR_H, stroke, bg,
-         bnd=[{"id": tid, "type": "text"}])
+    rect(
+        did, dx, doors_y, DOOR_W, DOOR_H, stroke, bg, bnd=[{"id": tid, "type": "text"}]
+    )
 
     # Bound door text — use standard center positioning
     num_lines = label.count("\n") + 1

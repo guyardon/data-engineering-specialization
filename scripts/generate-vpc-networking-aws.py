@@ -16,7 +16,12 @@ import re
 import subprocess
 import tempfile
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "images", "diagrams")
+OUT_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "public",
+    "images",
+    "diagrams",
+)
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
@@ -27,9 +32,7 @@ def render_centered(dot_source, png_path, node_ids):
         dot_path = f.name
 
     # Get positioned DOT from dot layout engine
-    result = subprocess.run(
-        ["dot", "-Tdot", dot_path], capture_output=True, text=True
-    )
+    result = subprocess.run(["dot", "-Tdot", dot_path], capture_output=True, text=True)
     positioned = result.stdout
     os.remove(dot_path)
 
@@ -48,10 +51,14 @@ def render_centered(dot_source, png_path, node_ids):
         pattern = rf'"?{re.escape(nid)}"?\s+\[(?:[^\]]*?)pos="([0-9.]+),([0-9.]+)"'
         match = re.search(pattern, positioned)
         if match:
-            old_pos = f'{match.group(1)},{match.group(2)}'
-            new_pos = f'{center_x:.2f},{match.group(2)}'
-            positioned = positioned[:match.start(1)] + new_pos + positioned[match.end(2):]
-            print(f"    Shifted {nid[:8]}... from x={match.group(1)} to x={center_x:.2f}")
+            f"{match.group(1)},{match.group(2)}"
+            new_pos = f"{center_x:.2f},{match.group(2)}"
+            positioned = (
+                positioned[: match.start(1)] + new_pos + positioned[match.end(2) :]
+            )
+            print(
+                f"    Shifted {nid[:8]}... from x={match.group(1)} to x={center_x:.2f}"
+            )
 
     # Write centered DOT and render
     with tempfile.NamedTemporaryFile(mode="w", suffix=".dot", delete=False) as f:
@@ -70,16 +77,16 @@ def gen(dark: bool):
 
     if dark:
         cc = {
-            "vpc":  {"bg": "#1a1a2a", "fc": "#c4b5fd", "border": "#6741d9"},
-            "az":   {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
-            "pub":  {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
+            "vpc": {"bg": "#1a1a2a", "fc": "#c4b5fd", "border": "#6741d9"},
+            "az": {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
+            "pub": {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
             "priv": {"bg": "#2a1a1a", "fc": "#fca5a5", "border": "#c92a2a"},
         }
     else:
         cc = {
-            "vpc":  {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
-            "az":   {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
-            "pub":  {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
+            "vpc": {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
+            "az": {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
+            "pub": {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
             "priv": {"bg": "#ffc9c940", "fc": "#c92a2a", "border": "#c92a2a"},
         }
 
@@ -143,7 +150,8 @@ def gen(dark: bool):
         user = User("User")
         igw = InternetGateway("Internet\nGateway")
 
-        e = lambda **kw: Edge(color=edge_color, **kw)
+        def e(**kw):
+            return Edge(color=edge_color, **kw)
 
         with Cluster("VPC  (10.0.0.0/16)", graph_attr=cattr("vpc")):
             alb = ALB("ALB")

@@ -8,7 +8,12 @@ from diagrams.aws.analytics import EMR, Glue
 from diagrams.aws.storage import S3
 import os
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "images", "diagrams")
+OUT_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "public",
+    "images",
+    "diagrams",
+)
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
@@ -20,17 +25,17 @@ def gen(dark: bool):
 
     if dark:
         cc = {
-            "source":    {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
-            "extract":   {"bg": "#1a1a2a", "fc": "#93c5fd", "border": "#1971c2"},
+            "source": {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
+            "extract": {"bg": "#1a1a2a", "fc": "#93c5fd", "border": "#1971c2"},
             "transform": {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
-            "load":      {"bg": "#2a1a2a", "fc": "#d8b4fe", "border": "#6741d9"},
+            "load": {"bg": "#2a1a2a", "fc": "#d8b4fe", "border": "#6741d9"},
         }
     else:
         cc = {
-            "source":    {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
-            "extract":   {"bg": "#a5d8ff40", "fc": "#1971c2", "border": "#1971c2"},
+            "source": {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
+            "extract": {"bg": "#a5d8ff40", "fc": "#1971c2", "border": "#1971c2"},
             "transform": {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
-            "load":      {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
+            "load": {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
         }
 
     graph_attr = {
@@ -101,7 +106,8 @@ def gen(dark: bool):
             redshift = Redshift("Redshift")
             s3 = S3("S3")
 
-        e = lambda **kw: Edge(color=edge_color, **kw)
+        def e(**kw):
+            return Edge(color=edge_color, **kw)
 
         source >> e(lhead="cluster_Extract", ltail="cluster_Source") >> lam
         source >> e(lhead="cluster_Extract", ltail="cluster_Source") >> ec2

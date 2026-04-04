@@ -2,12 +2,21 @@
 """Generate AWS Streaming Pipeline diagram (light + dark) using diagrams library."""
 
 from diagrams import Diagram, Cluster, Edge
-from diagrams.aws.analytics import KinesisDataStreams, KinesisDataFirehose, ManagedStreamingForKafka
+from diagrams.aws.analytics import (
+    KinesisDataStreams,
+    KinesisDataFirehose,
+    ManagedStreamingForKafka,
+)
 from diagrams.aws.storage import S3
 from diagrams.aws.general import General
 import os
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "images", "diagrams")
+OUT_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "public",
+    "images",
+    "diagrams",
+)
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
@@ -20,16 +29,16 @@ def gen(dark: bool):
     if dark:
         cc = {
             "producers": {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
-            "ingest":    {"bg": "#1a1a2a", "fc": "#93c5fd", "border": "#1971c2"},
-            "deliver":   {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
-            "store":     {"bg": "#2a1a2a", "fc": "#d8b4fe", "border": "#6741d9"},
+            "ingest": {"bg": "#1a1a2a", "fc": "#93c5fd", "border": "#1971c2"},
+            "deliver": {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
+            "store": {"bg": "#2a1a2a", "fc": "#d8b4fe", "border": "#6741d9"},
         }
     else:
         cc = {
             "producers": {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
-            "ingest":    {"bg": "#a5d8ff40", "fc": "#1971c2", "border": "#1971c2"},
-            "deliver":   {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
-            "store":     {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
+            "ingest": {"bg": "#a5d8ff40", "fc": "#1971c2", "border": "#1971c2"},
+            "deliver": {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
+            "store": {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
         }
 
     graph_attr = {
@@ -97,11 +106,24 @@ def gen(dark: bool):
         with Cluster("Storage", graph_attr=cattr("store")):
             s3 = S3("S3")
 
-        e = lambda **kw: Edge(color=edge_color, **kw)
+        def e(**kw):
+            return Edge(color=edge_color, **kw)
 
-        producers >> e(lhead="cluster_Stream Ingestion", ltail="cluster_Producers") >> kinesis
-        producers >> e(lhead="cluster_Stream Ingestion", ltail="cluster_Producers") >> msk
-        kinesis >> e(lhead="cluster_Delivery", ltail="cluster_Stream Ingestion") >> firehose
+        (
+            producers
+            >> e(lhead="cluster_Stream Ingestion", ltail="cluster_Producers")
+            >> kinesis
+        )
+        (
+            producers
+            >> e(lhead="cluster_Stream Ingestion", ltail="cluster_Producers")
+            >> msk
+        )
+        (
+            kinesis
+            >> e(lhead="cluster_Delivery", ltail="cluster_Stream Ingestion")
+            >> firehose
+        )
         firehose >> e(lhead="cluster_Storage", ltail="cluster_Delivery") >> s3
         msk >> e(lhead="cluster_Storage", ltail="cluster_Stream Ingestion") >> s3
 
