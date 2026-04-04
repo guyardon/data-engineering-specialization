@@ -13,6 +13,9 @@ notionId: "18c969a7-aa01-8012-908e-cb0e0b1f7b79"
 
 ## 3.1.1 What is Data Architecture
 
+<img src="/data-engineering-specialization-website/images/diagrams/enterprise-architecture-dark.svg" alt="Enterprise Architecture Domains" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/enterprise-architecture.svg" alt="Enterprise Architecture Domains" class="diagram diagram-light" />
+
 **What is Data Architecture?**
 
 **Enterprise Architecture:**
@@ -34,6 +37,9 @@ A key concept in enterprise architecture is **change management** — adapting t
 
 
 ## 3.1.2 Principles of Good Architecture
+
+<img src="/data-engineering-specialization-website/images/diagrams/architecture-principles-w3-dark.svg" alt="Principles of Good Data Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/architecture-principles-w3.svg" alt="Principles of Good Data Architecture" class="diagram diagram-light" />
 
 **Principles of Good Architecture**
 
@@ -74,6 +80,9 @@ FinOps guards against large unforeseen costs and missed revenue opportunities by
 
 ## 3.1.3 Batch and Streaming Architectures
 
+<img src="/data-engineering-specialization-website/images/diagrams/batch-streaming-dark.svg" alt="Batch and Streaming Architectures" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/batch-streaming.svg" alt="Batch and Streaming Architectures" class="diagram diagram-light" />
+
 **Batch Architectures**
 
 In batch architectures, data is ingested and transformed in discrete chunks, and real-time analysis is not critical.
@@ -106,13 +115,14 @@ ELT is becoming more popular thanks to the power of modern cloud data warehouses
 
 A **data mart** is an optional subset of a data warehouse scoped to a specific department, function, or business area. It sits after transformation but before serving, and may have its own additional transformation stages.
 
+<img src="/data-engineering-specialization-website/images/diagrams/data-marts-dark.svg" alt="Data Warehouse to Data Marts" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/data-marts.svg" alt="Data Warehouse to Data Marts" class="diagram diagram-light" />
+
 ---
 
 **Streaming Architectures**
 
 In streaming architectures, data originates as a continuous stream of events rather than discrete batches.
-
-![](/data-engineering-specialization-website/images/a21164ad1.png)
 
 Key technologies include `Apache Kafka` as the event streaming platform, and tools like `Apache Storm` and `Samza` for streaming and real-time analytics.
 
@@ -128,6 +138,9 @@ The prevailing view is that batch is a "special case" of streaming.
 
 
 ## 3.1.4 Architecting for Compliance
+
+<img src="/data-engineering-specialization-website/images/diagrams/compliance-framework-dark.svg" alt="Architecting for Compliance" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/compliance-framework.svg" alt="Architecting for Compliance" class="diagram diagram-light" />
 
 **Architecting for Compliance**
 

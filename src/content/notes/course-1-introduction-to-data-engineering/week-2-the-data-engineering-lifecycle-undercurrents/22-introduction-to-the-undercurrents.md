@@ -21,9 +21,11 @@ Security in data engineering centers on the **principle of least privilege**: gi
 
 Data management is *"the development, execution, and supervision of plans, programs, and practices that deliver, control, protect, and enhance the value of data and information assets throughout their life cycles."* At its core, **data governance** ensures the quality, integrity, security, and usability of the data an organization collects.
 
-![](/data-engineering-specialization-website/images/adf4b2ca4.png)
+<img src="/data-engineering-specialization-website/images/diagrams/data-governance-wheel-dark.svg" alt="Data Management — DAMA Framework" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/data-governance-wheel.svg" alt="Data Management — DAMA Framework" class="diagram diagram-light" />
 
-![](/data-engineering-specialization-website/images/5803be52-9139-45d0-b34f-af7660196951.png)
+<img src="/data-engineering-specialization-website/images/diagrams/data-quality-dark.svg" alt="Data Quality" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/data-quality.svg" alt="Data Quality" class="diagram diagram-light" />
 
 
 ## 2.2.3 Data Architecture
@@ -34,15 +36,8 @@ On-premises environments make flexible, reversible decisions extremely difficult
 
 **Principles of Good Architecture:**
 
-1. Choose common components wisely
-2. Plan for failure
-3. Architect for scalability
-4. Architecture is leadership
-5. Always be architecting
-6. Build loosely coupled systems
-7. Make reversible decisions
-8. Prioritize security
-9. Embrace FinOps
+<img src="/data-engineering-specialization-website/images/diagrams/data-architecture-principles-dark.svg" alt="Principles of Good Data Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/data-architecture-principles.svg" alt="Principles of Good Data Architecture" class="diagram diagram-light" />
 
 
 
@@ -54,6 +49,9 @@ DataOps is a set of cultural habits and practices built on communication, collab
 
 - **Automation** — in DevOps this means CI/CD; in DataOps it means automated change management across code, configuration, environments, and data pipelines, often powered by orchestration frameworks like `Apache Airflow`
 - **Observability and monitoring** — everything fails eventually, so the goal is to detect failures before they reach downstream consumers (ML models, analytics dashboards, reports) and have a clear incident response process
+
+<img src="/data-engineering-specialization-website/images/diagrams/dataops-dark.svg" alt="DataOps" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/dataops.svg" alt="DataOps" class="diagram diagram-light" />
 
 
 
@@ -72,6 +70,9 @@ The most popular orchestration tools today include:
 
 These frameworks model workflows as **Directed Acyclic Graphs (DAGs)** — directed (data flows one way), acyclic (no backward loops), and composed of nodes and edges. Tasks can be triggered by events, and monitoring or alerting is configured alongside them.
 
+<img src="/data-engineering-specialization-website/images/diagrams/orchestration-dags-dark.svg" alt="Orchestration & DAGs" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/orchestration-dags.svg" alt="Orchestration & DAGs" class="diagram diagram-light" />
+
 
 
 ## 2.2.6 Software Engineering
@@ -85,3 +86,6 @@ Common languages and frameworks span a wide range:
 - Occasionally `R`, `Rust`, and `Go`
 
 In practice, the most common day-to-day tools are `SQL`, `Python`, and `Bash`.
+
+<img src="/data-engineering-specialization-website/images/diagrams/software-engineering-dark.svg" alt="Software Engineering for Data" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/software-engineering.svg" alt="Software Engineering for Data" class="diagram diagram-light" />
