@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-from diagrams import Diagram, Cluster, Edge
-from diagrams.aws.compute import EC2
-from diagrams.aws.database import RDS
-from diagrams.aws.network import ALB
-from diagrams.aws.general import User
 import os
 import re
 import subprocess
 import tempfile
+
+from diagrams import Cluster, Diagram, Edge
+from diagrams.aws.compute import EC2
+from diagrams.aws.database import RDS
+from diagrams.aws.general import User
+from diagrams.aws.network import ALB
 
 OUT_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
