@@ -142,6 +142,9 @@ Data and resources are replicated across availability zones to ensure resilience
 - Availability (more availability zones = better disaster recovery)
 - Cost
 
+<img src="/data-engineering-specialization-website/images/diagrams/cloud-networking-dark.svg" alt="Cloud Networking Basics" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/cloud-networking.svg" alt="Cloud Networking Basics" class="diagram diagram-light" style="max-height: 900px;" />
+
 ## 1.2.5 AWS Networking Overview - VPCs and Subnets
 
 This section walks through building a complete networking setup for a web application running on `EC2` that queries an `RDS` database.
