@@ -12,25 +12,19 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 Data ingestion is the process of acquiring raw data from various sources. This section covers different ingestion patterns, batch and streaming requirements, and key AWS tools for data ingestion.
 
-![](/data-engineering-specialization-website/images/93a1c497-3f13-4e25-8e7b-d9d87b6f5643.png)
-
 ## 1.1.1 Data Ingestion on a Continuum
 
 Data ingestion isn't a binary choice between batch and streaming -- it exists on a continuum determined by how you bound your data.
-
-
----
 
 **Unbounded vs. Bounded Data**
 
 - **Unbounded Data:** Continuous stream of events (stream ingestion).
 - **Bounded Data:** Data ingested in chunks (batch ingestion), either time-based or size-based.
 
-![](/data-engineering-specialization-website/images/5733cc62-1f85-4e29-8062-7037f4bcb069.png)
+<img src="/data-engineering-specialization-website/images/diagrams/ingestion-continuum-dark.svg" alt="Data Ingestion Continuum" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/ingestion-continuum.svg" alt="Data Ingestion Continuum" class="diagram diagram-light" />
 
----
-
-**Ways to Ingest Data**
+## 1.1.2 Ways to Ingest Data
 
 **Using Connectors:** JDBC/ODBC APIs that support time-based or size-based ingestion.
 
@@ -38,25 +32,22 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 
 **Using APIs:** Protocol-based ingestion that requires careful attention to ingestion limits per request, API call frequency, and the complexity of custom connection code tied to external documentation.
 
-
----
-
 **Ingesting Data from Files:**
 
 - **Manual File Download**
 - **Secure File Transfer:** SFTP (Secure File Transfer Protocol) or SCP (Secure Copy Protocol)
 
-**Ingesting Data from Streaming Systems:** Via **Message Queues** or **Streaming Platforms**.
+**Ingesting Data from Streaming Systems:**
+Via **Message Queues** or **Streaming Platforms**.
 
----
+<img src="/data-engineering-specialization-website/images/diagrams/ways-to-ingest-dark.svg" alt="Ways to Ingest Data" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/ways-to-ingest.svg" alt="Ways to Ingest Data" class="diagram diagram-light" />
 
 **Popular AWS Data Ingestion Tools**
 
 `AWS Glue` ETL ingests, transforms, and loads data from AWS sources (`RDS`, `S3`, `Redshift`). It uses `Apache Spark` for distributed processing and is serverless with automated scaling.
 
 `Amazon EMR` is a managed cluster platform for big data processing (`Hadoop`, `Spark`). It supports large-scale transformations and ingestion and is available in serverless and provisioned modes.
-
----
 
 **`AWS Glue` ETL vs. `Amazon EMR`**
 
@@ -67,8 +58,6 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 
 `AWS DMS` (Data Migration Service) moves data between databases without transformation, supports migrations between different database engines, and is available in serverless and provisioned modes.
 
----
-
 **Other AWS Ingestion Services**
 
 - **AWS Snow Family:** Physical transfer appliances (Snowball, Snowcone) for large-scale migration.
@@ -76,7 +65,8 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 
 **Third-Party Ingestion Tools:** `Airbyte`, `Matillion`, `Fivetran` -- cloud-based ETL tools.
 
----
+<img src="/data-engineering-specialization-website/images/diagrams/aws-ingestion-tools-dark.png" alt="AWS Data Ingestion Tools" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/aws-ingestion-tools.png" alt="AWS Data Ingestion Tools" class="diagram diagram-light" />
 
 **Streaming Ingestion Tools**
 
@@ -85,9 +75,7 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 
 Both enable real-time data ingestion, processing, and analytics.
 
----
-
-**Key Considerations: Batch vs. Streaming Ingestion**
+## 1.1.3 Key Considerations: Batch vs. Streaming Ingestion
 
 Choosing between batch and streaming ingestion comes down to business value versus operational complexity.
 
@@ -100,3 +88,6 @@ Choosing between batch and streaming ingestion comes down to business value vers
 - **Reliability & Availability:** Streaming requires high availability.
 
 **Recommendation:** Use real-time streaming only if the business case justifies the trade-offs.
+
+<img src="/data-engineering-specialization-website/images/diagrams/batch-vs-streaming-dark.svg" alt="Batch vs Streaming Ingestion" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/batch-vs-streaming.svg" alt="Batch vs Streaming Ingestion" class="diagram diagram-light" />
