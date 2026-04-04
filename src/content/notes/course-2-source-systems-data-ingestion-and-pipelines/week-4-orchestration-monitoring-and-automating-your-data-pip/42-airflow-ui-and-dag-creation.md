@@ -12,146 +12,218 @@ notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 
 ## 4.2.1 Airflow UI
 
-The `Airflow` UI is your primary interface for managing and monitoring workflows.
+The `Airflow` [web UI](https://airflow.apache.org/docs/apache-airflow/stable/ui.html) is the primary interface for managing and monitoring workflows. It provides visibility into DAG status, task execution, logs, and configuration -- all from a browser.
 
-The **DAGs page** lists all DAGs created in the DAG directory, showing owner, schedule, last run, status, and the status of each task within a run. You can trigger or delete a DAG directly from this page. Clicking into a DAG opens the **grid view**, which displays previous runs along with details, graph, Gantt chart, code, and logs.
+**DAGs Page**
+
+The main landing page lists every DAG discovered in the DAG directory. For each DAG it shows the owner, schedule interval, last run timestamp, current status, and a mini status bar for individual tasks within the most recent run. From this page you can toggle DAGs on/off, trigger a manual run, or delete a DAG entirely.
+
+**DAG Detail Views**
+
+Clicking into a DAG opens a set of views that help you understand and debug pipeline runs:
+
+| View | Purpose |
+|---|---|
+| Grid | Matrix of all runs with per-task status cells -- quickly spot patterns of failure |
+| Graph | Visual representation of task dependencies -- shows the DAG structure |
+| Gantt | Timeline bars for each task -- identifies bottlenecks and long-running tasks |
+| Code | The Python source code that defines the DAG |
+| Logs | Stdout/stderr output for each task instance -- primary debugging tool |
 
 ## 4.2.2 Creating DAGs and Using Operators
 
-DAGs are created using the `airflow.DAG()` context manager. For a typical ETL process, you'd define separate extract, transform, and load tasks.
+DAGs are created using the `airflow.DAG()` context manager. A typical ETL pipeline defines separate tasks for each stage and wires them together with dependency operators.
 
-**Operators** define what each task actually does:
+```python
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
 
-- **PythonOperator** (`airflow.operators.python`): Executes a Python callable.
-- **BashOperator**: Executes bash commands.
-- **EmptyOperator**: Organizes tasks (useful as join points).
-- **EmailOperator**: Sends email notifications.
-- **SensorOperator**: Makes jobs event-driven by waiting for a condition.
+# define the DAG using a context manager
+with DAG(
+    dag_id="my_first_dag",
+    description="ETL pipeline",
+    tags=["data_engineering_team"],
+    schedule="@daily",                          # run once per day at midnight
+    start_date=datetime(2024, 12, 1),
+    catchup=False,                              # don't backfill missed runs
+):
+    # each task wraps a Python function
+    task_1 = PythonOperator(
+        task_id="extract",
+        python_callable=extract_data,           # function defined elsewhere
+    )
+    task_2 = PythonOperator(
+        task_id="transform",
+        python_callable=transform_data,
+    )
+    task_3 = PythonOperator(
+        task_id="load",
+        python_callable=load_data,
+    )
 
-![](/data-engineering-specialization-website/images/3fe0e599-b0df-400c-880b-7fe5b3c28f0a.png)
+    # set dependencies -- extract runs first, then transform, then load
+    task_1 >> task_2 >> task_3
+```
 
-Defining Tasks in `Airflow`:
+**Operators**
 
-![](/data-engineering-specialization-website/images/d120f613-43ae-42d2-86ce-541ea129b514.png)
+[Operators](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/operators.html) define what each task actually does. `Airflow` provides a rich library of built-in operators:
 
-## 4.2.3 Xcoms and Variables
-
-**`Airflow` XComs** (short for cross-communication) are designed to pass small amounts of data between tasks -- metadata, dates, single-value metrics, and simple computations.
-
-The `xcom_push` method stores a value (along with its key, timestamp, DAG ID, and task ID) in the metadata database. The `xcom_pull` method retrieves it in another task. Both methods are accessed through the task instance in the context dictionary: `context['ti']`.
-
-![](/data-engineering-specialization-website/images/06bae499-7323-497d-a810-1a0a2aff7781.png)
-
-![](/data-engineering-specialization-website/images/9ca13642-39ab-48fe-b6eb-64c33c7d95a7.png)
-
-XComs are visible in the `Airflow` UI under Admin -> XComs. They are **not** designed for large objects like DataFrames -- save those to intermediate storage (e.g., `S3`) and read them in another task.
+| Operator | Module | Purpose |
+|---|---|---|
+| `PythonOperator` | `airflow.operators.python` | Executes a Python callable |
+| `BashOperator` | `airflow.operators.bash` | Runs a bash command or script |
+| `EmptyOperator` | `airflow.operators.empty` | No-op task -- useful as a join point for complex dependencies |
+| `EmailOperator` | `airflow.operators.email` | Sends email notifications |
+| `S3KeySensor` | `airflow.providers.amazon.aws.sensors.s3` | Waits for a file to appear in `S3` before proceeding |
 
 ---
 
-**`Airflow` Variables** let you avoid hard-coding values inside tasks. Create them in the `Airflow` UI (Admin -> Variables) or as environment variables.
+**Task Dependencies**
 
-![](/data-engineering-specialization-website/images/40c05b41-7290-413a-96d8-2a3aec7c22a9.png)
+The `>>` and `<<` bit-shift operators define execution order between tasks. Use Python lists to express parallel execution and convergence:
 
-To read them in a task:
+<img src="/data-engineering-specialization-website/images/diagrams/dag-dependencies-dark.svg" alt="DAG dependency patterns: linear, fan-out, fan-in, and complex chain" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/dag-dependencies.svg" alt="DAG dependency patterns: linear, fan-out, fan-in, and complex chain" class="diagram diagram-light" />
 
-![](/data-engineering-specialization-website/images/5c493deb-0221-4a73-8488-20246cba508b.png)
+For complex many-to-many dependencies where list syntax won't work, use the `chain()` utility:
 
-To return a dictionary instead of a string, pass `deserialize_json=True`.
+```python
+from airflow.models.baseoperator import chain
+
+# chain() connects each layer to the next -- equivalent to writing
+# all individual t0>>t1, t0>>t2, t1>>t3, t1>>t4, ... arrows manually
+chain(task0, [task1, task2], [task3, task4], task5)
+```
+
+## 4.2.3 XComs and Variables
+
+**XComs (Cross-Communication)**
+
+[XComs](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/xcoms.html) allow tasks to exchange **small** pieces of data -- metadata, dates, single-value metrics, and simple computations. They are not designed for large objects like DataFrames.
+
+The flow works through the **metadata database**: one task pushes a value with `xcom_push`, and another task retrieves it with `xcom_pull`. Both methods are accessed through the task instance object in the execution context.
+
+<img src="/data-engineering-specialization-website/images/diagrams/xcom-flow-dark.svg" alt="XCom cross-communication flow between tasks via metadata database" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/xcom-flow.svg" alt="XCom cross-communication flow between tasks via metadata database" class="diagram diagram-light" />
+
+```python
+def extract_from_api(**context):
+    """Extract data and push a computed metric via XCom."""
+    import requests
+
+    response = requests.get(
+        "https://jobicy.com/api/v2/remote-jobs",
+        params={"count": 40, "geo": "usa", "tag": "data engineer"},
+    ).json()
+
+    # compute a metric from the response
+    senior_count = sum(1 for job in response["jobs"] if job["jobLevel"] == "Senior")
+    ratio = senior_count / len(response["jobs"])
+
+    # push the value to XCom -- stored with key, timestamp, DAG ID, and task ID
+    context["ti"].xcom_push(key="ratio_senior_jobs", value=ratio)
+
+
+def load_results(**context):
+    """Pull the metric from a previous task via XCom."""
+    # retrieve by key and source task ID
+    ratio = context["ti"].xcom_pull(
+        key="ratio_senior_jobs",
+        task_ids="extract",
+    )
+    print(f"Senior job ratio: {ratio}")
+```
+
+XComs are visible in the `Airflow` UI under **Admin > XComs**. For large objects like DataFrames, save them to intermediate storage (e.g., `S3`) and read the path in the downstream task instead.
+
+---
+
+**Airflow Variables**
+
+[Variables](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/variables.html) let you avoid hard-coding configuration values inside tasks. Create them in the `Airflow` UI (**Admin > Variables**) or as environment variables prefixed with `AIRFLOW_VAR_`.
+
+```python
+from airflow.models import Variable
+
+# retrieve a simple string variable
+num_posts = Variable.get(key="number_post")
+
+# retrieve a JSON variable and access a nested key
+# passing deserialize_json=True parses the stored JSON string into a dict
+locations = Variable.get(key="locations", deserialize_json=True)
+geos = locations["geo"]    # e.g. ["usa", "canada", "france", "australia"]
+```
+
+Variables are **global** -- they apply across the entire `Airflow` installation. Use them for installation-wide configuration (API endpoints, bucket names, connection strings). To pass data between tasks within a single DAG run, use XComs instead.
+
+---
+
+**Built-in Variables and Jinja Templating**
+
+`Airflow` provides a set of [built-in variables](https://airflow.apache.org/docs/apache-airflow/stable/templates-ref.html) with information about the current DAG run, such as the logical date (`ds`), execution date, and task instance. You can access them in two ways:
+
+```python
+# option 1: via the context dictionary inside a task function
+def my_task(**context):
+    logical_date = context["ds"]                # "2024-12-01"
+    print(f"Processing data for {logical_date}")
+
+
+# option 2: via Jinja templating in operator arguments
+task_load_s3 = PythonOperator(
+    task_id="load_to_s3",
+    python_callable=load_to_s3,
+    # {{ ds }} is replaced at runtime with the logical date of the DAG run
+    op_kwargs={"file_name": "data/created_{{ ds }}/file.csv"},
+)
+```
 
 ## 4.2.4 DAG Best Practices
 
-Well-written DAGs are efficient, readable, idempotent, and reproducible. These best practices help you get there.
+Well-written DAGs are efficient, readable, idempotent, and reproducible.
 
-| **Best practices** | **Explanation/Example of a bad code** |
-| --- | --- |
-| Keep tasks simple and atomic | When you prepare your pipeline for orchestration, you need to identify the tasks or steps of your pipeline. Keep your tasks simple such that each task represents one operation. You don't want to end up with one task that does everything, otherwise you'll lose visibility into your data pipeline and reduce the readability of your code, which does not support idempotency.
-For example, in an ETL or ELT process, you would need to create at least three tasks: extract, transform, load, instead of creating just one task that handles the entire process. |
-| Avoid top-level code | In the following code,
+| Practice | Details |
+|---|---|
+| **Keep tasks atomic** | Each task should represent a single operation. An ETL pipeline needs at least three tasks (extract, transform, load) -- not one monolithic task that does everything. Atomic tasks improve visibility, enable targeted retries, and support idempotency. |
+| **Avoid top-level code** | Any code outside of DAG/operator definitions is parsed by the scheduler every ~30 seconds. API calls, database queries, or heavy computations at the module level cause performance issues. Keep all logic inside operator callables. |
+| **Use variables** | Don't hard-code values like bucket names, API URLs, or thresholds. Store them as `Airflow` Variables or environment variables so they can be updated without code changes. |
+| **Use task groups** | Organize related tasks visually in the UI using `TaskGroup`. This improves readability for complex DAGs without changing execution behavior. |
+| **Airflow is an orchestrator, not an executor** | Heavy processing belongs in execution frameworks like `Spark`, `dbt`, or `AWS Glue`. `Airflow` should trigger and monitor these jobs, not run the computation itself. |
+| **Don't pass large data via XComs** | XComs store data in the metadata database. For large objects, write to intermediate storage (`S3`, a staging table) and pass the reference path instead. |
+| **Keep task code in separate files** | Import your Python functions from a module rather than defining them inline in the DAG file. This improves readability and testability. |
 
----
+**Task Groups Example**
 
-**call_some_function()**
+```python
+from airflow.utils.task_group import TaskGroup
 
----
+with DAG(...):
+    start = EmptyOperator(task_id="start")
 
-**perform_computation()**
+    # group related tasks -- they appear as a collapsible block in the UI
+    with TaskGroup("transform_group") as transform_group:
+        clean = PythonOperator(task_id="clean", python_callable=clean_data)
+        enrich = PythonOperator(task_id="enrich", python_callable=enrich_data)
+        clean >> enrich
 
----
+    end = EmptyOperator(task_id="end")
 
-**with DAG(dag_id="example_xcom", start_date=datetime(2024, 3, 13), schedule='@daily',catchup=False):**
+    start >> transform_group >> end
+```
 
----
+**Top-Level Code Anti-Pattern**
 
-**        task_1 = PythonOperator(task_id='extract',python_callable=extract_api)**
+```python
+# BAD: these run every time the scheduler parses this file (~every 30s)
+call_some_function()           # avoid -- runs at parse time
+perform_computation()          # avoid -- runs at parse time
 
----
-
-**        task_2 = PythonOperator(task_id='load_data',python_callable=load)**
-
----
-
-**        task_1 >> task_2**
-call_some_function() and perform_computation() are both high-level codes. In general any code that isn't part of your DAG or operator instantiations is considered to be top-level code. This type of code will be executed at the time when the DAG is parsed by the scheduler. On the other hand, any code that is part of an operator is executed when the task runs, not when the DAG is parsed. Top-level code can cause performance issues because the scheduler checks the DAG directory and parses the DAG files every 30 seconds. So it may not be efficient to execute the high-level code this frequently especially if the code makes some requests to an API or a database. |
-| Use variables (user-created variables, `Airflow` [built-in variables and macros](https://airflow.apache.org/docs/apache-airflow/stable/templates-ref.html)) | **User-created variables: **Including hard-coded values directly in your code is generally not a good practice in software development. This is because they make your code less readable and more error-prone -- you may need to use the same value in multiple places and updating the same value in multiple places can be error-prone. The same principle also applies to when you write code to define your pipelines. Instead of including hard-coded values within your DAG or task definitions, you can store these values by creating variables in the `Airflow` UI or creating environmental variables and use these variables dynamically inside your code.
-[Recommendations from `Airflow` documentation regarding using Variables](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/variables.html): "Variables are global, and should only be used for overall configuration that covers the entire installation; to pass data from one Task/Operator to another, you should use XComs instead. We also recommend that you try to keep most of your settings and configuration in your DAG files, so it can be versioned using source control; Variables are really only for values that are truly runtime-dependent."
-**`Airflow` built-in Variables: **You learned that `Airflow` has a set of built-in variables that contain information about the currently running DAG and its tasks, such as the logical date of the DAG run and task instance (for a list of such variables, check [here](https://airflow.apache.org/docs/apache-airflow/stable/templates-ref.html)). You learned that you can access these variables within a task function by passing the context dictionary as an argument to the function. You can also pass these variables directly to the PythonOperator using a syntax known as Jinja templating, which looks like this : "**{{ds}}**". You use double curly brackets and inside the brackets you specify the variable you'd like to access. In this example, ds represents the logical date of the DAG run.
-Let's see an example: Assume that your python_callable is a function that expects the name of a file. For example, this function loads some data to an s3 bucket and requires that you pass the file name.  And let's say you want to include the logical date in the file_name.
-
----
-
-**def load_to_s3(file_name):    **
-
----
-
-**    #code that loads data    **
-
----
-
-**    print(file_name)**
-
-So you can specify this information in the PythonOperator as follows:
-
----
-
-**task_load_s3 = PythonOperator(task_id="load_to_d3",**
-
----
-
-**         python_callable=load_to_s3,**
-**         op_kwargs={'file_name': "data/created{{ds}}/file.csv"})** |
-| Task groups | In the `Airflow` UI, you can group tasks using Task Groups to organize your DAGs and make them more readable. Inside the task group, you can define tasks and their dependencies using the bit-shift operators <<  and  >>.  You can create a Task Group using the  "with" statement, as shown in the following example.
-
-
----
-
-**from airflow.utils.task_group import TaskGroup  **
-
----
-
-**with DAG(...):     **
-
----
-
-**    start = DummyOperator(...)**
-
----
-
-**    with TaskGroup('task_group')as task_group:**
-
----
-
-**       task_a = PythonOperator(...)**
-
----
-
-**       task_b = PythonOperator(...)**
-
----
-
-**       task_a >> task_b**
-
----
-
-**    end = DummyOperator(...)      **
-**    start >> task_group >> end ** |
-| Other practices (`Airflow` is an orchestrator not an executor) | Heavy processing should be handled by execution frameworks (e.g., `Spark`), not `Airflow`. For large datasets, don't use XComs to push DataFrames -- use intermediary data storage instead. Keep any extra code needed for your tasks in a separate file to maintain readability. |
+with DAG(dag_id="example", start_date=datetime(2024, 3, 13),
+         schedule="@daily", catchup=False):
+    # GOOD: this code only runs when the task is actually executed
+    task_1 = PythonOperator(task_id="extract", python_callable=extract_api)
+    task_2 = PythonOperator(task_id="load", python_callable=load)
+    task_1 >> task_2
+```

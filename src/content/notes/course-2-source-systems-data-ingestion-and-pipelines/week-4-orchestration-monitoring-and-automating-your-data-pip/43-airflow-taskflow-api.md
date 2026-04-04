@@ -12,137 +12,257 @@ notionId: "1d6969a7-aa01-80b2-9800-eaa4f638389a"
 
 ## 4.3.1 Taskflow API Basics
 
-The **Taskflow API** is `Airflow`'s modern, decorator-based approach to defining DAGs and tasks. Instead of instantiating a DAG object in a context manager, you use `@dag` to wrap the DAG definition and `@task` to wrap individual tasks. This eliminates the need to manually track task IDs, function names, and task variable names.
+The [Taskflow API](https://airflow.apache.org/docs/apache-airflow/stable/tutorial/taskflow.html) is `Airflow`'s modern, decorator-based approach to defining DAGs and tasks. It replaces the traditional pattern of instantiating a `DAG()` context manager and wrapping functions in `PythonOperator` with two simple decorators: `@dag` for the DAG definition and `@task` for individual tasks.
 
-![](/data-engineering-specialization-website/images/eccc4e22-5920-4f48-a8b1-370544df42ef.png)
+**Traditional Approach**
 
-![](/data-engineering-specialization-website/images/c2f92260-22c2-476a-b580-929e6a9b9c52.png)
+In the traditional approach, you need to keep track of three names for every task: the `task_id` string, the Python callable, and the task variable name. The DAG is created with a context manager:
 
-![](/data-engineering-specialization-website/images/267cedf2-9f1b-436e-ae49-f49778ca6852.png)
+```python
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
 
-For passing data between tasks, you have two options: use the context dictionary with `xcom_push` and `xcom_pull` from the task instance, or simply **return values from tasks and pass them as arguments to other tasks** -- the cleaner Taskflow approach.
+def extract_data():
+    print("Done with the extraction task")
 
-![](/data-engineering-specialization-website/images/497f224c-4544-4e27-a589-2dafdda12422.png)
+def transform_data():
+    print("Done with the transformation task")
 
-## 4.3.2 Taskflow API vs. Traditional Paradigm
+def load_data():
+    print("Done with the loading task")
 
-The two examples below implement the same branching DAG -- one using the traditional context manager with PythonOperators, the other using the Taskflow API. Comparing them highlights how much boilerplate the Taskflow API eliminates.
+# DAG created via context manager
+with DAG(
+    dag_id="my_first_dag",
+    description="ETL pipeline",
+    tags=["data_engineering_team"],
+    schedule="@daily",
+    start_date=datetime(2024, 12, 1),
+    catchup=False,
+):
+    # each task requires a task_id, a python_callable, and a variable name
+    task_1 = PythonOperator(task_id="extract", python_callable=extract_data)
+    task_2 = PythonOperator(task_id="transform", python_callable=transform_data)
+    task_3 = PythonOperator(task_id="load", python_callable=load_data)
 
+    task_1 >> task_2 >> task_3
+```
+
+**Taskflow Approach**
+
+With the Taskflow API, the `@dag` decorator replaces the context manager and the `@task` decorator replaces `PythonOperator`. The function name automatically becomes the `task_id`, so there's only one name to track per task:
+
+```python
+from datetime import datetime
+from airflow.decorators import dag, task
+
+@dag(
+    description="ETL pipeline",
+    tags=["data_engineering_team"],
+    schedule="@daily",
+    start_date=datetime(2024, 12, 1),
+    catchup=False,
+)
+def my_first_dag():
+    # @task implicitly wraps each function in a PythonOperator
+    # the function name becomes the task_id automatically
+    @task
+    def extract_data():
+        print("Done with the extraction task")
+
+    @task
+    def transform_data():
+        print("Done with the transformation task")
+
+    @task
+    def load_data():
+        print("Done with the loading task")
+
+    # dependencies use function calls -- the decorator returns a DAG node,
+    # not the function's return value
+    extract_data() >> transform_data() >> load_data()
+
+# calling the DAG function registers it with Airflow (does not execute it)
+my_first_dag()
+```
 
 ---
 
-**Traditional Paradigm:**
+**Passing Data Between Tasks**
+
+The Taskflow API simplifies XCom usage. Instead of manually calling `xcom_push` and `xcom_pull`, you simply **return a value** from one task and **pass it as an argument** to another. `Airflow` handles the XCom push/pull behind the scenes:
+
+```python
+from datetime import datetime
+from airflow.decorators import dag, task
+
+@dag(
+    start_date=datetime(2024, 3, 13),
+    description="XCom with Taskflow",
+    tags=["data_engineering_team"],
+    schedule="@daily",
+    catchup=False,
+)
+def example_xcom_taskapi():
+
+    @task
+    def extract_from_api():
+        # returning a value automatically pushes it to XCom
+        ratio_senior_jobs = 0.65
+        return ratio_senior_jobs
+
+    @task
+    def print_data(geo_ratios: dict):
+        # the value is received as a normal function argument
+        print(geo_ratios)
+
+    # pass the return value of extract_from_api() directly to print_data()
+    # Airflow wires the XCom connection and sets the dependency automatically
+    data = extract_from_api()
+    print_data(data)
+
+example_xcom_taskapi()
+```
+
+## 4.3.2 Taskflow API vs. Traditional Paradigm
+
+The two examples below implement the **same branching DAG** -- one using the traditional approach, the other using the Taskflow API. The DAG extracts job data from an API, computes a ratio, and branches based on whether the ratio exceeds 0.5.
+
+**Traditional Paradigm**
 
 ```python
 from airflow import DAG
 from airflow.operators.python import PythonOperator, BranchPythonOperator
 from airflow.operators.empty import EmptyOperator
 from datetime import datetime
-from tasks_module import extract_from_api, check_ratio, print_case_greater_half, print_case_less_half
 
 def extract_from_api(**context):
-   import requests
-   number_posts = 40
-   location = "usa"
-   url_link = "https://jobicy.com/api/v2/remote-jobs"
-   response = requests.get(url_link, params={"count": number_posts,
-                                             "geo": location,
-                                             "industry": "engineering",
-                                             "tag": "data engineer"}).json()
-   count = 0
-   for job in response['jobs']:
-       if job['jobLevel'] == 'Senior':
-           count += 1
-   ratio = count / len(response['jobs'])
-   context['ti'].xcom_push(key='ratio_us', value=ratio)
+    """Extract job data and push the senior ratio to XCom."""
+    import requests
+
+    response = requests.get(
+        "https://jobicy.com/api/v2/remote-jobs",
+        params={
+            "count": 40, "geo": "usa",
+            "industry": "engineering", "tag": "data engineer",
+        },
+    ).json()
+
+    count = sum(1 for job in response["jobs"] if job["jobLevel"] == "Senior")
+    ratio = count / len(response["jobs"])
+
+    # manually push the value to XCom via the task instance
+    context["ti"].xcom_push(key="ratio_us", value=ratio)
+
 
 def check_ratio(**context):
-   if float(context['ti'].xcom_pull(key='ratio_us', task_ids='extract_data'))>0.5:
-       return 'print_greater' #task_id of the greater than case
-   return 'print_less' #task_id of the less than case
+    """Branch based on the ratio -- returns the task_id to execute next."""
+    ratio = float(context["ti"].xcom_pull(key="ratio_us", task_ids="extract_data"))
+    if ratio > 0.5:
+        return "print_greater"      # must match a downstream task_id
+    return "print_less"
 
-def print_case_greater_half(**context):
-   print("The ratio is greater than half: " + str(context['ti'].xcom_pull(key= 'ratio_us', task_ids='extract_data')))
 
-def print_case_less_half(**context):
-   print("The ratio is less than half: " + str(context['ti'].xcom_pull(key= 'ratio_us', task_ids='extract_data')))
+def print_case_greater(**context):
+    ratio = context["ti"].xcom_pull(key="ratio_us", task_ids="extract_data")
+    print(f"The ratio is greater than half: {ratio}")
 
-with DAG(dag_id="branching", start_date=datetime(2024, 3, 13), schedule='@daily', catchup=False):
-    task_1 = PythonOperator(task_id='extract_data', python_callable=extract_from_api)
-    task_2 = BranchPythonOperator(task_id='check_ratio', python_callable=check_ratio)
-    task_3 = PythonOperator(task_id='print_greater', python_callable=print_case_greater_half)
-    task_4 = PythonOperator(task_id='print_less', python_callable=print_case_less_half)
-    task_5 = EmptyOperator(task_id='do_nothing', trigger_rule = 'none_failed_min_one_success')
+
+def print_case_less(**context):
+    ratio = context["ti"].xcom_pull(key="ratio_us", task_ids="extract_data")
+    print(f"The ratio is less than half: {ratio}")
+
+
+with DAG(
+    dag_id="branching",
+    start_date=datetime(2024, 3, 13),
+    schedule="@daily",
+    catchup=False,
+):
+    # each task maps a task_id to a python_callable
+    task_1 = PythonOperator(task_id="extract_data", python_callable=extract_from_api)
+    task_2 = BranchPythonOperator(task_id="check_ratio", python_callable=check_ratio)
+    task_3 = PythonOperator(task_id="print_greater", python_callable=print_case_greater)
+    task_4 = PythonOperator(task_id="print_less", python_callable=print_case_less)
+
+    # EmptyOperator with trigger_rule ensures it runs after either branch completes
+    task_5 = EmptyOperator(
+        task_id="do_nothing",
+        trigger_rule="none_failed_min_one_success",
+    )
 
     task_1 >> task_2 >> [task_3, task_4] >> task_5
 ```
 
-Key points in the traditional approach:
-
-- Uses the `DAG()` context manager.
-- **BranchPythonOperator** returns the task ID of the downstream task to execute based on a condition.
-- XComs are pushed and pulled via `context['ti']`.
-- The final **EmptyOperator** uses `trigger_rule='none_failed_min_one_success'` so it executes regardless of which branch ran.
-
----
-
-**Taskflow API:**
+**Taskflow Paradigm**
 
 ```python
-from airflow import DAG
 from datetime import datetime
 from airflow.decorators import dag, task
 
-@ dag(start_date=datetime(2024, 3, 13),schedule='@daily', catchup=False)
+@dag(start_date=datetime(2024, 3, 13), schedule="@daily", catchup=False)
 def example_branching():
+
     @task
     def extract_from_api():
+        """Return value is automatically pushed to XCom -- no manual push needed."""
         import requests
-        number_posts = 40
-        location = "usa"
-        url_link = "https://jobicy.com/api/v2/remote-jobs"
-        response = requests.get(url_link,
-                    params={"count": number_posts,
-                            "geo": location,
-                            "industry": "engineering",
-                            "tag": "data engineer"}).json()
-        count = 0
-        for job in response['jobs']:
-            if job['jobLevel'] == 'Senior':
-                count += 1
-        ratio = count / len(response['jobs'])
-        return ratio
+
+        response = requests.get(
+            "https://jobicy.com/api/v2/remote-jobs",
+            params={
+                "count": 40, "geo": "usa",
+                "industry": "engineering", "tag": "data engineer",
+            },
+        ).json()
+
+        count = sum(1 for job in response["jobs"] if job["jobLevel"] == "Senior")
+        return count / len(response["jobs"])
 
     @task.branch()
     def check_ratio(ti=None):
-        if float(ti.xcom_pull(task_ids='extract_from_api')) > 0.5:
-            return 'print_case_greater_half' # task_id of the greater than case
-        return 'print_case_less_half'  # task_id of the less than case
+        """@task.branch() replaces BranchPythonOperator."""
+        ratio = float(ti.xcom_pull(task_ids="extract_from_api"))
+        if ratio > 0.5:
+            return "print_case_greater"     # function name = task_id
+        return "print_case_less"
 
     @task
-    def print_case_greater_half(ti=None):
-        print( "The ratio is greater than half: " +
-                str(ti.xcom_pull(key='ratio_us', task_ids='extract_data')))
+    def print_case_greater(ti=None):
+        ratio = ti.xcom_pull(task_ids="extract_from_api")
+        print(f"The ratio is greater than half: {ratio}")
 
     @task
-    def print_case_less_half(ti=None):
-        print("The ratio is less than half: " +
-                str(ti.xcom_pull(key='ratio_us', task_ids='extract_data')))
+    def print_case_less(ti=None):
+        ratio = ti.xcom_pull(task_ids="extract_from_api")
+        print(f"The ratio is less than half: {ratio}")
 
-    @task(trigger_rule='none_failed_min_one_success')
-    def empty_task():
+    @task(trigger_rule="none_failed_min_one_success")
+    def join():
+        """Replaces EmptyOperator -- runs after either branch completes."""
         pass
 
-    extract_from_api() >> check_ratio() >> [print_case_greater_half(), print_case_less_half()] >> empty_task()
+    # function calls return DAG nodes, not actual return values
+    extract_from_api() >> check_ratio() >> [print_case_greater(), print_case_less()] >> join()
 
+# register the DAG with Airflow
 example_branching()
 ```
 
-Key differences in the Taskflow approach:
+---
 
-- The DAG is defined as a function decorated with `@dag`.
-- Each task is a function inside the DAG function, decorated with `@task` or `@task.branch()`.
-- The `task_instance` (`ti`) object is passed directly to tasks that need XCom access or runtime metadata.
-- When a `@task`-decorated function **returns a value**, it is **automatically pushed to XCom** -- no explicit `xcom_push` needed.
-- Task relationships use the same `>>` syntax, but each task is "called" (e.g., `extract_from_api()`). This calls the decorator, which returns a DAG Node object rather than executing the task. The bit-shift operator is overloaded to set upstream/downstream relationships.
-- Calling the DAG function (e.g., `example_branching()`) triggers the `@dag` decorator to register the DAG with `Airflow` -- it does not execute the DAG.
+**Comparison**
+
+| Aspect | Traditional | Taskflow API |
+|---|---|---|
+| DAG definition | `with DAG()` context manager | `@dag` decorator on a function |
+| Task definition | `PythonOperator(task_id=..., python_callable=...)` | `@task` decorator -- function name becomes `task_id` |
+| Branching | `BranchPythonOperator` | `@task.branch()` |
+| Join/no-op task | `EmptyOperator` | `@task` with `pass` body |
+| XCom push | `context["ti"].xcom_push(key=..., value=...)` | `return value` from the task function |
+| XCom pull | `context["ti"].xcom_pull(key=..., task_ids=...)` | Pass return value as argument, or use `ti.xcom_pull()` |
+| Dependency syntax | `task_variable >> task_variable` | `task_function() >> task_function()` |
+| Names to track per task | 3 (task_id, callable, variable) | 1 (function name) |
+| DAG registration | Automatic via context manager | Call the decorated function (e.g., `my_dag()`) |
+| When to use | Mixed operator types, complex provider integrations | Pure Python tasks with data passing between them |
