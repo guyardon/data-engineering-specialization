@@ -12,96 +12,62 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 ## 1.1.1 Introduction and Course Overview
 
-**Introduction to Data Modeling and Analytics**
-
 This course covers how to model, transform, and serve data for both analytics and machine learning workloads.
 
-
----
-
-**Course Overview**
-
-- **Week 1: Batch Data Modeling** -- normalization, star schemas, and modeling approaches
-- **Week 2: Data modeling and transformation for ML** -- tabular and unstructured data preparation
-- **Week 3: Transformation deep-dive** -- distributed processing with Hadoop, Spark, and AWS services
-- **Week 4: Build an end-to-end data pipeline** -- serving data for analytics and ML
+| Week | Topic | Focus |
+|---|---|---|
+| **Week 1** | Batch data modeling | Normalization, star schemas, and modeling approaches |
+| **Week 2** | Data modeling for ML | Tabular and unstructured data preparation |
+| **Week 3** | Transformation deep-dive | Distributed processing with Hadoop, Spark, and AWS services |
+| **Week 4** | Serving data | End-to-end pipeline for analytics and ML |
 
 ## 1.1.2 Data Modeling Concepts
 
-**Data Modeling**
-
-Data modeling is the practice of choosing a coherent data structure that aligns with business goals and logic. It has traditionally been used to structure data in warehouses and relational databases. During the data lake 1.0 era, modeling was often ignored, leading to "data swamps." The recommended approach today is **target data modeling**, where you model data for specific business domains.
-
-
----
-
-**Data Model**
+**Data modeling** is the practice of choosing a coherent data structure that aligns with business goals and logic. It has traditionally been used to structure data in warehouses and relational databases. During the data lake 1.0 era, modeling was often ignored, leading to "data swamps." The recommended approach today is **target data modeling** — model data for specific business domains.
 
 A **data model** organizes and standardizes data in a precise, structured representation to enable and guide human and machine behavior, inform decision making, and facilitate actions. For tabular data, this means deciding which tables make up the model, how they relate to each other, and which columns to include.
 
-The key principle is to structure data in a way that connects back to the organization. For analytics, model the data so it is understandable and valuable. For machine learning, model it so it is useful for ML algorithms.
+---
 
+**Good vs. Bad Data Models**
+
+| Good Data Models | Bad Data Models |
+|---|---|
+| Reflect business goals and logic while incorporating business rules | Don't reflect how the business operates |
+| Ensure compliance with operational and legal requirements | Create more problems than they solve |
+| Outline relationships between business processes | Provide stakeholders with inaccurate information |
+| Serve as a communication tool, creating a shared language | Generate confusion rather than clarity |
 
 ---
 
-**Good data models:**
-- Reflect business goals and logic while incorporating business rules
-- Ensure compliance with operational standards and legal requirements
-- Outline the relationships between business processes
-- Serve as a powerful communication tool, creating a shared language
+**Building a Good Data Model**
 
-
----
-
-**Bad data models:**
-- Don't reflect how the business operates
-- Create more problems than they solve
-- Provide stakeholders with inaccurate information and create confusion
-
-
----
-
-**To ensure a good data model:**
-- Identify business goals and stakeholder needs
-- Define system requirements
-- Choose tools and technologies
-- Build, evaluate, iterate, and evolve
+1. Identify business goals and stakeholder needs
+2. Define system requirements
+3. Choose tools and technologies
+4. Build, evaluate, iterate, and evolve
 
 ## 1.1.3 Conceptual, Logical, and Physical Data Models
 
-**Conceptual, Logical, and Physical Data Models**
-
 Data models exist at three levels of abstraction, each adding more implementation detail.
 
+| Level | Description | Contains |
+|---|---|---|
+| **Conceptual** | High-level business entities and relationships, visualized with an Entity-Relationship Diagram | Entities, relationships, cardinality notation |
+| **Logical** | Adds implementation details to the conceptual model | Data types, primary keys, foreign keys |
+| **Physical** | Specifies how the logical model is implemented in a specific DBMS | Configuration, storage approach, partitioning, replication |
 
 ---
 
-**Conceptual**
+**Entity-Relationship Cardinality**
 
-A conceptual model describes business entities, relationships, and attributes at a high level. It reflects business logic and rules, and is typically visualized with an **Entity-Relationship Diagram**. Relationship notation on the diagram indicates cardinality:
+ER diagrams use notation to express the nature of relationships between entities:
 
-- `||` means a one-to-one relationship
-- The symbol next to `product code` means zero-or-one-to-many
-- The symbol next to `orderNumber` means one-to-many
-- The relationship can differ based on direction -- the symbol relating to each direction sits at the far end of the line
+| Notation | Meaning | Example |
+|---|---|---|
+| `\|\|` | One and only one | Each order detail belongs to exactly one order |
+| `\|O` | Zero or one | A customer may or may not have a profile |
+| `\|{` | One or many | Each order has one or many order details |
+| `O{` | Zero or many | Each product appears in zero or many order details |
 
-In the diagram below:
-- Each order detail can be associated with **one and only one product**
-- Each product can be associated with **zero or many order details**
-- Each order detail can be associated with **one and only one order**
-- Each order can be associated with **one or many order details**
-![](/data-engineering-specialization-website/images/c7b5e1bd-7fbd-454b-854b-e16b560e738a.png)
-
-
----
-
-**Logical Model**
-
-The logical model adds implementation details to the conceptual model, including data types, primary keys, and foreign keys.
-
-
----
-
-**Physical Model**
-
-The physical model specifies how the logical model is implemented in a specific DBMS. This includes configuration details, data storage approach, partitioning, and replication settings.
+The symbol at each **end** of the relationship line describes the cardinality from that entity's perspective.
