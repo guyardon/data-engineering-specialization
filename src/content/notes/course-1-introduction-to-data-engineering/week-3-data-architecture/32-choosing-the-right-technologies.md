@@ -42,6 +42,9 @@ This course focuses on building data systems in the cloud.
 
 ## 3.2.3 Monolith vs. Modular Systems
 
+<img src="/data-engineering-specialization-website/images/diagrams/monolith-modular-dark.svg" alt="Monolith vs. Modular Systems" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/monolith-modular.svg" alt="Monolith vs. Modular Systems" class="diagram diagram-light" />
+
 **Monolithic System**
 
 A monolithic system is self-contained with a single codebase and tightly coupled components. It becomes increasingly hard to maintain over time, and at a certain point the entire architecture may need to be rewritten.
@@ -53,6 +56,9 @@ A monolithic system is self-contained with a single codebase and tightly coupled
 A modular system is built from loosely coupled, self-contained services. Each micro-service is deployed independently, enabling interoperability, flexible and reversible decisions, and continuous improvement.
 
 ## 3.2.4 Cost Optimization and Business Value
+
+<img src="/data-engineering-specialization-website/images/diagrams/cost-optimization-dark.svg" alt="Cost Optimization and Business Value" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/cost-optimization.svg" alt="Cost Optimization and Business Value" class="diagram diagram-light" />
 
 Understanding costs is essential to making sound technology decisions.
 
@@ -94,6 +100,9 @@ Key questions to ask:
 
 
 ## 3.2.6 Server, Container, and Serverless Compute Options
+
+<img src="/data-engineering-specialization-website/images/diagrams/compute-models-dark.svg" alt="Server, Container, and Serverless Compute Models" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/compute-models.svg" alt="Server, Container, and Serverless Compute Models" class="diagram diagram-light" />
 
 Three compute models offer different trade-offs between control and convenience.
 

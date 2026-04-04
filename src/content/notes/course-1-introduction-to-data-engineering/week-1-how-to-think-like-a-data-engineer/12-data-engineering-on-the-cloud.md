@@ -15,9 +15,8 @@ notionId: "144969a7-aa01-80aa-8aa6-f29d8bdc1634"
 
 AWS provides on-demand delivery of IT resources with pay-as-you-go pricing. These resources fall into three categories:
 
-- **Compute** (places to run code) — virtual machines, container hosting services, serverless functions
-- **Storage** (places to store data) — `Amazon S3`, `Amazon EBS`, database services
-- **Networking** (connecting resources to each other) — `Amazon VPC`
+<img src="/data-engineering-specialization-website/images/diagrams/aws-cloud-pillars-dark.svg" alt="AWS Cloud: Three Pillars" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/aws-cloud-pillars.svg" alt="AWS Cloud: Three Pillars" class="diagram diagram-light" />
 
 ---
 
@@ -33,9 +32,13 @@ AWS infrastructure is organized into **regions** — geographically distributed 
 
 The purpose of multiple AZs is **high availability and fault tolerance**. If one AZ goes down due to a power outage or natural disaster, your workloads in other AZs continue running.
 
-![](/data-engineering-specialization-website/images/e92af9ac-d59c-4e9b-9858-35b497cbca9f.png)
+<img src="/data-engineering-specialization-website/images/diagrams/aws-region-azs-dark.svg" alt="AWS Region & Availability Zones" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/aws-region-azs.svg" alt="AWS Region & Availability Zones" class="diagram diagram-light" />
 
-![](/data-engineering-specialization-website/images/af4eadb3-4888-465e-8b83-5a754e24ccbc.png)
+As of 2026, AWS operates **34 regions** across **114+ availability zones** worldwide. Regions are grouped across four geographies — Americas, Europe, Asia Pacific, and Middle East & Africa. Most regions have 3 AZs, with a few exceptions like `us-east-1` (N. Virginia) which has 6. When choosing a region, consider **latency** to your users, **data residency** requirements, and **service availability**.
+
+<img src="/data-engineering-specialization-website/images/diagrams/aws-global-infra-dark.svg" alt="AWS Global Infrastructure" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/aws-global-infra.svg" alt="AWS Global Infrastructure" class="diagram diagram-light" />
 
 
 ## 1.2.2 Intro to AWS Core Services
@@ -68,10 +71,17 @@ AWS offers several storage types, each suited to different use cases:
 
 AWS uses a **Shared Responsibility Model**: AWS is responsible for security *of* the cloud (infrastructure), while the customer is responsible for security *in* the cloud (data, access, configuration).
 
+<img src="/data-engineering-specialization-website/images/diagrams/aws-core-services-dark.svg" alt="AWS Core Services" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/aws-core-services.svg" alt="AWS Core Services" class="diagram diagram-light" />
+
 
 ## 1.2.3 Compute - Amazon Elastic Compute Cloud (EC2)
 
+<div style="text-align: center;">
+
 ![](/data-engineering-specialization-website/images/28cf98b18.png)
+
+</div>
 
 One of the foundational cloud services is compute — AWS providing the resources needed to run your applications. `Amazon EC2` (Elastic Compute Cloud) is the primary example: it gives you **virtual servers** (also called virtual machines).
 
@@ -103,6 +113,9 @@ AWS uses a naming convention for instance types. For example, `t3a.micro` breaks
 - **micro** — size
 
 For pricing, **on-demand instances** offer compute capacity with no long-term commitment. **Spot instances** provide unused `EC2` capacity at a steep discount, ideal for fault-tolerant or flexible workloads.
+
+<img src="/data-engineering-specialization-website/images/diagrams/ec2-overview-dark.svg" alt="Amazon EC2 Overview" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/ec2-overview.svg" alt="Amazon EC2 Overview" class="diagram diagram-light" />
 
 
 ## 1.2.4 Networking - Virtual Private Cloud (VPC) & Subnets
@@ -144,4 +157,5 @@ When creating a VPC, you specify a **CIDR block** that determines the network's 
 
 Resources across multiple subnets of the same VPC can still communicate because they share the same network.
 
-![](/data-engineering-specialization-website/images/f457c01b-baa3-4d22-b3ef-6ab7515527c6.png)
+<img src="/data-engineering-specialization-website/images/diagrams/vpc-networking-dark.svg" alt="VPC, Subnets & Networking" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/vpc-networking.svg" alt="VPC, Subnets & Networking" class="diagram diagram-light" />
