@@ -1,6 +1,6 @@
 """
-Generate star schema diagram showing a central fact table
-connected to dimension tables.
+Generate MapReduce flow diagram showing Map → Shuffle → Reduce
+with a word count example.
 """
 
 import json
@@ -16,7 +16,7 @@ data = {
     "files": {},
 }
 els = data["elements"]
-seed = 7000
+seed = 13000
 
 
 def ns():
@@ -29,6 +29,7 @@ BLUE = ("#1971c2", "#a5d8ff")
 GREEN = ("#2f9e44", "#b2f2bb")
 YELLOW = ("#e67700", "#ffec99")
 PURPLE = ("#6741d9", "#d0bfff")
+RED = ("#c92a2a", "#ffc9c9")
 CYAN = ("#0c8599", "#99e9f2")
 GRAY = ("#868e96", "#dee2e6")
 
@@ -83,101 +84,103 @@ def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
     })
 
 
-# === LAYOUT ===
-CANVAS_W = 660
-PAD_X = 20
+CANVAS_W = 680
+PAD_X = 15
 CONTENT_W = CANVAS_W - 2 * PAD_X
+COL_GAP = 12
 
-TITLE_Y = 15
-TITLE_H = math.ceil(1 * 32 * 1.25)
+TITLE_Y = 12
+TITLE_H = math.ceil(1 * 28 * 1.25)
 txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "Star Schema", 32, color="#1e1e1e")
+    "MapReduce: Count User Events", 28, color="#1e1e1e")
 
-# Central fact table
-FACT_W = 200
-FACT_H = 140
-CENTER_X = PAD_X + (CONTENT_W - FACT_W) // 2
-FACT_Y = TITLE_Y + TITLE_H + 220
+# Three columns: Map, Shuffle, Reduce
+COL_W = (CONTENT_W - 2 * COL_GAP) // 3
 
-rect("fact", CENTER_X, FACT_Y, FACT_W, FACT_H, *YELLOW,
-     bnd=[{"id": "fact_t", "type": "text"}])
+HDR_Y = TITLE_Y + TITLE_H + 15
+HDR_H = math.ceil(1 * 20 * 1.25)
+txt("hdr_map", PAD_X, HDR_Y, COL_W, HDR_H, "Map", 20, color=BLUE[0])
+txt("hdr_shuf", PAD_X + COL_W + COL_GAP, HDR_Y, COL_W, HDR_H, "Shuffle", 20, color=YELLOW[0])
+txt("hdr_red", PAD_X + 2 * (COL_W + COL_GAP), HDR_Y, COL_W, HDR_H, "Reduce", 20, color=GREEN[0])
 
-fact_title = "Fact Table"
-fact_sub = "order_key (PK)\nstore_key (FK)\nitem_key (FK)\ndate_key (FK)\nquantity, price"
-ft_h = math.ceil(1 * 24 * 1.25)
-fs_h = math.ceil(5 * 15 * 1.25)
-fg = 4
-fc = ft_h + fg + fs_h
-ftp = (FACT_H - fc) // 2
+PILL_H = 38
+PILL_GAP = 6
+START_Y = HDR_Y + HDR_H + 12
 
-txt("fact_t", CENTER_X, FACT_Y + ftp, FACT_W, ft_h,
-    fact_title, 24, cid="fact")
-txt("fact_sub", CENTER_X, FACT_Y + ftp + ft_h + fg, FACT_W, fs_h,
-    fact_sub, 15, color=YELLOW[0])
-
-# Dimension tables around the fact
-DIM_W = 170
-DIM_H = 100
-
-# Positions: top, left, right, bottom
-dims = [
-    ("dim_date", "dim_date", "date_key (PK)\nday, month\nquarter, year", BLUE,
-     CENTER_X + (FACT_W - DIM_W) // 2, FACT_Y - DIM_H - 70),  # top
-    ("dim_store", "dim_store", "store_key (PK)\nstore_name\ncity, zipcode", GREEN,
-     PAD_X, FACT_Y + (FACT_H - DIM_H) // 2),  # left
-    ("dim_item", "dim_item", "item_key (PK)\nsku, name\nbrand", PURPLE,
-     PAD_X + CONTENT_W - DIM_W, FACT_Y + (FACT_H - DIM_H) // 2),  # right
-    ("dim_cust", "dim_customer", "customer_key (PK)\nname, email\naddress", CYAN,
-     CENTER_X + (FACT_W - DIM_W) // 2, FACT_Y + FACT_H + 70),  # bottom
+# === MAP: input blocks emit key-value pairs ===
+map_x = PAD_X
+map_items = [
+    ("m1", "(A, 1)", BLUE),
+    ("m2", "(B, 1)", BLUE),
+    ("m3", "(A, 1)", BLUE),
+    ("m4", "(C, 1)", BLUE),
+    ("m5", "(B, 1)", BLUE),
+    ("m6", "(A, 1)", BLUE),
 ]
 
-for bid, title, sub, color, dx, dy in dims:
-    rect(bid, dx, dy, DIM_W, DIM_H, *color,
+for i, (bid, label, color) in enumerate(map_items):
+    y = START_Y + i * (PILL_H + PILL_GAP)
+    rect(bid, map_x, y, COL_W, PILL_H, *color,
          bnd=[{"id": f"{bid}_t", "type": "text"}])
+    txt(f"{bid}_t", map_x, y, COL_W, PILL_H, label, 18, cid=bid)
 
-    dt_h = math.ceil(1 * 22 * 1.25)
-    ds_h = math.ceil(sub.count("\n") * 15 * 1.25 + math.ceil(1 * 15 * 1.25))
-    dg = 4
-    dc = dt_h + dg + ds_h
-    dtp = (DIM_H - dc) // 2
+# === SHUFFLE: group by key ===
+shuf_x = PAD_X + COL_W + COL_GAP
+shuf_items = [
+    ("s1", "A → [1, 1, 1]", YELLOW),
+    ("s2", "B → [1, 1]", YELLOW),
+    ("s3", "C → [1]", YELLOW),
+]
 
-    txt(f"{bid}_t", dx, dy + dtp, DIM_W, dt_h,
-        title, 22, cid=bid)
-    txt(f"{bid}_sub", dx, dy + dtp + dt_h + dg, DIM_W, ds_h,
-        sub, 15, color=color[0])
+# Center vertically in the column
+shuf_total = len(shuf_items) * (PILL_H + PILL_GAP) - PILL_GAP
+map_total = len(map_items) * (PILL_H + PILL_GAP) - PILL_GAP
+shuf_start = START_Y + (map_total - shuf_total) // 2
 
-# Arrows from dimensions to fact
-# Top -> fact
-arr("a_date", CENTER_X + FACT_W // 2, FACT_Y - 70,
-    [[0, 0], [0, 70]],
-    BLUE[0],
-    sb={"elementId": "dim_date", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+for i, (bid, label, color) in enumerate(shuf_items):
+    y = shuf_start + i * (PILL_H + PILL_GAP)
+    rect(bid, shuf_x, y, COL_W, PILL_H, *color,
+         bnd=[{"id": f"{bid}_t", "type": "text"}])
+    txt(f"{bid}_t", shuf_x, y, COL_W, PILL_H, label, 18, cid=bid)
 
-# Left -> fact
-arr("a_store", PAD_X + DIM_W, FACT_Y + FACT_H // 2,
-    [[0, 0], [CENTER_X - PAD_X - DIM_W, 0]],
-    GREEN[0],
-    sb={"elementId": "dim_store", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+# === REDUCE: sum values ===
+red_x = PAD_X + 2 * (COL_W + COL_GAP)
+red_items = [
+    ("r1", "A = 3", GREEN),
+    ("r2", "B = 2", GREEN),
+    ("r3", "C = 1", GREEN),
+]
 
-# Right -> fact
-arr("a_item", PAD_X + CONTENT_W - DIM_W, FACT_Y + FACT_H // 2,
-    [[0, 0], [-(PAD_X + CONTENT_W - DIM_W - CENTER_X - FACT_W), 0]],
-    PURPLE[0],
-    sb={"elementId": "dim_item", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+red_start = shuf_start  # align with shuffle
 
-# Bottom -> fact
-arr("a_cust", CENTER_X + FACT_W // 2, FACT_Y + FACT_H,
-    [[0, 0], [0, 70]],
-    CYAN[0],
-    sb={"elementId": "fact", "focus": 0, "gap": 4},
-    eb={"elementId": "dim_cust", "focus": 0, "gap": 4})
+for i, (bid, label, color) in enumerate(red_items):
+    y = red_start + i * (PILL_H + PILL_GAP)
+    rect(bid, red_x, y, COL_W, PILL_H, *color,
+         bnd=[{"id": f"{bid}_t", "type": "text"}])
+    txt(f"{bid}_t", red_x, y, COL_W, PILL_H, label, 18, cid=bid)
 
-print(f"Canvas: {CANVAS_W}x{FACT_Y + FACT_H + 70 + DIM_H + 20}")
+# Arrows between columns
+map_mid_y = START_Y + map_total // 2
+shuf_mid_y = shuf_start + shuf_total // 2
 
-name = sys.argv[1] if len(sys.argv) > 1 else "star-schema"
+arr("a_map_shuf", map_x + COL_W, map_mid_y,
+    [[0, 0], [COL_GAP, 0]],
+    BLUE[0])
+
+arr("a_shuf_red", shuf_x + COL_W, shuf_mid_y,
+    [[0, 0], [COL_GAP, 0]],
+    YELLOW[0])
+
+# Disk write warning
+DISK_Y = START_Y + map_total + 20
+DISK_H = math.ceil(1 * 15 * 1.25)
+txt("disk_note", PAD_X, DISK_Y, CONTENT_W, DISK_H,
+    "Each phase writes to disk — no in-memory caching (unlike Spark)",
+    15, color=RED[0])
+
+print(f"Canvas: {CANVAS_W}x{DISK_Y + DISK_H + 15}")
+
+name = sys.argv[1] if len(sys.argv) > 1 else "mapreduce-flow"
 outfile = f"{name}.excalidraw"
 with open(outfile, "w") as f:
     json.dump(data, f, indent=2)

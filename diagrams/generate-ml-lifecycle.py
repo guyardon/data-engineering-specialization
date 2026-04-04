@@ -1,6 +1,6 @@
 """
-Generate star schema diagram showing a central fact table
-connected to dimension tables.
+Generate ML lifecycle diagram showing the four stages
+with the data engineer's role highlighted.
 """
 
 import json
@@ -16,7 +16,7 @@ data = {
     "files": {},
 }
 els = data["elements"]
-seed = 7000
+seed = 12000
 
 
 def ns():
@@ -29,6 +29,7 @@ BLUE = ("#1971c2", "#a5d8ff")
 GREEN = ("#2f9e44", "#b2f2bb")
 YELLOW = ("#e67700", "#ffec99")
 PURPLE = ("#6741d9", "#d0bfff")
+RED = ("#c92a2a", "#ffc9c9")
 CYAN = ("#0c8599", "#99e9f2")
 GRAY = ("#868e96", "#dee2e6")
 
@@ -83,101 +84,66 @@ def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
     })
 
 
-# === LAYOUT ===
 CANVAS_W = 660
-PAD_X = 20
+PAD_X = 15
 CONTENT_W = CANVAS_W - 2 * PAD_X
 
-TITLE_Y = 15
-TITLE_H = math.ceil(1 * 32 * 1.25)
+TITLE_Y = 12
+TITLE_H = math.ceil(1 * 30 * 1.25)
 txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "Star Schema", 32, color="#1e1e1e")
+    "Machine Learning Lifecycle", 30, color="#1e1e1e")
 
-# Central fact table
-FACT_W = 200
-FACT_H = 140
-CENTER_X = PAD_X + (CONTENT_W - FACT_W) // 2
-FACT_Y = TITLE_Y + TITLE_H + 220
+BOX_W = CONTENT_W
+BOX_H = 85
+ARROW_GAP = 18
 
-rect("fact", CENTER_X, FACT_Y, FACT_W, FACT_H, *YELLOW,
-     bnd=[{"id": "fact_t", "type": "text"}])
-
-fact_title = "Fact Table"
-fact_sub = "order_key (PK)\nstore_key (FK)\nitem_key (FK)\ndate_key (FK)\nquantity, price"
-ft_h = math.ceil(1 * 24 * 1.25)
-fs_h = math.ceil(5 * 15 * 1.25)
-fg = 4
-fc = ft_h + fg + fs_h
-ftp = (FACT_H - fc) // 2
-
-txt("fact_t", CENTER_X, FACT_Y + ftp, FACT_W, ft_h,
-    fact_title, 24, cid="fact")
-txt("fact_sub", CENTER_X, FACT_Y + ftp + ft_h + fg, FACT_W, fs_h,
-    fact_sub, 15, color=YELLOW[0])
-
-# Dimension tables around the fact
-DIM_W = 170
-DIM_H = 100
-
-# Positions: top, left, right, bottom
-dims = [
-    ("dim_date", "dim_date", "date_key (PK)\nday, month\nquarter, year", BLUE,
-     CENTER_X + (FACT_W - DIM_W) // 2, FACT_Y - DIM_H - 70),  # top
-    ("dim_store", "dim_store", "store_key (PK)\nstore_name\ncity, zipcode", GREEN,
-     PAD_X, FACT_Y + (FACT_H - DIM_H) // 2),  # left
-    ("dim_item", "dim_item", "item_key (PK)\nsku, name\nbrand", PURPLE,
-     PAD_X + CONTENT_W - DIM_W, FACT_Y + (FACT_H - DIM_H) // 2),  # right
-    ("dim_cust", "dim_customer", "customer_key (PK)\nname, email\naddress", CYAN,
-     CENTER_X + (FACT_W - DIM_W) // 2, FACT_Y + FACT_H + 70),  # bottom
+stages = [
+    ("scope", "1. Scoping", "Define project goals\nand success criteria", GRAY, False),
+    ("data", "2. Data", "Define requirements, label,\norganize — data engineer focus", BLUE, True),
+    ("algo", "3. Algorithm Development", "Train/test split → train →\ncross-validate → iterate", YELLOW, False),
+    ("deploy", "4. Deployment", "Productionize model, monitor,\nserve data for retraining", GREEN, True),
 ]
 
-for bid, title, sub, color, dx, dy in dims:
-    rect(bid, dx, dy, DIM_W, DIM_H, *color,
+y = TITLE_Y + TITLE_H + 20
+
+for i, (bid, title, desc, color, is_de) in enumerate(stages):
+    rect(bid, PAD_X, y, BOX_W, BOX_H, *color,
          bnd=[{"id": f"{bid}_t", "type": "text"}])
 
-    dt_h = math.ceil(1 * 22 * 1.25)
-    ds_h = math.ceil(sub.count("\n") * 15 * 1.25 + math.ceil(1 * 15 * 1.25))
-    dg = 4
-    dc = dt_h + dg + ds_h
-    dtp = (DIM_H - dc) // 2
+    title_h = math.ceil(1 * 22 * 1.25)
+    desc_lines = desc.count("\n") + 1
+    desc_h = math.ceil(desc_lines * 16 * 1.25)
+    gap = 5
+    combined = title_h + gap + desc_h
+    top_pad = (BOX_H - combined) // 2
 
-    txt(f"{bid}_t", dx, dy + dtp, DIM_W, dt_h,
-        title, 22, cid=bid)
-    txt(f"{bid}_sub", dx, dy + dtp + dt_h + dg, DIM_W, ds_h,
-        sub, 15, color=color[0])
+    txt(f"{bid}_t", PAD_X, y + top_pad, BOX_W, title_h, title, 22, cid=bid)
+    txt(f"{bid}_sub", PAD_X, y + top_pad + title_h + gap, BOX_W, desc_h,
+        desc, 16, color=color[0])
 
-# Arrows from dimensions to fact
-# Top -> fact
-arr("a_date", CENTER_X + FACT_W // 2, FACT_Y - 70,
-    [[0, 0], [0, 70]],
-    BLUE[0],
-    sb={"elementId": "dim_date", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+    # Data engineer badge
+    if is_de:
+        badge_w = 110
+        badge_h = 22
+        badge_x = PAD_X + BOX_W - badge_w - 8
+        badge_y = y + 5
+        rect(f"{bid}_badge", badge_x, badge_y, badge_w, badge_h,
+             PURPLE[0], PURPLE[1], bnd=[{"id": f"{bid}_badge_t", "type": "text"}])
+        txt(f"{bid}_badge_t", badge_x, badge_y, badge_w, badge_h,
+            "DE role", 14, cid=f"{bid}_badge")
 
-# Left -> fact
-arr("a_store", PAD_X + DIM_W, FACT_Y + FACT_H // 2,
-    [[0, 0], [CENTER_X - PAD_X - DIM_W, 0]],
-    GREEN[0],
-    sb={"elementId": "dim_store", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+    if i < len(stages) - 1:
+        arr(f"a{i}", PAD_X + BOX_W // 2, y + BOX_H,
+            [[0, 0], [0, ARROW_GAP]],
+            color[0],
+            sb={"elementId": bid, "focus": 0, "gap": 4},
+            eb={"elementId": stages[i + 1][0], "focus": 0, "gap": 4})
 
-# Right -> fact
-arr("a_item", PAD_X + CONTENT_W - DIM_W, FACT_Y + FACT_H // 2,
-    [[0, 0], [-(PAD_X + CONTENT_W - DIM_W - CENTER_X - FACT_W), 0]],
-    PURPLE[0],
-    sb={"elementId": "dim_item", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+    y += BOX_H + ARROW_GAP
 
-# Bottom -> fact
-arr("a_cust", CENTER_X + FACT_W // 2, FACT_Y + FACT_H,
-    [[0, 0], [0, 70]],
-    CYAN[0],
-    sb={"elementId": "fact", "focus": 0, "gap": 4},
-    eb={"elementId": "dim_cust", "focus": 0, "gap": 4})
+print(f"Canvas: {CANVAS_W}x{y + 5}")
 
-print(f"Canvas: {CANVAS_W}x{FACT_Y + FACT_H + 70 + DIM_H + 20}")
-
-name = sys.argv[1] if len(sys.argv) > 1 else "star-schema"
+name = sys.argv[1] if len(sys.argv) > 1 else "ml-lifecycle"
 outfile = f"{name}.excalidraw"
 with open(outfile, "w") as f:
     json.dump(data, f, indent=2)

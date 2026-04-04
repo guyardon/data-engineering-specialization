@@ -24,6 +24,9 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 | **Cluster Manager** | Allocates and manages memory and CPU resources across the cluster (YARN, Mesos, or Kubernetes) |
 | **Worker Nodes** | Each contains a **Spark Executor** that runs tasks assigned by the driver |
 
+<img src="/data-engineering-specialization-website/images/diagrams/spark-architecture-dark.svg" alt="Spark architecture with Driver, Cluster Manager, and Worker Nodes containing Executors" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/spark-architecture.svg" alt="Spark architecture with Driver, Cluster Manager, and Worker Nodes containing Executors" class="diagram diagram-light" />
+
 ---
 
 **Partitioning and Execution**

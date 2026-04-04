@@ -41,6 +41,9 @@ Key properties:
 
 For example, counting user events: the Map phase scans log blocks and emits `(user_id, 1)` pairs, the Shuffle phase groups all pairs by `user_id`, and the Reduce phase sums the counts per user.
 
+<img src="/data-engineering-specialization-website/images/diagrams/mapreduce-flow-dark.svg" alt="MapReduce flow: Map emits key-value pairs, Shuffle groups by key, Reduce aggregates" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/mapreduce-flow.svg" alt="MapReduce flow: Map emits key-value pairs, Shuffle groups by key, Reduce aggregates" class="diagram diagram-light" />
+
 ---
 
 **Shortcomings of MapReduce**

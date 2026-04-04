@@ -1,6 +1,6 @@
 """
-Generate star schema diagram showing a central fact table
-connected to dimension tables.
+Generate normalization progression diagram showing a practical example
+going from denormalized → 1NF → 2NF → 3NF with real order data.
 """
 
 import json
@@ -16,7 +16,7 @@ data = {
     "files": {},
 }
 els = data["elements"]
-seed = 7000
+seed = 10000
 
 
 def ns():
@@ -29,6 +29,7 @@ BLUE = ("#1971c2", "#a5d8ff")
 GREEN = ("#2f9e44", "#b2f2bb")
 YELLOW = ("#e67700", "#ffec99")
 PURPLE = ("#6741d9", "#d0bfff")
+RED = ("#c92a2a", "#ffc9c9")
 CYAN = ("#0c8599", "#99e9f2")
 GRAY = ("#868e96", "#dee2e6")
 
@@ -85,99 +86,66 @@ def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
 
 # === LAYOUT ===
 CANVAS_W = 660
-PAD_X = 20
+PAD_X = 15
 CONTENT_W = CANVAS_W - 2 * PAD_X
+BOX_W = CONTENT_W
+ARROW_GAP = 18
 
-TITLE_Y = 15
-TITLE_H = math.ceil(1 * 32 * 1.25)
+TITLE_Y = 12
+TITLE_H = math.ceil(1 * 30 * 1.25)
 txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "Star Schema", 32, color="#1e1e1e")
+    "Normalization: A Practical Example", 30, color="#1e1e1e")
 
-# Central fact table
-FACT_W = 200
-FACT_H = 140
-CENTER_X = PAD_X + (CONTENT_W - FACT_W) // 2
-FACT_Y = TITLE_Y + TITLE_H + 220
-
-rect("fact", CENTER_X, FACT_Y, FACT_W, FACT_H, *YELLOW,
-     bnd=[{"id": "fact_t", "type": "text"}])
-
-fact_title = "Fact Table"
-fact_sub = "order_key (PK)\nstore_key (FK)\nitem_key (FK)\ndate_key (FK)\nquantity, price"
-ft_h = math.ceil(1 * 24 * 1.25)
-fs_h = math.ceil(5 * 15 * 1.25)
-fg = 4
-fc = ft_h + fg + fs_h
-ftp = (FACT_H - fc) // 2
-
-txt("fact_t", CENTER_X, FACT_Y + ftp, FACT_W, ft_h,
-    fact_title, 24, cid="fact")
-txt("fact_sub", CENTER_X, FACT_Y + ftp + ft_h + fg, FACT_W, fs_h,
-    fact_sub, 15, color=YELLOW[0])
-
-# Dimension tables around the fact
-DIM_W = 170
-DIM_H = 100
-
-# Positions: top, left, right, bottom
-dims = [
-    ("dim_date", "dim_date", "date_key (PK)\nday, month\nquarter, year", BLUE,
-     CENTER_X + (FACT_W - DIM_W) // 2, FACT_Y - DIM_H - 70),  # top
-    ("dim_store", "dim_store", "store_key (PK)\nstore_name\ncity, zipcode", GREEN,
-     PAD_X, FACT_Y + (FACT_H - DIM_H) // 2),  # left
-    ("dim_item", "dim_item", "item_key (PK)\nsku, name\nbrand", PURPLE,
-     PAD_X + CONTENT_W - DIM_W, FACT_Y + (FACT_H - DIM_H) // 2),  # right
-    ("dim_cust", "dim_customer", "customer_key (PK)\nname, email\naddress", CYAN,
-     CENTER_X + (FACT_W - DIM_W) // 2, FACT_Y + FACT_H + 70),  # bottom
+# Each step: colored box with title + subtitle showing what changed
+steps = [
+    ("denorm", "Denormalized", RED,
+     "One wide table: order_id, product, price,\ncustomer_name, address, items_json\nRedundant data everywhere"),
+    ("nf1", "1st Normal Form (1NF)", YELLOW,
+     "Atomic values, composite PK (order_id + line_no)\nNo nested JSON — each item gets its own row\nRemoves: repeating groups"),
+    ("nf2", "2nd Normal Form (2NF)", CYAN,
+     "Split into: orders, order_items, products\nRemoves: partial dependencies\n(price depends on product, not on full PK)"),
+    ("nf3", "3rd Normal Form (3NF)", GREEN,
+     "Split into: orders, order_items, products, customers\nRemoves: transitive dependencies\n(customer_name depends on customer_id, not PK)"),
 ]
 
-for bid, title, sub, color, dx, dy in dims:
-    rect(bid, dx, dy, DIM_W, DIM_H, *color,
+BOX_H = 100
+y = TITLE_Y + TITLE_H + 20
+
+for i, (bid, title, color, desc) in enumerate(steps):
+    rect(bid, PAD_X, y, BOX_W, BOX_H, *color,
          bnd=[{"id": f"{bid}_t", "type": "text"}])
 
-    dt_h = math.ceil(1 * 22 * 1.25)
-    ds_h = math.ceil(sub.count("\n") * 15 * 1.25 + math.ceil(1 * 15 * 1.25))
-    dg = 4
-    dc = dt_h + dg + ds_h
-    dtp = (DIM_H - dc) // 2
+    title_h = math.ceil(1 * 24 * 1.25)
+    desc_lines = desc.count("\n") + 1
+    desc_h = math.ceil(desc_lines * 16 * 1.25)
+    gap = 5
+    combined = title_h + gap + desc_h
+    top_pad = (BOX_H - combined) // 2
 
-    txt(f"{bid}_t", dx, dy + dtp, DIM_W, dt_h,
-        title, 22, cid=bid)
-    txt(f"{bid}_sub", dx, dy + dtp + dt_h + dg, DIM_W, ds_h,
-        sub, 15, color=color[0])
+    txt(f"{bid}_t", PAD_X, y + top_pad, BOX_W, title_h,
+        title, 24, cid=bid)
+    txt(f"{bid}_sub", PAD_X, y + top_pad + title_h + gap, BOX_W, desc_h,
+        desc, 16, color=color[0])
 
-# Arrows from dimensions to fact
-# Top -> fact
-arr("a_date", CENTER_X + FACT_W // 2, FACT_Y - 70,
-    [[0, 0], [0, 70]],
-    BLUE[0],
-    sb={"elementId": "dim_date", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+    if i < len(steps) - 1:
+        arr(f"a{i}", PAD_X + BOX_W // 2, y + BOX_H,
+            [[0, 0], [0, ARROW_GAP]],
+            color[0],
+            sb={"elementId": bid, "focus": 0, "gap": 4},
+            eb={"elementId": steps[i + 1][0], "focus": 0, "gap": 4})
 
-# Left -> fact
-arr("a_store", PAD_X + DIM_W, FACT_Y + FACT_H // 2,
-    [[0, 0], [CENTER_X - PAD_X - DIM_W, 0]],
-    GREEN[0],
-    sb={"elementId": "dim_store", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+    y += BOX_H + ARROW_GAP
 
-# Right -> fact
-arr("a_item", PAD_X + CONTENT_W - DIM_W, FACT_Y + FACT_H // 2,
-    [[0, 0], [-(PAD_X + CONTENT_W - DIM_W - CENTER_X - FACT_W), 0]],
-    PURPLE[0],
-    sb={"elementId": "dim_item", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+# Summary label
+SUM_Y = y + 5
+SUM_H = math.ceil(1 * 16 * 1.25)
+txt("summary", PAD_X, SUM_Y, CONTENT_W, SUM_H,
+    "Each step removes a type of dependency → less redundancy, better integrity",
+    16, color=GRAY[0])
 
-# Bottom -> fact
-arr("a_cust", CENTER_X + FACT_W // 2, FACT_Y + FACT_H,
-    [[0, 0], [0, 70]],
-    CYAN[0],
-    sb={"elementId": "fact", "focus": 0, "gap": 4},
-    eb={"elementId": "dim_cust", "focus": 0, "gap": 4})
+print(f"Canvas: {CANVAS_W}x{SUM_Y + SUM_H + 15}")
 
-print(f"Canvas: {CANVAS_W}x{FACT_Y + FACT_H + 70 + DIM_H + 20}")
-
-name = sys.argv[1] if len(sys.argv) > 1 else "star-schema"
+name = sys.argv[1] if len(sys.argv) > 1 else "normalization-steps"
 outfile = f"{name}.excalidraw"
 with open(outfile, "w") as f:
     json.dump(data, f, indent=2)

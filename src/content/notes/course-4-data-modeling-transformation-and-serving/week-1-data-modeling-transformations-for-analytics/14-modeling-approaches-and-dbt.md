@@ -45,6 +45,9 @@ Serves data structured as **star schemas directly in the data warehouse**, skipp
 | Quick insights and rapid iteration needed | **Kimball** |
 | Small team with limited modeling resources | **Kimball** |
 
+<img src="/data-engineering-specialization-website/images/diagrams/inmon-vs-kimball-dark.svg" alt="Inmon top-down vs Kimball bottom-up warehouse data flow" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/inmon-vs-kimball.svg" alt="Inmon top-down vs Kimball bottom-up warehouse data flow" class="diagram diagram-light" style="max-height: 900px;" />
+
 ## 1.4.2 Data Vault Modeling Approach
 
 While Inmon and Kimball focus on how business logic is structured in the warehouse, **Data Vault** focuses on separating the structural aspects of data — business entities and their relationships. This separation keeps the warehouse flexible, agile, and scalable even as the business evolves.

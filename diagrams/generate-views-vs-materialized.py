@@ -1,6 +1,7 @@
 """
-Generate star schema diagram showing a central fact table
-connected to dimension tables.
+Generate views vs materialized views comparison diagram showing
+how views recompute on every query while materialized views
+serve cached results.
 """
 
 import json
@@ -16,7 +17,7 @@ data = {
     "files": {},
 }
 els = data["elements"]
-seed = 7000
+seed = 15000
 
 
 def ns():
@@ -29,6 +30,7 @@ BLUE = ("#1971c2", "#a5d8ff")
 GREEN = ("#2f9e44", "#b2f2bb")
 YELLOW = ("#e67700", "#ffec99")
 PURPLE = ("#6741d9", "#d0bfff")
+RED = ("#c92a2a", "#ffc9c9")
 CYAN = ("#0c8599", "#99e9f2")
 GRAY = ("#868e96", "#dee2e6")
 
@@ -83,101 +85,92 @@ def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
     })
 
 
-# === LAYOUT ===
-CANVAS_W = 660
-PAD_X = 20
+CANVAS_W = 680
+PAD_X = 15
 CONTENT_W = CANVAS_W - 2 * PAD_X
+COL_GAP = 30
+COL_W = (CONTENT_W - COL_GAP) // 2
+BOX_H = 55
+ARROW_GAP = 50
 
-TITLE_Y = 15
-TITLE_H = math.ceil(1 * 32 * 1.25)
+TITLE_Y = 12
+TITLE_H = math.ceil(1 * 28 * 1.25)
 txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H,
-    "Star Schema", 32, color="#1e1e1e")
+    "View vs Materialized View", 28, color="#1e1e1e")
 
-# Central fact table
-FACT_W = 200
-FACT_H = 140
-CENTER_X = PAD_X + (CONTENT_W - FACT_W) // 2
-FACT_Y = TITLE_Y + TITLE_H + 220
+HDR_Y = TITLE_Y + TITLE_H + 15
+HDR_H = math.ceil(1 * 20 * 1.25)
+txt("hdr_view", PAD_X, HDR_Y, COL_W, HDR_H,
+    "View (recomputes)", 20, color=YELLOW[0])
+txt("hdr_mv", PAD_X + COL_W + COL_GAP, HDR_Y, COL_W, HDR_H,
+    "Materialized View (cached)", 20, color=GREEN[0])
 
-rect("fact", CENTER_X, FACT_Y, FACT_W, FACT_H, *YELLOW,
-     bnd=[{"id": "fact_t", "type": "text"}])
+# === LEFT: View flow ===
+LX = PAD_X
+y = HDR_Y + HDR_H + 20
 
-fact_title = "Fact Table"
-fact_sub = "order_key (PK)\nstore_key (FK)\nitem_key (FK)\ndate_key (FK)\nquantity, price"
-ft_h = math.ceil(1 * 24 * 1.25)
-fs_h = math.ceil(5 * 15 * 1.25)
-fg = 4
-fc = ft_h + fg + fs_h
-ftp = (FACT_H - fc) // 2
-
-txt("fact_t", CENTER_X, FACT_Y + ftp, FACT_W, ft_h,
-    fact_title, 24, cid="fact")
-txt("fact_sub", CENTER_X, FACT_Y + ftp + ft_h + fg, FACT_W, fs_h,
-    fact_sub, 15, color=YELLOW[0])
-
-# Dimension tables around the fact
-DIM_W = 170
-DIM_H = 100
-
-# Positions: top, left, right, bottom
-dims = [
-    ("dim_date", "dim_date", "date_key (PK)\nday, month\nquarter, year", BLUE,
-     CENTER_X + (FACT_W - DIM_W) // 2, FACT_Y - DIM_H - 70),  # top
-    ("dim_store", "dim_store", "store_key (PK)\nstore_name\ncity, zipcode", GREEN,
-     PAD_X, FACT_Y + (FACT_H - DIM_H) // 2),  # left
-    ("dim_item", "dim_item", "item_key (PK)\nsku, name\nbrand", PURPLE,
-     PAD_X + CONTENT_W - DIM_W, FACT_Y + (FACT_H - DIM_H) // 2),  # right
-    ("dim_cust", "dim_customer", "customer_key (PK)\nname, email\naddress", CYAN,
-     CENTER_X + (FACT_W - DIM_W) // 2, FACT_Y + FACT_H + 70),  # bottom
+view_steps = [
+    ("v_query", "SELECT * FROM\ndaily_sales", GRAY),
+    ("v_exec", "Re-execute\nSQL definition", YELLOW),
+    ("v_scan", "Scan base\ntables", RED),
+    ("v_result", "Fresh result\n(always current)", GREEN),
 ]
 
-for bid, title, sub, color, dx, dy in dims:
-    rect(bid, dx, dy, DIM_W, DIM_H, *color,
+for i, (bid, label, color) in enumerate(view_steps):
+    h = BOX_H + 10
+    rect(bid, LX, y, COL_W, h, *color,
          bnd=[{"id": f"{bid}_t", "type": "text"}])
+    txt(f"{bid}_t", LX, y, COL_W, h, label, 18, cid=bid)
 
-    dt_h = math.ceil(1 * 22 * 1.25)
-    ds_h = math.ceil(sub.count("\n") * 15 * 1.25 + math.ceil(1 * 15 * 1.25))
-    dg = 4
-    dc = dt_h + dg + ds_h
-    dtp = (DIM_H - dc) // 2
+    if i < len(view_steps) - 1:
+        arr(f"av{i}", LX + COL_W // 2, y + h,
+            [[0, 0], [0, ARROW_GAP]],
+            color[0],
+            sb={"elementId": bid, "focus": 0, "gap": 4},
+            eb={"elementId": view_steps[i + 1][0], "focus": 0, "gap": 4})
+    y += h + ARROW_GAP
 
-    txt(f"{bid}_t", dx, dy + dtp, DIM_W, dt_h,
-        title, 22, cid=bid)
-    txt(f"{bid}_sub", dx, dy + dtp + dt_h + dg, DIM_W, ds_h,
-        sub, 15, color=color[0])
+view_bottom = y
 
-# Arrows from dimensions to fact
-# Top -> fact
-arr("a_date", CENTER_X + FACT_W // 2, FACT_Y - 70,
-    [[0, 0], [0, 70]],
-    BLUE[0],
-    sb={"elementId": "dim_date", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+# === RIGHT: Materialized View flow ===
+RX = PAD_X + COL_W + COL_GAP
+y = HDR_Y + HDR_H + 20
 
-# Left -> fact
-arr("a_store", PAD_X + DIM_W, FACT_Y + FACT_H // 2,
-    [[0, 0], [CENTER_X - PAD_X - DIM_W, 0]],
-    GREEN[0],
-    sb={"elementId": "dim_store", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+mv_steps = [
+    ("mv_query", "SELECT * FROM\ndaily_sales_mv", GRAY),
+    ("mv_cache", "Read cached\nresult from disk", GREEN),
+    ("mv_result", "Fast result\n(may be stale)", CYAN),
+]
 
-# Right -> fact
-arr("a_item", PAD_X + CONTENT_W - DIM_W, FACT_Y + FACT_H // 2,
-    [[0, 0], [-(PAD_X + CONTENT_W - DIM_W - CENTER_X - FACT_W), 0]],
-    PURPLE[0],
-    sb={"elementId": "dim_item", "focus": 0, "gap": 4},
-    eb={"elementId": "fact", "focus": 0, "gap": 4})
+# Center vertically — fewer steps
+mv_total = len(mv_steps) * (BOX_H + 10 + ARROW_GAP) - ARROW_GAP
+view_total = len(view_steps) * (BOX_H + 10 + ARROW_GAP) - ARROW_GAP
+mv_start_y = HDR_Y + HDR_H + 20 + (view_total - mv_total) // 2
 
-# Bottom -> fact
-arr("a_cust", CENTER_X + FACT_W // 2, FACT_Y + FACT_H,
-    [[0, 0], [0, 70]],
-    CYAN[0],
-    sb={"elementId": "fact", "focus": 0, "gap": 4},
-    eb={"elementId": "dim_cust", "focus": 0, "gap": 4})
+y = mv_start_y
+for i, (bid, label, color) in enumerate(mv_steps):
+    h = BOX_H + 10
+    rect(bid, RX, y, COL_W, h, *color,
+         bnd=[{"id": f"{bid}_t", "type": "text"}])
+    txt(f"{bid}_t", RX, y, COL_W, h, label, 18, cid=bid)
 
-print(f"Canvas: {CANVAS_W}x{FACT_Y + FACT_H + 70 + DIM_H + 20}")
+    if i < len(mv_steps) - 1:
+        arr(f"amv{i}", RX + COL_W // 2, y + h,
+            [[0, 0], [0, ARROW_GAP]],
+            color[0],
+            sb={"elementId": bid, "focus": 0, "gap": 4},
+            eb={"elementId": mv_steps[i + 1][0], "focus": 0, "gap": 4})
+    y += h + ARROW_GAP
 
-name = sys.argv[1] if len(sys.argv) > 1 else "star-schema"
+# Refresh note for MV
+REFRESH_Y = y + 5
+REFRESH_H = math.ceil(1 * 14 * 1.25)
+txt("refresh", RX, REFRESH_Y, COL_W, REFRESH_H,
+    "REFRESH MATERIALIZED VIEW to update", 14, color=PURPLE[0])
+
+print(f"Canvas: {CANVAS_W}x{max(view_bottom, REFRESH_Y + REFRESH_H) + 15}")
+
+name = sys.argv[1] if len(sys.argv) > 1 else "views-vs-materialized"
 outfile = f"{name}.excalidraw"
 with open(outfile, "w") as f:
     json.dump(data, f, indent=2)
