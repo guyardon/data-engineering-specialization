@@ -35,6 +35,9 @@ Source systems generally fall into three categories, each with distinct access p
 - **Files** span formats like `.txt, .png, .mp3, .mp4, .csv` and can be **structured** (spreadsheets), **semi-structured** (JSON), or **unstructured** (audio, video, images).
 - **Streaming Systems** provide a continuous flow of data from producers to consumers, powered by message queues or streaming platforms like `Amazon Kinesis` and `Kafka`.
 
+<img src="/data-engineering-specialization-website/images/diagrams/source-systems-taxonomy-dark.svg" alt="Source Systems Taxonomy" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/source-systems-taxonomy.svg" alt="Source Systems Taxonomy" class="diagram diagram-light" />
+
 ## 1.1.2 Relational Databases
 
 Relational databases remain the backbone of most transactional systems. Understanding their structure is essential for any data engineer working with source systems.
@@ -122,6 +125,9 @@ NoSQL databases trade the rigid structure of relational systems for flexibility 
 - **Key-Value Databases** (e.g., caching user session data).
 - **Document Databases** (e.g., storing JSON documents for content management, catalogs, sensor readings).
 
+<img src="/data-engineering-specialization-website/images/diagrams/nosql-types-dark.svg" alt="NoSQL Database Types" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/nosql-types.svg" alt="NoSQL Database Types" class="diagram diagram-light" />
+
 ## 1.1.5 Database ACID Compliance
 
 `ACID` compliance is what separates databases you can trust for transactions from those better suited for other workloads.
@@ -144,6 +150,9 @@ NoSQL databases trade the rigid structure of relational systems for flexibility 
 - **Durability**: Completed transactions remain permanent despite system failures.
 
 These principles **ensure database reliability and a consistent view of data**.
+
+<img src="/data-engineering-specialization-website/images/diagrams/acid-principles-dark.svg" alt="ACID Principles" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/acid-principles.svg" alt="ACID Principles" class="diagram diagram-light" />
 
 ## 1.1.6 Lab - Interacting with Amazon DynamoDB (NoSQL Database)
 
@@ -194,6 +203,9 @@ Object storage treats files as **objects** rather than using a hierarchical file
 - **Cost-Effectiveness**: Cheaper than other storage options.
 - **Used for Modern Architectures**: **Data Lakes, Data Lakehouses**.
 
+<img src="/data-engineering-specialization-website/images/diagrams/object-storage-dark.svg" alt="Object Storage" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/object-storage.svg" alt="Object Storage" class="diagram diagram-light" />
+
 ## 1.1.8 Logs
 
 Logs are one of the most ubiquitous source systems and often overlooked until something breaks.
@@ -231,3 +243,6 @@ Streaming systems enable real-time data flow from producers to consumers. Unders
 - **Message Queue**: Buffers messages (e.g., `Amazon SQS`, FIFO-based).
 - **Streaming Platform**: Persistent message storage (e.g., `Kafka`, `Kinesis`).
 - **Log**: Append-only sequence of events (enables replaying past events).
+
+<img src="/data-engineering-specialization-website/images/diagrams/streaming-components-dark.svg" alt="Streaming Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/streaming-components.svg" alt="Streaming Architecture" class="diagram diagram-light" />

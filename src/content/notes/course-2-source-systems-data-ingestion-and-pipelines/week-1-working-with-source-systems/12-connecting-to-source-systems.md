@@ -30,13 +30,13 @@ Connecting to an existing `MySQL` instance requires three pieces of information:
 
 **AWS CloudShell** provides a browser-based shell with CLI access to AWS resources. To connect:
 
-```
+```bash
 mysql --host=[hostname] --port=[port number] --user=[database user name] --password=[database user password]
 ```
 
 This command is `MySQL`-specific, but equivalent commands exist for other databases. To retrieve the endpoint and port via CLI, use the `describe-db-instances` command:
 
-```
+```bash
 aws rds describe-db-instances --filters "Name=engine,Values=mysql" --query "*[].[DBInstanceIdentifier,Endpoint.Address,Endpoint.Port,MasterUsername]"
 ```
 
@@ -46,13 +46,51 @@ After connecting, you interact with the database using SQL queries. Type `exit` 
 
 **Connecting through Python** requires the `pymysql` package, which establishes a connection via its `connect` method. Use `boto3` to retrieve credentials programmatically:
 
-![](/data-engineering-specialization-website/images/e34caa4a-4d77-4334-9f3a-c7311b7097d2.png)
+```python
+import boto3
 
-![](/data-engineering-specialization-website/images/b5a7c960-3266-48f3-992f-1ed6b92b72d3.png)
+access_key_id = "A***********H"
+secret_access_key = "b**********Z"
+region_name = "us-east-1"
+
+session = boto3.Session(
+    aws_access_key_id=access_key_id,
+    aws_secret_access_key=secret_access_key,
+    region_name=region_name
+)
+
+rds = session.client("rds")
+dbInstance = rds.describe_db_instances()['DBInstances'][0]
+```
+
+The `dbInstance` dictionary contains connection details like the endpoint, port, engine, and master username:
+
+```python
+dbInstance
+# {'DBInstanceIdentifier': 'database-1',
+#  'DBInstanceClass': 'db.t3.micro',
+#  'Engine': 'mysql',
+#  'DBInstanceStatus': 'available',
+#  'MasterUsername': 'admin',
+#  'Endpoint': {'Address': 'database-1.cj6ooy6qkmft.us-east-1.rds.amazonaws.com',
+#               'Port': 3306},
+#  ...}
+```
 
 Then connect using `pymysql.connect()`:
 
-![](/data-engineering-specialization-website/images/bcefdf29-78ac-490c-b355-1b235e7e1de7.png)
+```python
+import pymysql
+
+try:
+    conn = pymysql.connect(host=ENDPOINT, user=USER, passwd=token, port=PORT, database=DBNAME)
+    cur = conn.cursor()
+    cur.execute("""SELECT * from pet""")
+    query_results = cur.fetchall()
+    print(query_results)
+except Exception as e:
+    print("Database connection failed due to {}".format(e))
+```
 
 ## 1.2.3 Basics of IAM and Permissions
 
@@ -70,6 +108,9 @@ Half of all cloud data breaches are caused by human error -- things like leaving
 - **`IAM` role**: Temporary permissions assumed by a user, application, or service.
   - **Example 1:** Let's say you run a code on an `EC2` instance that needs to read from `S3`. By default, the `EC2` instance does not have permission to read from `S3`. You can transfer your credentials to `EC2`, but this is not secure. A better approach is to create a role, attach the required policy to read from `S3`, and allow the `EC2` instance to assume this role.
   - **Example 2:** Let's say you run a `Glue` ETL job and want it to write the ingested and transformed data to `S3`. You can create a role with permissions to write to `S3`, then allow `Glue` ETL to assume this role.
+
+<img src="/data-engineering-specialization-website/images/diagrams/iam-permissions-dark.svg" alt="AWS IAM & Permissions" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/iam-permissions.svg" alt="AWS IAM & Permissions" class="diagram diagram-light" style="max-height: 900px;" />
 
 ## 1.2.4 Basics of Networking in the Cloud
 
