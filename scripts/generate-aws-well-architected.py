@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# pyright: reportArgumentType=false
 """Generate AWS Well-Architected Framework diagram (light + dark) using diagrams library."""
 
 import os

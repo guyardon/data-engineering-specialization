@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# pyright: reportArgumentType=false
 """Generate AWS Batch ETL Pipeline diagram (light + dark) using diagrams library."""
 
 from diagrams import Diagram, Cluster, Edge

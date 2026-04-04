@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# pyright: reportArgumentType=false
 from diagrams import Diagram, Cluster, Edge
 from diagrams.aws.compute import EC2
 from diagrams.aws.network import ALB, NATGateway, InternetGateway
