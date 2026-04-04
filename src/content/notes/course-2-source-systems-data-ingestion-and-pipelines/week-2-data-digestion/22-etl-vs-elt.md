@@ -10,7 +10,7 @@ order: 2
 notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 ---
 
-## 1.1.2 ETL vs. ELT
+## 2.2.1 ETL vs. ELT
 
 The order in which you extract, transform, and load data has significant implications for pipeline speed, flexibility, and data quality.
 
@@ -50,7 +50,7 @@ The main risk is creating an "EL pipeline" where no transformation ever happens,
 | **Scalability** | Manual effort required for scaling | Uses cloud warehouse power for large-scale processing |
 | **Data Quality** | Ensures data quality before loading | Requires transformations after loading |
 
-## 1.1.3 REST API
+## 2.2.2 REST API
 
 APIs are a fundamental ingestion mechanism. Jeff Bezos famously enforced API-based communication within Amazon, a mandate that laid the foundation for AWS.
 
