@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# pyright: reportArgumentType=false
 """Generate Route Tables diagram (light + dark) using diagrams library.
 
 Shows how route table configuration determines whether a subnet is public or private.

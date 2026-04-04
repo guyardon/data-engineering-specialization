@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# pyright: reportArgumentType=false
 """Generate AWS VPC Networking diagram (light + dark) using diagrams library.
 
 Post-processes Graphviz layout to center User/IGW/ALB between the AZ clusters.
