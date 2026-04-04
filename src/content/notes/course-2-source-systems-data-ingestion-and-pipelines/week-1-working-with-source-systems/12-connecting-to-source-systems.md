@@ -156,9 +156,6 @@ This section walks through building a complete networking setup for a web applic
 
 ---
 
-
----
-
 **Configuring the VPC**
 
 A **Default VPC** exists in each region and can be used for experimentation, but should not be used for production workloads. To create a custom `VPC`: Console -> VPC -> Create VPC, then provide a name, private IP address range, and region.
@@ -171,6 +168,9 @@ A **Default VPC** exists in each region and can be used for experimentation, but
 
 Each subnet is associated with a specific Availability Zone. In the `VPC` dashboard, create subnets and assign them CIDR blocks (e.g., `10.0.1.0/24` and `10.0.2.0/24` in different AZs). At this point, no subnets have internet access.
 
+<img src="/data-engineering-specialization-website/images/diagrams/vpc-subnets-dark.svg" alt="Configure VPC and Subnets" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/vpc-subnets.svg" alt="Configure VPC and Subnets" class="diagram diagram-light" />
+
 ---
 
 **Configuring Internet Connectivity**
@@ -180,6 +180,9 @@ Three components enable internet access:
 - **Internet Gateway**: Supports inbound and outbound traffic -- the "door" to the outside internet from public subnets.
 - **NAT Gateway (Network Address Translation)**: Allows resources in a private subnet to reach the internet for outbound traffic only, without exposing them to inbound connections.
 - **ALB (Application Load Balancer)**: Distributes incoming traffic across multiple backend targets, keeping `EC2` instances private while ensuring responsiveness and availability.
+
+<img src="/data-engineering-specialization-website/images/diagrams/internet-connectivity-aws-dark.png" alt="Internet Connectivity" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/internet-connectivity-aws.png" alt="Internet Connectivity" class="diagram diagram-light" />
 
 ---
 
@@ -191,6 +194,9 @@ Route tables direct network traffic within your `VPC`. A default route table all
 - **Private subnets**: Route internet-bound traffic to the NAT gateway in the public subnet.
 
 In practice, what makes a subnet public or private is its route table configuration.
+
+<img src="/data-engineering-specialization-website/images/diagrams/route-tables-aws-dark.png" alt="Route Tables" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/route-tables-aws.png" alt="Route Tables" class="diagram diagram-light" />
 
 ---
 
@@ -204,7 +210,8 @@ A typical security group chain looks like this:
 - The `EC2` instance's security group references the ALB's security group as its source.
 - The `RDS` instance's security group references the `EC2` security group as its source.
 
-![](/data-engineering-specialization-website/images/29944dd5-e008-4d6e-ace9-c5b61719e35b.png)
+<img src="/data-engineering-specialization-website/images/diagrams/security-groups-aws-dark.png" alt="Security Groups" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/security-groups-aws.png" alt="Security Groups" class="diagram diagram-light" />
 
 **Network ACLs** provide an additional security layer at the subnet level. They are **stateless**, requiring explicit inbound and outbound rules for more granular traffic control.
 
@@ -219,4 +226,13 @@ A typical security group chain looks like this:
 - **Security Groups** act as stateful virtual firewalls at the instance level.
 - **Network ACLs** provide stateless security at the subnet level with explicit inbound/outbound rules.
 
-![](/data-engineering-specialization-website/images/5040b5eb-c159-40ef-bbf5-1bdd3b97d914.png)
+---
+
+**If you encounter connectivity issues:**
+
+1. Verify that your `VPC` has an internet gateway properly attached
+2. Verify that the route tables have appropriate rules to direct traffic correctly
+3. Verify that the route table associations with the subnets are configured correctly
+4. Check security groups to make sure they have the needed rules in place
+5. Review network ACLs to confirm they allow the necessary traffic
+6. Double-check instance configurations to ensure they are associated with the correct security groups and subnets
