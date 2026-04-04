@@ -55,6 +55,13 @@
 }
 
 @layer components {
+  /* --- Diagrams: light/dark mode swap --- */
+  .diagram { width: 100%; max-height: 650px; object-fit: contain; border-radius: 12px; margin: 1rem 0; }
+  .diagram-light { display: none; }
+  .diagram-dark { display: block; }
+  [data-theme="light"] .diagram-light { display: block; }
+  [data-theme="light"] .diagram-dark { display: none; }
+
   /* --- Content cards --- */
   .content-card {
     background: var(--bg-card);
@@ -173,7 +180,17 @@
     font-family: var(--font-mono);
   }
 
-  .prose pre {
+  .prose pre.astro-code {
+    background-color: var(--code-bg) !important;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+    line-height: 1.5;
+  }
+
+  .prose pre:not(.astro-code) {
     background-color: var(--code-bg);
     border: 1px solid var(--line);
     border-radius: 14px;
@@ -181,14 +198,16 @@
     overflow-x: auto;
     margin: 1rem 0;
     color: #d4d4d4;
+    line-height: 1.5;
   }
 
   .prose pre code {
     background: transparent;
-    color: var(--fg);
+    color: inherit;
     padding: 0;
     font-size: 0.8rem;
     font-family: var(--font-mono);
+    line-height: 1.5;
   }
 
   .prose img {
