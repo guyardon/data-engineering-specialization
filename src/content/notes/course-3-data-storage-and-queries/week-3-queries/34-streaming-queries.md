@@ -45,3 +45,6 @@ AWS provides a fully managed service for running `Apache Flink` applications, ha
 | **Integration** | Reads from `Kinesis Data Streams`, `Amazon MSK` (Kafka), and `S3`; writes to `S3`, `Redshift`, `OpenSearch`, and more |
 
 A typical deployment: `Kinesis Data Streams` ingests real-time events, `Managed Apache Flink` processes and transforms the stream using SQL or Java/Python applications, and results are written to `S3` or `Redshift` for downstream analytics.
+
+<img src="/data-engineering-specialization-website/images/diagrams/flink-streaming-aws-dark.png" alt="AWS streaming pipeline: Kinesis → Managed Apache Flink → S3 and Redshift" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/flink-streaming-aws.png" alt="AWS streaming pipeline: Kinesis → Managed Apache Flink → S3 and Redshift" class="diagram diagram-light" />

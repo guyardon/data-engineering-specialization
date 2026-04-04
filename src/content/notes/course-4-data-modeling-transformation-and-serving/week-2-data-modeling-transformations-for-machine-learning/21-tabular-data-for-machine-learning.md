@@ -30,6 +30,9 @@ The ML lifecycle has four major stages:
 | **Algorithm Development** | Train/test split → train models → cross-validation → error analysis → iterate |
 | **Deployment** | Write production software, monitor and maintain system performance |
 
+<img src="/data-engineering-specialization-website/images/diagrams/ml-lifecycle-dark.svg" alt="ML lifecycle with data engineer role highlighted in data and deployment stages" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/ml-lifecycle.svg" alt="ML lifecycle with data engineer role highlighted in data and deployment stages" class="diagram diagram-light" style="max-height: 900px;" />
+
 ---
 
 **The Data Engineer's Role in ML**

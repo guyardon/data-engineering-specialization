@@ -66,6 +66,9 @@ A **semantic layer** documents definitions, derives business metrics, and create
 | **Use case** | Simple transformations, access control layers | Expensive aggregations queried frequently |
 | **Maintenance** | None — just a saved SQL definition | Requires refresh strategy (incremental or full) |
 
+<img src="/data-engineering-specialization-website/images/diagrams/views-vs-materialized-dark.svg" alt="View recomputes SQL on every query vs materialized view reads cached result" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/views-vs-materialized.svg" alt="View recomputes SQL on every query vs materialized view reads cached result" class="diagram diagram-light" style="max-height: 900px;" />
+
 ```sql
 -- Create a view: recomputes on every query
 CREATE VIEW daily_sales AS

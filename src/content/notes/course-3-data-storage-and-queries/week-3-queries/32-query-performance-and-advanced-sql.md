@@ -170,6 +170,9 @@ To retrieve indexed data, the DBMS traverses a **Balanced Search Tree (B-Tree)**
 | **Index scan** | Query filters on an indexed column | O(log n) |
 | **Sequential scan** | No matching index, or optimizer decides full scan is cheaper | O(n) |
 
+<img src="/data-engineering-specialization-website/images/diagrams/btree-index-dark.svg" alt="B-Tree index lookup in 3 steps vs sequential scan checking 7 rows" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/btree-index.svg" alt="B-Tree index lookup in 3 steps vs sequential scan checking 7 rows" class="diagram diagram-light" />
+
 ---
 
 **Composite Index Ordering**

@@ -62,3 +62,6 @@ The right degree of normalization depends on the use case — there is no one-si
 |---|---|---|
 | **More normalization** | Better data integrity, efficient writes, less redundancy | More joins needed for queries, slower reads |
 | **More denormalization** | Faster reads, simpler queries, fewer joins | More redundancy, complex updates, risk of inconsistency |
+
+<img src="/data-engineering-specialization-website/images/diagrams/normalization-steps-dark.svg" alt="Normalization progression from denormalized through 1NF, 2NF, to 3NF" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization-website/images/diagrams/normalization-steps.svg" alt="Normalization progression from denormalized through 1NF, 2NF, to 3NF" class="diagram diagram-light" style="max-height: 900px;" />
