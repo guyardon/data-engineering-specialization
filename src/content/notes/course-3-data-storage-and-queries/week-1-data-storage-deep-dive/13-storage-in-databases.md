@@ -39,6 +39,15 @@ In-memory stores trade durability for speed -- they are fast and low-latency, bu
 | **Memcached** | Key-value store | Caching database query results or API responses. Acceptable when data loss is tolerable. |
 | `Redis` | Key-value store | Richer data types (lists, sets, hashes). High-performance apps that can tolerate minor data loss. |
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/memcached.svg" alt="Memcached" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/memcached-dark.svg" alt="Memcached" class="logo-dark" />
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/redis.svg" alt="Redis" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redis-dark.svg" alt="Redis" class="logo-dark" />
+  </div>
+</div>
+
 ## 1.3.2 Row vs. Column Storage
 
 The way data is physically arranged on disk has a dramatic impact on query performance.

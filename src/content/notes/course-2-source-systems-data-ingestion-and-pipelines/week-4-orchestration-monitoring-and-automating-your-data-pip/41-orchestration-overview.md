@@ -58,6 +58,29 @@ As data pipelines grew in complexity, the industry developed increasingly sophis
 <img src="/data-engineering-specialization-website/images/diagrams/orchestration-timeline-dark.svg" alt="Evolution of orchestration tools from Dataswarm to modern platforms" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization-website/images/diagrams/orchestration-timeline.svg" alt="Evolution of orchestration tools from Dataswarm to modern platforms" class="diagram diagram-light" />
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/oozie.png" alt="Apache Oozie" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/oozie.png" alt="Apache Oozie" class="logo-dark" style="filter: brightness(1.6)" />
+    <span>Apache Oozie</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/airflow.svg" alt="Apache Airflow" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/airflow-dark.svg" alt="Apache Airflow" class="logo-dark" />
+    <span>Apache Airflow</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/prefect.svg" alt="Prefect" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/prefect-dark.svg" alt="Prefect" class="logo-dark" />
+    <span>Prefect</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/dagster.svg" alt="Dagster" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/dagster-dark.svg" alt="Dagster" class="logo-dark" />
+    <span>Dagster</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/mage.svg" alt="Mage" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/mage-dark.svg" alt="Mage" class="logo-dark" />
+    <span>Mage</span>
+  </div>
+</div>
+
 ## 4.1.2 Orchestration Basics
 
 Orchestration adds structure and reliability on top of simple scheduling. Instead of relying on hardcoded time offsets between steps, an orchestrator understands **task dependencies** and ensures each step runs only after its prerequisites complete successfully.
@@ -71,7 +94,15 @@ Orchestration adds structure and reliability on top of simple scheduling. Instea
 
 ## 4.1.3 Introduction to Apache Airflow
 
-`Apache Airflow` is the most widely adopted open-source orchestration framework for data pipelines. Originally developed at `Airbnb` in 2014, it graduated to a top-level `Apache` project in 2019. `Airflow` lets you define workflows as Python code, giving you the full power of a programming language to express complex dependency logic, branching, and dynamic task generation.
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/airflow.svg" alt="Apache Airflow" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/airflow-dark.svg" alt="Apache Airflow" />
+
+**Apache Airflow**
+
+`Apache Airflow` is the most widely adopted open-source orchestration framework for data pipelines, originally developed at `Airbnb` in 2014.
+
+---
+
+`Airflow` lets you define workflows as Python code, giving you the full power of a programming language to express complex dependency logic, branching, and dynamic task generation.
 
 | Advantages | Challenges |
 |---|---|

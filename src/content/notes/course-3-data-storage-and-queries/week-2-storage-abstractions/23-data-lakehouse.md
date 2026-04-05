@@ -29,6 +29,21 @@ The lakehouse architecture is made possible by **open table formats** — specia
 | `Apache Iceberg` | Netflix | Engine-agnostic design, hidden partitioning, best multi-engine support |
 | `Apache Hudi` | Uber | Optimized for incremental upserts and streaming ingestion |
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/delta-lake.svg" alt="Delta Lake" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/delta-lake-dark.svg" alt="Delta Lake" class="logo-dark" />
+    <span>Delta Lake</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/iceberg.svg" alt="Apache Iceberg" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/iceberg-dark.svg" alt="Apache Iceberg" class="logo-dark" />
+    <span>Apache Iceberg</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/hudi.png" alt="Apache Hudi" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/hudi.png" alt="Apache Hudi" class="logo-dark" style="filter: brightness(1.6)" />
+    <span>Apache Hudi</span>
+  </div>
+</div>
+
 ---
 
 **Shared Capabilities**

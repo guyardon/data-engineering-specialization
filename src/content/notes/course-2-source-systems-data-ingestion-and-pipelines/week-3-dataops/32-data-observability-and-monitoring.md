@@ -46,20 +46,30 @@ Focus your monitoring efforts on the metrics that matter most. The core dimensio
 
 ## 3.2.3 Observability Tools
 
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/great-expectations.svg" alt="Great Expectations" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/great-expectations-dark.svg" alt="Great Expectations" />
+
 **Great Expectations**
 
-`Great Expectations` (GX) is an open-source Python library for validating, documenting, and profiling data. It lets you define **expectations** — declarative assertions about what your data should look like — and run them automatically as part of your pipeline. When expectations fail, GX generates detailed reports showing exactly which rows or columns violated the rules, making it easy to catch data quality issues before they reach downstream consumers.
+`Great Expectations` (GX) is an open-source Python library for validating, documenting, and profiling data. It lets you define **expectations** — declarative assertions about what your data should look like.
 
-GX stores all metadata — expectations, validation results, checkpoints, and data docs — in configurable backend stores, keeping your validation logic versioned and reproducible.
+---
+
+When expectations fail, GX generates detailed reports showing exactly which rows or columns violated the rules, making it easy to catch data quality issues before they reach downstream consumers. GX stores all metadata — expectations, validation results, checkpoints, and data docs — in configurable backend stores, keeping your validation logic versioned and reproducible.
 
 **Core Components**
 
 <img src="/data-engineering-specialization-website/images/diagrams/great-expectations-workflow-dark.svg" alt="Great Expectations Workflow" class="diagram diagram-dark" style="max-height: 900px;" />
 <img src="/data-engineering-specialization-website/images/diagrams/great-expectations-workflow.svg" alt="Great Expectations Workflow" class="diagram diagram-light" style="max-height: 900px;" />
 
-**`CloudWatch`**
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/cloudwatch.svg" alt="AWS CloudWatch" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/cloudwatch-dark.svg" alt="AWS CloudWatch" />
 
-`CloudWatch` is AWS's built-in monitoring service for tracking infrastructure and application metrics. It collects **system-level metrics** (CPU, memory, disk, network) automatically from AWS resources, and supports **custom metrics** for application-specific measurements like transaction counts or API response times. `CloudWatch` **Alarms** let you define thresholds on any metric and trigger notifications or automated actions when those thresholds are breached. It retains metrics data for up to 15 months, enabling long-term trend analysis and capacity planning.
+**CloudWatch**
+
+`CloudWatch` is AWS's built-in monitoring service for tracking infrastructure and application metrics.
+
+---
+
+It collects **system-level metrics** (CPU, memory, disk, network) automatically from AWS resources, and supports **custom metrics** for application-specific measurements like transaction counts or API response times. `CloudWatch` **Alarms** let you define thresholds on any metric and trigger notifications or automated actions when those thresholds are breached. It retains metrics data for up to 15 months, enabling long-term trend analysis and capacity planning.
 
 <img src="/data-engineering-specialization-website/images/diagrams/cloudwatch-dark.svg" alt="AWS CloudWatch" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization-website/images/diagrams/cloudwatch.svg" alt="AWS CloudWatch" class="diagram diagram-light" />

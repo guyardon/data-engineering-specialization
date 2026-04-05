@@ -68,6 +68,25 @@ The most popular orchestration tools today include:
 - `Prefect`
 - `Mage`
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/airflow.svg" alt="Apache Airflow" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/airflow-dark.svg" alt="Apache Airflow" class="logo-dark" />
+    <span>Apache Airflow</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/dagster.svg" alt="Dagster" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/dagster-dark.svg" alt="Dagster" class="logo-dark" />
+    <span>Dagster</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/prefect.svg" alt="Prefect" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/prefect-dark.svg" alt="Prefect" class="logo-dark" />
+    <span>Prefect</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/mage.svg" alt="Mage" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/mage-dark.svg" alt="Mage" class="logo-dark" />
+    <span>Mage</span>
+  </div>
+</div>
+
 These frameworks model workflows as **Directed Acyclic Graphs (DAGs)** — directed (data flows one way), acyclic (no backward loops), and composed of nodes and edges. Tasks can be triggered by events, and monitoring or alerting is configured alongside them.
 
 <img src="/data-engineering-specialization-website/images/diagrams/orchestration-dags-dark.svg" alt="Orchestration & DAGs" class="diagram diagram-dark" />
@@ -86,6 +105,25 @@ Common languages and frameworks span a wide range:
 - Occasionally `R`, `Rust`, and `Go`
 
 In practice, the most common day-to-day tools are `SQL`, `Python`, and `Bash`.
+
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/python.svg" alt="Python" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/python-dark.svg" alt="Python" class="logo-dark" />
+    <span>Python</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/java.svg" alt="Java" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/java-dark.svg" alt="Java" class="logo-dark" />
+    <span>Java</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/scala.svg" alt="Scala" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/scala-dark.svg" alt="Scala" class="logo-dark" />
+    <span>Scala</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/sql.svg" alt="SQL" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/sql-dark.svg" alt="SQL" class="logo-dark" />
+    <span>SQL</span>
+  </div>
+</div>
 
 <img src="/data-engineering-specialization-website/images/diagrams/software-engineering-dark.svg" alt="Software Engineering for Data" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization-website/images/diagrams/software-engineering.svg" alt="Software Engineering for Data" class="diagram diagram-light" />

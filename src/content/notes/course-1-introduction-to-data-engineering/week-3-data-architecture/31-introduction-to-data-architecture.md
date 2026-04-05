@@ -130,6 +130,21 @@ Batch and stream architectures can be combined. The **Lambda Architecture** runs
 
 Tools like `Google Dataflow` and `Beam` attempt to unify multiple code paths. `Apache Flink` takes this further by providing a single system for both stream and batch processing — treating batch as simply bounded streaming.
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/kafka.svg" alt="Apache Kafka" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/kafka-dark.svg" alt="Apache Kafka" class="logo-dark" />
+    <span>Apache Kafka</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/flink.svg" alt="Apache Flink" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/flink-dark.svg" alt="Apache Flink" class="logo-dark" />
+    <span>Apache Flink</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/spark.svg" alt="Apache Spark" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/spark-dark.svg" alt="Apache Spark" class="logo-dark" />
+    <span>Apache Spark</span>
+  </div>
+</div>
+
 ---
 
 **Today:**

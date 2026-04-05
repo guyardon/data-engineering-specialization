@@ -43,6 +43,25 @@ Each stage of the data engineering lifecycle maps to concrete AWS services. Here
 - **Analytics and BI:** Querying with `Amazon Athena` and `Amazon Redshift`. Dashboarding with `Amazon QuickSight`, `Apache Superset`, or `Metabase`.
 - **AI/ML:** Serve batch data for model training and work with vector databases
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/kinesis.svg" alt="Amazon Kinesis" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/kinesis-dark.svg" alt="Amazon Kinesis" class="logo-dark" />
+    <span>Amazon Kinesis</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/glue.svg" alt="AWS Glue" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/glue-dark.svg" alt="AWS Glue" class="logo-dark" />
+    <span>AWS Glue</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
+    <span>Amazon Redshift</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
+    <span>Amazon S3</span>
+  </div>
+</div>
+
 ## 2.3.2 The Undercurrents in AWS
 
 The undercurrents also have direct AWS counterparts.

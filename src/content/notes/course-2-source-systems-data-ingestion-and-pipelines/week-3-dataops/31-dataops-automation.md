@@ -34,7 +34,15 @@ CI/CD brings version control to both code (via git) and data (enabling rollback 
 
 ## 3.1.2 Infrastructure as Code with Terraform
 
-IaC replaces manual console clicking and fragile bash scripts with declarative configuration files that define your cloud resources. `Terraform` uses **HCL (HashiCorp Configuration Language)**, a declarative language where you specify the desired end state of your infrastructure rather than the steps to get there. It is highly **idempotent** -- repeatedly executing the same HCL commands produces the same end result.
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/terraform.svg" alt="Terraform" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/terraform-dark.svg" alt="Terraform" />
+
+**Terraform**
+
+IaC replaces manual console clicking and fragile bash scripts with declarative configuration files that define your cloud resources.
+
+---
+
+`Terraform` uses **HCL (HashiCorp Configuration Language)**, a declarative language where you specify the desired end state of your infrastructure rather than the steps to get there. It is highly **idempotent** -- repeatedly executing the same HCL commands produces the same end result.
 
 By contrast, **Bash** is procedural: you must specify every step, handle all conditions, and manage error handling yourself, making it far more complex for infrastructure management.
 

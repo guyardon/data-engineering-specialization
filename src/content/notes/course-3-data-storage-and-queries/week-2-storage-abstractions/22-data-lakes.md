@@ -26,6 +26,25 @@ Semi-structured and unstructured data do not fit neatly into a fixed schema. Dat
 
 The first generation of data lakes combined storage technologies (`Hadoop HDFS`, `Amazon S3`) with processing engines (`Apache Pig`, `Presto`, `Hive`). While functional, they suffered from significant shortcomings:
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/hadoop.svg" alt="Apache Hadoop" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/hadoop-dark.svg" alt="Apache Hadoop" class="logo-dark" />
+    <span>Hadoop HDFS</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
+    <span>Amazon S3</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/presto.svg" alt="Presto" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/presto-dark.svg" alt="Presto" class="logo-dark" />
+    <span>Presto</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/hive.svg" alt="Apache Hive" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/hive-dark.svg" alt="Apache Hive" class="logo-dark" />
+    <span>Apache Hive</span>
+  </div>
+</div>
+
 - **Data swamp** — without proper data management, cataloging, or discovery tools, there was no guarantee of data integrity or quality
 - **Write-only storage** — DML operations like deleting or updating rows required creating entirely new tables, making regulatory compliance painful
 - **No schema management or data modeling** — data was not optimized for query operations like joins, making it difficult to process

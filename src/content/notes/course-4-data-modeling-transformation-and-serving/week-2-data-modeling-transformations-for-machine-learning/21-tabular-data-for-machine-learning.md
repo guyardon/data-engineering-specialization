@@ -72,6 +72,21 @@ Feature engineering is any change or preprocessing applied to raw columns, or th
 
 ## 2.1.4 Scikit-Learn and Pandas for Processing Tabular Data
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/scikit-learn.svg" alt="Scikit-learn" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/scikit-learn-dark.svg" alt="Scikit-learn" class="logo-dark" />
+    <span>Scikit-learn</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/pandas.svg" alt="Pandas" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/pandas-dark.svg" alt="Pandas" class="logo-dark" />
+    <span>Pandas</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/numpy.svg" alt="NumPy" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/numpy-dark.svg" alt="NumPy" class="logo-dark" />
+    <span>NumPy</span>
+  </div>
+</div>
+
 ```python
 import pandas as pd
 

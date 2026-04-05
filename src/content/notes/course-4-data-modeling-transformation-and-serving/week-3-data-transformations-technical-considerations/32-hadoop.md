@@ -12,7 +12,11 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 ## 3.2.1 Hadoop Background and HDFS
 
-`Hadoop` emerged from the big data era of the late 1990s and 2000s, when traditional monolithic data warehouses could not handle massive data volumes and commodity hardware became cheap and ubiquitous.
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/hadoop.svg" alt="Apache Hadoop" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/hadoop-dark.svg" alt="Apache Hadoop" />
+
+**Apache Hadoop**
+
+`Hadoop` emerged from the big data era of the late 1990s and 2000s, when traditional monolithic data warehouses could not handle massive data volumes.
 
 ---
 
