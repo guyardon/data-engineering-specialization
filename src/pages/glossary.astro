@@ -1,0 +1,235 @@
+---
+import "../styles/global.css";
+import { BASE } from "../lib/base";
+import { getCollection } from "astro:content";
+import Logo from "../components/Logo.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import SearchBar from "../components/SearchBar.astro";
+import glossaryData from "../data/glossary.json";
+
+const notes = await getCollection("notes");
+const noteMap = new Map(notes.map((n) => [n.id, n.data.title]));
+
+// Validate all slugs at build time
+for (const category of glossaryData) {
+  for (const term of category.terms) {
+    for (const ref of term.notes) {
+      if (!noteMap.has(ref.slug)) {
+        throw new Error(`Glossary: invalid slug "${ref.slug}" for term "${term.term}"`);
+      }
+    }
+  }
+}
+
+// Sort terms alphabetically within each category
+for (const category of glossaryData) {
+  category.terms.sort((a, b) => a.term.localeCompare(b.term));
+}
+
+// Build resolved data for client-side use (resolve slugs to titles at build time)
+const resolvedData = glossaryData.map((cat) => ({
+  ...cat,
+  terms: cat.terms.map((term) => ({
+    ...term,
+    notes: term.notes.map((ref) => ({
+      ...ref,
+      title: noteMap.get(ref.slug) as string,
+      href: `${BASE}/notes/${ref.slug}/${ref.anchor ?? ""}`,
+    })),
+  })),
+}));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glossary of Terms — Data Engineering Specialization</title>
+    <link rel="icon" type="image/svg+xml" href={`${BASE}/favicon.svg`} />
+    <script is:inline>
+      (function() {
+        var saved = localStorage.getItem("theme");
+        if (saved === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+        } else if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="glossary-page">
+      <header class="glossary-topbar">
+        <a href={`${BASE}/`} class="back-home">
+          <Logo />
+        </a>
+        <div class="glossary-topbar-actions">
+          <SearchBar />
+          <ThemeToggle />
+        </div>
+      </header>
+
+      <section class="glossary-hero">
+        <h1 class="glossary-title">Glossary of Terms</h1>
+        <p class="glossary-subtitle">
+          Key concepts and technologies covered across all four courses.
+        </p>
+      </section>
+
+      <nav class="category-nav" aria-label="Browse by category">
+        {glossaryData.map((cat, i) => (
+          <button class="pill category-pill" data-category={i}>
+            {cat.icon} {cat.category}
+          </button>
+        ))}
+        <button class="pill category-pill" data-category="all">📋 Show All</button>
+      </nav>
+
+      <section id="terms-section" class="terms-section hidden">
+        <div id="terms-pills" class="terms-pills"></div>
+      </section>
+
+      <section id="notes-section" class="notes-section hidden">
+        <div id="notes-list" class="notes-list"></div>
+      </section>
+
+      <!-- Hidden data for Pagefind indexing -->
+      <div class="sr-only" data-pagefind-body>
+        {resolvedData.map((cat) => (
+          <div>
+            <h2>{cat.icon} {cat.category}</h2>
+            {cat.terms.map((term) => (
+              <p data-pagefind-weight="2">{term.term}</p>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <footer class="glossary-footer">
+        <p>Built with Astro. Notes from the DeepLearning.AI Data Engineering Specialization on Coursera.</p>
+      </footer>
+    </div>
+
+    <script define:vars={{ resolvedData }}>
+      const data = resolvedData;
+      const termsPills = document.getElementById("terms-pills");
+      const termsSection = document.getElementById("terms-section");
+      const notesList = document.getElementById("notes-list");
+      const notesSection = document.getElementById("notes-section");
+
+      let activeCategory = null;
+      let activeTerm = null;
+
+      function clearChildren(el) {
+        while (el.firstChild) el.removeChild(el.firstChild);
+      }
+
+      // Build a sorted list of all terms across all categories for "Show All"
+      const allTerms = [];
+      data.forEach((cat, ci) => {
+        cat.terms.forEach((term, ti) => {
+          allTerms.push({ term, ci, ti });
+        });
+      });
+      allTerms.sort((a, b) => a.term.term.localeCompare(b.term.term));
+
+      document.querySelectorAll(".category-pill").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const raw = btn.dataset.category;
+          const key = raw === "all" ? "all" : parseInt(raw);
+
+          if (activeCategory === key) {
+            activeCategory = null;
+            activeTerm = null;
+            btn.classList.remove("active");
+            termsSection.classList.add("hidden");
+            notesSection.classList.add("hidden");
+            return;
+          }
+
+          document.querySelectorAll(".category-pill.active").forEach((b) => b.classList.remove("active"));
+          activeCategory = key;
+          activeTerm = null;
+          btn.classList.add("active");
+          notesSection.classList.add("hidden");
+
+          clearChildren(termsPills);
+          const terms = key === "all" ? allTerms : data[key].terms.map((term, ti) => ({ term, ci: key, ti }));
+          terms.forEach((entry) => {
+            const pill = document.createElement("button");
+            pill.className = "pill term-pill";
+            pill.textContent = entry.term.term;
+            pill.addEventListener("click", () => handleTermClick(entry.ci, entry.ti, pill));
+            termsPills.appendChild(pill);
+          });
+          termsSection.classList.remove("hidden");
+        });
+      });
+
+      function handleTermClick(ci, ti, pill) {
+        const key = ci + "-" + ti;
+        if (activeTerm === key) {
+          activeTerm = null;
+          pill.classList.remove("active");
+          notesSection.classList.add("hidden");
+          return;
+        }
+
+        document.querySelectorAll(".term-pill.active").forEach((b) => b.classList.remove("active"));
+        activeTerm = key;
+        pill.classList.add("active");
+
+        clearChildren(notesList);
+        const term = data[ci].terms[ti];
+        term.notes.forEach((ref) => {
+          const a = document.createElement("a");
+          a.href = ref.href;
+          a.className = "pill note-card";
+          a.textContent = ref.title;
+          notesList.appendChild(a);
+        });
+        notesSection.classList.remove("hidden");
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+/* Pill styles need is:global because JS creates elements dynamically without Astro scoping */
+.pill { font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--fg-muted); background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 0.35rem 0.75rem; cursor: pointer; white-space: nowrap; transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease; }
+.pill:hover { color: var(--accent); border-color: var(--accent); }
+.pill.active { color: var(--accent); border-color: var(--accent); background-color: color-mix(in srgb, var(--accent) 10%, transparent); }
+.pill.note-card { text-decoration: none; }
+.terms-pills, .notes-list { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+.hidden { display: none; }
+</style>
+
+<style>
+.glossary-page { max-width: 900px; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2.5rem); min-height: 100vh; display: flex; flex-direction: column; }
+.glossary-topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 2rem; border-bottom: 1px solid var(--line); margin-bottom: 2rem; }
+.glossary-topbar-actions { display: flex; align-items: center; gap: 0.5rem; }
+.back-home { text-decoration: none; }
+
+.glossary-hero { text-align: center; margin-bottom: 1.5rem; }
+.glossary-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; color: var(--fg); margin-bottom: 0.5rem; line-height: 1.2; }
+.glossary-subtitle { font-family: var(--font-sans); font-size: clamp(0.9rem, 2vw, 1rem); color: var(--fg-muted); line-height: 1.6; }
+
+/* Category nav */
+.category-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; margin-bottom: 1.5rem; }
+
+/* Terms section */
+.terms-section { margin-bottom: 1.5rem; }
+
+/* Notes section */
+.notes-section { margin-bottom: 2rem; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.glossary-footer { margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--line); text-align: center; }
+.glossary-footer p { font-size: 0.78rem; color: var(--fg-soft); font-family: var(--font-sans); }
+
+@media (max-width: 640px) {
+  .glossary-topbar-actions .search-wrapper { max-width: 160px; }
+}
+</style>

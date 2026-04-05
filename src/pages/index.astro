@@ -106,6 +106,10 @@ const courses = [
         ))}
       </section>
 
+      <section class="home-extras">
+        <a href={`${BASE}/glossary/`} class="extra-link">📖 Glossary of Terms</a>
+      </section>
+
       <footer class="home-footer">
         <p>Built with Astro. Notes from the DeepLearning.AI Data Engineering Specialization on Coursera.</p>
       </footer>
@@ -131,6 +135,9 @@ const courses = [
 .course-card-title { font-family: var(--font-serif); font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 600; color: var(--fg); margin-bottom: 0.5rem; line-height: 1.35; }
 .course-card-desc { font-family: var(--font-sans); font-size: 0.85rem; color: var(--fg-muted); line-height: 1.55; flex: 1; margin-bottom: 0.75rem; }
 .course-card-meta { font-size: 0.75rem; color: var(--fg-soft); font-family: var(--font-sans); }
+.home-extras { text-align: center; margin-bottom: 2rem; }
+.extra-link { font-family: var(--font-sans); font-size: 0.9rem; color: var(--fg-muted); text-decoration: none; padding: 0.5rem 1rem; border: 1px solid var(--line); border-radius: 10px; transition: color 0.15s ease, border-color 0.15s ease; }
+.extra-link:hover { color: var(--accent); border-color: var(--accent); }
 .home-footer { margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--line); text-align: center; }
 .home-footer p { font-size: 0.78rem; color: var(--fg-soft); font-family: var(--font-sans); }
 @media (max-width: 640px) { .home-courses { grid-template-columns: 1fr; } }

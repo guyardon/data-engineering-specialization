@@ -1,0 +1,2050 @@
+[
+  {
+    "category": "Data Engineering Lifecycle",
+    "icon": "🔄",
+    "terms": [
+      {
+        "term": "Batch Processing",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
+          }
+        ]
+      },
+      {
+        "term": "Data Engineering Lifecycle",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
+          }
+        ]
+      },
+      {
+        "term": "Data Pipeline",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
+          }
+        ]
+      },
+      {
+        "term": "Ingestion",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          }
+        ]
+      },
+      {
+        "term": "Serving",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
+          }
+        ]
+      },
+      {
+        "term": "Stream Processing",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/23-streaming-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "Transformation",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
+          }
+        ]
+      },
+      {
+        "term": "Undercurrents",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Source Systems",
+    "icon": "📡",
+    "terms": [
+      {
+        "term": "ACID Compliance",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Amazon DynamoDB",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          }
+        ]
+      },
+      {
+        "term": "IoT Devices",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          }
+        ]
+      },
+      {
+        "term": "Logs",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "NoSQL Databases",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "OLTP",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          }
+        ]
+      },
+      {
+        "term": "Relational Databases",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "REST API",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/22-etl-vs-elt"
+          }
+        ]
+      },
+      {
+        "term": "Source Systems",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Structured Data",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Unstructured Data",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-2-data-modeling-transformations-for-machine-learning/22-unstructured-data-for-machine-learning"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Data Ingestion",
+    "icon": "📥",
+    "terms": [
+      {
+        "term": "Airbyte",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
+          }
+        ]
+      },
+      {
+        "term": "Amazon Data Firehose",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/43-aws-services-for-streaming-pipelines"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/23-streaming-systems"
+          }
+        ]
+      },
+      {
+        "term": "Amazon Kinesis Data Streams",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/43-aws-services-for-streaming-pipelines"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/23-streaming-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          }
+        ]
+      },
+      {
+        "term": "Amazon MSK",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/43-aws-services-for-streaming-pipelines"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          }
+        ]
+      },
+      {
+        "term": "AWS DMS",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
+          }
+        ]
+      },
+      {
+        "term": "Batch Ingestion",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          }
+        ]
+      },
+      {
+        "term": "Change Data Capture (CDC)",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
+          }
+        ]
+      },
+      {
+        "term": "Debezium",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
+          }
+        ]
+      },
+      {
+        "term": "Event Streaming Platform",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/23-streaming-systems"
+          }
+        ]
+      },
+      {
+        "term": "Fivetran",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          }
+        ]
+      },
+      {
+        "term": "JDBC/ODBC",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          }
+        ]
+      },
+      {
+        "term": "Message Queue",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/23-streaming-systems"
+          }
+        ]
+      },
+      {
+        "term": "Stream Ingestion",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Storage Systems",
+    "icon": "💾",
+    "terms": [
+      {
+        "term": "Amazon EBS",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "Amazon EFS",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "Amazon RDS",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Amazon S3",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Block Storage",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "Cassandra",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          }
+        ]
+      },
+      {
+        "term": "Column-Oriented Storage",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "Distributed Storage Systems",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          }
+        ]
+      },
+      {
+        "term": "File Storage",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "HDFS",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/32-hadoop"
+          }
+        ]
+      },
+      {
+        "term": "In-Memory Storage",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          }
+        ]
+      },
+      {
+        "term": "Memcached",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          }
+        ]
+      },
+      {
+        "term": "Object Storage",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "Redis",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          }
+        ]
+      },
+      {
+        "term": "Row-Oriented Storage",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          }
+        ]
+      },
+      {
+        "term": "Storage Tiers",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Storage Abstractions",
+    "icon": "🏗️",
+    "terms": [
+      {
+        "term": "Apache Hudi",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Apache Iceberg",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "AWS Lake Formation",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Data Lake",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
+          }
+        ]
+      },
+      {
+        "term": "Data Lakehouse",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Data Mart",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          }
+        ]
+      },
+      {
+        "term": "Data Warehouse",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          }
+        ]
+      },
+      {
+        "term": "Delta Lake",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Open Table Formats",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Schema-on-Read",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
+          }
+        ]
+      },
+      {
+        "term": "Schema-on-Write",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
+          }
+        ]
+      },
+      {
+        "term": "Separation of Storage and Compute",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Queries & Performance",
+    "icon": "⚡",
+    "terms": [
+      {
+        "term": "Aggregate Queries",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "Amazon Athena",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "B-Tree Index",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          }
+        ]
+      },
+      {
+        "term": "Common Table Expressions (CTEs)",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          }
+        ]
+      },
+      {
+        "term": "Distribution Styles",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "EXPLAIN",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          }
+        ]
+      },
+      {
+        "term": "Hash Join",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "Index",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          }
+        ]
+      },
+      {
+        "term": "Joins",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "Massively Parallel Processing (MPP)",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "Partition Pruning",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          }
+        ]
+      },
+      {
+        "term": "Query Optimizer",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/31-batch-queries"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          }
+        ]
+      },
+      {
+        "term": "Redshift Spectrum",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Sort Key",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "SQL",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/31-batch-queries"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          }
+        ]
+      },
+      {
+        "term": "Streaming Queries",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          }
+        ]
+      },
+      {
+        "term": "VACUUM",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "Window Functions",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
+          }
+        ]
+      },
+      {
+        "term": "Windowing (Tumbling, Sliding, Session)",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Data Modeling",
+    "icon": "📐",
+    "terms": [
+      {
+        "term": "Conformed Dimension",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
+          }
+        ]
+      },
+      {
+        "term": "Data Vault",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
+          }
+        ]
+      },
+      {
+        "term": "Denormalization",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/12-normalization"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
+          }
+        ]
+      },
+      {
+        "term": "Dimension Table",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
+          }
+        ]
+      },
+      {
+        "term": "Entity-Relationship Diagram",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/11-data-modeling-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "Fact Table",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
+          }
+        ]
+      },
+      {
+        "term": "Grain",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
+          }
+        ]
+      },
+      {
+        "term": "Inmon Approach",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
+          }
+        ]
+      },
+      {
+        "term": "Kimball Approach",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
+          }
+        ]
+      },
+      {
+        "term": "Normalization",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/12-normalization"
+          }
+        ]
+      },
+      {
+        "term": "One Big Table (OBT)",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
+          }
+        ]
+      },
+      {
+        "term": "Primary Key / Foreign Key",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/11-data-modeling-fundamentals"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
+          }
+        ]
+      },
+      {
+        "term": "Star Schema",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
+          }
+        ]
+      },
+      {
+        "term": "Surrogate Key",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Transformations",
+    "icon": "🔧",
+    "terms": [
+      {
+        "term": "Apache Hadoop",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/32-hadoop"
+          }
+        ]
+      },
+      {
+        "term": "Apache Spark",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/33-spark-and-dataframes"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "dbt",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
+          }
+        ]
+      },
+      {
+        "term": "ELT",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/22-etl-vs-elt"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
+          }
+        ]
+      },
+      {
+        "term": "ETL",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/22-etl-vs-elt"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
+          }
+        ]
+      },
+      {
+        "term": "Feature Engineering",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-2-data-modeling-transformations-for-machine-learning/21-tabular-data-for-machine-learning"
+          }
+        ]
+      },
+      {
+        "term": "MapReduce",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/32-hadoop"
+          }
+        ]
+      },
+      {
+        "term": "PySpark",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/33-spark-and-dataframes"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "Reverse ETL",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          }
+        ]
+      },
+      {
+        "term": "Spark DataFrames",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/33-spark-and-dataframes"
+          }
+        ]
+      },
+      {
+        "term": "Spark Structured Streaming",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "User-Defined Functions (UDFs)",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/33-spark-and-dataframes"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Serving",
+    "icon": "📊",
+    "terms": [
+      {
+        "term": "Amazon QuickSight",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "Amazon SageMaker",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "Business Intelligence",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
+          }
+        ]
+      },
+      {
+        "term": "Embedded Analytics",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
+          }
+        ]
+      },
+      {
+        "term": "Materialized View",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
+          }
+        ]
+      },
+      {
+        "term": "Metabase",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          }
+        ]
+      },
+      {
+        "term": "Operational Analytics",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
+          }
+        ]
+      },
+      {
+        "term": "Semantic Layer",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
+          }
+        ]
+      },
+      {
+        "term": "View",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Orchestration",
+    "icon": "🎼",
+    "terms": [
+      {
+        "term": "Amazon MWAA",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
+          }
+        ]
+      },
+      {
+        "term": "Apache Airflow",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/42-airflow-ui-and-dag-creation"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/43-airflow-taskflow-api"
+          }
+        ]
+      },
+      {
+        "term": "Dagster",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
+          }
+        ]
+      },
+      {
+        "term": "Directed Acyclic Graph (DAG)",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/42-airflow-ui-and-dag-creation"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/43-airflow-taskflow-api"
+          }
+        ]
+      },
+      {
+        "term": "Mage",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
+          }
+        ]
+      },
+      {
+        "term": "Prefect",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
+          }
+        ]
+      },
+      {
+        "term": "Taskflow API",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/43-airflow-taskflow-api"
+          }
+        ]
+      },
+      {
+        "term": "XComs",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/42-airflow-ui-and-dag-creation"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/43-airflow-taskflow-api"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "DataOps & DevOps",
+    "icon": "🔁",
+    "terms": [
+      {
+        "term": "Amazon CloudWatch",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
+          }
+        ]
+      },
+      {
+        "term": "CI/CD",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
+          }
+        ]
+      },
+      {
+        "term": "Data Governance",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          }
+        ]
+      },
+      {
+        "term": "Data Lineage",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
+          }
+        ]
+      },
+      {
+        "term": "Data Observability",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
+          }
+        ]
+      },
+      {
+        "term": "Data Quality",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
+          }
+        ]
+      },
+      {
+        "term": "DataOps",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
+          }
+        ]
+      },
+      {
+        "term": "Great Expectations",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
+          }
+        ]
+      },
+      {
+        "term": "Incident Response",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
+          }
+        ]
+      },
+      {
+        "term": "Infrastructure as Code (IaC)",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
+          }
+        ]
+      },
+      {
+        "term": "Terraform",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Cloud Platforms & Services",
+    "icon": "☁️",
+    "terms": [
+      {
+        "term": "Amazon EC2",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Amazon EMR",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "Amazon Neptune",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/14-specialized-databases"
+          }
+        ]
+      },
+      {
+        "term": "Amazon Redshift",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "Amazon SQS",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Amazon VPC",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Apache Flink",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "Apache Kafka",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/23-streaming-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          }
+        ]
+      },
+      {
+        "term": "AWS CloudFormation",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
+          }
+        ]
+      },
+      {
+        "term": "AWS Glue",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "AWS IAM",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "AWS Lambda",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          }
+        ]
+      },
+      {
+        "term": "AWS Well-Architected Framework",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/33-investigating-your-architecture-on-aws"
+          }
+        ]
+      },
+      {
+        "term": "Boto3",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Databricks",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Glue Data Catalog",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
+          },
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          }
+        ]
+      },
+      {
+        "term": "Google BigQuery",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          }
+        ]
+      },
+      {
+        "term": "MySQL",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          }
+        ]
+      },
+      {
+        "term": "Neo4j",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/14-specialized-databases"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/31-batch-queries"
+          }
+        ]
+      },
+      {
+        "term": "Oracle",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "PostgreSQL",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "Snowflake",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/22-etl-vs-elt"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Data Formats & Serialization",
+    "icon": "📦",
+    "terms": [
+      {
+        "term": "Apache Avro",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "Apache Parquet",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          }
+        ]
+      },
+      {
+        "term": "Compression",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
+          }
+        ]
+      },
+      {
+        "term": "CSV",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "JSON",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "Serialization",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      },
+      {
+        "term": "XML",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Architecture & Design Patterns",
+    "icon": "🏛️",
+    "terms": [
+      {
+        "term": "Availability Zones",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "CAP Theorem",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          }
+        ]
+      },
+      {
+        "term": "Conway's Law",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          }
+        ]
+      },
+      {
+        "term": "Data Architecture",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          }
+        ]
+      },
+      {
+        "term": "FinOps",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"
+          }
+        ]
+      },
+      {
+        "term": "GDPR",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          }
+        ]
+      },
+      {
+        "term": "Kappa Architecture",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          }
+        ]
+      },
+      {
+        "term": "Lambda Architecture",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          }
+        ]
+      },
+      {
+        "term": "Loosely Coupled Systems",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"
+          }
+        ]
+      },
+      {
+        "term": "Monolith vs. Modular",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"
+          }
+        ]
+      },
+      {
+        "term": "Partitioning (Sharding)",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          }
+        ]
+      },
+      {
+        "term": "Principle of Least Privilege",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
+          },
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
+          }
+        ]
+      },
+      {
+        "term": "Replication",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
+          }
+        ]
+      },
+      {
+        "term": "Serverless",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
+          }
+        ]
+      },
+      {
+        "term": "Shared Responsibility Model",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
+          },
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
+          }
+        ]
+      },
+      {
+        "term": "Total Cost of Ownership (TCO)",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"
+          }
+        ]
+      }
+    ]
+  }
+]
