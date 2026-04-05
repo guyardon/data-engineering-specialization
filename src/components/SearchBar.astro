@@ -108,8 +108,27 @@ const { id = "search" } = Astro.props;
     padding: 0.25rem 0.5rem 0.5rem !important;
   }
 
-  /* Individual result */
+  /* Parent result (page-level x.x) — keep as container, hide its title + excerpt */
   .pagefind-ui .pagefind-ui__result {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result-inner > .pagefind-ui__result-title {
+    display: none !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result-inner > .pagefind-ui__result-excerpt {
+    display: none !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result-inner > .pagefind-ui__result-thumb {
+    display: none !important;
+  }
+
+  /* Sub-results (subsection-level x.x.x) — these are the visible results */
+  .pagefind-ui .pagefind-ui__result-nested {
     border: none !important;
     border-radius: 10px !important;
     padding: 0.6rem 0.75rem !important;
@@ -117,20 +136,17 @@ const { id = "search" } = Astro.props;
     transition: background 0.1s ease !important;
     cursor: pointer !important;
     position: relative !important;
-  }
-
-  .pagefind-ui .pagefind-ui__result:hover {
-    background: var(--bg-hover) !important;
-  }
-
-  .pagefind-ui .pagefind-ui__result-inner {
     display: flex !important;
     flex-direction: column !important;
     gap: 0.15rem !important;
   }
 
-  /* Result title / link — stretched to cover entire result */
-  .pagefind-ui .pagefind-ui__result-link {
+  .pagefind-ui .pagefind-ui__result-nested:hover {
+    background: var(--bg-hover) !important;
+  }
+
+  /* Sub-result title / link — stretched to cover entire result */
+  .pagefind-ui .pagefind-ui__result-nested a {
     color: var(--fg) !important;
     font-family: var(--font-sans) !important;
     font-size: 0.85rem !important;
@@ -139,29 +155,34 @@ const { id = "search" } = Astro.props;
     line-height: 1.3 !important;
   }
 
-  .pagefind-ui .pagefind-ui__result-link::after {
+  .pagefind-ui .pagefind-ui__result-nested a::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
   }
 
-  .pagefind-ui .pagefind-ui__result:hover .pagefind-ui__result-link {
+  .pagefind-ui .pagefind-ui__result-nested:hover a {
     color: var(--accent) !important;
   }
 
-  /* Result excerpt */
+  /* Result excerpt (in sub-results) */
   .pagefind-ui .pagefind-ui__result-excerpt {
     color: var(--fg-muted) !important;
     font-family: var(--font-sans) !important;
     font-size: 0.78rem !important;
     font-weight: 300 !important;
     line-height: 1.5 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
 
   /* Result thumbnail (hidden) */
   .pagefind-ui .pagefind-ui__result-thumb {
     display: none !important;
   }
+
 
   /* Highlighted match text */
   .pagefind-ui mark {
@@ -205,6 +226,12 @@ const { id = "search" } = Astro.props;
     border-radius: 3px;
   }
 
+  /* Topbar variant: wider input */
+  .home-topbar-actions .search-wrapper {
+    max-width: 400px !important;
+    width: 400px !important;
+  }
+
   /* Sidebar variant: tighter spacing */
   .sidebar-search .search-wrapper {
     max-width: none !important;
@@ -222,21 +249,18 @@ const { id = "search" } = Astro.props;
     padding: 0.25rem !important;
   }
 
-  .sidebar-search .pagefind-ui .pagefind-ui__result {
+  .sidebar-search .pagefind-ui .pagefind-ui__result-nested {
     padding: 0.4rem 0.5rem !important;
     border-radius: 8px !important;
   }
 
-  .sidebar-search .pagefind-ui .pagefind-ui__result-link {
+  .sidebar-search .pagefind-ui .pagefind-ui__result-nested a {
     font-size: 0.78rem !important;
   }
 
   .sidebar-search .pagefind-ui .pagefind-ui__result-excerpt {
     font-size: 0.7rem !important;
-    display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
   }
 
   .sidebar-search .pagefind-ui .pagefind-ui__message {
@@ -263,7 +287,7 @@ const { id = "search" } = Astro.props;
         const isSidebar = container.closest(".sidebar-search") !== null;
         new window.PagefindUI({
           element: `#${searchId}`,
-          showSubResults: false,
+          showSubResults: true,
           showImages: false,
           resetStyles: false,
           excerptLength: isSidebar ? 15 : 30,
