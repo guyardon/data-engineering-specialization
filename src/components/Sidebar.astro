@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import { BASE } from "../lib/base";
 import Logo from "./Logo.astro";
 import ThemeToggle from "./ThemeToggle.astro";
-import SearchBar from "./SearchBar.astro";
+import SearchModal from "./SearchModal.astro";
 
 const notes = await getCollection("notes");
 const currentSlug = Astro.props.currentSlug as string;
@@ -121,7 +121,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   </div>
 
   <div class="sidebar-search">
-    <SearchBar id="sidebar-search" />
+    <SearchModal />
   </div>
 
   <div class="nav-tree">
@@ -374,16 +374,6 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   }
 </style>
 
-<style is:global>
-  .sidebar-search .pagefind-ui .pagefind-ui__search-input {
-    padding: 0.5rem 0.75rem 0.5rem 2rem !important;
-    font-size: 0.8rem !important;
-    border-radius: 8px !important;
-  }
-  .sidebar-search .search-wrapper {
-    max-width: none !important;
-  }
-</style>
 
 <script>
   document.querySelectorAll(".course-details").forEach((course) => {
