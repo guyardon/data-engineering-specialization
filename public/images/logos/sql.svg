@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50">
+  <!-- Database cylinder -->
+  <ellipse cx="22" cy="12" rx="14" ry="5" fill="#4479A1"/>
+  <rect x="8" y="12" width="28" height="22" fill="#4479A1"/>
+  <ellipse cx="22" cy="34" rx="14" ry="5" fill="#346885"/>
+  <ellipse cx="22" cy="12" rx="14" ry="5" fill="#5B9BD5"/>
+  <ellipse cx="22" cy="20" rx="14" ry="5" fill="none" stroke="#5B9BD5" stroke-width="0.8" opacity="0.5"/>
+  <!-- SQL text -->
+  <text x="48" y="32" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#4479A1" letter-spacing="1">SQL</text>
+</svg>
