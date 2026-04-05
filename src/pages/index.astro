@@ -5,6 +5,7 @@ import { getCollection } from "astro:content";
 import Logo from "../components/Logo.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import SearchBar from "../components/SearchBar.astro";
+import LogoMarquee from "../components/LogoMarquee.astro";
 
 const notes = await getCollection("notes");
 
@@ -85,35 +86,7 @@ const courses = [
           Professional Certificate.
         </p>
 
-        <div class="hero-logos">
-          {[
-            { name: "python", alt: "Python" },
-            { name: "aws", alt: "AWS" },
-            { name: "spark", alt: "Apache Spark" },
-            { name: "kafka", alt: "Apache Kafka" },
-            { name: "postgresql", alt: "PostgreSQL" },
-            { name: "snowflake", alt: "Snowflake" },
-            { name: "databricks", alt: "Databricks" },
-            { name: "airflow", alt: "Apache Airflow" },
-            { name: "s3", alt: "Amazon S3" },
-            { name: "redshift", alt: "Amazon Redshift" },
-            { name: "dbt", alt: "dbt" },
-            { name: "terraform", alt: "Terraform" },
-            { name: "pandas", alt: "Pandas" },
-            { name: "redis", alt: "Redis" },
-            { name: "bigquery", alt: "BigQuery" },
-            { name: "lambda", alt: "AWS Lambda" },
-            { name: "iceberg", alt: "Apache Iceberg" },
-            { name: "parquet", alt: "Apache Parquet" },
-            { name: "neo4j", alt: "Neo4j" },
-            { name: "avro", alt: "Apache Avro" },
-          ].map((logo) => (
-            <div class="hero-logo">
-              <img src={`${BASE}/images/logos/${logo.name}.svg`} alt={logo.alt} class="logo-light" />
-              <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt={logo.alt} class="logo-dark" />
-            </div>
-          ))}
-        </div>
+        <LogoMarquee />
       </section>
 
       <section class="home-courses">
@@ -147,13 +120,6 @@ const courses = [
 .home-hero { text-align: center; margin-bottom: 2.5rem; }
 .home-title { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--fg); margin-bottom: 0.75rem; line-height: 1.2; }
 .home-subtitle { font-family: var(--font-sans); font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--fg-muted); line-height: 1.6; max-width: 520px; margin: 0 auto; }
-.hero-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 1.5rem; margin-top: 2rem; width: 100%; }
-.hero-logo { height: 36px; display: flex; align-items: center; justify-content: center; opacity: 0.8; transition: opacity 0.2s ease, transform 0.2s ease; }
-.hero-logo:hover { opacity: 1; transform: scale(1.1); }
-.hero-logo img { height: 100%; width: auto; object-fit: contain; }
-.hero-logo img.logo-dark { display: none; }
-:root:not([data-theme="light"]) .hero-logo img.logo-dark { display: block; }
-:root:not([data-theme="light"]) .hero-logo img.logo-light { display: none; }
 @media (max-width: 640px) { .home-topbar-actions .search-wrapper { max-width: 160px; } }
 
 .home-courses { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 3rem; }
