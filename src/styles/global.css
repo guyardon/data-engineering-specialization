@@ -413,6 +413,7 @@
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+.search-input:hover,
 .search-input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);

@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import { BASE } from "../lib/base";
 import { getCollection } from "astro:content";
-import Logo from "../components/Logo.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import SearchBar from "../components/SearchBar.astro";
 import LogoMarquee from "../components/LogoMarquee.astro";
@@ -72,7 +71,7 @@ const courses = [
   <body>
     <div class="home">
       <header class="home-topbar">
-        <Logo />
+        <a href={`${BASE}/glossary/`} class="topbar-glossary-link">📖 Glossary of Terms</a>
         <div class="home-topbar-actions">
           <SearchBar />
           <ThemeToggle />
@@ -106,10 +105,6 @@ const courses = [
         ))}
       </section>
 
-      <section class="home-extras">
-        <a href={`${BASE}/glossary/`} class="extra-link">📖 Glossary of Terms</a>
-      </section>
-
       <footer class="home-footer">
         <p>Built with Astro. Notes from the DeepLearning.AI Data Engineering Specialization on Coursera.</p>
       </footer>
@@ -120,6 +115,8 @@ const courses = [
 <style>
 .home { max-width: 900px; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2.5rem); min-height: 100vh; display: flex; flex-direction: column; }
 .home-topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 2rem; border-bottom: 1px solid var(--line); margin-bottom: 3rem; }
+.topbar-glossary-link { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--fg-muted); text-decoration: none; background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 0.4rem 0.85rem; transition: color 0.15s ease, border-color 0.15s ease; }
+.topbar-glossary-link:hover { color: var(--accent); border-color: var(--accent); }
 .home-topbar-actions { display: flex; align-items: center; gap: 0.5rem; }
 .home-hero { text-align: center; margin-bottom: 2.5rem; }
 .home-title { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--fg); margin-bottom: 0.75rem; line-height: 1.2; }
@@ -135,9 +132,6 @@ const courses = [
 .course-card-title { font-family: var(--font-serif); font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 600; color: var(--fg); margin-bottom: 0.5rem; line-height: 1.35; }
 .course-card-desc { font-family: var(--font-sans); font-size: 0.85rem; color: var(--fg-muted); line-height: 1.55; flex: 1; margin-bottom: 0.75rem; }
 .course-card-meta { font-size: 0.75rem; color: var(--fg-soft); font-family: var(--font-sans); }
-.home-extras { text-align: center; margin-bottom: 2rem; }
-.extra-link { font-family: var(--font-sans); font-size: 0.9rem; color: var(--fg-muted); text-decoration: none; padding: 0.5rem 1rem; border: 1px solid var(--line); border-radius: 10px; transition: color 0.15s ease, border-color 0.15s ease; }
-.extra-link:hover { color: var(--accent); border-color: var(--accent); }
 .home-footer { margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--line); text-align: center; }
 .home-footer p { font-size: 0.78rem; color: var(--fg-soft); font-family: var(--font-sans); }
 @media (max-width: 640px) { .home-courses { grid-template-columns: 1fr; } }
