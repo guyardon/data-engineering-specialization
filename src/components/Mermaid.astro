@@ -1,0 +1,59 @@
+---
+interface Props {
+  chart: string;
+}
+const { chart } = Astro.props;
+---
+
+<div class="mermaid-diagram" data-chart={encodeURIComponent(chart.trim())}>
+</div>
+
+<style>
+  .mermaid-diagram {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+    min-height: 100px;
+  }
+  .mermaid-diagram :global(svg) {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+
+<script>
+  import mermaid from "mermaid";
+
+  function isDark(): boolean {
+    return document.documentElement.getAttribute("data-theme") !== "light";
+  }
+
+  async function renderMermaid(): Promise<void> {
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: isDark() ? "dark" : "default",
+    });
+
+    const containers =
+      document.querySelectorAll<HTMLElement>(".mermaid-diagram");
+
+    for (const el of containers) {
+      const encoded = el.dataset.chart;
+      if (!encoded) continue;
+
+      const chart = decodeURIComponent(encoded);
+      const id = `mermaid-${crypto.randomUUID().slice(0, 8)}`;
+      const { svg } = await mermaid.render(id, chart);
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svg, "image/svg+xml");
+      el.replaceChildren(doc.documentElement);
+    }
+  }
+
+  renderMermaid();
+
+  new MutationObserver(() => renderMermaid()).observe(
+    document.documentElement,
+    { attributes: true, attributeFilter: ["data-theme"] },
+  );
+</script>
