@@ -71,6 +71,29 @@ Data can be serialized in **row-based** or **column-based** order. In row-based 
 
 **Serialization Formats**
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/csv.svg" alt="CSV" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/csv-dark.svg" alt="CSV" class="logo-dark" />
+    <span>CSV</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/json.svg" alt="JSON" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/json-dark.svg" alt="JSON" class="logo-dark" />
+    <span>JSON</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/xml.svg" alt="XML" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/xml-dark.svg" alt="XML" class="logo-dark" />
+    <span>XML</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/parquet.svg" alt="Apache Parquet" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/parquet-dark.svg" alt="Apache Parquet" class="logo-dark" />
+    <span>Parquet</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/avro.svg" alt="Apache Avro" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/avro-dark.svg" alt="Apache Avro" class="logo-dark" />
+    <span>Avro</span>
+  </div>
+</div>
+
 | Format | Type | Layout | Key characteristics |
 |---|---|---|---|
 | **CSV** | Text | Row-based | Human-readable, no defined schema, error-prone. Adding rows/columns requires manual handling. |

@@ -76,7 +76,13 @@ spark.sql("""
 
 ## 3.4.2 Amazon EMR
 
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/emr.svg" alt="Amazon EMR" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/emr-dark.svg" alt="Amazon EMR" />
+
+**Amazon EMR**
+
 `Amazon EMR` is AWS's managed big data platform for scalable, distributed computing.
+
+---
 
 | Feature | Description |
 |---|---|
@@ -98,7 +104,11 @@ A typical workflow: create an EMR Serverless application with default Spark sett
 
 ## 3.4.3 AWS Glue
 
-`AWS Glue` is a **serverless data integration service** for ingesting, transforming, and loading data. It uses `Apache Spark` under the hood and supports data from databases, object stores (`S3`), logs, APIs, and streaming platforms.
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/glue.svg" alt="AWS Glue" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/glue-dark.svg" alt="AWS Glue" />
+
+**AWS Glue**
+
+`AWS Glue` is a **serverless data integration service** for ingesting, transforming, and loading data using `Apache Spark` under the hood.
 
 ---
 
@@ -124,7 +134,11 @@ The Glue Data Catalog integrates with `Amazon Athena` (SQL queries), `Amazon Qui
 
 ## 3.4.4 AWS Glue Visual ETL
 
-Glue Visual ETL is a low-code interface in `AWS Glue Studio` for designing ETL pipelines. It generates a PySpark `glue_job.py` script automatically from a visual canvas.
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/glue.svg" alt="AWS Glue Visual ETL" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/glue-dark.svg" alt="AWS Glue Visual ETL" />
+
+**Glue Visual ETL**
+
+Glue Visual ETL is a low-code interface in `AWS Glue Studio` for designing ETL pipelines.
 
 ---
 

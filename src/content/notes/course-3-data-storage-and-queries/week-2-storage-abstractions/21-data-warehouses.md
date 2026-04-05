@@ -60,6 +60,25 @@ Modern cloud data warehouses implement **MPP** (massively parallel processing) a
 | `Google BigQuery` | GCP | Serverless, automatic scaling, slot-based pricing |
 | `Snowflake` | Multi-cloud | Virtual warehouses, time travel, data sharing |
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
+    <span>Amazon Redshift</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/bigquery.svg" alt="Google BigQuery" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/bigquery-dark.svg" alt="Google BigQuery" class="logo-dark" />
+    <span>Google BigQuery</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/snowflake.svg" alt="Snowflake" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/snowflake-dark.svg" alt="Snowflake" class="logo-dark" />
+    <span>Snowflake</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/databricks.svg" alt="Databricks" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/databricks-dark.svg" alt="Databricks" class="logo-dark" />
+    <span>Databricks</span>
+  </div>
+</div>
+
 **Common characteristics:**
 
 - **ELT pattern** — raw data is loaded first, then transformed in place using MPP compute

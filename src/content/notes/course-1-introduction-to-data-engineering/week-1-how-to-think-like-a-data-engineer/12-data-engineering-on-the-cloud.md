@@ -43,11 +43,15 @@ As of 2026, AWS operates **34 regions** across **114+ availability zones** world
 
 ## 1.2.2 Intro to AWS Core Services
 
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/ec2.svg" alt="Amazon EC2" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/ec2-dark.svg" alt="Amazon EC2" />
+
 **Compute**
 
 `Amazon EC2` (Elastic Compute Cloud) provides virtual machines on AWS. You can run any operating system and application, making it useful for development machines, web servers, containers, and ML workloads.
 
 ---
+
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/vpc.svg" alt="Amazon VPC" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/vpc-dark.svg" alt="Amazon VPC" />
 
 **Networking**
 
@@ -65,6 +69,21 @@ AWS offers several storage types, each suited to different use cases:
 - **Relational Database Service (`RDS`)** — managed relational databases
 - `Amazon Redshift` — a data warehouse service for storing, transforming, and serving data to end users
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/ebs.svg" alt="Amazon EBS" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/ebs-dark.svg" alt="Amazon EBS" class="logo-dark" />
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/rds.svg" alt="Amazon RDS" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/rds-dark.svg" alt="Amazon RDS" class="logo-dark" />
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
+  </div>
+</div>
+
 ---
 
 **Security**
@@ -77,13 +96,9 @@ AWS uses a **Shared Responsibility Model**: AWS is responsible for security *of*
 
 ## 1.2.3 Compute - Amazon Elastic Compute Cloud (EC2)
 
-<div style="text-align: center;">
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/ec2.svg" alt="Amazon EC2" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/ec2-dark.svg" alt="Amazon EC2" />
 
-![](/data-engineering-specialization-website/images/28cf98b18.png)
-
-</div>
-
-One of the foundational cloud services is compute — AWS providing the resources needed to run your applications. `Amazon EC2` (Elastic Compute Cloud) is the primary example: it gives you **virtual servers** (also called virtual machines).
+`Amazon EC2` (Elastic Compute Cloud) provides **virtual servers** on AWS. It's one of the foundational cloud services — giving you the compute resources needed to run your applications.
 
 ---
 

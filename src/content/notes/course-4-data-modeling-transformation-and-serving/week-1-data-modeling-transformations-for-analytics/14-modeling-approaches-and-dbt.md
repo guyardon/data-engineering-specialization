@@ -99,7 +99,13 @@ Works well when you have a large volume of data that needs more flexibility than
 
 ## 1.4.4 dbt (Data Build Tool)
 
-`dbt` (data build tool) wraps SQL statements that create fact and dimension tables with a `CREATE` statement, and helps document and validate data within the data warehouse.
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/dbt.svg" alt="dbt" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/dbt-dark.svg" alt="dbt" />
+
+`dbt` (data build tool) wraps SQL statements that create fact and dimension tables with a `CREATE` statement.
+
+---
+
+It helps document and validate data within the data warehouse.
 
 | Variant | Description |
 |---|---|

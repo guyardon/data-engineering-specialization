@@ -45,6 +45,13 @@ Vector databases are optimized for **similarity search** -- efficiently querying
 
 ## 1.4.3 Neo4j and the Cypher Query Language
 
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/neo4j.svg" alt="Neo4j" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/neo4j-dark.svg" alt="Neo4j" class="logo-dark" />
+    <span>Neo4j</span>
+  </div>
+</div>
+
 `Neo4j` uses the **Property Graph Model** to describe graph structure:
 
 | Concept | Description |

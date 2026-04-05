@@ -28,7 +28,13 @@ An **Event Streaming Platform** is an append-only persistent log where an event 
 
 ## 2.3.2 Apache Kafka
 
-`Apache Kafka` is the most widely adopted open-source event streaming platform. Its architecture consists of three main layers:
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/kafka.svg" alt="Apache Kafka" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/kafka-dark.svg" alt="Apache Kafka" />
+
+**Apache Kafka**
+
+`Apache Kafka` is the most widely adopted open-source event streaming platform. Its architecture consists of three main layers.
+
+---
 
 **Event Producers** send or push messages over the network to a `Kafka` cluster, which contains one or more servers called **brokers**. The cluster retains messages to allow replaying or reprocessing as needed.
 

@@ -12,9 +12,15 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 ## 3.3.1 Spark Overview and Architecture
 
-`Apache Spark` started at UC Berkeley in 2009 to address MapReduce's shortcomings — primarily by storing intermediate results in memory and enabling interactive data processing. Modern Spark includes stream processing, ML libraries, graph processing, and a continuously expanding feature set.
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/spark.svg" alt="Apache Spark" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/spark-dark.svg" alt="Apache Spark" />
+
+**Apache Spark**
+
+`Apache Spark` started at UC Berkeley in 2009 to address MapReduce's shortcomings — primarily by storing intermediate results in memory.
 
 ---
+
+Modern Spark includes stream processing, ML libraries, graph processing, and a continuously expanding feature set.
 
 **Spark Application Architecture**
 
