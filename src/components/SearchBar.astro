@@ -2,185 +2,154 @@
 const { id = "search" } = Astro.props;
 ---
 
-<div id={id} class="search-wrapper" data-search-id={id}></div>
+<div class="search-inline" id={id}>
+  <div class="search-input-wrap">
+    <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" class="search-input" placeholder="Search..." autocomplete="off" />
+    <kbd class="search-kbd"></kbd>
+    <button class="search-clear" type="button" aria-label="Clear search" hidden>✕</button>
+  </div>
+  <div class="search-dropdown" hidden>
+    <p class="search-message" hidden></p>
+    <div class="search-results"></div>
+  </div>
+</div>
 
-<style is:global>
-  .search-wrapper {
+<style>
+  .search-inline {
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
     position: relative;
   }
 
-  .search-wrapper .pagefind-ui {
-    width: 100% !important;
+  .search-input-wrap {
+    position: relative;
   }
 
   /* Topbar variant: wider input */
-  .home-topbar-actions .search-wrapper {
-    max-width: 400px !important;
-    width: 400px !important;
+  :global(.home-topbar-actions) .search-inline {
+    max-width: 400px;
+    width: 400px;
+  }
+
+  .search-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 8px 32px var(--shadow-soft), 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 0.5rem;
+  }
+
+  .search-dropdown::-webkit-scrollbar {
+    width: 6px;
+  }
+  .search-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .search-dropdown::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 3px;
   }
 </style>
 
 <script>
-  function initAllSearchUIs() {
-    const containers = document.querySelectorAll("[data-search-id]");
-    for (const container of containers) {
-      const searchId = container.getAttribute("data-search-id");
-      if (!searchId || container.children.length > 0) continue;
+  import { initPagefind, search } from "../lib/search-engine";
+  import { renderResults, setupKeyboardNav, isMac, createDevFallback } from "../lib/search-ui";
 
-      if (window.PagefindUI) {
-        new window.PagefindUI({
-          element: `#${searchId}`,
-          bundlePath: "/data-engineering-specialization-website/pagefind/",
-          baseUrl: "/data-engineering-specialization-website/",
-          showSubResults: true,
-          showImages: false,
-          resetStyles: false,
-          excerptLength: 30,
-        });
-      } else {
-        // Dev mode fallback
-        const wrapper = document.createElement("div");
-        wrapper.style.cssText = "display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1.25rem;border:1px solid var(--line);border-radius:10px;color:var(--fg-soft);font-family:var(--font-sans);font-size:0.9rem;background:var(--bg-card);";
+  const container = document.querySelector(".search-inline") as HTMLElement;
+  const input = container?.querySelector<HTMLInputElement>(".search-input");
+  const kbd = container?.querySelector<HTMLElement>(".search-kbd");
+  const clearBtn = container?.querySelector<HTMLButtonElement>(".search-clear");
+  const dropdown = container?.querySelector<HTMLElement>(".search-dropdown");
+  const resultsEl = container?.querySelector<HTMLElement>(".search-results");
+  const messageEl = container?.querySelector<HTMLElement>(".search-message");
 
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("width", "18");
-        svg.setAttribute("height", "18");
-        svg.setAttribute("viewBox", "0 0 24 24");
-        svg.setAttribute("fill", "none");
-        svg.setAttribute("stroke", "currentColor");
-        svg.setAttribute("stroke-width", "2");
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("cx", "11");
-        circle.setAttribute("cy", "11");
-        circle.setAttribute("r", "8");
-        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("x1", "21");
-        line.setAttribute("y1", "21");
-        line.setAttribute("x2", "16.65");
-        line.setAttribute("y2", "16.65");
-        svg.appendChild(circle);
-        svg.appendChild(line);
-
-        const span = document.createElement("span");
-        span.textContent = "Search notes... (available in production build)";
-
-        wrapper.appendChild(svg);
-        wrapper.appendChild(span);
-        container.appendChild(wrapper);
-      }
-    }
+  if (kbd) {
+    kbd.textContent = isMac() ? "⌘K" : "Ctrl K";
   }
 
-  function addKeyboardNav() {
-    document.querySelectorAll("[data-search-id]").forEach((container) => {
-      const input = container.querySelector(".pagefind-ui__search-input");
-      if (!input) return;
+  async function init() {
+    const ok = await initPagefind();
+    if (!ok) {
+      createDevFallback(container);
+      // Hide the real search UI in dev mode
+      const wrap = container.querySelector<HTMLElement>(".search-input-wrap");
+      if (wrap) wrap.hidden = true;
+      return;
+    }
 
-      let activeIndex = -1;
+    if (input && resultsEl && dropdown) {
+      input.addEventListener("input", async () => {
+        const query = input.value;
+        // Toggle badge vs clear button
+        if (kbd) kbd.hidden = !!query;
+        if (clearBtn) clearBtn.hidden = !query;
 
-      function getResults() {
-        return Array.from(container.querySelectorAll(".pagefind-ui__result-nested"));
-      }
-
-      function setActive(results, index) {
-        results.forEach((r) => r.classList.remove("kb-active"));
-        activeIndex = index;
-        if (index >= 0 && index < results.length) {
-          results[index].classList.add("kb-active");
-          results[index].scrollIntoView({ block: "nearest" });
+        // Empty input: return to initial state
+        if (!query.trim()) {
+          dropdown.hidden = true;
+          while (resultsEl.firstChild) resultsEl.removeChild(resultsEl.firstChild);
+          if (messageEl) messageEl.hidden = true;
+          return;
         }
+
+        // Any non-empty input: search and show results
+        const results = await search(query);
+        renderResults(resultsEl, results, messageEl || undefined);
+        dropdown.hidden = results.length === 0;
+      });
+
+      // Clear button
+      if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+          input.value = "";
+          if (kbd) kbd.hidden = false;
+          clearBtn.hidden = true;
+          dropdown.hidden = true;
+          // Clear results container using safe DOM method
+          while (resultsEl.firstChild) resultsEl.removeChild(resultsEl.firstChild);
+          input.focus();
+        });
       }
 
-      input.addEventListener("keydown", (e) => {
-        const results = getResults();
-        if (!results.length) return;
-
-        if (e.key === "ArrowDown") {
-          e.preventDefault();
-          setActive(results, Math.min(activeIndex + 1, results.length - 1));
-        } else if (e.key === "ArrowUp") {
-          e.preventDefault();
-          setActive(results, Math.max(activeIndex - 1, 0));
-        } else if (e.key === "Enter" && activeIndex >= 0) {
-          e.preventDefault();
-          const link = results[activeIndex].querySelector("a");
-          if (link) link.click();
+      // Close dropdown on click outside
+      document.addEventListener("click", (e) => {
+        if (!container.contains(e.target as Node)) {
+          dropdown.hidden = true;
         }
       });
 
-      // Reset active index when results change
-      const observer = new MutationObserver(() => { activeIndex = -1; });
-      const drawer = container.querySelector(".pagefind-ui__drawer");
-      if (drawer) observer.observe(drawer, { childList: true, subtree: true });
-    });
+      // Re-show dropdown on focus if there are results
+      input.addEventListener("focus", () => {
+        if (input.value.trim() && resultsEl.children.length > 0) {
+          dropdown.hidden = false;
+        }
+      });
+
+      setupKeyboardNav(input, resultsEl, () => {
+        dropdown.hidden = true;
+        input.blur();
+      });
+    }
   }
 
   // Cmd/Ctrl+K to focus search
   document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === "k") {
       e.preventDefault();
-      const input = document.querySelector(".pagefind-ui__search-input");
-      if (input) input.focus();
+      input?.focus();
     }
   });
 
-  // Load pagefind-ui.js as a script tag (it's an IIFE, not an ES module)
-  const script = document.createElement("script");
-  script.src = "/data-engineering-specialization-website/pagefind/pagefind-ui.js";
-  script.onload = () => {
-    initAllSearchUIs();
-    // Delay to let Pagefind render the DOM
-    setTimeout(() => {
-      addKeyboardNav();
-      const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
-
-      document.querySelectorAll(".pagefind-ui__form").forEach((form) => {
-        form.style.position = "relative";
-
-        // Magnifying glass icon (safe DOM construction)
-        const icon = document.createElement("span");
-        icon.className = "search-icon";
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("width", "15");
-        svg.setAttribute("height", "15");
-        svg.setAttribute("viewBox", "0 0 24 24");
-        svg.setAttribute("fill", "none");
-        svg.setAttribute("stroke", "currentColor");
-        svg.setAttribute("stroke-width", "2");
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("cx", "11");
-        circle.setAttribute("cy", "11");
-        circle.setAttribute("r", "8");
-        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("x1", "21");
-        line.setAttribute("y1", "21");
-        line.setAttribute("x2", "16.65");
-        line.setAttribute("y2", "16.65");
-        svg.appendChild(circle);
-        svg.appendChild(line);
-        icon.appendChild(svg);
-        form.appendChild(icon);
-
-        // ⌘K badge
-        const kbd = document.createElement("kbd");
-        kbd.className = "search-shortcut";
-        kbd.textContent = isMac ? "⌘K" : "Ctrl K";
-        form.appendChild(kbd);
-
-        // Hide badge when input has value
-        const input = form.querySelector(".pagefind-ui__search-input");
-        if (input) {
-          input.placeholder = "Search...";
-          input.addEventListener("input", () => {
-            kbd.style.display = input.value ? "none" : "";
-          });
-        }
-      });
-    }, 200);
-  };
-  script.onerror = initAllSearchUIs; // falls through to dev fallback
-  document.head.appendChild(script);
+  init();
 </script>
