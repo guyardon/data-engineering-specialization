@@ -5,6 +5,8 @@
     "terms": [
       {
         "term": "Batch Processing",
+        "description": "A data processing pattern where data is collected over a time interval or until a size threshold is reached, then processed as a discrete chunk. Batch is the most common processing model and is simpler and cheaper than streaming, but introduces latency between data generation and availability.",
+        "diagram": "batch-streaming",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -22,6 +24,8 @@
       },
       {
         "term": "Data Engineering Lifecycle",
+        "description": "The end-to-end framework describing how data moves from generation through ingestion, storage, transformation, and serving. Beneath these stages run cross-cutting undercurrents including security, data management, DataOps, orchestration, data architecture, and software engineering.",
+        "diagram": "data-engineering-lifecycle",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -39,6 +43,7 @@
       },
       {
         "term": "Data Pipeline",
+        "description": "The combination of architecture, systems, and processes that move data through the data engineering lifecycle. A pipeline connects source systems to downstream consumers through ingestion, transformation, and serving stages.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -53,6 +58,8 @@
       },
       {
         "term": "Ingestion",
+        "description": "The process of moving raw data from source systems into the data pipeline for further processing. The key design decision is frequency: batch ingestion processes data in discrete chunks, while stream ingestion provides continuous near-real-time availability.",
+        "diagram": "ingestion-batch-stream",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -64,6 +71,8 @@
       },
       {
         "term": "Serving",
+        "description": "The final stage of the data engineering lifecycle, delivering processed data to downstream consumers for analytics, machine learning, and reverse ETL. Data can be served as tables, views, materialized views, files, or via streaming systems.",
+        "diagram": "serving-data",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -75,6 +84,8 @@
       },
       {
         "term": "Stream Processing",
+        "description": "A data processing pattern where continuous streams of events are processed in near-real-time as they arrive. Streaming adds cost, complexity, and maintenance burden compared to batch, so it should only be adopted when there is a clear business use case such as real-time fraud detection or live dashboards.",
+        "diagram": "streaming-concepts",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -95,6 +106,8 @@
       },
       {
         "term": "Transformation",
+        "description": "The lifecycle stage where raw data is manipulated and enhanced into something useful for downstream consumers. It includes data cleaning (deduplication, null handling, type casting), data modeling (building star schemas, data vaults), and feature engineering for ML.",
+        "diagram": "data-transformation",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -106,6 +119,7 @@
       },
       {
         "term": "Undercurrents",
+        "description": "Cross-cutting concerns that run beneath every stage of the data engineering lifecycle: security, data management, data architecture, DataOps, orchestration, and software engineering. These practices shape how data systems are built, operated, and evolved.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -123,6 +137,7 @@
     "terms": [
       {
         "term": "ACID Compliance",
+        "description": "A set of four properties (Atomicity, Consistency, Isolation, Durability) that guarantee reliable database transactions. Atomicity ensures all-or-nothing execution, consistency maintains data integrity, isolation prevents concurrent transaction interference, and durability ensures completed transactions survive system failures.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -131,6 +146,7 @@
       },
       {
         "term": "Amazon DynamoDB",
+        "description": "AWS's fully managed NoSQL key-value database. It is schema-less, supports nested attributes, and uses partition keys or composite keys (partition + sort key) for data access. DynamoDB is commonly used as a source system and can be interacted with programmatically via Boto3.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -148,6 +164,7 @@
       },
       {
         "term": "IoT Devices",
+        "description": "Fleets of sensors and connected devices that generate continuous streams of data. IoT devices typically feed into a database, API, or data sharing platform, and are a common source system in data engineering pipelines.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -156,6 +173,7 @@
       },
       {
         "term": "Logs",
+        "description": "Append-only sequences of records ordered by time that capture system events like user activity, database updates, and errors. Logs are used for system monitoring, debugging, data analysis, automation, and as input to machine learning pipelines.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -164,6 +182,7 @@
       },
       {
         "term": "NoSQL Databases",
+        "description": "Non-relational databases that trade rigid schema structure for flexibility and horizontal scalability. They use non-tabular structures such as key-value stores, document stores, wide-column stores, and graph databases. NoSQL databases support eventual consistency and are horizontally scalable across multiple servers.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -175,6 +194,7 @@
       },
       {
         "term": "OLTP",
+        "description": "Online Transaction Processing systems optimized for handling high volumes of short, atomic transactions (CRUD operations). OLTP databases use row-oriented storage for fast reads and writes of individual records. Relational databases like PostgreSQL and MySQL are typical OLTP systems.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -186,6 +206,7 @@
       },
       {
         "term": "Relational Databases",
+        "description": "Databases that store data in tables with rows and columns, using schemas, primary keys, and foreign keys to define structure and relationships. They minimize redundancy through normalization and are queried using SQL. Popular systems include MySQL, PostgreSQL, SQL Server, and Oracle.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -197,6 +218,7 @@
       },
       {
         "term": "REST API",
+        "description": "Representational State Transfer API, the most common API type for programmatic data exchange between applications. REST APIs use HTTP methods (GET, POST, PUT, DELETE) and are a fundamental ingestion mechanism for pulling data from external services.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/22-etl-vs-elt"
@@ -205,6 +227,8 @@
       },
       {
         "term": "Source Systems",
+        "description": "The origin points where data is generated before entering the data engineering lifecycle. Source systems include databases (relational and NoSQL), files, APIs, data sharing platforms, IoT devices, and streaming systems. Understanding source systems and building relationships with their owners is essential for reliable pipelines.",
+        "diagram": "source-systems",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -216,6 +240,7 @@
       },
       {
         "term": "Structured Data",
+        "description": "Data organized in a tabular format with predefined rows and columns, such as data stored in relational databases. Structured data has a fixed schema that makes it easy to query and analyze using SQL.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -224,6 +249,7 @@
       },
       {
         "term": "Unstructured Data",
+        "description": "Data that lacks a predefined structure, such as images, videos, audio files, and free-form text. Unstructured data requires specialized storage (typically object storage) and processing techniques, and is increasingly important for machine learning workloads.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -241,6 +267,7 @@
     "terms": [
       {
         "term": "Airbyte",
+        "description": "An open-source data integration platform that provides pre-built connectors for extracting data from various sources and loading it into destinations. Airbyte also supports log-based CDC for incremental data synchronization.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
@@ -252,6 +279,7 @@
       },
       {
         "term": "Amazon Data Firehose",
+        "description": "A fully managed AWS service for loading streaming data into destinations like S3, Redshift, and OpenSearch. Firehose handles buffering, batching, compression, and encryption, making it the simplest way to capture and deliver streaming data on AWS.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -266,6 +294,8 @@
       },
       {
         "term": "Amazon Kinesis Data Streams",
+        "description": "AWS's managed real-time data streaming service, analogous to Apache Kafka. Data is organized into streams (similar to Kafka topics) composed of shards (similar to partitions), with configurable throughput per shard. Supports both on-demand and provisioned capacity modes.",
+        "diagram": "kinesis-data-streams-aws.png",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -289,6 +319,7 @@
       },
       {
         "term": "Amazon MSK",
+        "description": "Amazon Managed Streaming for Apache Kafka, a fully managed service that runs Apache Kafka on AWS. It handles cluster provisioning, patching, and scaling, allowing you to use Kafka's event streaming capabilities without managing the underlying infrastructure.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -306,6 +337,7 @@
       },
       {
         "term": "AWS DMS",
+        "description": "AWS Database Migration Service, a managed service that moves data between databases without transformation. It supports migrations between different database engines and is a common tool for implementing Change Data Capture. Available in both serverless and provisioned modes.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -320,6 +352,8 @@
       },
       {
         "term": "Batch Ingestion",
+        "description": "Ingesting data in discrete chunks on a predetermined time interval or once a size threshold is reached. Batch ingestion is simpler and cheaper than streaming, making it the default choice when near-real-time data availability is not required.",
+        "diagram": "ingestion-continuum",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -331,6 +365,8 @@
       },
       {
         "term": "Change Data Capture (CDC)",
+        "description": "A method for extracting each change event (insert, update, delete) from a source database and propagating it to downstream systems. CDC can be implemented via query-based polling, database transaction log reading, or triggers. It solves the fundamental problem of keeping storage systems in sync with source data.",
+        "diagram": "cdc-patterns",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
@@ -342,6 +378,7 @@
       },
       {
         "term": "Debezium",
+        "description": "An open-source distributed platform for Change Data Capture that reads database transaction logs and streams changes to Apache Kafka. It supports log-based CDC for databases like PostgreSQL and MySQL without requiring changes to the source database schema.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
@@ -350,6 +387,8 @@
       },
       {
         "term": "Event Streaming Platform",
+        "description": "A system that provides an append-only persistent log where an event router distributes messages to subscribers. Unlike message queues, messages can be replayed or reprocessed since they persist in the log. Apache Kafka and Amazon Kinesis Data Streams are the most common examples.",
+        "diagram": "streaming-concepts",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/23-streaming-systems"
@@ -358,6 +397,7 @@
       },
       {
         "term": "Fivetran",
+        "description": "A cloud-based managed ELT tool that provides pre-built connectors to extract data from various sources and load it into cloud data warehouses. It automates data integration with minimal configuration.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
@@ -366,6 +406,7 @@
       },
       {
         "term": "JDBC/ODBC",
+        "description": "Standard API protocols for connecting to and querying databases programmatically. JDBC (Java Database Connectivity) and ODBC (Open Database Connectivity) support time-based or size-based ingestion and are commonly used for batch ingestion from relational databases.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
@@ -377,6 +418,8 @@
       },
       {
         "term": "Message Queue",
+        "description": "A buffer that delivers messages asynchronously on a FIFO basis between producers and consumers. Once a message is consumed, it is removed from the queue. Amazon SQS is a common example. Unlike event streaming platforms, message queues do not support message replay.",
+        "diagram": "streaming-concepts",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -388,6 +431,8 @@
       },
       {
         "term": "Stream Ingestion",
+        "description": "Continuous ingestion of unbounded data using an event streaming platform or message queue, providing near-real-time data availability. Stream ingestion is more complex and expensive than batch, and should only be used when real-time processing provides tangible business value.",
+        "diagram": "ingestion-continuum",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -405,6 +450,7 @@
     "terms": [
       {
         "term": "Amazon EBS",
+        "description": "Amazon Elastic Block Store, a block storage service for EC2 instances. EBS provides persistent, low-latency storage ideal for databases, VM file systems, and other workloads requiring frequent small read/write operations.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
@@ -416,6 +462,7 @@
       },
       {
         "term": "Amazon EFS",
+        "description": "Amazon Elastic File System, a managed file storage service that organizes data into files and directories similar to a local filesystem. EFS supports centralized file sharing across multiple users and hosts, built on top of block storage.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -424,6 +471,7 @@
       },
       {
         "term": "Amazon RDS",
+        "description": "Amazon Relational Database Service, a managed service for running relational databases like MySQL and PostgreSQL on AWS. RDS handles provisioning, patching, backups, and scaling, and is commonly used as both a source system and an operational database in data engineering pipelines.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
@@ -441,6 +489,8 @@
       },
       {
         "term": "Amazon S3",
+        "description": "Amazon Simple Storage Service, the canonical object storage service on AWS. S3 stores data as immutable objects in a flat structure, offering virtually unlimited scalability, 99.999999999% durability, and cost-effective pricing. It serves as the foundation for data lakes, lakehouses, and many analytics workloads.",
+        "diagram": "object-storage",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
@@ -470,6 +520,8 @@
       },
       {
         "term": "Block Storage",
+        "description": "A storage paradigm that divides data into fixed-size blocks, each with a unique key. Block storage provides low-latency access ideal for OLTP databases and VM file systems. On AWS, Amazon EBS is the primary block storage service.",
+        "diagram": "data-storage",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -478,6 +530,7 @@
       },
       {
         "term": "Cassandra",
+        "description": "A distributed wide-column NoSQL database designed for high availability and horizontal scalability. Cassandra is an AP system under the CAP theorem, prioritizing availability over consistency, making it suitable for write-heavy workloads across multiple data centers.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
@@ -486,6 +539,7 @@
       },
       {
         "term": "Column-Oriented Storage",
+        "description": "A storage layout where all values of a single column are stored contiguously on disk. This is ideal for OLAP analytical queries that aggregate a single column across millions of rows, enabling dramatic performance improvements over row-oriented storage for such workloads. Used by Redshift, BigQuery, and Snowflake.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
@@ -500,6 +554,7 @@
       },
       {
         "term": "Distributed Storage Systems",
+        "description": "Storage systems that spread data across multiple nodes, replicating it for fault tolerance, high availability, and parallel I/O. A group of nodes forms a cluster that can scale horizontally by adding more nodes. Technologies like HDFS, S3, Cassandra, and Kafka rely on distributed storage.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
@@ -508,6 +563,7 @@
       },
       {
         "term": "File Storage",
+        "description": "A storage paradigm that organizes data in a directory tree with metadata (name, owner, permissions). File storage supports centralized file sharing across users and hosts but is slower than block storage due to file hierarchy overhead. On AWS, Amazon EFS provides managed file storage.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -516,6 +572,7 @@
       },
       {
         "term": "HDFS",
+        "description": "Hadoop Distributed File System, a distributed storage system that combines compute and storage on the same nodes. Large files are split into blocks of a few hundred megabytes, each replicated across three DataNodes for durability. A NameNode manages metadata and tracks block locations across the cluster.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
@@ -530,6 +587,7 @@
       },
       {
         "term": "In-Memory Storage",
+        "description": "Storage systems that keep data in RAM for extremely fast, low-latency access. In-memory stores trade durability for speed since data is volatile and lost on power failure. Common use cases include caching database query results and real-time applications.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
@@ -538,6 +596,7 @@
       },
       {
         "term": "Memcached",
+        "description": "An in-memory key-value store used primarily for caching database query results and API responses. Memcached is simple and fast but volatile, making it suitable for workloads where occasional data loss is tolerable.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
@@ -546,6 +605,8 @@
       },
       {
         "term": "Object Storage",
+        "description": "A storage paradigm that treats files as immutable objects in a flat structure, identified by unique keys. Object storage offers virtually unlimited scalability, built-in redundancy across availability zones, and low cost, making it the foundation for modern data lakes and lakehouses. Amazon S3 is the canonical example.",
+        "diagram": "object-storage",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -557,6 +618,7 @@
       },
       {
         "term": "Redis",
+        "description": "An in-memory key-value store that supports richer data types than Memcached, including lists, sets, and hashes. Redis is used for high-performance applications requiring low-latency data access where minor data loss is acceptable.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
@@ -565,6 +627,7 @@
       },
       {
         "term": "Row-Oriented Storage",
+        "description": "A storage layout where each row is written as a contiguous sequence of bytes on disk. This is ideal for OLTP workloads that frequently read or write entire rows with low latency, but inefficient for analytical queries that only need a subset of columns. Used by PostgreSQL and MySQL.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
@@ -573,6 +636,8 @@
       },
       {
         "term": "Storage Tiers",
+        "description": "Cloud storage classifications that trade off access speed against cost. Hot tiers (SSD/memory) provide frequent, low-latency access at higher cost. Warm tiers serve less frequent access patterns. Cold tiers (like S3 Glacier) offer the lowest storage cost but highest retrieval cost, suitable for archives and backups.",
+        "diagram": "storage-tiers",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
@@ -587,6 +652,8 @@
     "terms": [
       {
         "term": "Apache Hudi",
+        "description": "An open table format originally developed at Uber, optimized for incremental upserts and streaming ingestion. Hudi provides ACID transactions, time travel, and schema evolution on top of data stored as Parquet files in object storage.",
+        "diagram": "lakehouse-architecture",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
@@ -595,6 +662,8 @@
       },
       {
         "term": "Apache Iceberg",
+        "description": "An open table format originally developed at Netflix, known for its engine-agnostic design and hidden partitioning. Iceberg provides ACID transactions, time travel, schema evolution, and strong multi-engine support (Spark, Trino, Flink, Athena) on top of object storage.",
+        "diagram": "lakehouse-architecture",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -609,6 +678,8 @@
       },
       {
         "term": "AWS Lake Formation",
+        "description": "A managed AWS service that simplifies building data lakes and lakehouses by wrapping Glue ETL, crawlers, and IAM into a unified platform. It provides automatic data cataloging, fine-grained access control at the column and row level, and cross-account data sharing.",
+        "diagram": "aws-lakehouse.png",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
@@ -617,6 +688,8 @@
       },
       {
         "term": "Data Lake",
+        "description": "A central repository for storing large volumes of raw data in any format (structured, semi-structured, unstructured) with no predefined schema. Data lakes use a schema-on-read pattern where structure is applied at query time. They are typically built on cheap object storage like S3.",
+        "diagram": "data-lake-zones",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -631,6 +704,8 @@
       },
       {
         "term": "Data Lakehouse",
+        "description": "A storage architecture that merges the flexibility and low-cost storage of a data lake with the query performance and data management capabilities of a data warehouse. The key enabler is an open table format layer (Iceberg, Delta Lake, Hudi) that adds ACID transactions and metadata management on top of object storage.",
+        "diagram": "lakehouse-architecture",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -645,6 +720,8 @@
       },
       {
         "term": "Data Mart",
+        "description": "A subset of a data warehouse scoped to a specific department, function, or business area. Data marts sit after transformation but before serving, and may include additional transformation stages tailored to their specific analytical use case.",
+        "diagram": "data-marts",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -656,6 +733,8 @@
       },
       {
         "term": "Data Warehouse",
+        "description": "A subject-oriented, integrated, nonvolatile, time-variant collection of data optimized for analytical queries. Data from multiple source systems flows through ETL/ELT into staging areas, gets modeled into dimension and fact tables, and is served to downstream consumers. Modern cloud warehouses like Redshift, BigQuery, and Snowflake separate storage from compute.",
+        "diagram": "warehouse-architecture",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -670,6 +749,7 @@
       },
       {
         "term": "Delta Lake",
+        "description": "An open table format developed by Databricks with tight Spark integration. Delta Lake uses a transaction log to provide ACID guarantees, time travel, and schema evolution on top of Parquet files stored in object storage. It has the most mature ecosystem among open table formats.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
@@ -678,6 +758,8 @@
       },
       {
         "term": "Open Table Formats",
+        "description": "Specialized storage formats (Apache Iceberg, Delta Lake, Apache Hudi) that add transactional capabilities to data stored in a lake. They enable record-level updates and deletes with ACID guarantees, time travel, schema evolution, and partition evolution on top of object storage, making the data lakehouse architecture possible.",
+        "diagram": "lakehouse-architecture",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
@@ -686,6 +768,7 @@
       },
       {
         "term": "Schema-on-Read",
+        "description": "A data management approach where structure is applied when data is queried rather than when it is written. This offers high flexibility since you can store any data format and decide how to interpret it later. It is the defining characteristic of data lakes.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
@@ -694,6 +777,7 @@
       },
       {
         "term": "Schema-on-Write",
+        "description": "A data management approach where a fixed schema is defined and enforced before data is loaded. This ensures data quality and enables fast query performance through pre-optimization, but limits flexibility. It is the defining characteristic of data warehouses.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
@@ -702,6 +786,7 @@
       },
       {
         "term": "Separation of Storage and Compute",
+        "description": "An architectural pattern where storage and processing resources scale independently. Storage lives on cheap object storage (like S3) while compute scales via on-demand clusters, allowing you to store petabytes affordably and only pay for compute when queries run. This is a defining feature of modern cloud data warehouses and Spark-based platforms.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
@@ -719,6 +804,7 @@
     "terms": [
       {
         "term": "Aggregate Queries",
+        "description": "Queries that compute summary values over a column using functions like SUM, AVG, MAX, MIN, and COUNT. Aggregate queries run significantly faster on columnar storage since only the relevant columns are transferred from disk to memory. Adding GROUP BY returns one result per group.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
@@ -727,6 +813,7 @@
       },
       {
         "term": "Amazon Athena",
+        "description": "A serverless, pay-per-query engine that runs standard SQL queries against data in S3 without requiring any infrastructure to manage. Athena supports federated queries across data sources including Redshift and reads schema information from the AWS Lake Formation catalog.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -738,6 +825,8 @@
       },
       {
         "term": "B-Tree Index",
+        "description": "A balanced search tree data structure used by databases to enable O(log n) lookup time instead of O(n) sequential scans. Index data is stored in linked blocks, and the DBMS traverses the tree to find matching rows efficiently. The query optimizer decides whether an index scan is cheaper than a full table scan.",
+        "diagram": "btree-index",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
@@ -746,6 +835,7 @@
       },
       {
         "term": "Common Table Expressions (CTEs)",
+        "description": "Named temporary result sets defined with WITH...AS syntax that make complex SQL queries more readable. CTEs can be chained so each one feeds into the next, allowing you to break multi-step logic into clearly named, reusable steps.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
@@ -754,6 +844,8 @@
       },
       {
         "term": "Distribution Styles",
+        "description": "In Amazon Redshift, distribution styles control how data is divided across compute node slices. Options include AUTO (Redshift decides), EVEN (round-robin), KEY (rows with same key go to same slice), and ALL (full copy on every node). The goal is to balance workloads while minimizing data movement during joins.",
+        "diagram": "redshift-mpp",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
@@ -765,6 +857,7 @@
       },
       {
         "term": "EXPLAIN",
+        "description": "A SQL command that reveals the execution plan the DBMS has chosen for a query, showing the sequence of steps, resource consumption, and performance statistics. EXPLAIN is the primary tool for diagnosing slow queries and understanding whether indexes are being used.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
@@ -773,6 +866,7 @@
       },
       {
         "term": "Hash Join",
+        "description": "A join implementation method with O(n + m) complexity that builds a hash table from the smaller table, then probes it with each row from the larger table. Hash joins are the most efficient method for large equi-joins when no index exists on the join column.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
@@ -781,6 +875,8 @@
       },
       {
         "term": "Index",
+        "description": "A separate data structure maintained by the database that contains references back to actual table rows, enabling O(log n) lookups instead of O(n) full table scans. The query optimizer checks whether an index exists and whether using it would be more efficient than scanning the entire table.",
+        "diagram": "btree-index",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
@@ -792,6 +888,7 @@
       },
       {
         "term": "Joins",
+        "description": "SQL operations that combine rows from two or more tables based on matching keys. Join methods include nested loop (O(n*m)), index-based nested loop (O(n*log m)), and hash join (O(n+m)). Joins are among the most expensive query operations, which is why star schemas minimize the number of joins needed.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
@@ -800,6 +897,8 @@
       },
       {
         "term": "Massively Parallel Processing (MPP)",
+        "description": "An architecture where a leader node distributes query execution across multiple compute nodes that process data in parallel. Each compute node is divided into slices, each holding a portion of the data. MPP is the foundation of modern cloud data warehouses like Redshift, BigQuery, and Snowflake.",
+        "diagram": "redshift-mpp",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
@@ -811,6 +910,7 @@
       },
       {
         "term": "Partition Pruning",
+        "description": "A query optimization technique that scans only the relevant data partitions based on a partition key (such as date), skipping all other partitions entirely. Partition pruning dramatically reduces the amount of data read from disk for queries with selective filters.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
@@ -819,6 +919,8 @@
       },
       {
         "term": "Query Optimizer",
+        "description": "The DBMS component that evaluates candidate execution plans for a query, considering operation types, index availability, and data scan size. It calculates the cost of each plan (I/O, computation, memory) and selects the least expensive one. Understanding the optimizer is key to writing performant queries.",
+        "diagram": "query-lifecycle",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/31-batch-queries"
@@ -830,6 +932,7 @@
       },
       {
         "term": "Redshift Spectrum",
+        "description": "A Redshift feature that runs SQL queries against structured data in S3 without moving it into Redshift. Spectrum uses MPP to process data in place, making it ideal for querying large volumes of historical data in the data lake alongside hot warehouse data.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/24-aws-data-lakehouse"
@@ -838,6 +941,7 @@
       },
       {
         "term": "Sort Key",
+        "description": "In Amazon Redshift, a sort key defines the order in which data is stored on disk, allowing the query engine to skip irrelevant data blocks during scans. Sort keys serve a similar purpose to indexes in OLTP databases but are optimized for columnar analytical workloads.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
@@ -849,6 +953,7 @@
       },
       {
         "term": "SQL",
+        "description": "Structured Query Language, the standard declarative language for querying and managing relational databases. SQL is the most important language in data engineering, used for data cleaning, joining, aggregation, filtering, and transformation. It remains the primary interface for data warehouses and analytical workloads.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -869,6 +974,8 @@
       },
       {
         "term": "Streaming Queries",
+        "description": "Queries that operate on continuous, unbounded data streams using windowing techniques to bound the otherwise infinite stream. Frameworks like Apache Flink, Spark Streaming, and Kafka enable SQL-like queries over streaming data with tumbling, sliding, and session windows.",
+        "diagram": "streaming-windows",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
@@ -877,6 +984,7 @@
       },
       {
         "term": "VACUUM",
+        "description": "A database maintenance command that removes dead records and reclaims disk space caused by table bloat. Over time, databases accumulate outdated blocks from updates and deletes, leading to slow queries and inaccurate execution plans. VACUUM is critical for relational databases like PostgreSQL and MySQL.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
@@ -885,6 +993,7 @@
       },
       {
         "term": "Window Functions",
+        "description": "SQL functions that apply aggregate or ranking operations over a sliding range of rows without collapsing them into a single output row. Each row retains its identity in the result. Window functions use PARTITION BY to define groups and ORDER BY to define the ranking or aggregation order.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
@@ -893,6 +1002,8 @@
       },
       {
         "term": "Windowing (Tumbling, Sliding, Session)",
+        "description": "Techniques for bounding continuous data streams into finite groups for aggregation. Tumbling windows are non-overlapping fixed-size intervals, sliding windows overlap by advancing at a step smaller than the window size, and session windows group events by activity with inactivity gaps triggering new sessions.",
+        "diagram": "streaming-windows",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
@@ -907,6 +1018,7 @@
     "terms": [
       {
         "term": "Conformed Dimension",
+        "description": "A dimension table shared across multiple star schemas, allowing different fact tables to connect through a common reference. Conformed dimensions ensure consistent definitions and enable cross-functional analysis across business domains.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
@@ -915,6 +1027,7 @@
       },
       {
         "term": "Data Vault",
+        "description": "A modeling approach that separates structural aspects of data (business entities and their relationships) into three table types: Hubs (unique business keys), Links (relationships between hubs), and Satellites (descriptive attributes). Data Vault provides full traceability to source systems and minimal restructuring when business requirements change.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
@@ -923,6 +1036,8 @@
       },
       {
         "term": "Denormalization",
+        "description": "The deliberate introduction of data redundancy by combining normalized tables into fewer, wider tables. Denormalization reduces join complexity and improves read performance for analytical queries at the cost of increased storage and potential update anomalies.",
+        "diagram": "nf-denormalized",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/12-normalization"
@@ -934,6 +1049,8 @@
       },
       {
         "term": "Dimension Table",
+        "description": "A table in a star schema that provides reference data, attributes, and relational context for the events in the fact table. Dimension tables describe the who, what, where, and when of each event. They are typically wide (many descriptive columns) and short (fewer rows).",
+        "diagram": "star-schema",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
@@ -945,6 +1062,7 @@
       },
       {
         "term": "Entity-Relationship Diagram",
+        "description": "A visual representation of a conceptual data model showing business entities, their attributes, and the relationships between them. ER diagrams use cardinality notation (one-to-one, one-to-many, many-to-many) to express the nature of relationships and are the starting point for designing database schemas.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/11-data-modeling-fundamentals"
@@ -953,6 +1071,8 @@
       },
       {
         "term": "Fact Table",
+        "description": "The central table in a star schema that contains quantitative business measurements resulting from business events or processes. Fact tables are narrow (few columns) and long (many rows), immutable (append-only), and link to dimension tables through foreign keys. The grain defines the level of detail each row represents.",
+        "diagram": "star-schema",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
@@ -964,6 +1084,7 @@
       },
       {
         "term": "Grain",
+        "description": "The level of detail that each row in a fact table represents. Atomic grain (one event per row) is the most detailed and recommended approach, as it supports the widest range of analytical queries without losing information.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
@@ -972,6 +1093,8 @@
       },
       {
         "term": "Inmon Approach",
+        "description": "A top-down data warehouse modeling approach that stores data in highly normalized third normal form in the central warehouse, then provides star schema data marts for specific departments. The Inmon approach prioritizes data quality and consistency as a single source of truth, but is slower to set up.",
+        "diagram": "inmon-vs-kimball",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -983,6 +1106,8 @@
       },
       {
         "term": "Kimball Approach",
+        "description": "A bottom-up data warehouse modeling approach that serves data structured as star schemas directly in the warehouse, skipping the normalized intermediate layer. The Kimball approach prioritizes speed of delivery and simplicity for business users, but introduces more data redundancy.",
+        "diagram": "inmon-vs-kimball",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -994,6 +1119,8 @@
       },
       {
         "term": "Normalization",
+        "description": "A data modeling practice for relational databases that organizes data into separate tables to eliminate redundancy and ensure referential integrity. Normalization progresses through forms (1NF, 2NF, 3NF), each eliminating a class of dependency problems. Third normal form eliminates all transitive dependencies.",
+        "diagram": "normalization-steps",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -1005,6 +1132,8 @@
       },
       {
         "term": "One Big Table (OBT)",
+        "description": "A modeling approach that uses a single highly denormalized wide table with potentially thousands of columns. OBT eliminates joins, supports fast analytical queries on cloud columnar stores, and handles nested data types. It trades data integrity and business logic clarity for simplicity and flexibility.",
+        "diagram": "modeling-approaches",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -1016,6 +1145,7 @@
       },
       {
         "term": "Primary Key / Foreign Key",
+        "description": "Primary keys are unique identifiers for each row in a table. Foreign keys reference primary keys in other tables, establishing relationships between them. Together, they enforce referential integrity and form the backbone of relational database design and star schema modeling.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -1030,6 +1160,8 @@
       },
       {
         "term": "Star Schema",
+        "description": "A dimensional modeling technique that organizes data into a central fact table surrounded by dimension tables. It optimizes analytical queries by minimizing joins and enabling fast aggregations. The four design steps are: select the business process, declare the grain, identify dimensions, and identify facts.",
+        "diagram": "star-schema",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
@@ -1047,6 +1179,7 @@
       },
       {
         "term": "Surrogate Key",
+        "description": "A synthetic identifier generated independently of the source data, used as a primary key instead of a natural business column. Common approaches include auto-incrementing integers or hash functions like MD5. Surrogate keys decouple the warehouse schema from source system changes.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
@@ -1061,6 +1194,7 @@
     "terms": [
       {
         "term": "Apache Hadoop",
+        "description": "An open-source distributed computing framework that emerged from Google's GFS and MapReduce papers. Hadoop combines HDFS (distributed storage) with MapReduce (distributed processing) on the same cluster nodes. While MapReduce has largely been superseded by Spark, HDFS concepts remain foundational to distributed data engineering.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1075,6 +1209,8 @@
       },
       {
         "term": "Apache Spark",
+        "description": "A distributed data processing engine that replaced MapReduce by storing intermediate results in memory rather than writing to disk at every step. Spark includes libraries for batch processing, stream processing, machine learning, and graph processing. It uses a driver-worker architecture with lazy evaluation and DAG-based execution planning.",
+        "diagram": "spark-architecture",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1101,6 +1237,7 @@
       },
       {
         "term": "dbt",
+        "description": "Data build tool, a framework that brings software engineering practices (version control, testing, documentation) to SQL-based data transformations. dbt wraps SQL statements with CREATE logic to build fact and dimension tables in the warehouse. Available as dbt Core (open-source CLI) and dbt Cloud (hosted environment).",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1115,6 +1252,8 @@
       },
       {
         "term": "ELT",
+        "description": "Extract-Load-Transform, a pattern where raw data is loaded directly into a cloud data warehouse and then transformed in place using the warehouse's compute power. ELT is faster to implement than ETL and offers more flexibility for semi-structured and unstructured data. The main risk is creating pipelines where no transformation ever happens.",
+        "diagram": "etl-vs-elt",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -1132,6 +1271,8 @@
       },
       {
         "term": "ETL",
+        "description": "Extract-Transform-Load, a pattern where raw data is extracted from sources, transformed in a staging area (cleaned, standardized, modeled), then loaded into a data warehouse. ETL was developed in the 1980s-90s when storage was expensive and ensures data quality before loading, but is slower than ELT.",
+        "diagram": "etl-vs-elt",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1149,6 +1290,8 @@
       },
       {
         "term": "Feature Engineering",
+        "description": "The process of creating, selecting, and transforming input variables (features) for machine learning models. Data engineers play a key role in preparing tabular data for ML by collecting high-quality data, applying transformations, and serving features for both model training and real-time inference.",
+        "diagram": "ml-lifecycle",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-2-data-modeling-transformations-for-machine-learning/21-tabular-data-for-machine-learning"
@@ -1157,6 +1300,8 @@
       },
       {
         "term": "MapReduce",
+        "description": "A distributed processing model with three phases: Map (read data blocks and produce key-value pairs), Shuffle (redistribute pairs so each node holds unique keys), and Reduce (aggregate results per key). MapReduce sends computation to the data nodes rather than moving data, but writes to disk at every intermediate step, making it slower than in-memory alternatives like Spark.",
+        "diagram": "mapreduce-flow",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1168,6 +1313,7 @@
       },
       {
         "term": "PySpark",
+        "description": "The Python API for Apache Spark, enabling distributed data processing using familiar Python syntax. PySpark supports three approaches to transformation: SQL-based manipulation, Python-based DataFrame operations, and a hybrid of both, all compiling to the same underlying computation engine.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/33-spark-and-dataframes"
@@ -1179,6 +1325,7 @@
       },
       {
         "term": "Reverse ETL",
+        "description": "The process of sending processed, transformed data from the data warehouse or data lake back to operational source systems like CRMs, marketing platforms, or SaaS tools. Reverse ETL closes the loop in the data engineering lifecycle by making analytical insights actionable in business applications.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -1190,6 +1337,7 @@
       },
       {
         "term": "Spark DataFrames",
+        "description": "A high-level abstraction for working with distributed tabular datasets in Spark, built on top of RDDs. DataFrames provide expressive APIs (filter, select, groupBy) with automatic optimization via the Catalyst engine. They support lazy evaluation, immutability, and lineage-based fault recovery.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/33-spark-and-dataframes"
@@ -1198,6 +1346,7 @@
       },
       {
         "term": "Spark Structured Streaming",
+        "description": "Spark's stream processing engine that treats streaming data as an unbounded table, enabling the same DataFrame and SQL APIs used for batch processing to work on real-time data. It provides exactly-once processing guarantees and integrates with sources like Kafka and Kinesis.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
@@ -1206,6 +1355,7 @@
       },
       {
         "term": "User-Defined Functions (UDFs)",
+        "description": "Custom functions registered with Spark to extend its built-in functionality. UDFs allow you to apply arbitrary Python or Scala logic to DataFrame columns. In PySpark SQL, UDFs must be explicitly registered before they can be used in SQL queries.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/33-spark-and-dataframes"
@@ -1223,6 +1373,7 @@
     "terms": [
       {
         "term": "Amazon QuickSight",
+        "description": "AWS's managed business intelligence service for creating interactive dashboards and visualizations. QuickSight connects to data sources like Redshift, S3, and Athena, and supports embedded analytics for client-facing data products.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -1234,6 +1385,7 @@
       },
       {
         "term": "Amazon SageMaker",
+        "description": "AWS's fully managed machine learning platform for building, training, and deploying ML models. SageMaker integrates with the broader AWS data ecosystem, consuming data prepared by data engineers from S3, Redshift, and other sources.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
@@ -1242,6 +1394,7 @@
       },
       {
         "term": "Business Intelligence",
+        "description": "The use of dashboards, reports, and analytical tools for strategic decision-making. BI is a primary downstream consumer of data engineering outputs, relying on well-modeled data (typically star schemas) served from data warehouses or data marts.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -1253,6 +1406,7 @@
       },
       {
         "term": "Embedded Analytics",
+        "description": "Client-facing data products or dashboards integrated directly into external applications. Embedded analytics extend analytical capabilities beyond internal business users to customers and partners, requiring careful attention to data latency, security, and performance.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
@@ -1261,6 +1415,8 @@
       },
       {
         "term": "Materialized View",
+        "description": "A pre-computed snapshot of a query result stored physically on disk. Materialized views provide fast reads for expensive aggregations that are queried frequently, but require periodic refresh (manual or scheduled) to stay current with underlying data changes.",
+        "diagram": "views-vs-materialized",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
@@ -1269,6 +1425,7 @@
       },
       {
         "term": "Metabase",
+        "description": "An open-source business intelligence tool that provides a user-friendly interface for querying databases and creating dashboards. Metabase is commonly used as a lightweight BI solution in data engineering stacks.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -1277,6 +1434,7 @@
       },
       {
         "term": "Operational Analytics",
+        "description": "Real-time or near-real-time monitoring of data to inform immediate operational decisions. Unlike traditional BI which focuses on strategic reporting, operational analytics serves data within tight latency constraints to support day-to-day business operations.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
@@ -1285,6 +1443,7 @@
       },
       {
         "term": "Semantic Layer",
+        "description": "A logical abstraction that documents data definitions, derives business metrics, and creates a common language for data across the organization. The semantic layer ensures correctness, consistency, and trustworthiness by standardizing how metrics are calculated and columns are named.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
@@ -1293,6 +1452,8 @@
       },
       {
         "term": "View",
+        "description": "A saved SQL query that runs on demand and always returns fresh results. Views have no physical storage and recompute every time they are queried. They are useful for simple transformations, access control layers, and presenting consistent interfaces over underlying tables.",
+        "diagram": "views-vs-materialized",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
@@ -1307,6 +1468,7 @@
     "terms": [
       {
         "term": "Amazon MWAA",
+        "description": "Amazon Managed Workflows for Apache Airflow, a fully managed service that runs Airflow on AWS. MWAA handles the infrastructure for the Airflow scheduler, workers, and web server, allowing data engineers to focus on writing DAGs rather than managing Airflow operations.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -1318,6 +1480,8 @@
       },
       {
         "term": "Apache Airflow",
+        "description": "The most widely adopted open-source orchestration framework for data pipelines, originally developed at Airbnb in 2014. Airflow lets you define workflows as Python code using DAGs, with built-in monitoring, alerting, task dependency management, and a rich web UI for debugging. Available as a managed service on AWS (MWAA) and GCP (Cloud Composer).",
+        "diagram": "airflow-components",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1341,6 +1505,7 @@
       },
       {
         "term": "Dagster",
+        "description": "A modern open-source orchestration framework that takes a data-asset-centric approach to pipeline development. Dagster emphasizes software-defined assets, type-checked inputs/outputs, and built-in observability as an alternative to Airflow's task-centric model.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1352,6 +1517,8 @@
       },
       {
         "term": "Directed Acyclic Graph (DAG)",
+        "description": "A graph structure where nodes represent tasks and edges define execution flow, with two constraints: directed (data flows one way) and acyclic (no circular dependencies). DAGs are the core abstraction used by orchestration frameworks like Airflow to model workflow dependencies and ensure tasks execute in the correct order.",
+        "diagram": "orchestration-dags",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1369,6 +1536,7 @@
       },
       {
         "term": "Mage",
+        "description": "A modern open-source orchestration tool that provides a notebook-style interface for building data pipelines. Mage aims to simplify pipeline development with an interactive, visual approach while still supporting production-grade scheduling and monitoring.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1380,6 +1548,7 @@
       },
       {
         "term": "Prefect",
+        "description": "A modern open-source orchestration framework that simplifies workflow management with a Python-native approach, dynamic task generation, and built-in retry and caching mechanisms. Prefect offers both open-source and cloud-hosted options as an alternative to Airflow.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1391,6 +1560,7 @@
       },
       {
         "term": "Taskflow API",
+        "description": "Airflow's modern, decorator-based approach to defining DAGs and tasks. The @dag decorator replaces the DAG context manager and @task replaces PythonOperator, with automatic XCom serialization between tasks. The function name automatically becomes the task_id, reducing boilerplate code.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/43-airflow-taskflow-api"
@@ -1399,6 +1569,8 @@
       },
       {
         "term": "XComs",
+        "description": "Cross-communication mechanism in Airflow that allows tasks within a DAG to exchange small amounts of data. Tasks push values to XCom storage and downstream tasks pull them. The Taskflow API automates XCom serialization, making inter-task data passing transparent.",
+        "diagram": "xcom-flow",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/42-airflow-ui-and-dag-creation"
@@ -1416,6 +1588,8 @@
     "terms": [
       {
         "term": "Amazon CloudWatch",
+        "description": "AWS's built-in monitoring service for tracking infrastructure and application metrics. CloudWatch collects system-level metrics (CPU, memory, disk, network) automatically, supports custom metrics, and provides alarms that trigger notifications or automated actions when thresholds are breached.",
+        "diagram": "cloudwatch",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -1427,6 +1601,7 @@
       },
       {
         "term": "CI/CD",
+        "description": "Continuous Integration / Continuous Deployment, a software engineering practice that automates building, testing, integrating, and deploying code changes. In DataOps, CI/CD brings version control to both code (via git) and data (enabling rollback to previous versions), ensuring reliable and repeatable pipeline deployments.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1438,6 +1613,8 @@
       },
       {
         "term": "Data Governance",
+        "description": "The set of policies, processes, and standards that ensure the quality, integrity, security, and usability of an organization's data throughout its lifecycle. Data governance is a core component of data management and one of the undercurrents that runs beneath every stage of the data engineering lifecycle.",
+        "diagram": "data-governance-wheel",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1446,6 +1623,7 @@
       },
       {
         "term": "Data Lineage",
+        "description": "The tracing of data from its source through every transformation and storage location to its final destination. Lineage answers the question 'where did this data come from and how was it transformed?' and is essential for debugging data quality issues, meeting compliance requirements, and understanding data dependencies.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
@@ -1454,6 +1632,8 @@
       },
       {
         "term": "Data Observability",
+        "description": "The practice of monitoring the health of data and data systems to ensure accuracy, completeness, discoverability, and timely availability. The five pillars are distribution (internal quality), freshness, volume, lineage, and schema monitoring. Data observability helps detect issues before they reach downstream consumers.",
+        "diagram": "observability-concepts",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
@@ -1462,6 +1642,8 @@
       },
       {
         "term": "Data Quality",
+        "description": "The degree to which data is accurate, complete, consistent, and fit for its intended purpose. Core dimensions to monitor include volume, distribution, null values, and freshness. Data quality is an undercurrent of the data engineering lifecycle and should be validated at every stage of the pipeline.",
+        "diagram": "data-quality",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1473,6 +1655,8 @@
       },
       {
         "term": "DataOps",
+        "description": "A set of practices and cultural habits centered around building robust data systems and delivering high-quality data products. DataOps is to data engineering what DevOps is to software engineering. Its three pillars are automation (CI/CD, IaC), observability and monitoring, and incident response.",
+        "diagram": "dataops-pillars",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1484,6 +1668,8 @@
       },
       {
         "term": "Great Expectations",
+        "description": "An open-source Python library for validating, documenting, and profiling data. Great Expectations lets you define declarative assertions (expectations) about what your data should look like, generates detailed failure reports, and stores all validation metadata for reproducibility.",
+        "diagram": "great-expectations-workflow",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
@@ -1492,6 +1678,7 @@
       },
       {
         "term": "Incident Response",
+        "description": "The process of detecting, diagnosing, and resolving failures in data systems before they impact downstream consumers. Incident response is one of the three pillars of DataOps and relies on observability, monitoring, and alerting to identify and address issues quickly.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
@@ -1500,6 +1687,8 @@
       },
       {
         "term": "Infrastructure as Code (IaC)",
+        "description": "The practice of defining and managing cloud infrastructure through declarative configuration files rather than manual console operations. IaC extends version control to infrastructure, enabling tracking of changes and rollback to previous states. Terraform and AWS CloudFormation are the primary tools.",
+        "diagram": "terraform-workflow",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
@@ -1508,6 +1697,8 @@
       },
       {
         "term": "Terraform",
+        "description": "An Infrastructure as Code tool that uses HCL (HashiCorp Configuration Language) to declaratively define cloud resources. Terraform is highly idempotent, meaning repeated execution produces the same result. Its workflow consists of writing config files, planning changes, approving, and applying them.",
+        "diagram": "terraform-workflow",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
@@ -1522,6 +1713,8 @@
     "terms": [
       {
         "term": "Amazon EC2",
+        "description": "Amazon Elastic Compute Cloud, AWS's virtual machine service and one of the foundational cloud building blocks. EC2 provides elastic compute capacity with on-demand and spot pricing, grouped into instance types optimized for different workload profiles (general purpose, compute, memory, storage, accelerated).",
+        "diagram": "ec2-overview",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
@@ -1536,6 +1729,7 @@
       },
       {
         "term": "Amazon EMR",
+        "description": "Amazon Elastic MapReduce, a managed cluster platform for running distributed data processing frameworks like Hadoop and Spark. EMR supports large-scale transformations and ingestion, available in both serverless and provisioned modes. It provides more configuration control than AWS Glue but requires more setup.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
@@ -1547,6 +1741,8 @@
       },
       {
         "term": "Amazon Neptune",
+        "description": "AWS's fully managed graph database service that supports both the Property Graph model (with Gremlin queries) and RDF (with SPARQL queries). Neptune is optimized for storing and traversing highly connected datasets such as knowledge graphs, social networks, and fraud detection systems.",
+        "diagram": "graph-database",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/14-specialized-databases"
@@ -1555,6 +1751,8 @@
       },
       {
         "term": "Amazon Redshift",
+        "description": "AWS's cloud-native data warehouse service built on MPP architecture with columnar storage and automatic compression. Redshift distributes queries across compute node slices for parallel execution, with a leader node coordinating the work. It supports distribution styles and sort keys for performance optimization.",
+        "diagram": "redshift-mpp",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1584,6 +1782,7 @@
       },
       {
         "term": "Amazon SQS",
+        "description": "Amazon Simple Queue Service, a fully managed message queue that buffers messages asynchronously on a FIFO basis between producers and consumers. SQS is used for decoupling components in distributed systems. Unlike Kafka or Kinesis, consumed messages are removed from the queue.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -1595,6 +1794,8 @@
       },
       {
         "term": "Amazon VPC",
+        "description": "Amazon Virtual Private Cloud, an isolated private network where you launch AWS resources. VPCs span multiple availability zones within a region and use CIDR blocks to define IP address ranges. Subnets partition VPCs into public (internet-facing) and private (internal) segments with separate security controls.",
+        "diagram": "vpc-networking",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
@@ -1606,6 +1807,8 @@
       },
       {
         "term": "Apache Flink",
+        "description": "A distributed stream processing framework that treats batch as simply bounded streaming, providing a single system for both real-time and batch workloads. AWS offers a fully managed service for Flink with automatic scaling, checkpointing, and integration with Kinesis, MSK, and S3.",
+        "diagram": "flink-streaming-aws.png",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -1620,6 +1823,8 @@
       },
       {
         "term": "Apache Kafka",
+        "description": "The most widely adopted open-source event streaming platform. Kafka organizes messages into topics composed of partitions (ordered, immutable logs). Producers send messages to a cluster of brokers, and consumers subscribe to topics for processing. Kafka supports message replay and reprocessing since messages persist in the log.",
+        "diagram": "kafka-architecture",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1646,6 +1851,7 @@
       },
       {
         "term": "AWS CloudFormation",
+        "description": "AWS's native Infrastructure as Code service that lets you define and provision cloud resources using declarative templates in JSON or YAML format. CloudFormation is an alternative to Terraform for managing AWS infrastructure as version-controlled configuration files.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
@@ -1654,6 +1860,7 @@
       },
       {
         "term": "AWS Glue",
+        "description": "A serverless ETL service that ingests, transforms, and loads data from AWS sources (RDS, S3, Redshift) using Apache Spark for distributed processing. Glue provides automated scaling, a data catalog for metadata management, and crawlers that discover and catalog datasets. It is the primary ETL tool in the AWS data ecosystem.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -1674,6 +1881,8 @@
       },
       {
         "term": "AWS IAM",
+        "description": "AWS Identity and Access Management, the framework for managing permissions in the cloud. IAM uses policies to grant least-privilege access through a hierarchy of root users, IAM users, groups, and roles. Roles provide temporary permissions that services (like EC2 or Glue) can assume to access resources securely.",
+        "diagram": "iam-permissions",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -1685,6 +1894,7 @@
       },
       {
         "term": "AWS Lambda",
+        "description": "AWS's serverless compute service that runs code in response to events without provisioning or managing servers. Lambda provides automatic scaling, fault tolerance, and pay-per-invocation pricing, making it ideal for small, discrete tasks in data pipelines such as event-driven transformations.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
@@ -1693,6 +1903,8 @@
       },
       {
         "term": "AWS Well-Architected Framework",
+        "description": "A structured framework for evaluating and improving cloud architectures, organized around six pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability. It provides best practices and design principles for building robust systems on AWS.",
+        "diagram": "aws-well-architected.png",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/33-investigating-your-architecture-on-aws"
@@ -1701,6 +1913,7 @@
       },
       {
         "term": "Boto3",
+        "description": "The official Python SDK for interacting with AWS services programmatically. Boto3 provides APIs for virtually all AWS services including S3, DynamoDB, RDS, and Glue, and is the standard tool for building AWS integrations in Python-based data pipelines.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -1712,6 +1925,7 @@
       },
       {
         "term": "Databricks",
+        "description": "A unified analytics platform that pioneered the data lakehouse architecture. Databricks provides managed Spark clusters, Delta Lake integration, collaborative notebooks, and a complete environment for data engineering, data science, and machine learning workloads across multiple cloud providers.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
@@ -1723,6 +1937,7 @@
       },
       {
         "term": "Glue Data Catalog",
+        "description": "A centralized metadata repository within AWS Glue that stores schema, partition, and location information about datasets. Glue crawlers automatically discover and catalog data, and the catalog is shared across AWS analytics services including Athena, Redshift Spectrum, and EMR.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -1740,6 +1955,7 @@
       },
       {
         "term": "Google BigQuery",
+        "description": "Google Cloud's serverless data warehouse with automatic scaling and slot-based pricing. BigQuery uses columnar storage, separates storage from compute, and supports standard SQL for analytical queries. It requires no infrastructure management and scales automatically based on query complexity.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
@@ -1751,6 +1967,7 @@
       },
       {
         "term": "MySQL",
+        "description": "A widely used open-source relational database management system optimized for OLTP workloads. MySQL uses row-oriented storage and is commonly deployed as a source system behind web applications. On AWS, it can be run as a managed service via Amazon RDS.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -1765,6 +1982,8 @@
       },
       {
         "term": "Neo4j",
+        "description": "The most popular graph database, using the Property Graph Model with nodes (entities), edges (relationships), and properties (key-value attributes). Neo4j uses the Cypher query language with intuitive pattern-matching syntax for traversing relationships, making it well-suited for recommendation systems, social networks, and data lineage.",
+        "diagram": "graph-database",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/14-specialized-databases"
@@ -1776,6 +1995,7 @@
       },
       {
         "term": "Oracle",
+        "description": "One of the earliest commercial relational database management systems, dating back to the 1970s. Oracle remains widely used in enterprise environments as a source system and was a key milestone in the history of data engineering, turning Edgar Codd's relational model theory into a commercial product.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1787,6 +2007,7 @@
       },
       {
         "term": "PostgreSQL",
+        "description": "An advanced open-source relational database known for its standards compliance, extensibility, and robust feature set. PostgreSQL uses row-oriented storage and is commonly used as both a source system and analytical database. It supports CDC via its write-ahead log (WAL) and is widely deployed on AWS via RDS.",
         "notes": [
           {
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
@@ -1804,6 +2025,7 @@
       },
       {
         "term": "Snowflake",
+        "description": "A multi-cloud data warehouse known for its virtual warehouse architecture that separates storage from compute, enabling independent scaling. Snowflake supports time travel (querying historical data), data sharing across organizations, and runs on AWS, GCP, and Azure.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -1827,6 +2049,8 @@
     "terms": [
       {
         "term": "Apache Avro",
+        "description": "A binary, row-based serialization format with built-in schema definition and schema evolution support. Avro is well-suited for streaming and write-heavy workloads where schema changes are expected over time.",
+        "diagram": "serialization-flow",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -1835,6 +2059,7 @@
       },
       {
         "term": "Apache Parquet",
+        "description": "A binary, column-based serialization format optimized for analytical queries and big data processing. Parquet can be up to 100x faster than CSV for analytical workloads because it reads only the columns needed for a query. It is the default storage format for open table formats (Iceberg, Delta Lake, Hudi) in data lakehouses.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -1846,6 +2071,7 @@
       },
       {
         "term": "Compression",
+        "description": "Algorithms that reduce data redundancy to make serialized files smaller, resulting in faster queries and less I/O time. Lossless compression (gzip, Snappy, Zstandard, LZ4) is required for data engineering since data must be reconstructable bit-for-bit. Columnar encoding techniques like run-length and bit-vector encoding are particularly effective.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -1857,6 +2083,7 @@
       },
       {
         "term": "CSV",
+        "description": "Comma-Separated Values, a human-readable, row-based text format for tabular data. CSV files have no defined schema, making them error-prone and requiring manual handling for structural changes. Despite limitations, CSV remains widely used for data exchange and as an import/export format.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -1865,6 +2092,7 @@
       },
       {
         "term": "JSON",
+        "description": "JavaScript Object Notation, a human-readable, row-based text format for object serialization. JSON is the standard format for data exchange over REST APIs and supports nested structures. It is a semi-structured data format commonly used in web applications and as a source data format in data pipelines.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -1876,6 +2104,8 @@
       },
       {
         "term": "Serialization",
+        "description": "The process of transforming in-memory data structures (optimized for CPU) into a portable binary format for persistent storage on disk or transmission over a network. Deserialization reverses the process. Data can be serialized in row-based or column-based order, each with different performance characteristics for different workloads.",
+        "diagram": "serialization-flow",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -1884,6 +2114,7 @@
       },
       {
         "term": "XML",
+        "description": "Extensible Markup Language, a legacy text-based, row-based serialization format. XML is slower to serialize and deserialize than modern formats and has largely been replaced by JSON for data exchange. It is still encountered in older enterprise systems and SOAP-based APIs.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
@@ -1898,6 +2129,8 @@
     "terms": [
       {
         "term": "Availability Zones",
+        "description": "Separate data centers within an AWS region, interconnected for reliability and performance. Multiple AZs provide high availability and fault tolerance: if one AZ goes down, workloads in other AZs continue running. Most AWS regions have 3 AZs, and data is replicated across them for resilience.",
+        "diagram": "aws-region-azs",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
@@ -1909,6 +2142,8 @@
       },
       {
         "term": "CAP Theorem",
+        "description": "A fundamental theorem stating that a distributed system can guarantee at most two of three properties simultaneously: Consistency (every read returns the most recent write), Availability (every request receives a response), and Partition Tolerance (the system operates despite network partitions). Since partitions are unavoidable, the real choice is between consistency and availability.",
+        "diagram": "cap-theorem",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
@@ -1917,6 +2152,7 @@
       },
       {
         "term": "Conway's Law",
+        "description": "The observation that any organization designing a system will produce a design mirroring its communication structure. In practice, isolated departments build isolated systems while collaborative departments build shared data platforms. Understanding Conway's Law helps data engineers anticipate organizational challenges in data architecture.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -1925,6 +2161,8 @@
       },
       {
         "term": "Data Architecture",
+        "description": "The design of systems to support the evolving data needs of an enterprise, achieved through flexible and reversible decisions reached by careful evaluation of trade-offs. Good data architecture follows principles like choosing common components wisely, always being architecting, planning for failure, prioritizing security, and embracing FinOps.",
+        "diagram": "data-architecture-principles",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -1936,6 +2174,7 @@
       },
       {
         "term": "FinOps",
+        "description": "A practice that makes cloud spending a first-class engineering concern, guarding against unforeseen costs and missed revenue opportunities. FinOps aims to minimize Total Cost of Ownership and Total Opportunity Cost of Ownership while maximizing revenue, by distinguishing between immutable and transitory technology choices.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -1947,6 +2186,8 @@
       },
       {
         "term": "GDPR",
+        "description": "The General Data Protection Regulation, enacted in the EU in 2018, requiring explicit consent to collect personal information and granting individuals the right to request data deletion. GDPR is a key compliance concern in data architecture, and building loosely coupled systems makes it possible to adapt to evolving regulations.",
+        "diagram": "compliance-framework",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -1955,6 +2196,7 @@
       },
       {
         "term": "Kappa Architecture",
+        "description": "A streaming-first architecture that uses a single stream-processing system with some historical data retention, eliminating the dual-system complexity of Lambda Architecture. Kappa has not seen wide adoption in practice, though the idea of treating batch as a special case of streaming has gained traction through tools like Apache Flink.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -1963,6 +2205,7 @@
       },
       {
         "term": "Lambda Architecture",
+        "description": "A data architecture pattern that runs parallel batch and streaming processing systems with a unified serving layer that aggregates results from both. While conceptually appealing, Lambda Architecture has fallen out of favor due to the complexity of maintaining two separate codepaths for the same data.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -1971,6 +2214,8 @@
       },
       {
         "term": "Loosely Coupled Systems",
+        "description": "An architectural principle where components can be swapped out without redesigning the entire system, interfacing via APIs. Loosely coupled systems enable flexible and reversible 'two-way door' decisions, support incremental changes, and make it easier to adapt to new business requirements or regulations.",
+        "diagram": "monolith-modular",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
@@ -1982,6 +2227,8 @@
       },
       {
         "term": "Monolith vs. Modular",
+        "description": "Two opposing system architectures. A monolithic system is self-contained with tightly coupled components that become hard to maintain over time. A modular system is built from loosely coupled, independently deployable micro-services, enabling interoperability, flexible decisions, and continuous improvement.",
+        "diagram": "monolith-modular",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"
@@ -1990,6 +2237,8 @@
       },
       {
         "term": "Partitioning (Sharding)",
+        "description": "A data distribution strategy that splits data into disjoint subsets across nodes based on a partition key. Partitioning improves write scalability but makes queries spanning multiple partitions more complex. It is one of two primary strategies for distributing data in distributed systems, alongside replication.",
+        "diagram": "replication-vs-partitioning",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
@@ -1998,6 +2247,7 @@
       },
       {
         "term": "Principle of Least Privilege",
+        "description": "A security principle stating that every user, application, or service should have access to only the essential data and resources needed, for only the duration required. This defensive approach minimizes the blast radius of security breaches and is enforced through IAM policies in cloud environments.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/22-introduction-to-the-undercurrents"
@@ -2009,6 +2259,8 @@
       },
       {
         "term": "Replication",
+        "description": "A data distribution strategy that copies the same data to multiple nodes for higher durability, availability, and read throughput. The trade-off is increased storage cost and write overhead. Replication is one of two primary strategies for distributing data in distributed systems, alongside partitioning.",
+        "diagram": "replication-vs-partitioning",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
@@ -2017,6 +2269,8 @@
       },
       {
         "term": "Serverless",
+        "description": "A cloud compute model where the provider manages servers entirely behind the scenes, providing automatic scaling, availability, fault tolerance, and pay-as-you-go pricing. Serverless is ideal for small, discrete tasks executed on demand (like AWS Lambda), but generally not suited for heavy compute or memory-intensive workloads.",
+        "diagram": "compute-models",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"
@@ -2028,6 +2282,7 @@
       },
       {
         "term": "Shared Responsibility Model",
+        "description": "The AWS security model where AWS is responsible for security of the cloud (physical infrastructure, hardware, networking) while the customer is responsible for security in the cloud (data, access management, configuration, encryption). Understanding this boundary is critical for securing data engineering workloads.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/12-data-engineering-on-the-cloud"
@@ -2039,6 +2294,8 @@
       },
       {
         "term": "Total Cost of Ownership (TCO)",
+        "description": "The total estimated cost of a technology solution over its entire lifecycle, including direct costs (salaries, cloud bills, subscriptions) and indirect costs (downtime, IT support, lost productivity). TCO analysis is essential for making sound technology decisions and is complemented by Total Opportunity Cost of Ownership (TOCO) which captures lost opportunities from choosing a particular tool.",
+        "diagram": "cost-optimization",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"

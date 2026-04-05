@@ -122,6 +122,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
 
   <div class="sidebar-search">
     <SearchModal />
+    <a href={`${BASE}/glossary/`} class="sidebar-glossary-link">📖 Glossary of Terms</a>
   </div>
 
   <div class="nav-tree">
@@ -170,9 +171,6 @@ const activeWeekSlug = currentNote?.data.weekSlug;
         );
       })
     }
-    <div class="nav-extras">
-      <a href={`${BASE}/glossary/`} class="nav-extra-link">📖 Glossary</a>
-    </div>
   </div>
 </nav>
 
@@ -351,26 +349,23 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     font-weight: 500;
   }
 
-  .nav-extras {
-    padding: 0.75rem 1rem;
-    border-top: 1px solid var(--line);
-  }
-
-  .nav-extra-link {
+  .sidebar-glossary-link {
     display: block;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.78rem;
+    font-weight: 500;
     font-family: var(--font-sans);
     color: var(--fg-muted);
     text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.4rem 0;
-    transition: color 0.15s ease;
+    text-align: center;
+    margin-top: 0.5rem;
+    padding: 0.3rem;
+    border-radius: 8px;
+    transition: color 0.15s ease, background-color 0.15s ease;
   }
 
-  .nav-extra-link:hover {
+  .sidebar-glossary-link:hover {
     color: var(--accent);
+    background-color: var(--bg-hover);
   }
 
   .sidebar-search {
