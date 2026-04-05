@@ -53,6 +53,35 @@ Use for: AWS/GCP/Azure architecture diagrams, infrastructure diagrams, anything 
 - **CSS note:** `.diagram` has `max-height: 500px; object-fit: contain` — diagrams scale down to fit
 - **Critical: all `diagrams` library diagrams on the same page must share identical style config** — extract colors and attrs into a shared `gen(dark)` function. Only the content/connections should differ between diagrams.
 
+### Mermaid — Data modeling diagrams
+Use for: ER diagrams, table schemas, PK/FK relationships, normalization examples.
+
+- Rendered client-side via `mermaid` npm package
+- Component: `src/components/Mermaid.astro` — pass chart code as `chart` prop
+- Requires `.mdx` file (not `.md`) to use the component import
+- Content collection glob in `src/content.config.ts` accepts both `**/*.{md,mdx}`
+- Auto-switches between dark/light themes by observing `data-theme` on `<html>`
+- Use `erDiagram` syntax with `PK`/`FK` column annotations and crow's foot relationships
+
+### Technology logos
+Use when introducing a set of technologies — show their logos side by side for visual context.
+
+- Source: full-color logos with text from [vectorlogo.zone](https://www.vectorlogo.zone) (`-ar21.svg` for 2:1 icon+text variants), or [gilbarbara/logos](https://github.com/gilbarbara/logos) as fallback
+- Prefer full logos (icon + name text) over icon-only versions
+- Store in: `public/images/logos/`
+- Always add a `<span>` label below each logo regardless of whether the logo contains text
+- CSS class `.tech-logos` handles layout: centered row, equal flex sizing, `100px` height
+- White background with rounded corners (`border-radius: 12px; padding: 8px`) so logos look correct on both dark and light themes
+- HTML pattern:
+```html
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/name.svg" alt="Name" />
+    <span>Display Name</span>
+  </div>
+</div>
+```
+
 ### Theme switching (both libraries)
 The site uses `base: "/data-engineering-specialization-website"` — all image `src` paths must include this prefix.
 ```html

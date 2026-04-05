@@ -315,7 +315,7 @@ sub_cards = [
 for sc in sub_cards:
     title_h = th(sc["title"], FONT_TITLE)
     sub_h = th(sc["subtitle"], FONT_SUB)
-    sc["h"] = max(90, title_h + SUB_GAP + sub_h + 30)
+    sc["h"] = max(90, title_h + SUB_GAP + sub_h + 30)  # type: ignore
 
 sub_h_max = max(sc["h"] for sc in sub_cards)
 for sc in sub_cards:
