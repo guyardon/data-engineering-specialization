@@ -10,11 +10,6 @@ export default defineConfig({
   output: "static",
   vite: {
     plugins: [tailwindcss()],
-    build: {
-      rollupOptions: {
-        external: ["/pagefind/pagefind-ui.js"],
-      },
-    },
   },
   integrations: [mdx()],
   markdown: {

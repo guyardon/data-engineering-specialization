@@ -82,6 +82,15 @@ Use when introducing a set of technologies — show their logos side by side for
 </div>
 ```
 
+### Search
+Powered by Pagefind (indexed at build time via `npx pagefind`). Component: `src/components/SearchBar.astro`.
+
+- **Loading:** Pagefind UI is an IIFE (not ES module) — load via `<script>` tag, not `import()`. Access `window.PagefindUI` after load.
+- **Testing:** Search only works after `npm run build` + `npm run preview`. The dev server shows a placeholder fallback.
+- **Results dropdown:** Absolute-positioned card below input with rounded corners (14px), card background, shadow. Results are hoverable rows (not bordered list items). Each result is fully clickable via `::after` overlay on the link.
+- **Sidebar variant:** Compact results — `excerptLength: 15` (vs 30 on main page), excerpt clamped to 2 lines, smaller font sizes, tighter padding.
+- **Clear button:** Minimal "x" inside the input, no border, hover background.
+
 ### Theme switching (both libraries)
 The site uses `base: "/data-engineering-specialization-website"` — all image `src` paths must include this prefix.
 ```html

@@ -9,82 +9,267 @@ const { id = "search" } = Astro.props;
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
+    position: relative;
   }
 
+  /* Search form container */
+  .pagefind-ui .pagefind-ui__form {
+    position: relative !important;
+  }
+
+  /* Search input */
   .pagefind-ui .pagefind-ui__search-input {
     font-family: var(--font-sans) !important;
     font-size: 0.9rem !important;
+    font-weight: 400 !important;
     background: var(--bg-card) !important;
     color: var(--fg) !important;
     border: 1px solid var(--line) !important;
     border-radius: 10px !important;
-    padding: 0.75rem 1rem 0.75rem 2.5rem !important;
+    padding: 0.75rem 2.5rem 0.75rem 2.5rem !important;
     outline: none !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
   }
 
   .pagefind-ui .pagefind-ui__search-input:focus {
     border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1) !important;
   }
 
   .pagefind-ui .pagefind-ui__search-input::placeholder {
     color: var(--fg-soft) !important;
   }
 
-  .pagefind-ui .pagefind-ui__result-link {
-    color: var(--accent) !important;
-    font-family: var(--font-serif) !important;
+  /* Clear button */
+  .pagefind-ui .pagefind-ui__search-clear {
+    background: none !important;
+    border: none !important;
+    color: var(--fg-soft) !important;
+    cursor: pointer !important;
+    padding: 0 0.5rem !important;
+    font-size: 0 !important;
+    position: absolute !important;
+    right: 0.5rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: color 0.15s ease, background 0.15s ease !important;
   }
 
+  .pagefind-ui .pagefind-ui__search-clear:hover {
+    color: var(--fg) !important;
+    background: var(--bg-hover) !important;
+  }
+
+  .pagefind-ui .pagefind-ui__search-clear::after {
+    content: "✕" !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Results dropdown */
+  .pagefind-ui .pagefind-ui__drawer {
+    position: absolute !important;
+    top: calc(100% + 6px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 100 !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 32px var(--shadow-soft), 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    max-height: 420px !important;
+    overflow-y: auto !important;
+    padding: 0.5rem !important;
+  }
+
+  .pagefind-ui .pagefind-ui__drawer:empty,
+  .pagefind-ui .pagefind-ui__drawer:not(:has(.pagefind-ui__result)) {
+    display: none !important;
+  }
+
+  /* Results area */
+  .pagefind-ui .pagefind-ui__results-area {
+    margin-top: 0 !important;
+  }
+
+  /* Message ("X results for ...") */
+  .pagefind-ui .pagefind-ui__message {
+    color: var(--fg-soft) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    padding: 0.25rem 0.5rem 0.5rem !important;
+  }
+
+  /* Individual result */
+  .pagefind-ui .pagefind-ui__result {
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 0.6rem 0.75rem !important;
+    margin: 0 !important;
+    transition: background 0.1s ease !important;
+    cursor: pointer !important;
+    position: relative !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result:hover {
+    background: var(--bg-hover) !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.15rem !important;
+  }
+
+  /* Result title / link — stretched to cover entire result */
+  .pagefind-ui .pagefind-ui__result-link {
+    color: var(--fg) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    line-height: 1.3 !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result-link::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+  }
+
+  .pagefind-ui .pagefind-ui__result:hover .pagefind-ui__result-link {
+    color: var(--accent) !important;
+  }
+
+  /* Result excerpt */
   .pagefind-ui .pagefind-ui__result-excerpt {
     color: var(--fg-muted) !important;
     font-family: var(--font-sans) !important;
+    font-size: 0.78rem !important;
+    font-weight: 300 !important;
+    line-height: 1.5 !important;
   }
 
-  .pagefind-ui .pagefind-ui__result {
-    border-top: 1px solid var(--line) !important;
-    padding: 1rem 0 !important;
+  /* Result thumbnail (hidden) */
+  .pagefind-ui .pagefind-ui__result-thumb {
+    display: none !important;
   }
 
-  .pagefind-ui .pagefind-ui__message {
-    color: var(--fg-muted) !important;
-    font-family: var(--font-sans) !important;
-  }
-
-  .pagefind-ui .pagefind-ui__button {
-    color: var(--accent) !important;
-    background: none !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 8px !important;
-  }
-
+  /* Highlighted match text */
   .pagefind-ui mark {
     background: transparent !important;
     color: var(--accent) !important;
     font-weight: 600 !important;
   }
+
+  /* "Load more" button */
+  .pagefind-ui .pagefind-ui__button {
+    color: var(--fg-muted) !important;
+    background: var(--bg-hover) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.78rem !important;
+    font-weight: 400 !important;
+    padding: 0.5rem 1rem !important;
+    margin: 0.25rem 0.75rem 0.25rem !important;
+    cursor: pointer !important;
+    transition: color 0.15s ease, background 0.15s ease !important;
+    width: calc(100% - 1.5rem) !important;
+  }
+
+  .pagefind-ui .pagefind-ui__button:hover {
+    color: var(--accent) !important;
+    background: var(--bg-card) !important;
+  }
+
+  /* Custom scrollbar for results dropdown */
+  .pagefind-ui .pagefind-ui__drawer::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .pagefind-ui .pagefind-ui__drawer::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .pagefind-ui .pagefind-ui__drawer::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 3px;
+  }
+
+  /* Sidebar variant: tighter spacing */
+  .sidebar-search .search-wrapper {
+    max-width: none !important;
+  }
+
+  .sidebar-search .pagefind-ui .pagefind-ui__search-input {
+    padding: 0.5rem 2rem 0.5rem 2rem !important;
+    font-size: 0.8rem !important;
+    border-radius: 8px !important;
+  }
+
+  .sidebar-search .pagefind-ui .pagefind-ui__drawer {
+    border-radius: 10px !important;
+    max-height: 350px !important;
+    padding: 0.25rem !important;
+  }
+
+  .sidebar-search .pagefind-ui .pagefind-ui__result {
+    padding: 0.4rem 0.5rem !important;
+    border-radius: 8px !important;
+  }
+
+  .sidebar-search .pagefind-ui .pagefind-ui__result-link {
+    font-size: 0.78rem !important;
+  }
+
+  .sidebar-search .pagefind-ui .pagefind-ui__result-excerpt {
+    font-size: 0.7rem !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .sidebar-search .pagefind-ui .pagefind-ui__message {
+    font-size: 0.7rem !important;
+    padding: 0.15rem 0.4rem 0.3rem !important;
+  }
+
+  .sidebar-search .pagefind-ui .pagefind-ui__button {
+    font-size: 0.7rem !important;
+    padding: 0.35rem 0.75rem !important;
+    margin: 0.15rem 0.5rem !important;
+    width: calc(100% - 1rem) !important;
+  }
 </style>
 
 <script>
-  async function initSearch() {
+  function initAllSearchUIs() {
     const containers = document.querySelectorAll("[data-search-id]");
     for (const container of containers) {
       const searchId = container.getAttribute("data-search-id");
-      if (!searchId) continue;
-      try {
-        // @ts-ignore — generated at build time, dynamic path avoids Vite static analysis
-        const pagefindPath = "/pagefind/pagefind-ui.js";
-        const { PagefindUI } = await import(/* @vite-ignore */ pagefindPath);
-        new PagefindUI({
+      if (!searchId || container.children.length > 0) continue;
+
+      if (window.PagefindUI) {
+        const isSidebar = container.closest(".sidebar-search") !== null;
+        new window.PagefindUI({
           element: `#${searchId}`,
           showSubResults: false,
           showImages: false,
           resetStyles: false,
+          excerptLength: isSidebar ? 15 : 30,
         });
-      } catch {
-        // Dev mode fallback: create placeholder with safe DOM APIs
-        if (container.children.length === 0) {
+      } else {
+        // Dev mode fallback
         const wrapper = document.createElement("div");
         wrapper.style.cssText = "display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1.25rem;border:1px solid var(--line);border-radius:10px;color:var(--fg-soft);font-family:var(--font-sans);font-size:0.9rem;background:var(--bg-card);";
 
@@ -114,9 +299,13 @@ const { id = "search" } = Astro.props;
         wrapper.appendChild(span);
         container.appendChild(wrapper);
       }
-      }
     }
   }
 
-  initSearch();
+  // Load pagefind-ui.js as a script tag (it's an IIFE, not an ES module)
+  const script = document.createElement("script");
+  script.src = "/data-engineering-specialization-website/pagefind/pagefind-ui.js";
+  script.onload = initAllSearchUIs;
+  script.onerror = initAllSearchUIs; // falls through to dev fallback
+  document.head.appendChild(script);
 </script>
