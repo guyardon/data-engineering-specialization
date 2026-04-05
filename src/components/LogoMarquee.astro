@@ -1,0 +1,172 @@
+---
+import { BASE } from "../lib/base";
+
+const row1 = [
+  { name: "python", alt: "Python" },
+  { name: "aws", alt: "AWS" },
+  { name: "spark", alt: "Apache Spark" },
+  { name: "kafka", alt: "Apache Kafka" },
+  { name: "postgresql", alt: "PostgreSQL" },
+  { name: "snowflake", alt: "Snowflake" },
+  { name: "databricks", alt: "Databricks" },
+  { name: "airflow", alt: "Apache Airflow" },
+  { name: "s3", alt: "Amazon S3" },
+  { name: "redshift", alt: "Amazon Redshift" },
+];
+
+const row2 = [
+  { name: "dbt", alt: "dbt" },
+  { name: "terraform", alt: "Terraform" },
+  { name: "pandas", alt: "Pandas" },
+  { name: "redis", alt: "Redis" },
+  { name: "bigquery", alt: "BigQuery" },
+  { name: "lambda", alt: "AWS Lambda" },
+  { name: "iceberg", alt: "Apache Iceberg" },
+  { name: "parquet", alt: "Apache Parquet" },
+  { name: "neo4j", alt: "Neo4j" },
+  { name: "avro", alt: "Apache Avro" },
+];
+---
+
+<div class="marquee-container">
+  <div class="marquee" data-direction="left">
+    <div class="marquee-track">
+      {row1.map((logo) => (
+        <div class="marquee-logo">
+          <img src={`${BASE}/images/logos/${logo.name}.svg`} alt={logo.alt} class="logo-light" loading="lazy" />
+          <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt={logo.alt} class="logo-dark" loading="lazy" />
+        </div>
+      ))}
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      {row1.map((logo) => (
+        <div class="marquee-logo">
+          <img src={`${BASE}/images/logos/${logo.name}.svg`} alt="" class="logo-light" loading="lazy" />
+          <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt="" class="logo-dark" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="marquee" data-direction="right">
+    <div class="marquee-track">
+      {row2.map((logo) => (
+        <div class="marquee-logo">
+          <img src={`${BASE}/images/logos/${logo.name}.svg`} alt={logo.alt} class="logo-light" loading="lazy" />
+          <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt={logo.alt} class="logo-dark" loading="lazy" />
+        </div>
+      ))}
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      {row2.map((logo) => (
+        <div class="marquee-logo">
+          <img src={`${BASE}/images/logos/${logo.name}.svg`} alt="" class="logo-light" loading="lazy" />
+          <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt="" class="logo-dark" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .marquee-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-shrink: 0;
+    padding: 0 1rem;
+    animation: scroll-left 28s linear infinite;
+  }
+
+  .marquee[data-direction="right"] .marquee-track {
+    animation: scroll-right 32s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @keyframes scroll-right {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+  }
+
+  .marquee-logo {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .marquee-logo:hover {
+    opacity: 1;
+  }
+
+  .marquee-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .marquee-logo img.logo-dark { display: none; }
+  :root:not([data-theme="light"]) .marquee-logo img.logo-dark { display: block; }
+  :root:not([data-theme="light"]) .marquee-logo img.logo-light { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none !important;
+    }
+    .marquee-container {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .marquee {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .marquee-track[aria-hidden="true"] {
+      display: none;
+    }
+    .marquee-track {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>
