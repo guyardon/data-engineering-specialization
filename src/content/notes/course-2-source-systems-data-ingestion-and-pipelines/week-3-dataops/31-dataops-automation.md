@@ -46,9 +46,7 @@ IaC replaces manual console clicking and fragile bash scripts with declarative c
 
 By contrast, **Bash** is procedural: you must specify every step, handle all conditions, and manage error handling yourself, making it far more complex for infrastructure management.
 
-Both `AWS CloudFormation` and `Terraform` are IaC tools. The course labs use `CloudFormation` to provision the pipeline below:
-
-![](/data-engineering-specialization-website/images/96636718-daae-4027-8b66-66d7734aa8c8.png)
+Both `AWS CloudFormation` and `Terraform` are IaC tools.
 
 **The HCL Syntax**
 
