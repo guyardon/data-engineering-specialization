@@ -15,3 +15,10 @@ include = ["diagramlib*"]
 
 [tool.ruff.lint]
 ignore = ["E731"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+reportMissingModuleSource = false
+reportMissingTypeStubs = false
+reportUnusedExpression = false
