@@ -3,7 +3,7 @@
 """Generate Route Tables diagram (light + dark) using diagrams library.
 
 Shows how route table configuration determines whether a subnet is public or private.
-Public subnets route 0.0.0.0/0 → IGW; private subnets route 0.0.0.0/0 → NAT Gateway.
+Public subnets route 0.0.0.0/0 -> IGW; private subnets route 0.0.0.0/0 -> NAT Gateway.
 
 Uses the vpc-networking-aws pattern: Internet/IGW outside VPC, VPC Router fans out
 to two wrapper clusters containing public and private subnets side by side.
@@ -15,20 +15,28 @@ from diagrams.aws.compute import EC2
 from diagrams.aws.database import RDS
 from diagrams.aws.network import NATGateway, InternetGateway, RouteTable, VPCRouter
 from diagrams.aws.general import User
-import os
 import re
 import subprocess
 import tempfile
+import os
 
-OUT_DIR = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "public",
-    "images",
-    "diagrams",
+from diagramlib.aws_diagram import (
+    CLUSTER_COLORS_DARK,
+    CLUSTER_COLORS_LIGHT,
+    edge_attrs,
+    output_dir,
 )
-os.makedirs(OUT_DIR, exist_ok=True)
 
+OUT_DIR = output_dir()
 DIAGRAM_NAME = "route-tables-aws"
+
+# Semantic cluster name -> color key
+_CLUSTER_MAP = {
+    "vpc": "purple",
+    "col": "green",
+    "pub": "yellow",
+    "priv": "red",
+}
 
 
 def render_centered(dot_source, png_path, node_ids):
@@ -73,23 +81,12 @@ def gen(dark: bool):
     suffix = "-dark" if dark else ""
     bg = "#0f0f13" if dark else "white"
     fc = "#e8e8ea" if dark else "#1e1e1e"
-    edge_color = "#65656e" if dark else "#495057"
+    edge_color = edge_attrs(dark)["color"]
 
-    if dark:
-        cc = {
-            "vpc": {"bg": "#1a1a2a", "fc": "#c4b5fd", "border": "#6741d9"},
-            "col": {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
-            "pub": {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
-            "priv": {"bg": "#2a1a1a", "fc": "#fca5a5", "border": "#c92a2a"},
-        }
-    else:
-        cc = {
-            "vpc": {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
-            "col": {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
-            "pub": {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
-            "priv": {"bg": "#ffc9c940", "fc": "#c92a2a", "border": "#c92a2a"},
-        }
+    palette = CLUSTER_COLORS_DARK if dark else CLUSTER_COLORS_LIGHT
+    cc = {k: palette[v] for k, v in _CLUSTER_MAP.items()}
 
+    # Custom graph/node/edge attrs — this diagram uses larger sizes
     graph_attr = {
         "bgcolor": bg,
         "fontcolor": fc,
@@ -130,7 +127,7 @@ def gen(dark: bool):
             "pencolor": c["border"],
         }
 
-    out_path = os.path.join(OUT_DIR, f"{DIAGRAM_NAME}{suffix}")
+    out_path = f"{OUT_DIR}/{DIAGRAM_NAME}{suffix}"
     png_path = out_path + ".png"
 
     with Diagram(
@@ -164,7 +161,7 @@ def gen(dark: bool):
                     rt_priv = RouteTable("Route\nTable")
                     rds = RDS("RDS")
 
-        # Top flow: Internet → IGW → VPC Router
+        # Top flow: Internet -> IGW -> VPC Router
         user >> e() >> igw
         igw >> e(lhead="cluster_VPC  (10.0.0.0/16)", minlen="2") >> router
 
@@ -172,11 +169,11 @@ def gen(dark: bool):
         router >> e(lhead="cluster_0.0.0.0/0 \u2192 IGW  (Direct)") >> ec2_pub
         router >> e(lhead="cluster_0.0.0.0/0 \u2192 NAT  (Indirect)") >> ec2_priv
 
-        # Public subnet: EC2 → Route Table, Route Table manages NAT Gateway
+        # Public subnet: EC2 -> Route Table, Route Table manages NAT Gateway
         ec2_pub >> e() >> rt_pub
         rt_pub >> e() >> nat
 
-        # Private subnet: EC2 → Route Table, EC2 → RDS
+        # Private subnet: EC2 -> Route Table, EC2 -> RDS
         ec2_priv >> e() >> rt_priv
         ec2_priv >> e() >> rds
 

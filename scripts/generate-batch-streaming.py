@@ -1,143 +1,11 @@
 #!/usr/bin/env python3
 """Generate batch-streaming.excalidraw diagram — vertical flows, side by side."""
 
-import json
 import math
-import os
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 3000
+from diagramlib import ExcalidrawDiagram
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": sw,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=3000)
 
 # ─── Layout constants ───
 BOX_W = 160
@@ -163,20 +31,20 @@ COL3_X = COL2_X + BOX_W + COL_GAP  # Streaming
 # ─── Title ───
 TITLE_Y = 10
 total_w = COL3_X + BOX_W - COL1_X
-txt("title", COL1_X, TITLE_Y, total_w, 35, "Batch & Streaming Architectures", 28)
+d.txt("title", COL1_X, TITLE_Y, total_w, 35, "Batch & Streaming Architectures", 28)
 
 # ─── Column labels ───
 LABEL_Y = TITLE_Y + 55
-txt("etl-label", COL1_X, LABEL_Y, BOX_W, 28, "ETL", 22, color=BLUE_S)
-txt("elt-label", COL2_X, LABEL_Y, BOX_W, 28, "ELT", 22, color=PURPLE_S)
-txt("str-label", COL3_X, LABEL_Y, BOX_W, 28, "Streaming", 22, color=GREEN_S)
+d.txt("etl-label", COL1_X, LABEL_Y, BOX_W, 28, "ETL", 22, color=BLUE_S)
+d.txt("elt-label", COL2_X, LABEL_Y, BOX_W, 28, "ELT", 22, color=PURPLE_S)
+d.txt("str-label", COL3_X, LABEL_Y, BOX_W, 28, "Streaming", 22, color=GREEN_S)
 
 
 # ─── Helper: create a box with text ───
 def box(id, label, x, y, w, h, stroke, bg):
     tid = id + "-t"
-    rect(id, x, y, w, h, stroke, bg, bnd=[{"id": tid, "type": "text"}])
-    txt(tid, x, y, w, h, label, 20, cid=id)
+    d.rect(id, x, y, w, h, stroke, bg, bnd=[{"id": tid, "type": "text"}])
+    d.txt(tid, x, y, w, h, label, 20, cid=id)
 
 
 # ─── Helper: vertical arrow between two boxes ───
@@ -186,7 +54,7 @@ def varrow(aid, src_id, sx, sy, sw, sh, dst_id, dx, dy, dw, dh, color=ARROW_COLO
     y2 = dy - ARR_GAP
     sb = {"elementId": src_id, "focus": 0, "gap": ARR_GAP, "fixedPoint": [0.5, 1]}
     eb = {"elementId": dst_id, "focus": 0, "gap": ARR_GAP, "fixedPoint": [0.5, 0]}
-    arr(aid, x, y1, [[0, 0], [0, y2 - y1]], color, sb=sb, eb=eb)
+    d.arr(aid, x, y1, [[0, 0], [0, y2 - y1]], color, sb=sb, eb=eb)
 
 
 # ─── Helper: horizontal arrow between two boxes ───
@@ -196,7 +64,7 @@ def harrow(aid, src_id, sx, sy, sw, sh, dst_id, dx, dy, dw, dh, color=ARROW_COLO
     x2 = dx - ARR_GAP
     sb = {"elementId": src_id, "focus": 0, "gap": ARR_GAP, "fixedPoint": [1, 0.5]}
     eb = {"elementId": dst_id, "focus": 0, "gap": ARR_GAP, "fixedPoint": [0, 0.5]}
-    arr(aid, x1, y, [[0, 0], [x2 - x1, 0]], color, sb=sb, eb=eb)
+    d.arr(aid, x1, y, [[0, 0], [x2 - x1, 0]], color, sb=sb, eb=eb)
 
 
 # ─── Start Y for first box row ───
@@ -354,7 +222,7 @@ eb_ana = {
     "gap": ARR_GAP,
     "fixedPoint": [0.5, 0],
 }
-arr(
+d.arr(
     "str-a-ana",
     cons_cx - 15,
     cons_bottom,
@@ -375,7 +243,7 @@ sb_cons2 = {
     "fixedPoint": [0.65, 1],
 }
 eb_ml = {"elementId": "str-ml", "focus": 0, "gap": ARR_GAP, "fixedPoint": [0.5, 0]}
-arr(
+d.arr(
     "str-a-ml",
     cons_cx + 15,
     cons_bottom,
@@ -401,7 +269,7 @@ NOTE_W = total_w  # keep the note box the same width as before
 NOTE_H = 45
 note_x = diagram_left + (full_width - NOTE_W) // 2
 
-rect(
+d.rect(
     "note-box",
     note_x,
     note_y,
@@ -413,7 +281,7 @@ rect(
     opacity=80,
     bnd=[{"id": "note-t", "type": "text"}],
 )
-txt(
+d.txt(
     "note-t",
     note_x,
     note_y,
@@ -427,11 +295,6 @@ txt(
 )
 
 # ─── Write output ───
-out_dir = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "diagrams"
-)
-os.makedirs(out_dir, exist_ok=True)
-out_path = os.path.join(out_dir, "batch-streaming.excalidraw")
-with open(out_path, "w") as f:
-    json.dump(data, f, indent=2)
+out_path = "diagrams/batch-streaming.excalidraw"
+d.save(out_path)
 print(f"Done! Wrote {out_path}")

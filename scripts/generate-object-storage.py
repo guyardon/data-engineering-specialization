@@ -1,148 +1,8 @@
-import json
 import math
-import os
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 5000
+from diagramlib import ExcalidrawDiagram, BLUE, GREEN
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-PURPLE = ("#6741d9", "#d0bfff")
-YELLOW = ("#e67700", "#ffec99")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": sw,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, valign="middle"):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
+d = ExcalidrawDiagram(seed=5000)
 
 
 def th(text, font_size):
@@ -157,7 +17,7 @@ CONTENT_W = CANVAS_W - 2 * PAD_X
 # ── Title ──
 TITLE_Y = 0
 TITLE_H = th("Object Storage", 32)
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "Object Storage", 32)
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "Object Storage", 32)
 
 # ── Object Section ──
 SECTION_GAP = 40
@@ -168,7 +28,7 @@ OBJ_HDR_W = 200
 OBJ_HDR_H = 70
 OBJ_HDR_X = PAD_X + (CONTENT_W - OBJ_HDR_W) // 2
 
-rect(
+d.rect(
     "obj_hdr",
     OBJ_HDR_X,
     OBJ_HEADER_Y,
@@ -178,7 +38,7 @@ rect(
     BLUE[1],
     bnd=[{"type": "text", "id": "obj_hdr_txt"}],
 )
-txt(
+d.txt(
     "obj_hdr_txt",
     OBJ_HDR_X,
     OBJ_HEADER_Y,
@@ -195,7 +55,7 @@ ARROW_START_Y = OBJ_HEADER_Y + OBJ_HDR_H
 ARROW_LEN = 50
 ARROW_X = PAD_X + CONTENT_W // 2
 
-arr(
+d.arr(
     "obj_arrow",
     ARROW_X,
     ARROW_START_Y + ARROW_GAP // 2,
@@ -223,7 +83,7 @@ for i, comp in enumerate(components):
     tid = f"{cid}_txt"
 
     label = f"{comp['title']}\n{comp['sub']}"
-    rect(
+    d.rect(
         cid,
         px,
         COMP_Y,
@@ -233,7 +93,7 @@ for i, comp in enumerate(components):
         BLUE[1],
         bnd=[{"type": "text", "id": tid}],
     )
-    txt(tid, px, COMP_Y, PILL_W, PILL_H, label, 22, cid=cid)
+    d.txt(tid, px, COMP_Y, PILL_W, PILL_H, label, 22, cid=cid)
 
 # ── Divider line (subtle) ──
 DIVIDER_Y = COMP_Y + PILL_H + 50
@@ -241,7 +101,7 @@ DIVIDER_Y = COMP_Y + PILL_H + 50
 # ── Advantages Section ──
 ADV_LABEL_Y = DIVIDER_Y
 ADV_LABEL_H = th("Why Object Storage?", 24)
-txt(
+d.txt(
     "adv_label",
     PAD_X,
     ADV_LABEL_Y,
@@ -275,7 +135,7 @@ for i, adv in enumerate(advantages):
     atid = f"{aid}_txt"
 
     label = f"{adv['title']}\n{adv['sub']}"
-    rect(
+    d.rect(
         aid,
         gx,
         gy,
@@ -285,11 +145,8 @@ for i, adv in enumerate(advantages):
         GREEN[1],
         bnd=[{"type": "text", "id": atid}],
     )
-    txt(atid, gx, gy, GRID_PILL_W, GRID_PILL_H, label, 22, cid=aid)
+    d.txt(atid, gx, gy, GRID_PILL_W, GRID_PILL_H, label, 22, cid=aid)
 
 # ── Write file ──
-out_path = "diagrams/object-storage.excalidraw"
-os.makedirs(os.path.dirname(out_path), exist_ok=True)
-with open(out_path, "w") as f:
-    json.dump(data, f, indent=2)
-print(f"Done! Wrote {out_path}")
+d.save("diagrams/object-storage.excalidraw")
+print("Done! Wrote diagrams/object-storage.excalidraw")

@@ -6,152 +6,12 @@ two AZs side by side, each with public + private subnet stacked vertically.
 Public and private subnets are the same height.
 """
 
-import json
 import math
 import sys
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 1000
+from diagramlib import ExcalidrawDiagram, BLUE, GREEN, YELLOW, PURPLE, RED, CYAN, GRAY
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-YELLOW = ("#e67700", "#ffec99")
-PURPLE = ("#6741d9", "#d0bfff")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": pts[-1][0] - pts[0][0],
-            "height": pts[-1][1] - pts[0][1],
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=1000)
 
 # === LAYOUT CONSTANTS ===
 
@@ -229,36 +89,38 @@ CANVAS_H = SG_PILL_Y + SG_PILL_H + 30
 # === BUILD DIAGRAM ===
 
 # --- Title ---
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "AWS VPC Networking", 32)
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "AWS VPC Networking", 32)
 
 # --- User ---
 user_x = TOP_X0
-rect(
+d.rect(
     "user",
     user_x,
     TOP_Y,
     TOP_BOX_W,
     TOP_BOX_H,
     *GRAY,
+    fill="hachure",
     bnd=[{"id": "user_t", "type": "text"}],
 )
-txt("user_t", user_x, TOP_Y, TOP_BOX_W, TOP_BOX_H, "User", 22, cid="user")
+d.txt("user_t", user_x, TOP_Y, TOP_BOX_W, TOP_BOX_H, "User", 22, cid="user")
 
 # --- Internet Gateway ---
 igw_x = TOP_X0 + TOP_BOX_W + TOP_GAP
-rect(
+d.rect(
     "igw",
     igw_x,
     TOP_Y,
     TOP_BOX_W,
     TOP_BOX_H,
     *PURPLE,
+    fill="hachure",
     bnd=[{"id": "igw_t", "type": "text"}],
 )
-txt("igw_t", igw_x, TOP_Y, TOP_BOX_W, TOP_BOX_H, "Internet\nGateway", 22, cid="igw")
+d.txt("igw_t", igw_x, TOP_Y, TOP_BOX_W, TOP_BOX_H, "Internet\nGateway", 22, cid="igw")
 
 # Arrow: User -> IGW
-arr(
+d.arr(
     "a_user_igw",
     user_x + TOP_BOX_W,
     TOP_Y + TOP_BOX_H // 2,
@@ -269,17 +131,18 @@ arr(
 )
 
 # --- VPC container ---
-rect(
+d.rect(
     "vpc",
     VPC_X,
     VPC_Y,
     VPC_W,
     VPC_H,
     *PURPLE,
+    fill="hachure",
     dashed=True,
     bnd=[{"id": "vpc_t", "type": "text"}],
 )
-txt(
+d.txt(
     "vpc_t",
     VPC_X,
     VPC_Y,
@@ -292,7 +155,7 @@ txt(
 )
 
 # Arrow: IGW -> VPC
-arr(
+d.arr(
     "a_igw_vpc",
     igw_x + TOP_BOX_W // 2,
     TOP_Y + TOP_BOX_H,
@@ -303,13 +166,13 @@ arr(
 )
 
 # --- ALB ---
-rect("alb", ALB_X, ALB_Y, ALB_W, ALB_H, *PURPLE, bnd=[{"id": "alb_t", "type": "text"}])
-txt("alb_t", ALB_X, ALB_Y, ALB_W, ALB_H, "ALB", 22, cid="alb")
+d.rect("alb", ALB_X, ALB_Y, ALB_W, ALB_H, *PURPLE, fill="hachure", bnd=[{"id": "alb_t", "type": "text"}])
+d.txt("alb_t", ALB_X, ALB_Y, ALB_W, ALB_H, "ALB", 22, cid="alb")
 
 # --- AZ 1 (left) ---
 az1_x = VPC_X + VPC_PAD
-rect("az1", az1_x, AZ_Y, AZ_INNER_W, AZ_H, *GREEN, dashed=True)
-txt(
+d.rect("az1", az1_x, AZ_Y, AZ_INNER_W, AZ_H, *GREEN, fill="hachure", dashed=True)
+d.txt(
     "az1_label",
     az1_x,
     AZ_Y + 8,
@@ -323,8 +186,8 @@ txt(
 # Public subnet 1
 pub1_x = az1_x + AZ_PAD
 pub1_y = AZ_Y + AZ_LABEL_H + 15
-rect("pub1", pub1_x, pub1_y, SUBNET_W, SUBNET_H, *YELLOW, dashed=True)
-txt(
+d.rect("pub1", pub1_x, pub1_y, SUBNET_W, SUBNET_H, *YELLOW, fill="hachure", dashed=True)
+d.txt(
     "pub1_label",
     pub1_x,
     pub1_y + 5,
@@ -338,21 +201,22 @@ txt(
 # NAT Gateway centered in public subnet
 nat1_x = pub1_x + (SUBNET_W - PILL_W) // 2
 nat1_y = pub1_y + SUBNET_LABEL_H + 15
-rect(
+d.rect(
     "nat1",
     nat1_x,
     nat1_y,
     PILL_W,
     PILL_H,
     *YELLOW,
+    fill="hachure",
     bnd=[{"id": "nat1_t", "type": "text"}],
 )
-txt("nat1_t", nat1_x, nat1_y, PILL_W, PILL_H, "NAT Gateway", 19, cid="nat1")
+d.txt("nat1_t", nat1_x, nat1_y, PILL_W, PILL_H, "NAT Gateway", 19, cid="nat1")
 
 # Private subnet 1
 priv1_y = pub1_y + SUBNET_H + SUBNET_GAP
-rect("priv1", pub1_x, priv1_y, SUBNET_W, SUBNET_H, *RED, dashed=True)
-txt(
+d.rect("priv1", pub1_x, priv1_y, SUBNET_W, SUBNET_H, *RED, fill="hachure", dashed=True)
+d.txt(
     "priv1_label",
     pub1_x,
     priv1_y + 5,
@@ -366,33 +230,35 @@ txt(
 # EC2 + RDS side by side
 ec2_1_x = pub1_x + PILL_PAD
 ec2_1_y = priv1_y + SUBNET_LABEL_H + 15
-rect(
+d.rect(
     "ec2_1",
     ec2_1_x,
     ec2_1_y,
     PILL_W,
     PILL_H,
     *BLUE,
+    fill="hachure",
     bnd=[{"id": "ec2_1_t", "type": "text"}],
 )
-txt("ec2_1_t", ec2_1_x, ec2_1_y, PILL_W, PILL_H, "EC2", 20, cid="ec2_1")
+d.txt("ec2_1_t", ec2_1_x, ec2_1_y, PILL_W, PILL_H, "EC2", 20, cid="ec2_1")
 
 rds_1_x = pub1_x + SUBNET_W - PILL_PAD - PILL_W
-rect(
+d.rect(
     "rds_1",
     rds_1_x,
     ec2_1_y,
     PILL_W,
     PILL_H,
     *CYAN,
+    fill="hachure",
     bnd=[{"id": "rds_1_t", "type": "text"}],
 )
-txt("rds_1_t", rds_1_x, ec2_1_y, PILL_W, PILL_H, "RDS", 20, cid="rds_1")
+d.txt("rds_1_t", rds_1_x, ec2_1_y, PILL_W, PILL_H, "RDS", 20, cid="rds_1")
 
 # --- AZ 2 (right) ---
 az2_x = az1_x + AZ_INNER_W + AZ_GAP
-rect("az2", az2_x, AZ_Y, AZ_INNER_W, AZ_H, *GREEN, dashed=True)
-txt(
+d.rect("az2", az2_x, AZ_Y, AZ_INNER_W, AZ_H, *GREEN, fill="hachure", dashed=True)
+d.txt(
     "az2_label",
     az2_x,
     AZ_Y + 8,
@@ -405,8 +271,8 @@ txt(
 
 # Public subnet 2
 pub2_x = az2_x + AZ_PAD
-rect("pub2", pub2_x, pub1_y, SUBNET_W, SUBNET_H, *YELLOW, dashed=True)
-txt(
+d.rect("pub2", pub2_x, pub1_y, SUBNET_W, SUBNET_H, *YELLOW, fill="hachure", dashed=True)
+d.txt(
     "pub2_label",
     pub2_x,
     pub1_y + 5,
@@ -418,20 +284,21 @@ txt(
 )
 
 nat2_x = pub2_x + (SUBNET_W - PILL_W) // 2
-rect(
+d.rect(
     "nat2",
     nat2_x,
     nat1_y,
     PILL_W,
     PILL_H,
     *YELLOW,
+    fill="hachure",
     bnd=[{"id": "nat2_t", "type": "text"}],
 )
-txt("nat2_t", nat2_x, nat1_y, PILL_W, PILL_H, "NAT Gateway", 19, cid="nat2")
+d.txt("nat2_t", nat2_x, nat1_y, PILL_W, PILL_H, "NAT Gateway", 19, cid="nat2")
 
 # Private subnet 2
-rect("priv2", pub2_x, priv1_y, SUBNET_W, SUBNET_H, *RED, dashed=True)
-txt(
+d.rect("priv2", pub2_x, priv1_y, SUBNET_W, SUBNET_H, *RED, fill="hachure", dashed=True)
+d.txt(
     "priv2_label",
     pub2_x,
     priv1_y + 5,
@@ -443,31 +310,33 @@ txt(
 )
 
 ec2_2_x = pub2_x + PILL_PAD
-rect(
+d.rect(
     "ec2_2",
     ec2_2_x,
     ec2_1_y,
     PILL_W,
     PILL_H,
     *BLUE,
+    fill="hachure",
     bnd=[{"id": "ec2_2_t", "type": "text"}],
 )
-txt("ec2_2_t", ec2_2_x, ec2_1_y, PILL_W, PILL_H, "EC2", 20, cid="ec2_2")
+d.txt("ec2_2_t", ec2_2_x, ec2_1_y, PILL_W, PILL_H, "EC2", 20, cid="ec2_2")
 
 rds_2_x = pub2_x + SUBNET_W - PILL_PAD - PILL_W
-rect(
+d.rect(
     "rds_2",
     rds_2_x,
     ec2_1_y,
     PILL_W,
     PILL_H,
     *CYAN,
+    fill="hachure",
     bnd=[{"id": "rds_2_t", "type": "text"}],
 )
-txt("rds_2_t", rds_2_x, ec2_1_y, PILL_W, PILL_H, "RDS", 20, cid="rds_2")
+d.txt("rds_2_t", rds_2_x, ec2_1_y, PILL_W, PILL_H, "RDS", 20, cid="rds_2")
 
 # --- Arrows: ALB -> EC2s ---
-arr(
+d.arr(
     "a_alb_ec2_1",
     ALB_X + ALB_W // 4,
     ALB_Y + ALB_H,
@@ -482,7 +351,7 @@ arr(
     PURPLE[0],
 )
 
-arr(
+d.arr(
     "a_alb_ec2_2",
     ALB_X + 3 * ALB_W // 4,
     ALB_Y + ALB_H,
@@ -498,7 +367,7 @@ arr(
 )
 
 # --- Arrows: EC2 -> RDS ---
-arr(
+d.arr(
     "a_ec2_rds_1",
     ec2_1_x + PILL_W,
     ec2_1_y + PILL_H // 2,
@@ -508,7 +377,7 @@ arr(
     eb={"elementId": "rds_1", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a_ec2_rds_2",
     ec2_2_x + PILL_W,
     ec2_1_y + PILL_H // 2,
@@ -519,7 +388,7 @@ arr(
 )
 
 # --- Arrows: EC2 -> NAT (upward) ---
-arr(
+d.arr(
     "a_ec2_nat_1",
     ec2_1_x + PILL_W // 2,
     ec2_1_y,
@@ -527,7 +396,7 @@ arr(
     RED[0],
 )
 
-arr(
+d.arr(
     "a_ec2_nat_2",
     ec2_2_x + PILL_W // 2,
     ec2_1_y,
@@ -536,7 +405,7 @@ arr(
 )
 
 # --- Security layer labels ---
-txt(
+d.txt(
     "sg_label", PAD_X, SG_Y, CONTENT_W, SG_LABEL_H, "Security Layers", 20, color=GRAY[0]
 )
 
@@ -549,16 +418,17 @@ for i, (label, color) in enumerate(sg_items):
     sx = SG_X0 + i * (SG_PILL_W + SG_PILL_GAP)
     rid = f"sg_{i}"
     tid = f"sg_t_{i}"
-    rect(
+    d.rect(
         rid,
         sx,
         SG_PILL_Y,
         SG_PILL_W,
         SG_PILL_H,
         *color,
+        fill="hachure",
         bnd=[{"id": tid, "type": "text"}],
     )
-    txt(tid, sx, SG_PILL_Y, SG_PILL_W, SG_PILL_H, label, 19, cid=rid)
+    d.txt(tid, sx, SG_PILL_Y, SG_PILL_W, SG_PILL_H, label, 19, cid=rid)
 
 
 # === VERIFY ===
@@ -576,6 +446,5 @@ print(f"Canvas: {CANVAS_W} x {CANVAS_H}")
 
 name = sys.argv[1] if len(sys.argv) > 1 else "vpc-networking"
 outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
+d.save(outfile)
 print(f"Wrote {outfile}")

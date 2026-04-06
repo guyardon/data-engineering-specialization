@@ -5,159 +5,12 @@ Shows Region → Availability Zones → VPC with public/private subnets.
 Nested container layout to visualize the hierarchy.
 """
 
-import json
 import math
 import sys
 
-# === FILE STRUCTURE ===
+from diagramlib import ExcalidrawDiagram, BLUE, GREEN, YELLOW, PURPLE, RED, CYAN, GRAY
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 1000
-
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-# === COLOR PALETTE ===
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-YELLOW = ("#e67700", "#ffec99")
-PURPLE = ("#6741d9", "#d0bfff")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-# === HELPER FUNCTIONS ===
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": pts[-1][0] - pts[0][0],
-            "height": pts[-1][1] - pts[0][1],
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=1000)
 
 # === LAYOUT CONSTANTS ===
 
@@ -235,20 +88,21 @@ CANVAS_H = PILLS_Y + PILL_H + 30
 # === BUILD DIAGRAM ===
 
 # --- Title ---
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "Cloud Networking Basics", 32)
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "Cloud Networking Basics", 32)
 
 # --- Region container ---
-rect(
+d.rect(
     "region",
     REGION_X,
     REGION_Y,
     REGION_W,
     REGION_H,
     *PURPLE,
+    fill="hachure",
     dashed=True,
     bnd=[{"id": "region_t", "type": "text"}],
 )
-txt(
+d.txt(
     "region_t",
     REGION_X,
     REGION_Y,
@@ -262,8 +116,8 @@ txt(
 
 # --- AZ 1 ---
 az1_x = REGION_X + REGION_PAD
-rect("az1", az1_x, AZ_Y, AZ_W, AZ_H, *BLUE, dashed=True)
-txt(
+d.rect("az1", az1_x, AZ_Y, AZ_W, AZ_H, *BLUE, fill="hachure", dashed=True)
+d.txt(
     "az1_label",
     az1_x,
     AZ_Y + 8,
@@ -274,27 +128,29 @@ txt(
     color=BLUE[0],
 )
 
-rect(
+d.rect(
     "dc1a",
     az1_x + AZ_PAD,
     DC_Y_START,
     DC_W,
     DC_H,
     *CYAN,
+    fill="hachure",
     bnd=[{"id": "dc1a_t", "type": "text"}],
 )
-txt("dc1a_t", az1_x + AZ_PAD, DC_Y_START, DC_W, DC_H, "Data Center", 20, cid="dc1a")
+d.txt("dc1a_t", az1_x + AZ_PAD, DC_Y_START, DC_W, DC_H, "Data Center", 20, cid="dc1a")
 
-rect(
+d.rect(
     "dc1b",
     az1_x + AZ_PAD,
     DC_Y_START + DC_H + DC_GAP,
     DC_W,
     DC_H,
     *CYAN,
+    fill="hachure",
     bnd=[{"id": "dc1b_t", "type": "text"}],
 )
-txt(
+d.txt(
     "dc1b_t",
     az1_x + AZ_PAD,
     DC_Y_START + DC_H + DC_GAP,
@@ -307,8 +163,8 @@ txt(
 
 # --- AZ 2 ---
 az2_x = az1_x + AZ_W + AZ_GAP
-rect("az2", az2_x, AZ_Y, AZ_W, AZ_H, *BLUE, dashed=True)
-txt(
+d.rect("az2", az2_x, AZ_Y, AZ_W, AZ_H, *BLUE, fill="hachure", dashed=True)
+d.txt(
     "az2_label",
     az2_x,
     AZ_Y + 8,
@@ -319,27 +175,29 @@ txt(
     color=BLUE[0],
 )
 
-rect(
+d.rect(
     "dc2a",
     az2_x + AZ_PAD,
     DC_Y_START,
     DC_W,
     DC_H,
     *CYAN,
+    fill="hachure",
     bnd=[{"id": "dc2a_t", "type": "text"}],
 )
-txt("dc2a_t", az2_x + AZ_PAD, DC_Y_START, DC_W, DC_H, "Data Center", 20, cid="dc2a")
+d.txt("dc2a_t", az2_x + AZ_PAD, DC_Y_START, DC_W, DC_H, "Data Center", 20, cid="dc2a")
 
-rect(
+d.rect(
     "dc2b",
     az2_x + AZ_PAD,
     DC_Y_START + DC_H + DC_GAP,
     DC_W,
     DC_H,
     *CYAN,
+    fill="hachure",
     bnd=[{"id": "dc2b_t", "type": "text"}],
 )
-txt(
+d.txt(
     "dc2b_t",
     az2_x + AZ_PAD,
     DC_Y_START + DC_H + DC_GAP,
@@ -351,17 +209,18 @@ txt(
 )
 
 # --- VPC container ---
-rect(
+d.rect(
     "vpc",
     VPC_X,
     VPC_Y,
     VPC_W,
     VPC_H,
     *GREEN,
+    fill="hachure",
     dashed=True,
     bnd=[{"id": "vpc_t", "type": "text"}],
 )
-txt(
+d.txt(
     "vpc_t",
     VPC_X,
     VPC_Y,
@@ -375,8 +234,8 @@ txt(
 
 # --- Public subnet ---
 pub_x = VPC_X + REGION_PAD
-rect("pub_sub", pub_x, SUBNET_Y, SUBNET_W, SUBNET_H, *YELLOW, dashed=True)
-txt(
+d.rect("pub_sub", pub_x, SUBNET_Y, SUBNET_W, SUBNET_H, *YELLOW, fill="hachure", dashed=True)
+d.txt(
     "pub_label",
     pub_x,
     SUBNET_Y + 8,
@@ -387,27 +246,29 @@ txt(
     color=YELLOW[0],
 )
 
-rect(
+d.rect(
     "alb",
     pub_x + SUBNET_PAD,
     RES_Y_START,
     RES_W,
     RES_H,
     *YELLOW,
+    fill="hachure",
     bnd=[{"id": "alb_t", "type": "text"}],
 )
-txt("alb_t", pub_x + SUBNET_PAD, RES_Y_START, RES_W, RES_H, "ALB", 20, cid="alb")
+d.txt("alb_t", pub_x + SUBNET_PAD, RES_Y_START, RES_W, RES_H, "ALB", 20, cid="alb")
 
-rect(
+d.rect(
     "nat",
     pub_x + SUBNET_PAD,
     RES_Y_START + RES_H + RES_GAP,
     RES_W,
     RES_H,
     *YELLOW,
+    fill="hachure",
     bnd=[{"id": "nat_t", "type": "text"}],
 )
-txt(
+d.txt(
     "nat_t",
     pub_x + SUBNET_PAD,
     RES_Y_START + RES_H + RES_GAP,
@@ -420,8 +281,8 @@ txt(
 
 # --- Private subnet ---
 priv_x = pub_x + SUBNET_W + SUBNET_GAP
-rect("priv_sub", priv_x, SUBNET_Y, SUBNET_W, SUBNET_H, *RED, dashed=True)
-txt(
+d.rect("priv_sub", priv_x, SUBNET_Y, SUBNET_W, SUBNET_H, *RED, fill="hachure", dashed=True)
+d.txt(
     "priv_label",
     priv_x,
     SUBNET_Y + 8,
@@ -432,16 +293,17 @@ txt(
     color=RED[0],
 )
 
-rect(
+d.rect(
     "ec2",
     priv_x + SUBNET_PAD,
     RES_Y_START,
     RES_W,
     RES_H,
     *RED,
+    fill="hachure",
     bnd=[{"id": "ec2_t", "type": "text"}],
 )
-txt(
+d.txt(
     "ec2_t",
     priv_x + SUBNET_PAD,
     RES_Y_START,
@@ -452,16 +314,17 @@ txt(
     cid="ec2",
 )
 
-rect(
+d.rect(
     "rds",
     priv_x + SUBNET_PAD,
     RES_Y_START + RES_H + RES_GAP,
     RES_W,
     RES_H,
     *RED,
+    fill="hachure",
     bnd=[{"id": "rds_t", "type": "text"}],
 )
-txt(
+d.txt(
     "rds_t",
     priv_x + SUBNET_PAD,
     RES_Y_START + RES_H + RES_GAP,
@@ -480,24 +343,25 @@ nat_gw_x = (CANVAS_W - GW_W) // 2 + GW_W // 2 + GW_GAP // 2 - GW_W
 total_gw_w = 2 * GW_W + GW_GAP
 gw_start_x = (CANVAS_W - total_gw_w) // 2
 
-rect(
-    "igw", gw_start_x, GW_Y, GW_W, GW_H, *PURPLE, bnd=[{"id": "igw_t", "type": "text"}]
+d.rect(
+    "igw", gw_start_x, GW_Y, GW_W, GW_H, *PURPLE, fill="hachure", bnd=[{"id": "igw_t", "type": "text"}]
 )
-txt("igw_t", gw_start_x, GW_Y, GW_W, GW_H, "Internet Gateway", 20, cid="igw")
+d.txt("igw_t", gw_start_x, GW_Y, GW_W, GW_H, "Internet Gateway", 20, cid="igw")
 
-rect(
+d.rect(
     "rt",
     gw_start_x + GW_W + GW_GAP,
     GW_Y,
     GW_W,
     GW_H,
     *GRAY,
+    fill="hachure",
     bnd=[{"id": "rt_t", "type": "text"}],
 )
-txt("rt_t", gw_start_x + GW_W + GW_GAP, GW_Y, GW_W, GW_H, "Route Tables", 20, cid="rt")
+d.txt("rt_t", gw_start_x + GW_W + GW_GAP, GW_Y, GW_W, GW_H, "Route Tables", 20, cid="rt")
 
 # Arrows: IGW -> VPC, Route Tables -> VPC
-arr(
+d.arr(
     "a_igw_vpc",
     gw_start_x + GW_W // 2,
     GW_Y,
@@ -507,7 +371,7 @@ arr(
     eb={"elementId": "vpc", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a_rt_vpc",
     gw_start_x + GW_W + GW_GAP + GW_W // 2,
     GW_Y,
@@ -518,7 +382,7 @@ arr(
 )
 
 # --- Region considerations ---
-txt(
+d.txt(
     "consid_label",
     PAD_X,
     CONSID_Y,
@@ -536,8 +400,8 @@ for i, (label, color) in enumerate(zip(considerations, colors)):
     px = PILLS_X0 + i * (PILL_W + PILL_GAP)
     rid = f"pill_{i}"
     tid = f"pill_t_{i}"
-    rect(rid, px, PILLS_Y, PILL_W, PILL_H, *color, bnd=[{"id": tid, "type": "text"}])
-    txt(tid, px, PILLS_Y, PILL_W, PILL_H, label, 20, cid=rid)
+    d.rect(rid, px, PILLS_Y, PILL_W, PILL_H, *color, fill="hachure", bnd=[{"id": tid, "type": "text"}])
+    d.txt(tid, px, PILLS_Y, PILL_W, PILL_H, label, 20, cid=rid)
 
 
 # === VERIFY ===
@@ -554,6 +418,5 @@ print(f"Canvas: {CANVAS_W} x {CANVAS_H}")
 
 name = sys.argv[1] if len(sys.argv) > 1 else "cloud-networking"
 outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
+d.save(outfile)
 print(f"Wrote {outfile}")

@@ -1,149 +1,11 @@
 """Generate CDC Implementation Patterns diagram for Course 2, Section 2.4.2."""
 
-import json
 import math
 import sys
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 4000
+from diagramlib import ExcalidrawDiagram, BLUE, GREEN, PURPLE, GRAY
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-PURPLE = ("#6741d9", "#d0bfff")
-YELLOW = ("#e67700", "#ffec99")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=4000)
 
 # === LAYOUT CONSTANTS ===
 # Three columns: Query-based | Log-based | Trigger-based
@@ -197,20 +59,20 @@ def build_column(prefix, col_x, title, type_label, type_color, src_label, mech_t
     stroke, bg = color
 
     # Column header
-    txt(f"{prefix}-hdr", col_x, COL_HDR_Y, COL_W, COL_HDR_H, title, 22, color=stroke)
+    d.txt(f"{prefix}-hdr", col_x, COL_HDR_Y, COL_W, COL_HDR_H, title, 22, color=stroke)
 
     # Type label (pull/push)
-    txt(f"{prefix}-type", col_x, TYPE_Y, COL_W, TYPE_H, type_label, 15, color=type_color)
+    d.txt(f"{prefix}-type", col_x, TYPE_Y, COL_W, TYPE_H, type_label, 15, color=type_color)
 
     # Source DB
-    rect(
+    d.rect(
         f"{prefix}-src", col_x + BOX_OFF, SRC_Y, BOX_W, BOX_H, *GRAY,
         bnd=[{"id": f"{prefix}-src-t", "type": "text"}],
     )
-    txt(f"{prefix}-src-t", col_x + BOX_OFF, SRC_Y, BOX_W, BOX_H, src_label, 17, cid=f"{prefix}-src")
+    d.txt(f"{prefix}-src-t", col_x + BOX_OFF, SRC_Y, BOX_W, BOX_H, src_label, 17, cid=f"{prefix}-src")
 
     # Arrow: Source → Mechanism
-    arr(
+    d.arr(
         f"{prefix}-a1",
         col_x + BOX_OFF + BOX_W // 2,
         SRC_Y + BOX_H,
@@ -221,7 +83,7 @@ def build_column(prefix, col_x, title, type_label, type_color, src_label, mech_t
     )
 
     # Mechanism box
-    rect(
+    d.rect(
         f"{prefix}-mech", col_x + BOX_OFF, MECH_Y, BOX_W, MECH_H, stroke, bg,
         bnd=[{"id": f"{prefix}-mech-t", "type": "text"}],
     )
@@ -230,11 +92,11 @@ def build_column(prefix, col_x, title, type_label, type_color, src_label, mech_t
     mech_sub_h = math.ceil(1 * SUB_FSZ * 1.25)
     mech_combined = mech_title_h + gap_ts + mech_sub_h
     mech_top = (MECH_H - mech_combined) // 2
-    txt(f"{prefix}-mech-t", col_x + BOX_OFF, MECH_Y + mech_top, BOX_W, mech_title_h, mech_title, HDR_FSZ, cid=f"{prefix}-mech")
-    txt(f"{prefix}-mech-sub", col_x + BOX_OFF, MECH_Y + mech_top + mech_title_h + gap_ts, BOX_W, mech_sub_h, mech_sub, SUB_FSZ, color=stroke)
+    d.txt(f"{prefix}-mech-t", col_x + BOX_OFF, MECH_Y + mech_top, BOX_W, mech_title_h, mech_title, HDR_FSZ, cid=f"{prefix}-mech")
+    d.txt(f"{prefix}-mech-sub", col_x + BOX_OFF, MECH_Y + mech_top + mech_title_h + gap_ts, BOX_W, mech_sub_h, mech_sub, SUB_FSZ, color=stroke)
 
     # Arrow: Mechanism → Target
-    arr(
+    d.arr(
         f"{prefix}-a2",
         col_x + BOX_OFF + BOX_W // 2,
         MECH_Y + MECH_H,
@@ -245,21 +107,21 @@ def build_column(prefix, col_x, title, type_label, type_color, src_label, mech_t
     )
 
     # Target
-    rect(
+    d.rect(
         f"{prefix}-tgt", col_x + BOX_OFF, TGT_Y, BOX_W, BOX_H, stroke, bg,
         bnd=[{"id": f"{prefix}-tgt-t", "type": "text"}],
     )
-    txt(f"{prefix}-tgt-t", col_x + BOX_OFF, TGT_Y, BOX_W, BOX_H, tgt_label, 17, cid=f"{prefix}-tgt")
+    d.txt(f"{prefix}-tgt-t", col_x + BOX_OFF, TGT_Y, BOX_W, BOX_H, tgt_label, 17, cid=f"{prefix}-tgt")
 
     # Description
-    rect(f"{prefix}-desc", col_x + 5, DESC_Y, COL_W - 10, DESC_H, stroke, bg, opacity=40, dashed=True)
-    txt(f"{prefix}-desc-t", col_x + 5, DESC_Y, COL_W - 10, DESC_H, desc_text, 15, cid=f"{prefix}-desc")
+    d.rect(f"{prefix}-desc", col_x + 5, DESC_Y, COL_W - 10, DESC_H, stroke, bg, opacity=40, dashed=True)
+    d.txt(f"{prefix}-desc-t", col_x + 5, DESC_Y, COL_W - 10, DESC_H, desc_text, 15, cid=f"{prefix}-desc")
 
 
 # === BUILD DIAGRAM ===
 
 # Main title
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "CDC Implementation Patterns", TITLE_FSZ)
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "CDC Implementation Patterns", TITLE_FSZ)
 
 # Column 1: Query-based (Pull)
 build_column(
@@ -312,6 +174,5 @@ print(f"Bottom: {DESC_Y + DESC_H}")
 # === WRITE ===
 name = sys.argv[1] if len(sys.argv) > 1 else "diagrams/cdc-patterns"
 outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
+d.save(outfile)
 print(f"Wrote {outfile}")

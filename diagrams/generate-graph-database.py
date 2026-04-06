@@ -6,39 +6,16 @@ connected by labeled edges (PART_OF, ORDERS) with properties shown.
 Canvas: 650px wide, horizontal layout.
 """
 
-import json
-import math
 import sys
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 9000
+from diagramlib import ExcalidrawDiagram, BLUE, GREEN, YELLOW, PURPLE, CYAN, GRAY
+
+d = ExcalidrawDiagram(seed=9000)
 
 
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-YELLOW = ("#e67700", "#ffec99")
-PURPLE = ("#6741d9", "#d0bfff")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
+# ellipse is not in diagramlib — define it locally
 def ellipse(id, x, y, w, h, stroke, bg, fill="hachure", bnd=None):
-    els.append(
+    d.elements.append(
         {
             "type": "ellipse",
             "id": id,
@@ -55,128 +32,12 @@ def ellipse(id, x, y, w, h, stroke, bg, fill="hachure", bnd=None):
             "roughness": 1,
             "opacity": 100,
             "roundness": {"type": 2},
-            "seed": ns(),
+            "seed": d._ns(),
             "version": 1,
-            "versionNonce": ns(),
+            "versionNonce": d._ns(),
             "isDeleted": False,
             "groupIds": [],
             "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": align,
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
             "frameId": None,
             "link": None,
             "locked": False,
@@ -194,8 +55,8 @@ NH = 70  # node height (ellipse)
 
 # Title
 TITLE_Y = 15
-txt("title", PAD_X, TITLE_Y, CONTENT_W, 40, "Graph Database", 32)
-txt(
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, 40, "Graph Database", 32)
+d.txt(
     "sub",
     PAD_X,
     TITLE_Y + 38,
@@ -234,10 +95,10 @@ ellipse(
     *BLUE,
     bnd=[{"id": "customer_t", "type": "text"}],
 )
-txt("customer_t", CUSTOMER_X, CUSTOMER_Y, NW, NH, "Customer", 20, cid="customer")
+d.txt("customer_t", CUSTOMER_X, CUSTOMER_Y, NW, NH, "Customer", 20, cid="customer")
 
 # Properties label below Customer
-txt(
+d.txt(
     "customer_props",
     CUSTOMER_X - 10,
     CUSTOMER_Y + NH + 5,
@@ -253,10 +114,10 @@ txt(
 ellipse(
     "order", ORDER_X, ORDER_Y, NW, NH, *GREEN, bnd=[{"id": "order_t", "type": "text"}]
 )
-txt("order_t", ORDER_X, ORDER_Y, NW, NH, "Order", 20, cid="order")
+d.txt("order_t", ORDER_X, ORDER_Y, NW, NH, "Order", 20, cid="order")
 
 # Properties
-txt(
+d.txt(
     "order_props",
     ORDER_X - 10,
     ORDER_Y + NH + 5,
@@ -278,10 +139,10 @@ ellipse(
     *YELLOW,
     bnd=[{"id": "product_t", "type": "text"}],
 )
-txt("product_t", PRODUCT_X, PRODUCT_Y, NW, NH, "Product", 20, cid="product")
+d.txt("product_t", PRODUCT_X, PRODUCT_Y, NW, NH, "Product", 20, cid="product")
 
 # Properties
-txt(
+d.txt(
     "product_props",
     PRODUCT_X - 15,
     PRODUCT_Y + NH + 5,
@@ -303,10 +164,10 @@ ellipse(
     *PURPLE,
     bnd=[{"id": "category_t", "type": "text"}],
 )
-txt("category_t", CATEGORY_X, CATEGORY_Y, NW, NH, "Category", 20, cid="category")
+d.txt("category_t", CATEGORY_X, CATEGORY_Y, NW, NH, "Category", 20, cid="category")
 
 # Properties
-txt(
+d.txt(
     "category_props",
     CATEGORY_X - 10,
     CATEGORY_Y + NH + 5,
@@ -321,7 +182,7 @@ txt(
 # === EDGES (arrows between nodes) ===
 
 # Customer → Order  (PLACES)
-arr(
+d.arr(
     "e_places",
     CUSTOMER_X + NW // 4,
     CUSTOMER_Y + NH,
@@ -330,12 +191,12 @@ arr(
     sb={"elementId": "customer", "focus": 0, "gap": 4},
     eb={"elementId": "order", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "l_places", ORDER_X - 25, CUSTOMER_Y + NH + 20, 90, 25, "PLACES", 16, color=GREEN[0]
 )
 
 # Order → Product  (ORDERS)
-arr(
+d.arr(
     "e_orders",
     ORDER_X + NW,
     ORDER_Y + NH // 2,
@@ -344,7 +205,7 @@ arr(
     sb={"elementId": "order", "focus": 0, "gap": 4},
     eb={"elementId": "product", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "l_orders",
     ORDER_X + NW + 10,
     ORDER_Y + NH // 2 - 28,
@@ -356,7 +217,7 @@ txt(
 )
 
 # Product → Category  (PART_OF)
-arr(
+d.arr(
     "e_partof",
     PRODUCT_X + NW,
     PRODUCT_Y + NH // 2,
@@ -365,7 +226,7 @@ arr(
     sb={"elementId": "product", "focus": 0, "gap": 4},
     eb={"elementId": "category", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "l_partof",
     PRODUCT_X + NW + 10,
     PRODUCT_Y + NH // 2 - 28,
@@ -377,7 +238,7 @@ txt(
 )
 
 # Customer → Product  (diagonal, REVIEWED)
-arr(
+d.arr(
     "e_reviewed",
     CUSTOMER_X + 3 * NW // 4,
     CUSTOMER_Y + NH,
@@ -390,7 +251,7 @@ arr(
     sb={"elementId": "customer", "focus": 0, "gap": 4},
     eb={"elementId": "product", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "l_reviewed",
     PRODUCT_X + NW - 10,
     CUSTOMER_Y + NH + 20,
@@ -403,7 +264,7 @@ txt(
 
 # === Legend ===
 LEGEND_Y = 350
-txt(
+d.txt(
     "legend",
     PAD_X,
     LEGEND_Y,
@@ -419,6 +280,5 @@ txt(
 # === WRITE ===
 name = sys.argv[1] if len(sys.argv) > 1 else "graph-database"
 outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
+d.save(outfile)
 print(f"Wrote {outfile}")

@@ -1,6 +1,6 @@
 """
 Storage tiers diagram with AWS S3 classes.
-Shows Hot → Warm → Cold tiers vertically, each containing its S3 classes as pills.
+Shows Hot -> Warm -> Cold tiers vertically, each containing its S3 classes as pills.
 Follows skill layout rules: Rule 4 (box padding), Rule 7 (container padding),
 Rule 12 (identical dims), Rule 15 (font sizes), Rule 16 (vertical flow),
 Rule 24 (widths from canvas).
@@ -8,152 +8,11 @@ Rule 24 (widths from canvas).
 Canvas: 650px wide (narrow for vertical aspect ratio).
 """
 
-import json
-import math
 import sys
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 5000
+from diagramlib import ExcalidrawDiagram, BLUE, YELLOW, RED, GRAY
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-YELLOW = ("#e67700", "#ffec99")
-PURPLE = ("#6741d9", "#d0bfff")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": align,
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=5000)
 
 # === LAYOUT CONSTANTS ===
 CANVAS_W = 650
@@ -167,8 +26,8 @@ ARROW_GAP = 70  # Rule 17: min 70px arrow gap
 
 # Title
 TITLE_Y = 15
-txt("title", PAD_X, TITLE_Y, CONTENT_W, 40, "Storage Tiers & AWS S3 Classes", 32)
-txt(
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, 40, "Storage Tiers & AWS S3 Classes", 32)
+d.txt(
     "sub",
     PAD_X,
     TITLE_Y + 38,
@@ -194,10 +53,10 @@ def build_tier(tier_id, y, title, subtitle, color, s3_classes):
     container_h = INNER_PAD + LABEL_H + 18 + PILL_H + INNER_PAD
 
     # Dashed container (Rule 7)
-    rect(tier_id, PAD_X, y, CONTENT_W, container_h, *color, dashed=True)
+    d.rect(tier_id, PAD_X, y, CONTENT_W, container_h, *color, fill="hachure", dashed=True)
 
     # Title text (Rule 13: title + subtitle as two elements)
-    txt(
+    d.txt(
         f"{tier_id}_title",
         PAD_X + INNER_PAD,
         y + INNER_PAD - 5,
@@ -209,7 +68,7 @@ def build_tier(tier_id, y, title, subtitle, color, s3_classes):
     )
 
     # Subtitle (Rule 14: subtitle color = stroke color)
-    txt(
+    d.txt(
         f"{tier_id}_sub",
         PAD_X + INNER_PAD,
         y + INNER_PAD + LABEL_H - 8,
@@ -229,8 +88,8 @@ def build_tier(tier_id, y, title, subtitle, color, s3_classes):
         px = pill_start_x + i * (pill_w + PILL_GAP)
         pid = f"{tier_id}_p{i}"
         tid = f"{tier_id}_pt{i}"
-        rect(pid, px, pill_y, pill_w, PILL_H, *color, bnd=[{"id": tid, "type": "text"}])
-        txt(tid, px, pill_y, pill_w, PILL_H, label, 18, cid=pid)
+        d.rect(pid, px, pill_y, pill_w, PILL_H, *color, fill="hachure", bnd=[{"id": tid, "type": "text"}])
+        d.txt(tid, px, pill_y, pill_w, PILL_H, label, 18, cid=pid)
 
     return y + container_h
 
@@ -248,8 +107,8 @@ hot_bottom = build_tier(
     ["S3 Express\nOne Zone", "S3 Standard"],
 )
 
-# Arrow hot → warm
-arr(
+# Arrow hot -> warm
+d.arr(
     "a_hw",
     PAD_X + CONTENT_W // 2,
     hot_bottom,
@@ -269,8 +128,8 @@ warm_bottom = build_tier(
     ["S3 Standard-IA", "S3 One Zone-IA"],
 )
 
-# Arrow warm → cold
-arr(
+# Arrow warm -> cold
+d.arr(
     "a_wc",
     PAD_X + CONTENT_W // 2,
     warm_bottom,
@@ -302,7 +161,5 @@ print(f"Total height: {cold_bottom}")
 
 # === WRITE ===
 name = sys.argv[1] if len(sys.argv) > 1 else "storage-tiers"
-outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
-print(f"Wrote {outfile}")
+d.save(f"{name}.excalidraw")
+print(f"Wrote {name}.excalidraw")

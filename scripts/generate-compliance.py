@@ -1,110 +1,16 @@
 #!/usr/bin/env python3
 """Generate Architecting for Compliance excalidraw diagram."""
 
-import json
 import math
-import os
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 4000
+from diagramlib import ExcalidrawDiagram
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": sw,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
+d = ExcalidrawDiagram(seed=4000)
 
 
 def txt_free(id, x, y, w, h, t, sz, color="#868e96"):
     """Free text element (not bound to any container)."""
-    els.append(
+    d.elements.append(
         {
             "type": "text",
             "id": id,
@@ -129,46 +35,9 @@ def txt_free(id, x, y, w, h, t, sz, color="#868e96"):
             "strokeStyle": "solid",
             "roughness": 1,
             "opacity": 100,
-            "seed": ns(),
+            "seed": d._ns(),
             "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
+            "versionNonce": d._ns(),
             "isDeleted": False,
             "groupIds": [],
             "boundElements": [],
@@ -236,7 +105,7 @@ ARCH_H = 100
 # ---------------------------------------------------------------------------
 title_text = "Architecting for Compliance"
 title_w = math.ceil(len(title_text) * FONT_DIAGRAM_TITLE * 0.55 + 40)
-txt(
+d.txt(
     "title",
     CENTER_X - title_w // 2,
     TITLE_Y,
@@ -252,7 +121,7 @@ txt(
 comp_x = CENTER_X - CENTER_BOX_W // 2
 comp_y = CENTER_TOP
 
-rect(
+d.rect(
     "compliance",
     comp_x,
     comp_y,
@@ -267,7 +136,7 @@ rect(
         {"id": "arr-comp-sox", "type": "arrow"},
     ],
 )
-txt(
+d.txt(
     "compliance-t",
     comp_x,
     comp_y,
@@ -299,7 +168,7 @@ for i, (rid, title, subtitle, stroke, bg) in enumerate(regulations):
     tid = f"{rid}-t"
     sid = f"{rid}-sub"
 
-    rect(
+    d.rect(
         rid,
         bx,
         by,
@@ -320,7 +189,7 @@ for i, (rid, title, subtitle, stroke, bg) in enumerate(regulations):
     )
 
     # Bound title text
-    txt(
+    d.txt(
         tid,
         bx,
         title_y,
@@ -351,7 +220,7 @@ for i, (rid, _, _, stroke, _) in enumerate(regulations):
     dx = reg_cx - comp_cx
     dy = reg_top - comp_bottom
 
-    arr(
+    d.arr(
         f"arr-comp-{rid}",
         ax,
         ay,
@@ -372,7 +241,7 @@ arch_subtitle = "Swap components to meet\nnew requirements"
 FONT_ARCH_TITLE = 22
 FONT_ARCH_SUB = 16
 
-rect(
+d.rect(
     "arch",
     arch_x,
     arch_y,
@@ -394,7 +263,7 @@ arch_ty, arch_th, arch_sy, arch_sh = dual_text_positions(
 )
 
 # Bound title text
-txt(
+d.txt(
     "arch-t",
     arch_x,
     arch_ty,
@@ -434,7 +303,7 @@ for i, (rid, _, _, stroke, _) in enumerate(regulations):
     dx = arch_cx - reg_cx
     dy = arch_top_y - reg_bottom
 
-    arr(
+    d.arr(
         f"arr-{rid}-arch",
         ax,
         ay,
@@ -448,11 +317,6 @@ for i, (rid, _, _, stroke, _) in enumerate(regulations):
 # ---------------------------------------------------------------------------
 # Write output
 # ---------------------------------------------------------------------------
-out_dir = os.path.join(os.path.dirname(__file__), "..", "diagrams")
-out_path = os.path.join(out_dir, "compliance-framework.excalidraw")
-os.makedirs(out_dir, exist_ok=True)
-
-with open(out_path, "w") as f:
-    json.dump(data, f, indent=2)
-
-print(f"Done! Wrote {os.path.abspath(out_path)}")
+out_path = "diagrams/compliance-framework.excalidraw"
+d.save(out_path)
+print(f"Done! Wrote {out_path}")

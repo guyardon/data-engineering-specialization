@@ -10,151 +10,11 @@ Narrow canvas (650px) for good vertical aspect ratio.
 Uses Rule 7 padding (PAD=25) for encapsulating containers around inner pills.
 """
 
-import json
-import math
 import sys
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 3000
+from diagramlib import ExcalidrawDiagram, BLUE, GREEN, YELLOW, PURPLE, CYAN, GRAY
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-YELLOW = ("#e67700", "#ffec99")
-PURPLE = ("#6741d9", "#d0bfff")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, align="center"):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": align,
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=3000)
 
 # === LAYOUT CONSTANTS ===
 CANVAS_W = 650
@@ -174,9 +34,9 @@ CONTAINER_H = LABEL_H + 10 + PILL_H + INNER_PAD
 def build_layer(layer_id, y, label, color, pills, pill_w):
     """Create a dashed container with a label at top and centered pills inside."""
     # Container rect
-    rect(layer_id, PAD_X, y, CONTENT_W, CONTAINER_H, *color, dashed=True)
+    d.rect(layer_id, PAD_X, y, CONTENT_W, CONTAINER_H, *color, fill="hachure", dashed=True)
     # Label text (free, positioned inside container top area)
-    txt(
+    d.txt(
         f"{layer_id}_label",
         PAD_X + INNER_PAD,
         y + 8,
@@ -194,15 +54,15 @@ def build_layer(layer_id, y, label, color, pills, pill_w):
         px = start_x + i * (pill_w + PILL_GAP)
         pid = f"{layer_id}_p{i}"
         tid = f"{layer_id}_t{i}"
-        rect(pid, px, pill_y, pill_w, PILL_H, *color, bnd=[{"id": tid, "type": "text"}])
-        txt(tid, px, pill_y, pill_w, PILL_H, pill_label, 17, cid=pid)
+        d.rect(pid, px, pill_y, pill_w, PILL_H, *color, fill="hachure", bnd=[{"id": tid, "type": "text"}])
+        d.txt(tid, px, pill_y, pill_w, PILL_H, pill_label, 17, cid=pid)
     return y + CONTAINER_H
 
 
 # Title
 TITLE_Y = 15
-txt("title", PAD_X, TITLE_Y, CONTENT_W, 40, "Storage Hierarchy", 32)
-txt(
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, 40, "Storage Hierarchy", 32)
+d.txt(
     "sub",
     PAD_X,
     TITLE_Y + 38,
@@ -224,8 +84,8 @@ build_layer(
     pill_w=125,
 )
 
-# Arrow L1 → L2
-arr(
+# Arrow L1 -> L2
+d.arr(
     "a12",
     PAD_X + CONTENT_W // 2,
     L1_Y + CONTAINER_H,
@@ -246,8 +106,8 @@ build_layer(
     pill_w=125,
 )
 
-# Arrow L2 → L3
-arr(
+# Arrow L2 -> L3
+d.arr(
     "a23",
     PAD_X + CONTENT_W // 2,
     L2_Y + CONTAINER_H,
@@ -268,8 +128,8 @@ build_layer(
     pill_w=105,
 )
 
-# Arrow L3 → L4
-arr(
+# Arrow L3 -> L4
+d.arr(
     "a34",
     PAD_X + CONTENT_W // 2,
     L3_Y + CONTAINER_H,
@@ -300,7 +160,5 @@ print(f"Total height: {L4_Y + CONTAINER_H}")
 
 # === WRITE ===
 name = sys.argv[1] if len(sys.argv) > 1 else "storage-hierarchy"
-outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
-print(f"Wrote {outfile}")
+d.save(f"{name}.excalidraw")
+print(f"Wrote {name}.excalidraw")
