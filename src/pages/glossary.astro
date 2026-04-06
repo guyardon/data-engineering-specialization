@@ -177,10 +177,17 @@ const resolvedData = glossaryData.map((cat) => ({
       }
 
       function buildCatPages() {
+        var catSection = document.querySelector(".category-section");
         catPageBreaks = [0];
         // Show all pills to measure
         allCatPills.forEach(function(p) { p.style.display = ""; });
-        if (countCatRows() <= MAX_ROWS) return; // no pagination needed
+        if (countCatRows() <= MAX_ROWS) {
+          catSection.classList.remove("paginated");
+          catPrev.classList.add("nav-hidden");
+          catNext.classList.add("nav-hidden");
+          return;
+        }
+        catSection.classList.add("paginated");
 
         // Need pagination — calculate page breaks
         allCatPills.forEach(function(p) { p.style.display = "none"; });
@@ -251,8 +258,26 @@ const resolvedData = glossaryData.map((cat) => ({
       }
 
       function buildPages() {
-        // Calculate all page breaks by rendering and measuring
+        // First check if pagination is needed
         pageBreaks = [0];
+        clearChildren(termsPills);
+        termsSection.classList.remove("paginated");
+        currentTerms.forEach(function(entry) {
+          var pill = document.createElement("button");
+          pill.className = "pill term-pill";
+          pill.textContent = entry.term.term;
+          termsPills.appendChild(pill);
+        });
+        if (countRows() <= MAX_ROWS) {
+          clearChildren(termsPills);
+          termsPrev.classList.add("nav-hidden");
+          termsNext.classList.add("nav-hidden");
+          return;
+        }
+        termsSection.classList.add("paginated");
+        clearChildren(termsPills);
+
+        // Calculate all page breaks by rendering and measuring
         var idx = 0;
         while (idx < currentTerms.length) {
           clearChildren(termsPills);
@@ -656,7 +681,8 @@ const resolvedData = glossaryData.map((cat) => ({
 
 /* Two-column layout (categories + terms), detail opens as modal */
 .glossary-layout { display: flex; gap: 1rem; flex: 1; align-items: flex-start; overflow: hidden; }
-.category-section { flex-shrink: 0; width: 40%; position: relative; padding: 0 2.5rem; }
+.category-section { flex-shrink: 0; width: 40%; position: relative; }
+.category-section.paginated { padding: 0 2.5rem; }
 .category-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; align-content: flex-start; justify-content: center; }
 
 /* Category pagination nav buttons */
@@ -666,7 +692,8 @@ const resolvedData = glossaryData.map((cat) => ({
 .cat-nav.nav-hidden { visibility: hidden; }
 .cat-prev { left: 0; }
 .cat-next { right: 0; }
-.terms-section { flex: 1; min-width: 0; position: relative; padding: 0 2.5rem; }
+.terms-section { flex: 1; min-width: 0; position: relative; }
+.terms-section.paginated { padding: 0 2.5rem; }
 .terms-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
 .detail-section { display: none; }
 
