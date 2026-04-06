@@ -11,6 +11,77 @@ import {
   type TermEntry,
 } from "./glossary-data";
 
+/** Maps glossary term names to logo file slugs in public/images/logos/. */
+const TERM_LOGO_MAP: Record<string, string> = {
+  "AWS CloudFormation": "cloudformation",
+  "AWS DMS": "dms",
+  "AWS Glue": "glue",
+  "AWS IAM": "iam",
+  "AWS Lake Formation": "lakeformation",
+  "AWS Lambda": "lambda",
+  Airbyte: "airbyte",
+  "Amazon Athena": "athena",
+  "Amazon CloudWatch": "cloudwatch",
+  "Amazon Data Firehose": "firehose",
+  "Amazon DynamoDB": "dynamodb",
+  "Amazon EBS": "ebs",
+  "Amazon EC2": "ec2",
+  "Amazon EFS": "efs",
+  "Amazon EMR": "emr",
+  "Amazon Kinesis Data Streams": "kinesis",
+  "Amazon MSK": "msk",
+  "Amazon MWAA": "mwaa",
+  "Amazon Neptune": "neptune",
+  "Amazon QuickSight": "quicksight",
+  "Amazon RDS": "rds",
+  "Amazon Redshift": "redshift",
+  "Amazon S3": "s3",
+  "Amazon SQS": "sqs",
+  "Amazon SageMaker": "sagemaker",
+  "Amazon VPC": "vpc",
+  "Apache Airflow": "airflow",
+  "Apache Avro": "avro",
+  "Apache Flink": "flink",
+  "Apache Hadoop": "hadoop",
+  "Apache Iceberg": "iceberg",
+  "Apache Kafka": "kafka",
+  "Apache Parquet": "parquet-text",
+  "Apache Spark": "spark",
+  Boto3: "boto3",
+  CSV: "csv",
+  Cassandra: "cassandra",
+  Dagster: "dagster-text",
+  Debezium: "debezium",
+  Databricks: "databricks-text",
+  "Delta Lake": "delta-lake",
+  Fivetran: "fivetran",
+  "Glue Data Catalog": "glue",
+  "Google BigQuery": "bigquery",
+  "Apache Hudi": "hudi.png",
+  "Great Expectations": "great-expectations-text",
+  HDFS: "hdfs",
+  JSON: "json",
+  Mage: "mage",
+  MapReduce: "hadoop",
+  Memcached: "memcached",
+  Metabase: "metabase",
+  MySQL: "mysql",
+  Neo4j: "neo4j",
+  Oracle: "oracle",
+  PostgreSQL: "postgresql-text",
+  Prefect: "prefect-text",
+  PySpark: "pyspark",
+  Redis: "redis",
+  "Redshift Spectrum": "redshift",
+  SQL: "sql",
+  "Spark DataFrames": "spark",
+  Snowflake: "snowflake",
+  "Spark Structured Streaming": "spark",
+  Terraform: "terraform",
+  XML: "xml",
+  dbt: "dbt",
+};
+
 export interface DetailCallbacks {
   onRelatedTermClick: (entry: TermEntry) => void;
   onShuffleClick: () => void;
@@ -28,11 +99,49 @@ export function buildDetailCard(
   // Clear existing content
   while (target.firstChild) target.removeChild(target.firstChild);
 
-  // Title
-  const title = document.createElement("h3");
-  title.className = "detail-title";
-  title.textContent = term.term;
-  target.appendChild(title);
+  // Title — use logo as title when available, fall back to text
+  const logoSlug = TERM_LOGO_MAP[term.term];
+  if (logoSlug) {
+    const logoWrap = document.createElement("div");
+    logoWrap.className = "detail-logo-title";
+    const isPng = logoSlug.endsWith(".png");
+
+    if (isPng) {
+      const baseName = logoSlug.replace(".png", "");
+      const src = basePath + "/images/logos/" + baseName + ".png";
+      const lightImg = document.createElement("img");
+      lightImg.src = src;
+      lightImg.alt = term.term;
+      lightImg.className = "logo-light";
+      logoWrap.appendChild(lightImg);
+
+      const darkImg = document.createElement("img");
+      darkImg.src = src;
+      darkImg.alt = term.term;
+      darkImg.className = "logo-dark";
+      darkImg.style.filter = "brightness(1.6)";
+      logoWrap.appendChild(darkImg);
+    } else {
+      const lightImg = document.createElement("img");
+      lightImg.src = basePath + "/images/logos/" + logoSlug + ".svg";
+      lightImg.alt = term.term;
+      lightImg.className = "logo-light";
+      logoWrap.appendChild(lightImg);
+
+      const darkImg = document.createElement("img");
+      darkImg.src = basePath + "/images/logos/" + logoSlug + "-dark.svg";
+      darkImg.alt = term.term;
+      darkImg.className = "logo-dark";
+      logoWrap.appendChild(darkImg);
+    }
+
+    target.appendChild(logoWrap);
+  } else {
+    const title = document.createElement("h3");
+    title.className = "detail-title";
+    title.textContent = term.term;
+    target.appendChild(title);
+  }
 
   // Description
   if (term.description) {
