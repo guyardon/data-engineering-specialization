@@ -13,11 +13,11 @@ Establish linting, formatting, and type-checking tooling so every subsequent pha
 
 ## Requirement Verification
 
-| Req ID | Description | Status | Evidence |
-|--------|-------------|--------|----------|
-| TOOL-01 | ESLint + Prettier configured with Astro plugin | PASS | `eslint.config.mjs` with flat config, `eslint-plugin-astro`, `eslint-plugin-prettier`. `npm run lint` exits 0. |
-| TOOL-02 | TypeScript strict mode passes with zero errors | PASS | `npm run typecheck` (astro check) exits 0, 0 errors. Sidebar.astro and content.config.ts fixes applied. |
-| TOOL-03 | `npm run build` succeeds cleanly | PASS | `npm run build` exits 0, 53 pages built in ~1.1s. `dist/` output confirmed. |
+| Req ID  | Description                                    | Status | Evidence                                                                                                       |
+| ------- | ---------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------- |
+| TOOL-01 | ESLint + Prettier configured with Astro plugin | PASS   | `eslint.config.mjs` with flat config, `eslint-plugin-astro`, `eslint-plugin-prettier`. `npm run lint` exits 0. |
+| TOOL-02 | TypeScript strict mode passes with zero errors | PASS   | `npm run typecheck` (astro check) exits 0, 0 errors. Sidebar.astro and content.config.ts fixes applied.        |
+| TOOL-03 | `npm run build` succeeds cleanly               | PASS   | `npm run build` exits 0, 53 pages built in ~1.1s. `dist/` output confirmed.                                    |
 
 ## Must-Have Checks
 
@@ -29,15 +29,16 @@ Establish linting, formatting, and type-checking tooling so every subsequent pha
 
 ## Plan Coverage
 
-| Plan | Status | Summary |
-|------|--------|---------|
-| 01-01 | Complete | ESLint flat config + Prettier as ESLint rule |
+| Plan  | Status   | Summary                                              |
+| ----- | -------- | ---------------------------------------------------- |
+| 01-01 | Complete | ESLint flat config + Prettier as ESLint rule         |
 | 01-02 | Complete | 3 TypeScript errors fixed (Sidebar + content config) |
-| 01-03 | Complete | Verification gauntlet — human approved |
+| 01-03 | Complete | Verification gauntlet — human approved               |
 
 ## Human Verification
 
 Items verified by user:
+
 - Build output confirmed via `npm run build`
 - Site preview confirmed at localhost:4322 — sidebar and navigation working
 

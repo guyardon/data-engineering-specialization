@@ -14,25 +14,26 @@
 
 ## File Map
 
-| File | Responsibility | Task |
-|------|---------------|------|
-| `src/styles/global.css` | CSS custom properties, font imports, prose styles, card styles, theme transitions | 1 |
-| `src/components/ThemeToggle.astro` | **New** — sun/moon toggle button with localStorage persistence | 2 |
-| `src/components/Logo.astro` | **New** — SVG logo + text mark | 2 |
-| `src/components/Sidebar.astro` | Emoji prefixes, CSS var colors, logo + toggle in header | 3 |
-| `src/components/TableOfContents.astro` | CSS var colors | 3 |
-| `src/layouts/NoteLayout.astro` | Theme script in head, card-wrapping script, updated styles | 4 |
-| `src/pages/index.astro` | Redesigned home page: hero, search placeholder, course cards, footer | 5 |
-| `astro.config.mjs` | No changes needed (Pagefind runs post-build) | — |
-| `package.json` | Add pagefind dev dependency, update build script | 6 |
-| `src/components/SearchBar.astro` | **New** — Pagefind UI wrapper with custom styles | 6 |
-| `public/favicon.svg` | Updated logo icon | 2 |
+| File                                   | Responsibility                                                                    | Task |
+| -------------------------------------- | --------------------------------------------------------------------------------- | ---- |
+| `src/styles/global.css`                | CSS custom properties, font imports, prose styles, card styles, theme transitions | 1    |
+| `src/components/ThemeToggle.astro`     | **New** — sun/moon toggle button with localStorage persistence                    | 2    |
+| `src/components/Logo.astro`            | **New** — SVG logo + text mark                                                    | 2    |
+| `src/components/Sidebar.astro`         | Emoji prefixes, CSS var colors, logo + toggle in header                           | 3    |
+| `src/components/TableOfContents.astro` | CSS var colors                                                                    | 3    |
+| `src/layouts/NoteLayout.astro`         | Theme script in head, card-wrapping script, updated styles                        | 4    |
+| `src/pages/index.astro`                | Redesigned home page: hero, search placeholder, course cards, footer              | 5    |
+| `astro.config.mjs`                     | No changes needed (Pagefind runs post-build)                                      | —    |
+| `package.json`                         | Add pagefind dev dependency, update build script                                  | 6    |
+| `src/components/SearchBar.astro`       | **New** — Pagefind UI wrapper with custom styles                                  | 6    |
+| `public/favicon.svg`                   | Updated logo icon                                                                 | 2    |
 
 ---
 
 ### Task 1: Design System Foundation — CSS Custom Properties, Fonts, Prose Styles
 
 **Files:**
+
 - Modify: `src/styles/global.css` (complete rewrite)
 
 - [ ] **Step 1: Rewrite global.css with CSS custom properties and font imports**
@@ -91,7 +92,9 @@ Replace the entire contents of `src/styles/global.css` with:
     color: var(--fg);
     font-family: var(--font-sans);
     line-height: 1.75;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
 }
 
@@ -279,6 +282,7 @@ git commit -m "style: design system foundation — CSS vars, fonts, prose styles
 ### Task 2: Logo, Favicon, and ThemeToggle Components
 
 **Files:**
+
 - Create: `src/components/Logo.astro`
 - Create: `src/components/ThemeToggle.astro`
 - Modify: `public/favicon.svg`
@@ -358,7 +362,17 @@ Create `src/components/ThemeToggle.astro`:
   aria-label="Toggle dark/light mode"
   type="button"
 >
-  <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg
+    class="icon-sun"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
     <circle cx="12" cy="12" r="5"></circle>
     <line x1="12" y1="1" x2="12" y2="3"></line>
     <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -369,7 +383,17 @@ Create `src/components/ThemeToggle.astro`:
     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
   </svg>
-  <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg
+    class="icon-moon"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
   </svg>
 </button>
@@ -385,7 +409,9 @@ Create `src/components/ThemeToggle.astro`:
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.15s ease, border-color 0.15s ease;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
   }
 
   .theme-toggle:hover {
@@ -394,18 +420,27 @@ Create `src/components/ThemeToggle.astro`:
   }
 
   /* Dark mode: show sun (to switch to light), hide moon */
-  :root:not([data-theme="light"]) .icon-moon { display: none; }
-  :root:not([data-theme="light"]) .icon-sun { display: block; }
+  :root:not([data-theme="light"]) .icon-moon {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .icon-sun {
+    display: block;
+  }
 
   /* Light mode: show moon (to switch to dark), hide sun */
-  [data-theme="light"] .icon-sun { display: none; }
-  [data-theme="light"] .icon-moon { display: block; }
+  [data-theme="light"] .icon-sun {
+    display: none;
+  }
+  [data-theme="light"] .icon-moon {
+    display: block;
+  }
 </style>
 
 <script>
   const toggle = document.getElementById("theme-toggle");
   toggle?.addEventListener("click", () => {
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     const next = isLight ? "dark" : "light";
     if (next === "light") {
       document.documentElement.setAttribute("data-theme", "light");
@@ -445,12 +480,14 @@ git commit -m "feat: add Logo, ThemeToggle components and updated favicon"
 ### Task 3: Sidebar and TableOfContents Restyle
 
 **Files:**
+
 - Modify: `src/components/Sidebar.astro`
 - Modify: `src/components/TableOfContents.astro`
 
 - [ ] **Step 1: Rewrite Sidebar.astro**
 
 Replace the entire contents of `src/components/Sidebar.astro`. The component keeps the same tree-building logic but adds:
+
 - Imports for Logo and ThemeToggle components
 - Emoji maps for courses and weeks (using Unicode escapes)
 - CSS vars replacing all hardcoded `rgb()` colors
@@ -458,6 +495,7 @@ Replace the entire contents of `src/components/Sidebar.astro`. The component kee
 - `var(--accent)` for active states instead of `sky-400`
 
 Key changes from current file:
+
 - Line 1-5 imports: add `Logo` and `ThemeToggle`
 - New `courseEmojis` and `weekEmojis` Record maps after the type definitions
 - Sidebar header: `<Logo />` and `<ThemeToggle />` replace the emoji + text link
@@ -466,6 +504,7 @@ Key changes from current file:
 - All `font-family` declarations use `var(--font-sans)`
 
 Course emoji assignments:
+
 - course-1: `\u{1F4CA}` (bar chart)
 - course-2: `\u{1F50C}` (electric plug)
 - course-3: `\u{1F5C4}` (file cabinet)
@@ -478,6 +517,7 @@ Full component code: see the Sidebar.astro rewrite in the spec's component secti
 - [ ] **Step 2: Rewrite TableOfContents.astro**
 
 Replace all hardcoded `rgb()` values with CSS var equivalents:
+
 - `rgb(113 113 122)` -> `var(--fg-soft)`
 - `rgb(39 39 42)` -> `var(--line)`
 - `rgb(212 212 216)` -> `var(--fg)`
@@ -504,6 +544,7 @@ git commit -m "style: restyle Sidebar and ToC with design system vars and emojis
 ### Task 4: NoteLayout — Theme Script, Content Cards, Updated Styles
 
 **Files:**
+
 - Modify: `src/layouts/NoteLayout.astro`
 
 - [ ] **Step 1: Rewrite NoteLayout.astro**
@@ -514,11 +555,14 @@ Key changes from current file:
 
 ```html
 <script is:inline>
-  (function() {
+  (function () {
     var saved = localStorage.getItem("theme");
     if (saved === "light") {
       document.documentElement.setAttribute("data-theme", "light");
-    } else if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) {
+    } else if (
+      !saved &&
+      window.matchMedia("(prefers-color-scheme: light)").matches
+    ) {
       document.documentElement.setAttribute("data-theme", "light");
     }
   })();
@@ -536,7 +580,9 @@ Key changes from current file:
     const children = Array.from(prose.children);
     if (children.length === 0) return;
 
-    const hasH2 = children.some(function(c) { return c.tagName === "H2"; });
+    const hasH2 = children.some(function (c) {
+      return c.tagName === "H2";
+    });
     if (!hasH2) return;
 
     const fragments = [];
@@ -574,6 +620,7 @@ Key changes from current file:
 **Add `id="prose-content"`** to the prose div: `<div class="prose" id="prose-content">`
 
 **Update `<style>` block:** Replace all hardcoded `rgb()` values with CSS var tokens:
+
 - All backgrounds: `var(--bg)`, `var(--bg-card)`, `var(--bg-hover)`
 - All text colors: `var(--fg)`, `var(--fg-muted)`, `var(--fg-soft)`
 - All borders: `var(--line)`, `var(--line-strong)`
@@ -581,6 +628,7 @@ Key changes from current file:
 - Shadows: `var(--shadow-soft)`
 
 **Update typography:**
+
 - `.page-title`: add `font-family: var(--font-serif)`, use `clamp(1.8rem, 4vw, 2.5rem)`
 - `.breadcrumb-course`: add `font-family: var(--font-serif)`
 - `.breadcrumb-week`: add `font-family: var(--font-sans)`
@@ -589,6 +637,7 @@ Key changes from current file:
 - `.page-nav-label`: add `font-family: var(--font-sans)`
 
 **Update nav card styles:**
+
 - `.page-nav-link`: background `var(--bg-card)`, border-radius `14px`, hover adds `translateY(-3px)` + `var(--accent)` border + `var(--shadow-soft)`
 
 - [ ] **Step 2: Verify build passes**
@@ -601,6 +650,7 @@ Expected: `Complete!`
 Run: `npx astro dev`
 
 Check:
+
 - Dark mode loads by default (no flash)
 - Theme toggle in sidebar switches between dark/light
 - Serif headings (Lora) render on page titles and `##` headings
@@ -621,6 +671,7 @@ git commit -m "feat: NoteLayout with theme script, content cards, and design sys
 ### Task 5: Home Page Redesign
 
 **Files:**
+
 - Modify: `src/pages/index.astro`
 
 - [ ] **Step 1: Rewrite index.astro**
@@ -630,6 +681,7 @@ Replace the entire file. Key structure:
 **Frontmatter:** Import `global.css`, `BASE`, `getCollection`, `Logo`, `ThemeToggle`. Build a `getCourseStats()` function that counts weeks and sections per course from the notes collection. Define 4 course objects with emoji, title, description, href (to first section of each course), and stats.
 
 **Template:**
+
 1. Theme script in `<head>` (same as NoteLayout — prevents flash)
 2. `.home` wrapper div: `max-width: 760px`, centered, flex column
 3. `.home-topbar`: Logo left, ThemeToggle right, border-bottom
@@ -641,6 +693,7 @@ Replace the entire file. Key structure:
 **Styles:** All using CSS vars. Cards have `border-radius: 14px`, `var(--bg-card)` background. Grid collapses to single column at 640px.
 
 Course href values — update to point to the correct first section file for each course:
+
 - Course 1: `.../week-1-.../11-how-to-think-like-a-data-engineer/`
 - Course 2: `.../week-1-.../11-introduction-to-source-systems/`
 - Course 3: `.../week-1-.../11-storage-fundamentals/`
@@ -656,6 +709,7 @@ Expected: `Complete!`
 Run: `npx astro dev`
 
 Check at the root URL:
+
 - Logo + theme toggle in top bar
 - Serif hero title centered
 - Search placeholder present (functional search in Task 6)
@@ -677,6 +731,7 @@ git commit -m "feat: redesign home page with hero, course cards, and search plac
 ### Task 6: Pagefind Search Integration
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `src/components/SearchBar.astro`
 - Modify: `src/pages/index.astro` (replace search placeholder)
@@ -688,10 +743,13 @@ Run: `npm install --save-dev pagefind`
 - [ ] **Step 2: Update build script in package.json**
 
 In `package.json`, change:
+
 ```json
 "build": "astro build"
 ```
+
 to:
+
 ```json
 "build": "astro build && npx pagefind --site dist --glob '**/*.html'"
 ```
@@ -699,12 +757,14 @@ to:
 - [ ] **Step 3: Create SearchBar.astro**
 
 Create `src/components/SearchBar.astro`. This component:
+
 - Renders a `<div id="search">` container
 - Has global styles overriding Pagefind UI defaults to match the design system (all using CSS vars)
 - Has a `<script>` that dynamically imports `/pagefind/pagefind-ui.js` (generated at build time)
 - In dev mode (where Pagefind index doesn't exist), catches the import error and renders a static placeholder using safe DOM APIs (createElement, textContent — no innerHTML)
 
 Key Pagefind UI style overrides:
+
 - `.pagefind-ui__search-input`: `var(--bg-card)` background, `var(--fg)` color, `var(--line)` border, `border-radius: 10px`, focus border `var(--accent)`
 - `.pagefind-ui__result-link`: `var(--accent)` color, `var(--font-serif)` font
 - `.pagefind-ui__result-excerpt`: `var(--fg-muted)` color
@@ -714,6 +774,7 @@ Key Pagefind UI style overrides:
 - [ ] **Step 4: Update index.astro to use SearchBar**
 
 In `src/pages/index.astro`:
+
 - Add import: `import SearchBar from "../components/SearchBar.astro";`
 - Replace the static search placeholder div with: `<div class="home-search"><SearchBar /></div>`
 
@@ -722,6 +783,7 @@ In `src/pages/index.astro`:
 Run: `npm run build 2>&1 | tail -15`
 
 Expected output includes:
+
 - Astro build completes
 - Pagefind output like: `Running Pagefind... Indexed N pages`
 
@@ -730,6 +792,7 @@ Expected output includes:
 Run: `npm run preview`
 
 At the root URL:
+
 - Search bar renders with Pagefind UI
 - Type a term (e.g., "Spark") — results appear with page title and text excerpt
 - Click a result — navigates to the correct note page
@@ -747,6 +810,7 @@ git commit -m "feat: integrate Pagefind full-text search with styled UI"
 ### Task 7: Final Polish and Verification
 
 **Files:**
+
 - Various — checking all existing content renders correctly
 
 - [ ] **Step 1: Full build check**

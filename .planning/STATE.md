@@ -39,11 +39,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Performance Metrics
 
-| Phase | Plan | Duration | Tasks | Files |
-| ----- | ---- | -------- | ----- | ----- |
-| 01    | 01   | 35min    | 3     | 6     |
-| 01    | 02   | 8min     | 2     | 2     |
-| Phase 02 P01 | 2min | 2 tasks | 1 files |
+| Phase        | Plan | Duration | Tasks   | Files |
+| ------------ | ---- | -------- | ------- | ----- |
+| 01           | 01   | 35min    | 3       | 6     |
+| 01           | 02   | 8min     | 2       | 2     |
+| Phase 02 P01 | 2min | 2 tasks  | 1 files |
 
 ## Decisions Log
 

@@ -8,13 +8,14 @@ Redesign the site's visual identity from a basic dark-theme documentation site t
 
 ### Typography
 
-| Role | Font | Source |
-|------|------|--------|
-| Headings (h1-h4) | Lora | Google Fonts |
-| Body, UI, navigation | Inter | Google Fonts |
+| Role                     | Font           | Source       |
+| ------------------------ | -------------- | ------------ |
+| Headings (h1-h4)         | Lora           | Google Fonts |
+| Body, UI, navigation     | Inter          | Google Fonts |
 | Code blocks, inline code | JetBrains Mono | Google Fonts |
 
 Sizing uses `clamp()` for fluid responsiveness:
+
 - h1: `clamp(1.8rem, 4vw, 2.5rem)`
 - h2: `clamp(1.2rem, 2.5vw, 1.5rem)`
 - h3: `clamp(1.05rem, 2vw, 1.2rem)`
@@ -29,37 +30,37 @@ All colors defined as CSS custom properties on `:root` and `[data-theme="light"]
 
 **Dark mode (default):**
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--bg` | `#0a0a0b` | Page background |
-| `--bg-card` | `#111113` | Card/section background |
-| `--bg-hover` | `#1a1a1d` | Hover states |
-| `--fg` | `#e8e8ea` | Primary text |
-| `--fg-muted` | `#a0a0a8` | Secondary text |
-| `--fg-soft` | `#65656e` | Tertiary text, borders |
-| `--accent` | `#c9a84c` | Links, active states, highlights |
-| `--accent-hover` | `#dabb65` | Accent hover |
-| `--line` | `#2a2a2e` | Borders, dividers |
-| `--line-strong` | `#3a3a3f` | Emphasized borders |
-| `--shadow-soft` | `rgba(0,0,0,0.3)` | Card shadows |
-| `--code-bg` | `#161618` | Code block background |
+| Token            | Value             | Usage                            |
+| ---------------- | ----------------- | -------------------------------- |
+| `--bg`           | `#0a0a0b`         | Page background                  |
+| `--bg-card`      | `#111113`         | Card/section background          |
+| `--bg-hover`     | `#1a1a1d`         | Hover states                     |
+| `--fg`           | `#e8e8ea`         | Primary text                     |
+| `--fg-muted`     | `#a0a0a8`         | Secondary text                   |
+| `--fg-soft`      | `#65656e`         | Tertiary text, borders           |
+| `--accent`       | `#c9a84c`         | Links, active states, highlights |
+| `--accent-hover` | `#dabb65`         | Accent hover                     |
+| `--line`         | `#2a2a2e`         | Borders, dividers                |
+| `--line-strong`  | `#3a3a3f`         | Emphasized borders               |
+| `--shadow-soft`  | `rgba(0,0,0,0.3)` | Card shadows                     |
+| `--code-bg`      | `#161618`         | Code block background            |
 
 **Light mode:**
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--bg` | `#fafaf8` | Page background |
-| `--bg-card` | `#ffffff` | Card/section background |
-| `--bg-hover` | `#f0f0ee` | Hover states |
-| `--fg` | `#1a1a1d` | Primary text |
-| `--fg-muted` | `#5a5a63` | Secondary text |
-| `--fg-soft` | `#9a9aa3` | Tertiary text |
-| `--accent` | `#a08930` | Links, active states |
-| `--accent-hover` | `#8a7528` | Accent hover |
-| `--line` | `#e5e5e0` | Borders |
-| `--line-strong` | `#d0d0ca` | Emphasized borders |
-| `--shadow-soft` | `rgba(0,0,0,0.06)` | Card shadows |
-| `--code-bg` | `#f5f5f0` | Code block background |
+| Token            | Value              | Usage                   |
+| ---------------- | ------------------ | ----------------------- |
+| `--bg`           | `#fafaf8`          | Page background         |
+| `--bg-card`      | `#ffffff`          | Card/section background |
+| `--bg-hover`     | `#f0f0ee`          | Hover states            |
+| `--fg`           | `#1a1a1d`          | Primary text            |
+| `--fg-muted`     | `#5a5a63`          | Secondary text          |
+| `--fg-soft`      | `#9a9aa3`          | Tertiary text           |
+| `--accent`       | `#a08930`          | Links, active states    |
+| `--accent-hover` | `#8a7528`          | Accent hover            |
+| `--line`         | `#e5e5e0`          | Borders                 |
+| `--line-strong`  | `#d0d0ca`          | Emphasized borders      |
+| `--shadow-soft`  | `rgba(0,0,0,0.06)` | Card shadows            |
+| `--code-bg`      | `#f5f5f0`          | Code block background   |
 
 ### Spacing
 
@@ -155,6 +156,7 @@ Each `##` heading and its content rendered inside a card:
 ### 7. Prose Styles (Updated)
 
 All current prose styles updated to use CSS custom properties:
+
 - Headings: Lora, `--fg`
 - Body: Inter, `--fg` primary, `--fg-muted` for secondary
 - Links: `--accent`, underline on hover
@@ -167,30 +169,30 @@ All current prose styles updated to use CSS custom properties:
 
 ## Responsive Behavior
 
-| Breakpoint | Behavior |
-|-----------|----------|
-| > 1200px | Full 3-column: sidebar + content cards + ToC |
-| 768-1200px | 2-column: sidebar + content cards (ToC hidden) |
-| < 768px | Single column: mobile topbar + slide-out sidebar, full-width cards |
+| Breakpoint | Behavior                                                           |
+| ---------- | ------------------------------------------------------------------ |
+| > 1200px   | Full 3-column: sidebar + content cards + ToC                       |
+| 768-1200px | 2-column: sidebar + content cards (ToC hidden)                     |
+| < 768px    | Single column: mobile topbar + slide-out sidebar, full-width cards |
 
 Home page: 2x2 course grid > 768px, single column below.
 
 ## Files Affected
 
-| File | Change |
-|------|--------|
-| `src/styles/global.css` | Complete rewrite — CSS custom properties, Lora/Inter imports, prose in cards, theme toggle |
-| `src/pages/index.astro` | Redesigned home page with hero, search, course cards, footer |
-| `src/layouts/NoteLayout.astro` | Card wrapper around sections, updated breadcrumb, theme toggle script |
-| `src/components/Sidebar.astro` | Emoji prefixes, gold accent, logo, theme toggle button, CSS var colors |
-| `src/components/TableOfContents.astro` | Updated colors to CSS vars |
-| `src/components/ThemeToggle.astro` | **New** — toggle button component |
-| `src/components/SearchBar.astro` | **New** — Pagefind search UI wrapper |
-| `src/components/Logo.astro` | **New** — SVG logo component |
-| `src/components/ContentCard.astro` | **New** — card wrapper for `##` sections (used via remark plugin or layout JS) |
-| `public/favicon.svg` | Updated to match new logo |
-| `astro.config.mjs` | Add Pagefind integration |
-| `package.json` | Add `@pagefind/default-ui`, Google Fonts dependencies |
+| File                                   | Change                                                                                     |
+| -------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `src/styles/global.css`                | Complete rewrite — CSS custom properties, Lora/Inter imports, prose in cards, theme toggle |
+| `src/pages/index.astro`                | Redesigned home page with hero, search, course cards, footer                               |
+| `src/layouts/NoteLayout.astro`         | Card wrapper around sections, updated breadcrumb, theme toggle script                      |
+| `src/components/Sidebar.astro`         | Emoji prefixes, gold accent, logo, theme toggle button, CSS var colors                     |
+| `src/components/TableOfContents.astro` | Updated colors to CSS vars                                                                 |
+| `src/components/ThemeToggle.astro`     | **New** — toggle button component                                                          |
+| `src/components/SearchBar.astro`       | **New** — Pagefind search UI wrapper                                                       |
+| `src/components/Logo.astro`            | **New** — SVG logo component                                                               |
+| `src/components/ContentCard.astro`     | **New** — card wrapper for `##` sections (used via remark plugin or layout JS)             |
+| `public/favicon.svg`                   | Updated to match new logo                                                                  |
+| `astro.config.mjs`                     | Add Pagefind integration                                                                   |
+| `package.json`                         | Add `@pagefind/default-ui`, Google Fonts dependencies                                      |
 
 ## What This Does NOT Change
 

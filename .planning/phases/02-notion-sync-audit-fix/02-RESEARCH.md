@@ -13,9 +13,11 @@ This is a single-file fix phase. No new dependencies needed. The Notion API clie
 **Primary recommendation:** Fix the traversal logic in `run()` to merge subsections into section-level pages, fix `richTextToMd()` href handling, and validate output against the Zod schema.
 
 <user_constraints>
+
 ## User Constraints (from CONTEXT.md)
 
 ### Locked Decisions
+
 - **D-01:** Flatten page hierarchy to Course -> Week -> Section level. Subsections merge into their parent section page (rendered as headings within the same file).
 - **D-02:** Sidebar navigation shows Course > Week > Section. Subsections are NOT separate sidebar entries.
 - **D-03:** Course 4's existing week-level pages remain as-is. Flattening primarily affects courses 1-2 where content is deeply nested.
@@ -27,40 +29,45 @@ This is a single-file fix phase. No new dependencies needed. The Notion API clie
 - **D-09:** Full wipe-and-rebuild (cleanDir()) is fine -- one-time sync.
 
 ### Claude's Discretion
+
 - Link handling in richTextToMd (rt.href) -- fix if encountered during audit
 - MDX escape character handling -- fix obvious issues but don't over-engineer
 
 ### Deferred Ideas (OUT OF SCOPE)
+
 None
 </user_constraints>
 
 <phase_requirements>
+
 ## Phase Requirements
 
-| ID | Description | Research Support |
-|----|-------------|------------------|
-| SYNC-01 | Running fetch-notion.mjs produces .md files for all courses/weeks/lessons | Traversal restructure (flatten subsections) |
-| SYNC-02 | All text block types render correctly (paragraphs, headings, bold, italic, inline code) | Already working in richTextToMd(); add href fix |
-| SYNC-03 | Code blocks render with correct language tag | Already working (line 256-258); Notion language field maps directly |
-| SYNC-04 | Images download to public/images/ and reference correctly | Already working (120 images exist); preserve positions during merge |
-| SYNC-05 | Tables render as valid markdown tables | Already working (lines 306-325) |
-| SYNC-06 | Callouts/admonitions convert to consistent markdown | Already working as blockquotes (line 267-270); acceptable per D-05 |
-| SYNC-07 | Nested lists render correctly | Already working with recursive depth (lines 196-229) |
-| SYNC-08 | Frontmatter includes all required fields | buildMdx() already generates all fields; fix order values after flatten |
+| ID      | Description                                                                             | Research Support                                                        |
+| ------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| SYNC-01 | Running fetch-notion.mjs produces .md files for all courses/weeks/lessons               | Traversal restructure (flatten subsections)                             |
+| SYNC-02 | All text block types render correctly (paragraphs, headings, bold, italic, inline code) | Already working in richTextToMd(); add href fix                         |
+| SYNC-03 | Code blocks render with correct language tag                                            | Already working (line 256-258); Notion language field maps directly     |
+| SYNC-04 | Images download to public/images/ and reference correctly                               | Already working (120 images exist); preserve positions during merge     |
+| SYNC-05 | Tables render as valid markdown tables                                                  | Already working (lines 306-325)                                         |
+| SYNC-06 | Callouts/admonitions convert to consistent markdown                                     | Already working as blockquotes (line 267-270); acceptable per D-05      |
+| SYNC-07 | Nested lists render correctly                                                           | Already working with recursive depth (lines 196-229)                    |
+| SYNC-08 | Frontmatter includes all required fields                                                | buildMdx() already generates all fields; fix order values after flatten |
+
 </phase_requirements>
 
 ## Standard Stack
 
 No new dependencies. Existing stack:
 
-| Library | Version | Purpose | Status |
-|---------|---------|---------|--------|
-| @notionhq/client | (installed) | Notion API access | Working |
-| Node.js built-ins (fs, path, https) | N/A | File I/O, image download | Working |
+| Library                             | Version     | Purpose                  | Status  |
+| ----------------------------------- | ----------- | ------------------------ | ------- |
+| @notionhq/client                    | (installed) | Notion API access        | Working |
+| Node.js built-ins (fs, path, https) | N/A         | File I/O, image download | Working |
 
 ## Architecture Patterns
 
 ### Current Script Structure (single file)
+
 ```
 scripts/fetch-notion.mjs
   - Utility functions (slugify, downloadImage, extractImageUUID)
@@ -74,12 +81,15 @@ scripts/fetch-notion.mjs
 The script currently creates **separate files per subsection** when a section has child pages (lines 482-519). Per D-01, subsections should be merged into their parent section as headings.
 
 **Current behavior (courses 1-2):**
+
 ```
 Course -> Week -> Section -> Subsection (each = separate .md file)
 ```
-Week 1 of Course 1 has 12 separate files with order values like 101, 102...107, 201, 202...204 (section*100 + subsection).
+
+Week 1 of Course 1 has 12 separate files with order values like 101, 102...107, 201, 202...204 (section\*100 + subsection).
 
 **Desired behavior:**
+
 ```
 Course -> Week -> Section (subsections merged as ## headings in section file)
 ```
@@ -87,6 +97,7 @@ Course -> Week -> Section (subsections merged as ## headings in section file)
 ### Fix Pattern for Traversal
 
 The `else` branch at line 482 (when section has children) needs to change from creating separate files per subsection to:
+
 1. Fetch section's own content
 2. For each subsection: fetch content, prepend `## {subsection.title}`, append to section content
 3. Write ONE file per section with merged content
@@ -97,6 +108,7 @@ The `else` branch at line 482 (when section has children) needs to change from c
 ### Fix Pattern for richTextToMd href
 
 Line 138-158: `rt.href` is never checked. Fix:
+
 ```javascript
 // After annotation processing, before return:
 if (rt.href) {
@@ -107,6 +119,7 @@ if (rt.href) {
 ### Fix Pattern for { } Escaping
 
 Line 148 escapes `<` and `>` but NOT `{` and `}` despite a comment claiming otherwise. Since files are `.md` not `.mdx`, this is lower risk, but fix for safety:
+
 ```javascript
 text = text.replace(/\{/g, "\\{").replace(/\}/g, "\\}");
 ```
@@ -115,36 +128,42 @@ Note: Since content.config.ts uses `glob({ pattern: "**/*.md" })`, these are sta
 
 ## Don't Hand-Roll
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| Notion API pagination | Custom pagination | Existing `getBlockChildren()` loop | Already handles cursor-based pagination correctly |
-| Image downloading | New download logic | Existing `downloadImage()` | Already handles redirects and deduplication |
+| Problem               | Don't Build        | Use Instead                        | Why                                               |
+| --------------------- | ------------------ | ---------------------------------- | ------------------------------------------------- |
+| Notion API pagination | Custom pagination  | Existing `getBlockChildren()` loop | Already handles cursor-based pagination correctly |
+| Image downloading     | New download logic | Existing `downloadImage()`         | Already handles redirects and deduplication       |
 
 ## Common Pitfalls
 
 ### Pitfall 1: Lost Images During Subsection Merge
+
 **What goes wrong:** When merging subsections into parent, images referenced in subsection content could get lost if content is re-fetched differently.
 **How to avoid:** Use the same `processBlocks()` / `fetchPageContent()` for subsection content -- it already handles images inline. Just concatenate the markdown strings.
 
 ### Pitfall 2: Order Values After Flattening
+
 **What goes wrong:** Current subsection order uses `(si+1)*100+ssi+1` (e.g., 101, 201). After flattening, sections should use simple sequential order (1, 2, 3...) within a week.
 **How to avoid:** When sections are merged (subsections folded in), use `si + 1` for the section's order value.
 
 ### Pitfall 3: Duplicate Week-Level File
+
 **What goes wrong:** Week 1 Course 1 has BOTH a `week-1-how-to-think-like-a-data-engineer.md` (order: 1) AND individual subsection files. After flattening, this needs to be resolved -- either the week page becomes the single page (if no sections) or sections replace it.
 **How to avoid:** Audit current output to determine if the week-level .md file is a duplicate or contains unique content. The script's `if (weekChildren.length === 0)` branch creates this file only for leaf weeks -- but week 1 HAS children, so that file shouldn't exist. Investigate if it's from a previous run.
 
 ### Pitfall 4: Notion API Rate Limits
+
 **What goes wrong:** Script makes many sequential API calls during deep traversal.
 **How to avoid:** The script already works for 52 files + 120 images. Rate limiting is unlikely to be a new problem. No change needed.
 
 ### Pitfall 5: Table Without Header Row
+
 **What goes wrong:** If `has_column_header` is false, no separator row is added, producing invalid markdown table.
 **How to avoid:** Always add separator row after first row regardless of header flag. Markdown tables require the separator.
 
 ## Code Examples
 
 ### Subsection Merge (core change)
+
 ```javascript
 // Replace lines 482-519 (subsection branch) with:
 if (sectionChildren.length === 0) {
@@ -180,6 +199,7 @@ if (sectionChildren.length === 0) {
 ```
 
 ### href Fix in richTextToMd
+
 ```javascript
 // Add after line 156 (before return text):
 if (rt.href) {
@@ -202,16 +222,19 @@ if (rt.href) {
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - `scripts/fetch-notion.mjs` -- direct code analysis (566 lines)
 - `src/content.config.ts` -- Zod schema (direct read)
 - Existing content output in `src/content/notes/` -- 52 files, 4 courses
 
 ### Secondary (MEDIUM confidence)
+
 - `02-CONTEXT.md` -- user decisions from discussion phase
 
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH -- no new dependencies, existing code works
 - Architecture: HIGH -- changes are well-scoped to one file, patterns clear from code
 - Pitfalls: HIGH -- identified from direct code reading, not speculation

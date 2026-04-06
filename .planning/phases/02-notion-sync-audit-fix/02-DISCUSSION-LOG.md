@@ -11,11 +11,11 @@
 
 ## Hierarchy & Navigation Structure
 
-| Option | Description | Selected |
-|--------|-------------|----------|
-| Flatten to week level | Each week becomes one page with all sections inline | |
-| Flatten to section level | Keep course→week→section, merge subsections into parent section | ✓ |
-| Keep as-is | Leave inconsistent nesting for AI to handle later | |
+| Option                   | Description                                                     | Selected |
+| ------------------------ | --------------------------------------------------------------- | -------- |
+| Flatten to week level    | Each week becomes one page with all sections inline             |          |
+| Flatten to section level | Keep course→week→section, merge subsections into parent section | ✓        |
+| Keep as-is               | Leave inconsistent nesting for AI to handle later               |          |
 
 **User's choice:** Flatten to section level — subsections merge into parent section page. Sidebar shows Course > Week > Section.
 **Notes:** User noted that early courses (1-2) are deeply nested (course→week→section→subsection) which is hard to navigate. Course 4 has everything at week level which is simpler. User wants sidebar to enable navigating through sections but subsections should be on the same page as their parent section.

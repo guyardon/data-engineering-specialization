@@ -27,7 +27,8 @@ key-decisions:
 patterns-established:
   - "Content hierarchy: Course > Week > Section (subsections are in-page headings)"
 
-requirements-completed: [SYNC-01, SYNC-02, SYNC-03, SYNC-04, SYNC-05, SYNC-06, SYNC-07, SYNC-08]
+requirements-completed:
+  [SYNC-01, SYNC-02, SYNC-03, SYNC-04, SYNC-05, SYNC-06, SYNC-07, SYNC-08]
 
 duration: 2min
 completed: 2026-04-01
@@ -46,6 +47,7 @@ completed: 2026-04-01
 - **Files modified:** 1
 
 ## Accomplishments
+
 - richTextToMd now converts Notion href links to markdown link syntax
 - Table separator row always added after first row for valid markdown tables
 - Subsections merge into parent section pages as ## headings instead of separate files
@@ -59,9 +61,11 @@ Each task was committed atomically:
 2. **Task 2: Flatten subsection traversal into parent section pages** - `899ca84` (feat)
 
 ## Files Created/Modified
+
 - `scripts/fetch-notion.mjs` - Fixed href link support, table separator, and flattened subsection hierarchy
 
 ## Decisions Made
+
 None - followed plan as specified
 
 ## Deviations from Plan
@@ -69,15 +73,19 @@ None - followed plan as specified
 None - plan executed exactly as written.
 
 ## Issues Encountered
+
 None
 
 ## User Setup Required
+
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - fetch-notion.mjs is ready to run against Notion API (requires NOTION_TOKEN)
 - Plan 02-02 can proceed with running the script and verifying output
 
 ---
-*Phase: 02-notion-sync-audit-fix*
-*Completed: 2026-04-01*
+
+_Phase: 02-notion-sync-audit-fix_
+_Completed: 2026-04-01_
