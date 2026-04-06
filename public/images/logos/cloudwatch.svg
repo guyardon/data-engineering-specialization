@@ -8,5 +8,6 @@
     <rect fill="url(#lg-cw)" x="0" y="0" width="256" height="256" rx="30" ry="30"/>
     <g stroke="#FFFFFF" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="128" cy="128" r="72" stroke-width="10"/><polyline points="128,80 128,128 168,148" stroke-width="10"/></g>
   </g>
-  <text x="62" y="27" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#232F3E" font-weight="600" text-anchor="start">Amazon CloudWatch</text>
+  <text x="62" y="20" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#232F3E" font-weight="600" text-anchor="start">Amazon</text>
+  <text x="62" y="32" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#232F3E" font-weight="600" text-anchor="start">CloudWatch</text>
 </svg>
