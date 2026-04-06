@@ -108,7 +108,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
 
 <nav id="sidebar" class="sidebar" aria-label="Course navigation">
   <div class="sidebar-header">
-    <Logo />
+    <Logo label="Home" />
     <div class="sidebar-header-actions">
       <ThemeToggle />
       <button id="sidebar-close" class="sidebar-close-btn" aria-label="Close sidebar">
@@ -131,7 +131,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
         const isCourseActive = course.slug === activeCourseSlug;
         const weeks = Array.from(course.weeks.values());
         return (
-          <details open={isCourseActive} class="course-details">
+          <details class="course-details">
             <summary class={`course-summary ${isCourseActive ? "active" : ""}`}>
               <span class="summary-text"><span class="nav-emoji">{courseEmojis[course.slug] || ""}</span> {course.title}</span>
               <span class="chevron">▸</span>
@@ -141,7 +141,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
                 const isWeekActive =
                   isCourseActive && week.slug === activeWeekSlug;
                 return (
-                  <details open={isWeekActive} class="week-details">
+                  <details class="week-details">
                     <summary
                       class={`week-summary ${isWeekActive ? "active" : ""}`}
                     >
@@ -359,13 +359,14 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     text-align: center;
     margin-top: 0.5rem;
     padding: 0.3rem;
+    border: 1px solid var(--line);
     border-radius: 8px;
-    transition: color 0.15s ease, background-color 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease;
   }
 
   .sidebar-glossary-link:hover {
     color: var(--accent);
-    background-color: var(--bg-hover);
+    border-color: var(--accent);
   }
 
   .sidebar-search {
@@ -396,18 +397,65 @@ const activeWeekSlug = currentNote?.data.weekSlug;
 
 
 <script>
-  document.querySelectorAll(".course-details").forEach((course) => {
-    course.querySelector(".course-summary")?.addEventListener("click", (e) => {
-      // After the browser toggles the course details, sync all week details
-      requestAnimationFrame(() => {
-        const isOpen = course.hasAttribute("open");
-        course.querySelectorAll(".week-details").forEach((week) => {
-          if (isOpen) {
-            week.setAttribute("open", "");
-          } else {
-            week.removeAttribute("open");
-          }
+  const TREE_KEY = "sidebar-tree-state";
+  const SCROLL_KEY = "sidebar-scroll-pos";
+  const sidebar = document.getElementById("sidebar");
+
+  // Save scroll position on link clicks (before navigation)
+  document.querySelectorAll(".note-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (sidebar) sessionStorage.setItem(SCROLL_KEY, String(sidebar.scrollTop));
+    });
+  });
+
+  function saveTreeState() {
+    const state = {};
+    document.querySelectorAll(".course-details").forEach((course, ci) => {
+      state["c" + ci] = course.hasAttribute("open");
+      course.querySelectorAll(".week-details").forEach((week, wi) => {
+        state["c" + ci + "w" + wi] = week.hasAttribute("open");
+      });
+    });
+    localStorage.setItem(TREE_KEY, JSON.stringify(state));
+  }
+
+  // Restore tree state from localStorage
+  const saved = localStorage.getItem(TREE_KEY);
+  if (saved) {
+    try {
+      const state = JSON.parse(saved);
+      document.querySelectorAll(".course-details").forEach((course, ci) => {
+        if (state["c" + ci]) course.setAttribute("open", "");
+        course.querySelectorAll(".week-details").forEach((week, wi) => {
+          if (state["c" + ci + "w" + wi]) week.setAttribute("open", "");
         });
+      });
+    } catch (e) {}
+  }
+
+  // Restore sidebar scroll position AFTER tree is expanded
+  const savedScroll = sessionStorage.getItem(SCROLL_KEY);
+  if (savedScroll && sidebar) {
+    requestAnimationFrame(() => {
+      sidebar.scrollTop = parseInt(savedScroll, 10);
+    });
+  }
+
+  // Save state on toggle and collapse weeks when closing a course
+  document.querySelectorAll(".course-details").forEach((course, ci) => {
+    course.querySelector(".course-summary")?.addEventListener("click", () => {
+      requestAnimationFrame(() => {
+        if (!course.hasAttribute("open")) {
+          course.querySelectorAll(".week-details").forEach((week) => {
+            week.removeAttribute("open");
+          });
+        }
+        saveTreeState();
+      });
+    });
+    course.querySelectorAll(".week-details").forEach((week) => {
+      week.querySelector(".week-summary")?.addEventListener("click", () => {
+        requestAnimationFrame(() => saveTreeState());
       });
     });
   });
