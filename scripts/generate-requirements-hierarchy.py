@@ -1,134 +1,8 @@
-import json
 import math
-import os
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 3000
+from diagramlib import ExcalidrawDiagram
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": sw,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, valign="middle"):
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": valign,
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
+d = ExcalidrawDiagram(seed=3000)
 
 
 def th(text, font_size):
@@ -156,7 +30,7 @@ MAIN_TITLE_H = 70
 TITLE_GAP = 25
 START_Y = TITLE_Y + MAIN_TITLE_H + TITLE_GAP
 
-txt(
+d.txt(
     "title",
     PAD_X,
     TITLE_Y,
@@ -217,7 +91,7 @@ for i, c in enumerate(cards):
     if i < len(cards) - 1:
         bnd.append({"type": "arrow", "id": f"arr_{card_id}_{cards[i+1]['id']}"})
 
-    rect(card_id, PAD_X, cur_y, CARD_W, h, c["stroke"], c["bg"], fill="solid", bnd=bnd)
+    d.rect(card_id, PAD_X, cur_y, CARD_W, h, c["stroke"], c["bg"], bnd=bnd)
 
     if c["subtitle"]:
         title_h = th(c["title"], FONT_TITLE)
@@ -228,7 +102,7 @@ for i, c in enumerate(cards):
         title_y = cur_y + top_pad
         sub_y = title_y + title_h + SUB_GAP
 
-        txt(
+        d.txt(
             title_id,
             PAD_X,
             title_y,
@@ -239,7 +113,7 @@ for i, c in enumerate(cards):
             color="#1e1e1e",
             cid=card_id,
         )
-        txt(
+        d.txt(
             sub_id,
             PAD_X,
             sub_y,
@@ -253,7 +127,7 @@ for i, c in enumerate(cards):
     else:
         title_h = th(c["title"], FONT_TITLE)
         centered_y = cur_y + (h - title_h) // 2
-        txt(
+        d.txt(
             title_id,
             PAD_X,
             centered_y,
@@ -280,7 +154,7 @@ for i in range(len(cards) - 1):
     sb = {"elementId": src["id"], "focus": 0, "gap": 4, "fixedPoint": None}
     eb = {"elementId": tgt["id"], "focus": 0, "gap": 4, "fixedPoint": None}
 
-    arr(
+    d.arr(
         arrow_id,
         cx,
         src_bottom,
@@ -337,7 +211,7 @@ for j, sc in enumerate(sub_cards):
         {"type": "arrow", "id": f"arr_sys_{sc_id}"},
     ]
 
-    rect(
+    d.rect(
         sc_id,
         sc_x,
         sub_top,
@@ -345,7 +219,6 @@ for j, sc in enumerate(sub_cards):
         h,
         sc["stroke"],
         sc["bg"],
-        fill="solid",
         bnd=bnd,
     )
 
@@ -357,7 +230,7 @@ for j, sc in enumerate(sub_cards):
     title_y = sub_top + top_pad
     sub_y = title_y + title_h + SUB_GAP
 
-    txt(
+    d.txt(
         title_id,
         sc_x,
         title_y,
@@ -368,7 +241,7 @@ for j, sc in enumerate(sub_cards):
         color="#1e1e1e",
         cid=sc_id,
     )
-    txt(
+    d.txt(
         sub_id,
         sc_x,
         sub_y,
@@ -395,11 +268,8 @@ for j, sc in enumerate(sub_cards):
     sb = {"elementId": "sys", "focus": dx / (CARD_W / 2), "gap": 4, "fixedPoint": None}
     eb = {"elementId": sc["id"], "focus": 0, "gap": 4, "fixedPoint": None}
 
-    arr(arrow_id, sys_cx, sys_bot, [[0, 0], [dx, dy]], "#6741d9", sb=sb, eb=eb)
+    d.arr(arrow_id, sys_cx, sys_bot, [[0, 0], [dx, dy]], "#6741d9", sb=sb, eb=eb)
 
 # ── Write file ──
-out_path = "diagrams/requirements-hierarchy.excalidraw"
-os.makedirs(os.path.dirname(out_path), exist_ok=True)
-with open(out_path, "w") as f:
-    json.dump(data, f, indent=2)
-print(f"Done! Wrote {out_path}")
+d.save("diagrams/requirements-hierarchy.excalidraw")
+print("Done! Wrote diagrams/requirements-hierarchy.excalidraw")

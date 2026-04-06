@@ -2,8 +2,6 @@
 # pyright: reportArgumentType=false
 """Generate AWS Well-Architected Framework diagram (light + dark) using diagrams library."""
 
-import os
-
 from diagrams import Cluster, Diagram, Edge
 from diagrams.aws.compute import Lambda
 from diagrams.aws.cost import CostAndUsageReport
@@ -12,41 +10,36 @@ from diagrams.aws.management import Cloudwatch, WellArchitectedTool
 from diagrams.aws.security import Shield
 from diagrams.aws.storage import S3
 
-OUT_DIR = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "public",
-    "images",
-    "diagrams",
+from diagramlib.aws_diagram import (
+    CLUSTER_COLORS_DARK,
+    CLUSTER_COLORS_LIGHT,
+    edge_attrs,
+    output_dir,
 )
-os.makedirs(OUT_DIR, exist_ok=True)
+
+OUT_DIR = output_dir()
+
+# Semantic cluster name -> color key
+_PILLAR_COLORS = {
+    "ops": "green",
+    "sec": "red",
+    "rel": "blue",
+    "perf": "purple",
+    "cost": "yellow",
+    "sust": "cyan",
+}
 
 
 def gen(dark: bool):
     suffix = "-dark" if dark else ""
     bg = "#0f0f13" if dark else "white"
     fc = "#e8e8ea" if dark else "#1e1e1e"
-    edge_color = "#65656e" if dark else "#495057"
+    edge_color = edge_attrs(dark)["color"]
 
-    # Cluster colors
-    if dark:
-        cluster_colors = {
-            "ops": {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
-            "sec": {"bg": "#2a1a1a", "fc": "#fca5a5", "border": "#c92a2a"},
-            "rel": {"bg": "#1a1a2a", "fc": "#93c5fd", "border": "#1971c2"},
-            "perf": {"bg": "#2a1a2a", "fc": "#d8b4fe", "border": "#6741d9"},
-            "cost": {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
-            "sust": {"bg": "#1a2a2a", "fc": "#67e8f9", "border": "#0c8599"},
-        }
-    else:
-        cluster_colors = {
-            "ops": {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
-            "sec": {"bg": "#ffc9c940", "fc": "#c92a2a", "border": "#c92a2a"},
-            "rel": {"bg": "#a5d8ff40", "fc": "#1971c2", "border": "#1971c2"},
-            "perf": {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
-            "cost": {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
-            "sust": {"bg": "#99e9f240", "fc": "#0c8599", "border": "#0c8599"},
-        }
+    palette = CLUSTER_COLORS_DARK if dark else CLUSTER_COLORS_LIGHT
+    cc = {k: palette[v] for k, v in _PILLAR_COLORS.items()}
 
+    # Custom graph/node/edge attrs — this diagram uses larger sizes
     graph_attr = {
         "bgcolor": bg,
         "fontcolor": fc,
@@ -79,7 +72,7 @@ def gen(dark: bool):
         "margin": "20",
     }
 
-    out_path = os.path.join(OUT_DIR, f"aws-well-architected{suffix}")
+    out_path = f"{OUT_DIR}/aws-well-architected{suffix}"
 
     with Diagram(
         "",
@@ -94,7 +87,7 @@ def gen(dark: bool):
         center = WellArchitectedTool("\nWell-Architected\nFramework")
 
         def pillar_cluster(key, label, NodeClass, node_label):
-            c = cluster_colors[key]
+            c = cc[key]
             attrs = {
                 **cluster_common,
                 "bgcolor": c["bg"],

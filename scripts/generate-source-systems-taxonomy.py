@@ -1,149 +1,11 @@
 """Generate Source Systems Taxonomy diagram for Course 2, Section 1.1.1."""
 
-import json
 import math
 import sys
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 1000
+from diagramlib import ExcalidrawDiagram, BLUE, GREEN, PURPLE
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-PURPLE = ("#6741d9", "#d0bfff")
-YELLOW = ("#e67700", "#ffec99")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=1000)
 
 # === LAYOUT CONSTANTS ===
 
@@ -193,10 +55,10 @@ PILL_Y3 = PILL_Y2 + PILL_H + PILL_GAP  # 345
 # === BUILD DIAGRAM ===
 
 # Title
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "Source Systems", TITLE_FSZ)
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "Source Systems", TITLE_FSZ)
 
 # --- Column 1: Databases (BLUE) ---
-rect(
+d.rect(
     "db-hdr",
     COL1_X,
     HDR_Y,
@@ -205,7 +67,7 @@ rect(
     *BLUE,
     bnd=[{"id": "db-title", "type": "text"}],
 )
-txt(
+d.txt(
     "db-title",
     COL1_X,
     HDR_TITLE_Y,
@@ -215,7 +77,7 @@ txt(
     HDR_TITLE_FSZ,
     cid="db-hdr",
 )
-txt(
+d.txt(
     "db-sub",
     COL1_X,
     HDR_SUB_Y,
@@ -227,7 +89,7 @@ txt(
 )
 
 pill1_x = COL1_X + PILL_INSET
-rect(
+d.rect(
     "db-rel",
     pill1_x,
     PILL_Y1,
@@ -236,9 +98,9 @@ rect(
     *BLUE,
     bnd=[{"id": "db-rel-t", "type": "text"}],
 )
-txt("db-rel-t", pill1_x, PILL_Y1, PILL_W, PILL_H, "Relational (SQL)", 22, cid="db-rel")
+d.txt("db-rel-t", pill1_x, PILL_Y1, PILL_W, PILL_H, "Relational (SQL)", 22, cid="db-rel")
 
-rect(
+d.rect(
     "db-nosql",
     pill1_x,
     PILL_Y2,
@@ -247,10 +109,10 @@ rect(
     *BLUE,
     bnd=[{"id": "db-nosql-t", "type": "text"}],
 )
-txt("db-nosql-t", pill1_x, PILL_Y2, PILL_W, PILL_H, "NoSQL", 22, cid="db-nosql")
+d.txt("db-nosql-t", pill1_x, PILL_Y2, PILL_W, PILL_H, "NoSQL", 22, cid="db-nosql")
 
 # Arrows from header to pills
-arr(
+d.arr(
     "a-db1",
     COL1_X + COL_W // 2,
     HDR_Y + HDR_H,
@@ -260,7 +122,7 @@ arr(
     eb={"elementId": "db-rel", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a-db2",
     COL1_X + COL_W // 2,
     PILL_Y1 + PILL_H,
@@ -271,7 +133,7 @@ arr(
 )
 
 # --- Column 2: Files (GREEN) ---
-rect(
+d.rect(
     "files-hdr",
     COL2_X,
     HDR_Y,
@@ -280,7 +142,7 @@ rect(
     *GREEN,
     bnd=[{"id": "files-title", "type": "text"}],
 )
-txt(
+d.txt(
     "files-title",
     COL2_X,
     HDR_TITLE_Y,
@@ -290,7 +152,7 @@ txt(
     HDR_TITLE_FSZ,
     cid="files-hdr",
 )
-txt(
+d.txt(
     "files-sub",
     COL2_X,
     HDR_SUB_Y,
@@ -302,7 +164,7 @@ txt(
 )
 
 pill2_x = COL2_X + PILL_INSET
-rect(
+d.rect(
     "f-struct",
     pill2_x,
     PILL_Y1,
@@ -311,9 +173,9 @@ rect(
     *GREEN,
     bnd=[{"id": "f-struct-t", "type": "text"}],
 )
-txt("f-struct-t", pill2_x, PILL_Y1, PILL_W, PILL_H, "Structured", 22, cid="f-struct")
+d.txt("f-struct-t", pill2_x, PILL_Y1, PILL_W, PILL_H, "Structured", 22, cid="f-struct")
 
-rect(
+d.rect(
     "f-semi",
     pill2_x,
     PILL_Y2,
@@ -322,9 +184,9 @@ rect(
     *GREEN,
     bnd=[{"id": "f-semi-t", "type": "text"}],
 )
-txt("f-semi-t", pill2_x, PILL_Y2, PILL_W, PILL_H, "Semi-structured", 22, cid="f-semi")
+d.txt("f-semi-t", pill2_x, PILL_Y2, PILL_W, PILL_H, "Semi-structured", 22, cid="f-semi")
 
-rect(
+d.rect(
     "f-unstruct",
     pill2_x,
     PILL_Y3,
@@ -333,7 +195,7 @@ rect(
     *GREEN,
     bnd=[{"id": "f-unstruct-t", "type": "text"}],
 )
-txt(
+d.txt(
     "f-unstruct-t",
     pill2_x,
     PILL_Y3,
@@ -344,7 +206,7 @@ txt(
     cid="f-unstruct",
 )
 
-arr(
+d.arr(
     "a-f1",
     COL2_X + COL_W // 2,
     HDR_Y + HDR_H,
@@ -354,7 +216,7 @@ arr(
     eb={"elementId": "f-struct", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a-f2",
     COL2_X + COL_W // 2,
     PILL_Y1 + PILL_H,
@@ -364,7 +226,7 @@ arr(
     eb={"elementId": "f-semi", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a-f3",
     COL2_X + COL_W // 2,
     PILL_Y2 + PILL_H,
@@ -375,7 +237,7 @@ arr(
 )
 
 # --- Column 3: Streaming (PURPLE) ---
-rect(
+d.rect(
     "stream-hdr",
     COL3_X,
     HDR_Y,
@@ -384,7 +246,7 @@ rect(
     *PURPLE,
     bnd=[{"id": "stream-title", "type": "text"}],
 )
-txt(
+d.txt(
     "stream-title",
     COL3_X,
     HDR_TITLE_Y,
@@ -394,7 +256,7 @@ txt(
     HDR_TITLE_FSZ,
     cid="stream-hdr",
 )
-txt(
+d.txt(
     "stream-sub",
     COL3_X,
     HDR_SUB_Y,
@@ -406,7 +268,7 @@ txt(
 )
 
 pill3_x = COL3_X + PILL_INSET
-rect(
+d.rect(
     "s-mq",
     pill3_x,
     PILL_Y1,
@@ -415,9 +277,9 @@ rect(
     *PURPLE,
     bnd=[{"id": "s-mq-t", "type": "text"}],
 )
-txt("s-mq-t", pill3_x, PILL_Y1, PILL_W, PILL_H, "Message Queues", 22, cid="s-mq")
+d.txt("s-mq-t", pill3_x, PILL_Y1, PILL_W, PILL_H, "Message Queues", 22, cid="s-mq")
 
-rect(
+d.rect(
     "s-plat",
     pill3_x,
     PILL_Y2,
@@ -426,7 +288,7 @@ rect(
     *PURPLE,
     bnd=[{"id": "s-plat-t", "type": "text"}],
 )
-txt(
+d.txt(
     "s-plat-t",
     pill3_x,
     PILL_Y2,
@@ -437,7 +299,7 @@ txt(
     cid="s-plat",
 )
 
-arr(
+d.arr(
     "a-s1",
     COL3_X + COL_W // 2,
     HDR_Y + HDR_H,
@@ -447,7 +309,7 @@ arr(
     eb={"elementId": "s-mq", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a-s2",
     COL3_X + COL_W // 2,
     PILL_Y1 + PILL_H,
@@ -468,6 +330,5 @@ print(f"Bottom of tallest col (files): {PILL_Y3 + PILL_H}")
 # === WRITE ===
 name = sys.argv[1] if len(sys.argv) > 1 else "diagrams/source-systems-taxonomy"
 outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
+d.save(outfile)
 print(f"Wrote {outfile}")

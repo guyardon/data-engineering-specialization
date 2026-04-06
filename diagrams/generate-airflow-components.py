@@ -4,157 +4,12 @@ Shows DAG Directory, Scheduler, Workers, Metadata Database,
 Web Server, and User Interface with data flow arrows.
 """
 
-import json
 import math
 import sys
 
-# === FILE STRUCTURE ===
+from diagramlib import BLUE, CYAN, GRAY, GREEN, PURPLE, YELLOW, ExcalidrawDiagram
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els: list[dict[str, object]] = data["elements"]  # type: ignore[assignment]
-seed = 3000
-
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-# === COLOR PALETTE ===
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-YELLOW = ("#e67700", "#ffec99")
-PURPLE = ("#6741d9", "#d0bfff")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-# === HELPER FUNCTIONS ===
-
-
-def rect(id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=3000)
 
 # === LAYOUT CONSTANTS ===
 
@@ -182,7 +37,7 @@ def component_box(box_id, x, y, w, h, title, subtitle, color):
     title_y = y + top_pad
     sub_y = title_y + title_h + gap
 
-    rect(
+    d.rect(
         box_id,
         x,
         y,
@@ -192,8 +47,8 @@ def component_box(box_id, x, y, w, h, title, subtitle, color):
         color[1],
         bnd=[{"id": f"t_{box_id}", "type": "text"}],
     )
-    txt(f"t_{box_id}", x, title_y, w, title_h, title, 22, color="#1e1e1e", cid=box_id)
-    txt(f"s_{box_id}", x, sub_y, w, sub_h, subtitle, 17, color=color[0])
+    d.txt(f"t_{box_id}", x, title_y, w, title_h, title, 22, color="#1e1e1e", cid=box_id)
+    d.txt(f"s_{box_id}", x, sub_y, w, sub_h, subtitle, 17, color=color[0])
 
 
 # === BUILD DIAGRAM ===
@@ -202,7 +57,7 @@ Y = 20
 
 # --- Diagram title ---
 TITLE_H = math.ceil(1 * 32 * 1.25)
-txt(
+d.txt(
     "title",
     PAD_X,
     Y,
@@ -229,7 +84,7 @@ component_box(
 Y += BOX_H
 
 # Arrow: DAG Directory → Scheduler (reads DAGs)
-arr(
+d.arr(
     "a_dag_sched",
     CANVAS_W // 2,
     Y,
@@ -238,7 +93,7 @@ arr(
     sb={"elementId": "dag", "focus": 0, "gap": 4},
     eb={"elementId": "sched", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "al_dag_sched",
     CANVAS_W // 2 + 8,
     Y + 20,
@@ -278,7 +133,7 @@ component_box(
 )
 
 # Arrow: Scheduler → Workers (horizontal, pushes tasks)
-arr(
+d.arr(
     "a_sched_worker",
     SCHED_X + BOX_W,
     PAIR_Y + BOX_H // 2,
@@ -287,7 +142,7 @@ arr(
     sb={"elementId": "sched", "focus": 0, "gap": 4},
     eb={"elementId": "worker", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "al_sched_worker",
     SCHED_X + BOX_W + 2,
     PAIR_Y + BOX_H // 2 - 25,
@@ -302,7 +157,7 @@ txt(
 Y += BOX_H
 
 # Arrow: Workers → Metadata Database (writes status)
-arr(
+d.arr(
     "a_worker_meta",
     CANVAS_W // 2,
     Y,
@@ -311,7 +166,7 @@ arr(
     sb={"elementId": "worker", "focus": 0, "gap": 4},
     eb={"elementId": "metadb", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "al_worker_meta",
     CANVAS_W // 2 + 8,
     Y + 20,
@@ -339,7 +194,7 @@ component_box(
 Y += BOX_H
 
 # Arrow: Metadata DB → Web Server (reads state)
-arr(
+d.arr(
     "a_meta_web",
     CANVAS_W // 2,
     Y,
@@ -348,7 +203,7 @@ arr(
     sb={"elementId": "metadb", "focus": 0, "gap": 4},
     eb={"elementId": "webserver", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "al_meta_web",
     CANVAS_W // 2 + 8,
     Y + 20,
@@ -388,7 +243,7 @@ component_box(
 )
 
 # Arrow: Web Server → User Interface (horizontal, serves UI)
-arr(
+d.arr(
     "a_web_ui",
     WEB_X + BOX_W,
     BOTTOM_Y + BOX_H // 2,
@@ -397,7 +252,7 @@ arr(
     sb={"elementId": "webserver", "focus": 0, "gap": 4},
     eb={"elementId": "ui", "focus": 0, "gap": 4},
 )
-txt(
+d.txt(
     "al_web_ui",
     WEB_X + BOX_W + 2,
     BOTTOM_Y + BOX_H // 2 - 25,
@@ -414,12 +269,11 @@ Y += BOX_H + 20
 # === VERIFY ===
 print(f"Canvas width: {CANVAS_W}")
 print(f"Total height: ~{Y}")
-print(f"Elements: {len(els)}")
+print(f"Elements: {len(d.elements)}")
 
 # === WRITE FILE ===
 
 name = sys.argv[1] if len(sys.argv) > 1 else "airflow-components"
 outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
+d.save(outfile)
 print(f"Wrote {outfile}")

@@ -17,13 +17,22 @@ import re
 import subprocess
 import tempfile
 
-OUT_DIR = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "public",
-    "images",
-    "diagrams",
+from diagramlib.aws_diagram import (
+    CLUSTER_COLORS_DARK,
+    CLUSTER_COLORS_LIGHT,
+    edge_attrs,
+    output_dir,
 )
-os.makedirs(OUT_DIR, exist_ok=True)
+
+OUT_DIR = output_dir()
+
+# Semantic cluster name -> color key
+_CLUSTER_MAP = {
+    "vpc": "purple",
+    "az": "green",
+    "pub": "yellow",
+    "priv": "red",
+}
 
 
 def render_centered(dot_source, png_path, node_ids):
@@ -74,23 +83,12 @@ def gen(dark: bool):
     suffix = "-dark" if dark else ""
     bg = "#0f0f13" if dark else "white"
     fc = "#e8e8ea" if dark else "#1e1e1e"
-    edge_color = "#65656e" if dark else "#495057"
+    edge_color = edge_attrs(dark)["color"]
 
-    if dark:
-        cc = {
-            "vpc": {"bg": "#1a1a2a", "fc": "#c4b5fd", "border": "#6741d9"},
-            "az": {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
-            "pub": {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
-            "priv": {"bg": "#2a1a1a", "fc": "#fca5a5", "border": "#c92a2a"},
-        }
-    else:
-        cc = {
-            "vpc": {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
-            "az": {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
-            "pub": {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
-            "priv": {"bg": "#ffc9c940", "fc": "#c92a2a", "border": "#c92a2a"},
-        }
+    palette = CLUSTER_COLORS_DARK if dark else CLUSTER_COLORS_LIGHT
+    cc = {k: palette[v] for k, v in _CLUSTER_MAP.items()}
 
+    # Custom graph/node/edge attrs — this diagram uses larger sizes
     graph_attr = {
         "bgcolor": bg,
         "fontcolor": fc,
@@ -131,7 +129,7 @@ def gen(dark: bool):
             "pencolor": c["border"],
         }
 
-    out_path = os.path.join(OUT_DIR, f"vpc-networking-aws{suffix}")
+    out_path = f"{OUT_DIR}/vpc-networking-aws{suffix}"
     png_path = out_path + ".png"
 
     # Build the diagram and capture DOT source + node IDs
@@ -173,7 +171,7 @@ def gen(dark: bool):
                     ec2_2 = EC2("EC2")
                     rds_2 = RDS("RDS")
 
-        # Top flow (minlen=1 to keep User→IGW close despite large ranksep)
+        # Top flow (minlen=1 to keep User->IGW close despite large ranksep)
         user >> e() >> igw >> e(lhead="cluster_VPC  (10.0.0.0/16)", minlen="2") >> alb
         alb >> e(lhead="cluster_Availability Zone 1") >> ec2_1
         alb >> e(lhead="cluster_Availability Zone 2") >> ec2_2

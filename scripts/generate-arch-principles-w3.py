@@ -1,135 +1,8 @@
-import json
 import math
-import os
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 2000
+from diagramlib import ExcalidrawDiagram, CYAN
 
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="solid", opacity=100, dashed=False, bnd=None, sw=2
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": sw,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100, valign="middle"):
-    """Create a text element. When cid is set, this is bound text (containerId points to parent)."""
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": valign,
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": abs(pts[-1][0] - pts[0][0]),
-            "height": abs(pts[-1][1] - pts[0][1]),
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
+d = ExcalidrawDiagram(seed=2000)
 
 
 def th(text, font_size):
@@ -201,11 +74,11 @@ cards = [
     },
 ]
 
-PILL_STROKE = "#0c8599"
-PILL_BG = "#99e9f2"
+PILL_STROKE = CYAN[0]
+PILL_BG = CYAN[1]
 
 # ── Main title (free text) ──
-txt(
+d.txt(
     "title",
     START_X,
     TITLE_Y,
@@ -233,8 +106,8 @@ for c in cards:
         for j in range(len(c["pills"])):
             bnd.append({"type": "arrow", "id": f"arrow3_{j}"})
 
-    rect(
-        card_id, START_X, cur_y, CARD_W, h, c["stroke"], c["bg"], fill="solid", bnd=bnd
+    d.rect(
+        card_id, START_X, cur_y, CARD_W, h, c["stroke"], c["bg"], bnd=bnd
     )
 
     if subtitle_text:
@@ -248,7 +121,7 @@ for c in cards:
         sub_y = title_y + title_h + SUB_GAP
 
         # Bound title (containerId = card_id)
-        txt(
+        d.txt(
             title_id,
             START_X,
             title_y,
@@ -261,7 +134,7 @@ for c in cards:
         )
 
         # Free subtitle (containerId = None), positioned inside the box
-        txt(
+        d.txt(
             sub_id,
             START_X,
             sub_y,
@@ -270,14 +143,13 @@ for c in cards:
             subtitle_text,
             FONT_SUB,
             color=c["stroke"],
-            cid=None,
             valign="top",
         )
     else:
         # No subtitle — bound title centered via auto-centering
         title_h = th(title_text, FONT_TITLE)
         centered_y = cur_y + (h - title_h) // 2
-        txt(
+        d.txt(
             title_id,
             START_X,
             centered_y,
@@ -308,7 +180,7 @@ for c in cards:
                 {"type": "text", "id": pill_txt_id},
                 {"type": "arrow", "id": f"arrow3_{j}"},
             ]
-            rect(
+            d.rect(
                 pill_id,
                 px,
                 pill_y,
@@ -316,14 +188,13 @@ for c in cards:
                 PILL_H,
                 PILL_STROKE,
                 PILL_BG,
-                fill="solid",
                 bnd=pill_bnd,
             )
 
             # Pill text: bound, centered by containerId
             ptxt_h = th(label, FONT_PILL)
             ptxt_y = pill_y + (PILL_H - ptxt_h) // 2
-            txt(pill_txt_id, px, ptxt_y, PILL_W, ptxt_h, label, FONT_PILL, cid=pill_id)
+            d.txt(pill_txt_id, px, ptxt_y, PILL_W, ptxt_h, label, FONT_PILL, cid=pill_id)
             pill_ids.append((pill_id, px))
 
         # Arrows from card 3 bottom-center to each pill top-center
@@ -342,7 +213,7 @@ for c in cards:
             }
             eb = {"elementId": pill_id, "focus": 0, "gap": 1, "fixedPoint": None}
 
-            arr(
+            d.arr(
                 arrow_id,
                 card3_cx,
                 card_bottom_y,
@@ -357,7 +228,5 @@ for c in cards:
         cur_y = card_bottom_y + CARD_GAP
 
 out_path = "diagrams/architecture-principles-w3.excalidraw"
-os.makedirs(os.path.dirname(out_path), exist_ok=True)
-with open(out_path, "w") as f:
-    json.dump(data, f, indent=2)
+d.save(out_path)
 print(f"Done! Wrote {out_path}")

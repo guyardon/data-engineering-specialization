@@ -5,159 +5,11 @@ Shows cloud security pillars at top, IAM hierarchy in center,
 and a role assumption example at bottom.
 """
 
-import json
 import math
-import sys
 
-# === FILE STRUCTURE ===
+from diagramlib import ExcalidrawDiagram, BLUE, GREEN, YELLOW, PURPLE, RED, CYAN, GRAY
 
-data = {
-    "type": "excalidraw",
-    "version": 2,
-    "source": "https://excalidraw.com",
-    "elements": [],
-    "appState": {"viewBackgroundColor": "#ffffff", "gridSize": None},
-    "files": {},
-}
-els = data["elements"]
-seed = 1000
-
-
-def ns():
-    global seed
-    seed += 1
-    return seed
-
-
-# === COLOR PALETTE ===
-
-BLUE = ("#1971c2", "#a5d8ff")
-GREEN = ("#2f9e44", "#b2f2bb")
-YELLOW = ("#e67700", "#ffec99")
-PURPLE = ("#6741d9", "#d0bfff")
-RED = ("#c92a2a", "#ffc9c9")
-CYAN = ("#0c8599", "#99e9f2")
-GRAY = ("#868e96", "#dee2e6")
-
-
-# === HELPER FUNCTIONS ===
-
-
-def rect(
-    id, x, y, w, h, stroke, bg, fill="hachure", opacity=100, dashed=False, bnd=None
-):
-    els.append(
-        {
-            "type": "rectangle",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "strokeColor": stroke,
-            "backgroundColor": bg,
-            "fillStyle": fill,
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dashed else "solid",
-            "roughness": 1,
-            "opacity": opacity,
-            "roundness": {"type": 3},
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": bnd or [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def txt(id, x, y, w, h, t, sz, color="#1e1e1e", cid=None, op=100):
-    if cid:
-        num_lines = t.count("\n") + 1
-        actual_h = math.ceil(num_lines * sz * 1.25)
-        y = y + (h - actual_h) // 2
-        h = actual_h
-    els.append(
-        {
-            "type": "text",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": w,
-            "height": h,
-            "angle": 0,
-            "text": t,
-            "originalText": t,
-            "fontSize": sz,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle",
-            "lineHeight": 1.25,
-            "autoResize": True,
-            "containerId": cid,
-            "strokeColor": color,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
-
-def arr(id, x, y, pts, stroke, dash=False, op=100, sb=None, eb=None):
-    els.append(
-        {
-            "type": "arrow",
-            "id": id,
-            "x": x,
-            "y": y,
-            "width": pts[-1][0] - pts[0][0],
-            "height": pts[-1][1] - pts[0][1],
-            "angle": 0,
-            "points": pts,
-            "startArrowhead": None,
-            "endArrowhead": "arrow",
-            "startBinding": sb,
-            "endBinding": eb,
-            "elbowed": False,
-            "strokeColor": stroke,
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "dashed" if dash else "solid",
-            "roughness": 1,
-            "opacity": op,
-            "seed": ns(),
-            "version": 1,
-            "versionNonce": ns(),
-            "isDeleted": False,
-            "groupIds": [],
-            "boundElements": [],
-            "frameId": None,
-            "link": None,
-            "locked": False,
-            "updated": 1710000000000,
-        }
-    )
-
+d = ExcalidrawDiagram(seed=1000)
 
 # === LAYOUT CONSTANTS ===
 
@@ -216,10 +68,10 @@ PRINCIPLE_H = math.ceil(1 * 19 * 1.25)
 # === BUILD DIAGRAM ===
 
 # --- Title ---
-txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "AWS IAM & Permissions", 32)
+d.txt("title", PAD_X, TITLE_Y, CONTENT_W, TITLE_H, "AWS IAM & Permissions", 32)
 
 # --- Three Pillars of Cloud Security ---
-txt(
+d.txt(
     "pillars_label",
     PAD_X,
     PILLARS_LABEL_Y,
@@ -234,41 +86,44 @@ p1_x = PILLARS_X0
 p2_x = PILLARS_X0 + PILLAR_W + PILLAR_GAP
 p3_x = PILLARS_X0 + 2 * (PILLAR_W + PILLAR_GAP)
 
-rect(
+d.rect(
     "p1",
     p1_x,
     PILLARS_Y,
     PILLAR_W,
     PILLAR_H,
     *CYAN,
+    fill="hachure",
     bnd=[{"id": "p1t", "type": "text"}],
 )
-txt("p1t", p1_x, PILLARS_Y, PILLAR_W, PILLAR_H, "Encryption", 22, cid="p1")
+d.txt("p1t", p1_x, PILLARS_Y, PILLAR_W, PILLAR_H, "Encryption", 22, cid="p1")
 
-rect(
+d.rect(
     "p2",
     p2_x,
     PILLARS_Y,
     PILLAR_W,
     PILLAR_H,
     *PURPLE,
+    fill="hachure",
     bnd=[{"id": "p2t", "type": "text"}],
 )
-txt("p2t", p2_x, PILLARS_Y, PILLAR_W, PILLAR_H, "IAM", 22, cid="p2")
+d.txt("p2t", p2_x, PILLARS_Y, PILLAR_W, PILLAR_H, "IAM", 22, cid="p2")
 
-rect(
+d.rect(
     "p3",
     p3_x,
     PILLARS_Y,
     PILLAR_W,
     PILLAR_H,
     *GREEN,
+    fill="hachure",
     bnd=[{"id": "p3t", "type": "text"}],
 )
-txt("p3t", p3_x, PILLARS_Y, PILLAR_W, PILLAR_H, "Networking", 22, cid="p3")
+d.txt("p3t", p3_x, PILLARS_Y, PILLAR_W, PILLAR_H, "Networking", 22, cid="p3")
 
 # --- IAM Hierarchy label ---
-txt(
+d.txt(
     "hier_label",
     PAD_X,
     HIER_LABEL_Y,
@@ -280,8 +135,8 @@ txt(
 )
 
 # --- Root User ---
-rect("root", HIER_X, ROOT_Y, BOX_W, BOX_H, *RED, bnd=[{"id": "root_t", "type": "text"}])
-txt(
+d.rect("root", HIER_X, ROOT_Y, BOX_W, BOX_H, *RED, fill="hachure", bnd=[{"id": "root_t", "type": "text"}])
+d.txt(
     "root_t",
     HIER_X,
     ROOT_Y,
@@ -293,10 +148,10 @@ txt(
 )
 
 # --- IAM User ---
-rect(
-    "user", HIER_X, USER_Y, BOX_W, BOX_H, *BLUE, bnd=[{"id": "user_t", "type": "text"}]
+d.rect(
+    "user", HIER_X, USER_Y, BOX_W, BOX_H, *BLUE, fill="hachure", bnd=[{"id": "user_t", "type": "text"}]
 )
-txt(
+d.txt(
     "user_t",
     HIER_X,
     USER_Y,
@@ -308,16 +163,17 @@ txt(
 )
 
 # --- IAM Group ---
-rect(
+d.rect(
     "group",
     HIER_X,
     GROUP_Y,
     BOX_W,
     BOX_H,
     *GREEN,
+    fill="hachure",
     bnd=[{"id": "group_t", "type": "text"}],
 )
-txt(
+d.txt(
     "group_t",
     HIER_X,
     GROUP_Y,
@@ -329,16 +185,17 @@ txt(
 )
 
 # --- IAM Role ---
-rect(
+d.rect(
     "role",
     HIER_X,
     ROLE_Y,
     BOX_W,
     BOX_H,
     *YELLOW,
+    fill="hachure",
     bnd=[{"id": "role_t", "type": "text"}],
 )
-txt(
+d.txt(
     "role_t",
     HIER_X,
     ROLE_Y,
@@ -352,7 +209,7 @@ txt(
 # --- Arrows between hierarchy boxes ---
 arrow_x = HIER_X + BOX_W // 2
 
-arr(
+d.arr(
     "a_root_user",
     arrow_x,
     ROOT_Y + BOX_H,
@@ -362,7 +219,7 @@ arr(
     eb={"elementId": "user", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a_user_group",
     arrow_x,
     USER_Y + BOX_H,
@@ -372,7 +229,7 @@ arr(
     eb={"elementId": "group", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a_group_role",
     arrow_x,
     GROUP_Y + BOX_H,
@@ -383,7 +240,7 @@ arr(
 )
 
 # --- Role Example label ---
-txt(
+d.txt(
     "ex_label",
     PAD_X,
     EXAMPLE_Y,
@@ -396,23 +253,24 @@ txt(
 
 # EC2
 ex1_x = EX_X0
-rect(
-    "ec2", ex1_x, EX_Y, EX_BOX_W, EX_BOX_H, *BLUE, bnd=[{"id": "ec2_t", "type": "text"}]
+d.rect(
+    "ec2", ex1_x, EX_Y, EX_BOX_W, EX_BOX_H, *BLUE, fill="hachure", bnd=[{"id": "ec2_t", "type": "text"}]
 )
-txt("ec2_t", ex1_x, EX_Y, EX_BOX_W, EX_BOX_H, "EC2 Instance", 22, cid="ec2")
+d.txt("ec2_t", ex1_x, EX_Y, EX_BOX_W, EX_BOX_H, "EC2 Instance", 22, cid="ec2")
 
 # IAM Role (in example)
 ex2_x = EX_X0 + EX_BOX_W + EX_GAP
-rect(
+d.rect(
     "ex_role",
     ex2_x,
     EX_Y,
     EX_BOX_W,
     EX_BOX_H,
     *YELLOW,
+    fill="hachure",
     bnd=[{"id": "ex_role_t", "type": "text"}],
 )
-txt(
+d.txt(
     "ex_role_t",
     ex2_x,
     EX_Y,
@@ -425,15 +283,15 @@ txt(
 
 # S3
 ex3_x = EX_X0 + 2 * (EX_BOX_W + EX_GAP)
-rect(
-    "s3", ex3_x, EX_Y, EX_BOX_W, EX_BOX_H, *GREEN, bnd=[{"id": "s3_t", "type": "text"}]
+d.rect(
+    "s3", ex3_x, EX_Y, EX_BOX_W, EX_BOX_H, *GREEN, fill="hachure", bnd=[{"id": "s3_t", "type": "text"}]
 )
-txt("s3_t", ex3_x, EX_Y, EX_BOX_W, EX_BOX_H, "S3 Bucket", 22, cid="s3")
+d.txt("s3_t", ex3_x, EX_Y, EX_BOX_W, EX_BOX_H, "S3 Bucket", 22, cid="s3")
 
 # Arrows for example
 ex_arrow_y = EX_Y + EX_BOX_H // 2
 
-arr(
+d.arr(
     "a_ec2_role",
     ex1_x + EX_BOX_W,
     ex_arrow_y,
@@ -443,7 +301,7 @@ arr(
     eb={"elementId": "ex_role", "focus": 0, "gap": 4},
 )
 
-arr(
+d.arr(
     "a_role_s3",
     ex2_x + EX_BOX_W,
     ex_arrow_y,
@@ -455,7 +313,7 @@ arr(
 
 # Labels on example arrows
 arr_label_h = math.ceil(1 * 17 * 1.25)
-txt(
+d.txt(
     "assume_label",
     ex1_x + EX_BOX_W,
     EX_Y - 22,
@@ -466,7 +324,7 @@ txt(
     color=BLUE[0],
 )
 
-txt(
+d.txt(
     "grants_label",
     ex2_x + EX_BOX_W,
     EX_Y - 22,
@@ -478,7 +336,7 @@ txt(
 )
 
 # --- Principle of least privilege ---
-txt(
+d.txt(
     "principle",
     PAD_X,
     PRINCIPLE_Y,
@@ -505,9 +363,6 @@ print(f"Principle: y={PRINCIPLE_Y}..{PRINCIPLE_Y + PRINCIPLE_H}")
 print(f"Canvas: {CANVAS_W} x {PRINCIPLE_Y + PRINCIPLE_H + 20}")
 
 # === WRITE FILE ===
-
-name = sys.argv[1] if len(sys.argv) > 1 else "iam-permissions"
-outfile = f"{name}.excalidraw"
-with open(outfile, "w") as f:
-    json.dump(data, f, indent=2)
+outfile = "diagrams/iam-permissions.excalidraw"
+d.save(outfile)
 print(f"Wrote {outfile}")
