@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 40">
+  <circle cx="16" cy="20" r="11" fill="#C12766"/>
+  <rect x="10" y="15" width="12" height="10" rx="2" fill="#FFFFFF"/>
+  <text x="34" y="26" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#e8e8ea" font-weight="600">Debezium</text>
+</svg>

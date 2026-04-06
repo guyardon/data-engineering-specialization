@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48">
+  <defs>
+    <linearGradient x1="0%" y1="100%" x2="100%" y2="0%" id="lg-dynamodb">
+      <stop stop-color="#2E27AD" offset="0%"/><stop stop-color="#527FFF" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 0) scale(0.1875)">
+    <rect fill="url(#lg-dynamodb)" x="0" y="0" width="256" height="256" rx="30" ry="30"/>
+    <g fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round">
+      <path d="M80,72 L176,72 L176,184 L80,184 Z"/>
+      <line x1="80" y1="112" x2="176" y2="112"/>
+      <line x1="80" y1="148" x2="176" y2="148"/>
+      <path d="M64,88 L64,200 L160,200"/>
+    </g>
+  </g>
+  <text x="62" y="20" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#e8e8ea" font-weight="600" text-anchor="start">Amazon</text>
+  <text x="62" y="32" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#e8e8ea" font-weight="600" text-anchor="start">DynamoDB</text>
+</svg>

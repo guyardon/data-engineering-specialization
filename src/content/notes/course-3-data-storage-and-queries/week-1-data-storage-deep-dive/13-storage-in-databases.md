@@ -79,3 +79,26 @@ SELECT SUM(price) FROM my_table
 | **Write pattern** | Append entire rows efficiently | Must write to each column file separately |
 | **Best when** | Reading/writing complete records | Aggregating single columns across many rows |
 | **Examples** | `PostgreSQL`, `MySQL` | `Redshift`, `BigQuery`, `Snowflake` |
+
+<div class="tech-logos">
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/postgresql.svg" alt="PostgreSQL" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/postgresql-dark.svg" alt="PostgreSQL" class="logo-dark" />
+    <span>PostgreSQL</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/mysql.svg" alt="MySQL" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/mysql-dark.svg" alt="MySQL" class="logo-dark" />
+    <span>MySQL</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
+    <span>Redshift</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/bigquery.svg" alt="Google BigQuery" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/bigquery-dark.svg" alt="Google BigQuery" class="logo-dark" />
+    <span>BigQuery</span>
+  </div>
+  <div class="tech-logo">
+    <img src="/data-engineering-specialization-website/images/logos/snowflake.svg" alt="Snowflake" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/snowflake-dark.svg" alt="Snowflake" class="logo-dark" />
+    <span>Snowflake</span>
+  </div>
+</div>

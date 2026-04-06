@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48">
+  <defs>
+    <linearGradient x1="0%" y1="100%" x2="100%" y2="0%" id="lg-sqs">
+      <stop stop-color="#4D27A8" offset="0%"/><stop stop-color="#A166FF" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 0) scale(0.1875)">
+    <rect fill="url(#lg-sqs)" x="0" y="0" width="256" height="256" rx="30" ry="30"/>
+    <g fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round">
+      <rect x="56" y="72" width="112" height="48" rx="6"/>
+      <rect x="72" y="104" width="112" height="48" rx="6"/>
+      <rect x="88" y="136" width="112" height="48" rx="6"/>
+    </g>
+  </g>
+  <text x="62" y="20" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#232F3E" font-weight="600" text-anchor="start">Amazon</text>
+  <text x="62" y="32" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#232F3E" font-weight="600" text-anchor="start">SQS</text>
+</svg>
