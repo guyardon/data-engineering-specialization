@@ -77,16 +77,26 @@ const resolvedData = glossaryData.map((cat) => ({
 
       <div class="glossary-layout">
         <nav class="category-nav" aria-label="Browse by category">
+          <button class="pill category-pill" data-category="all">📋 Show All</button>
           {glossaryData.map((cat, i) => (
             <button class="pill category-pill" data-category={i}>
               {cat.icon} {cat.category}
             </button>
           ))}
-          <button class="pill category-pill" data-category="all">📋 Show All</button>
         </nav>
 
         <section id="terms-section" class="terms-section hidden">
+          <button id="terms-prev" class="terms-nav terms-prev nav-hidden" aria-label="Previous page">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
           <div id="terms-pills" class="terms-pills"></div>
+          <button id="terms-next" class="terms-nav terms-next nav-hidden" aria-label="Next page">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 6 15 12 9 18"></polyline>
+            </svg>
+          </button>
         </section>
 
         <section id="detail-section" class="detail-section hidden">
@@ -138,10 +148,97 @@ const resolvedData = glossaryData.map((cat) => ({
 
       let activeCategory = null;
       let activeTerm = null;
+      let currentTerms = [];
+      let currentPage = 0;
+      const TERMS_PER_PAGE = 28; // ~7 rows of ~4 pills
+
+      const termsPrev = document.getElementById("terms-prev");
+      const termsNext = document.getElementById("terms-next");
 
       function clearChildren(el) {
         while (el.firstChild) el.removeChild(el.firstChild);
       }
+
+      var MAX_ROWS = 7;
+      // pageBreaks[i] = index into currentTerms where page i starts
+      var pageBreaks = [0];
+
+      function countRows() {
+        var pills = termsPills.children;
+        if (pills.length === 0) return 0;
+        var rows = 1;
+        var prevTop = pills[0].offsetTop;
+        for (var i = 1; i < pills.length; i++) {
+          if (pills[i].offsetTop > prevTop) { rows++; prevTop = pills[i].offsetTop; }
+        }
+        return rows;
+      }
+
+      function buildPages() {
+        // Calculate all page breaks by rendering and measuring
+        pageBreaks = [0];
+        var idx = 0;
+        while (idx < currentTerms.length) {
+          clearChildren(termsPills);
+          var count = 0;
+          for (var i = idx; i < currentTerms.length; i++) {
+            var pill = document.createElement("button");
+            pill.className = "pill term-pill";
+            pill.textContent = currentTerms[i].term.term;
+            termsPills.appendChild(pill);
+            count++;
+            if (countRows() > MAX_ROWS) {
+              termsPills.removeChild(pill);
+              count--;
+              break;
+            }
+          }
+          idx += count;
+          if (idx < currentTerms.length) pageBreaks.push(idx);
+          if (count === 0) break; // safety
+        }
+        clearChildren(termsPills);
+      }
+
+      function renderTermsPage() {
+        clearChildren(termsPills);
+        var start = pageBreaks[currentPage] || 0;
+        var end = (currentPage + 1 < pageBreaks.length) ? pageBreaks[currentPage + 1] : currentTerms.length;
+
+        for (var i = start; i < end; i++) {
+          var entry = currentTerms[i];
+          var pill = document.createElement("button");
+          pill.className = "pill term-pill";
+          if (activeTerm === entry.ci + "-" + entry.ti) pill.classList.add("active");
+          pill.textContent = entry.term.term;
+          (function(e, p) {
+            p.addEventListener("click", function() { handleTermClick(e.ci, e.ti, p); });
+          })(entry, pill);
+          termsPills.appendChild(pill);
+        }
+
+        termsPrev.classList.toggle("nav-hidden", currentPage <= 0);
+        termsNext.classList.toggle("nav-hidden", currentPage >= pageBreaks.length - 1);
+      }
+
+      function renderAllTerms() {
+        clearChildren(termsPills);
+        currentTerms.forEach(function(entry) {
+          var pill = document.createElement("button");
+          pill.className = "pill term-pill";
+          if (activeTerm === entry.ci + "-" + entry.ti) pill.classList.add("active");
+          pill.textContent = entry.term.term;
+          pill.addEventListener("click", function() { handleTermClick(entry.ci, entry.ti, pill); });
+          termsPills.appendChild(pill);
+        });
+      }
+
+      termsPrev.addEventListener("click", function() {
+        if (currentPage > 0) { currentPage--; renderTermsPage(); }
+      });
+      termsNext.addEventListener("click", function() {
+        if (currentPage < pageBreaks.length - 1) { currentPage++; renderTermsPage(); }
+      });
 
       const allTerms = [];
       data.forEach((cat, ci) => {
@@ -173,16 +270,15 @@ const resolvedData = glossaryData.map((cat) => ({
           categoryNav.classList.add("has-selection");
           detailSection.classList.add("hidden");
 
-          clearChildren(termsPills);
-          const terms = key === "all" ? allTerms : data[key].terms.map((term, ti) => ({ term, ci: key, ti }));
-          terms.forEach((entry) => {
-            const pill = document.createElement("button");
-            pill.className = "pill term-pill";
-            pill.textContent = entry.term.term;
-            pill.addEventListener("click", () => handleTermClick(entry.ci, entry.ti, pill));
-            termsPills.appendChild(pill);
-          });
+          currentTerms = key === "all" ? allTerms : data[key].terms.map((term, ti) => ({ term, ci: key, ti }));
+          currentPage = 0;
           termsSection.classList.remove("hidden");
+          if (!isMobile()) {
+            buildPages();
+            renderTermsPage();
+          } else {
+            renderAllTerms();
+          }
         });
       });
 
@@ -295,20 +391,13 @@ const resolvedData = glossaryData.map((cat) => ({
             btn.addEventListener("click", function() {
               activeTerm = found.ci + "-" + found.ti;
 
-              // Update active term pill in background
-              document.querySelectorAll(".term-pill.active").forEach(function(b) { b.classList.remove("active"); });
-              var matchedPill = null;
-              termsPills.querySelectorAll(".term-pill").forEach(function(p) {
-                if (p.textContent === relatedName) { p.classList.add("active"); matchedPill = p; }
-              });
-
-              // Scroll terms section to center on the pill (desktop only)
-              if (matchedPill && !isMobile()) {
-                var container = termsSection;
-                var pillTop = matchedPill.offsetTop - container.offsetTop;
-                var pillHeight = matchedPill.offsetHeight;
-                var containerHeight = container.clientHeight;
-                container.scrollTo({ top: pillTop - (containerHeight / 2) + (pillHeight / 2), behavior: "smooth" });
+              // Navigate to the page containing the related term
+              var relIndex = currentTerms.findIndex(function(e) { return e.ci === found.ci && e.ti === found.ti; });
+              if (relIndex >= 0) {
+                for (var pg = pageBreaks.length - 1; pg >= 0; pg--) {
+                  if (pageBreaks[pg] <= relIndex) { currentPage = pg; break; }
+                }
+                renderTermsPage();
               }
 
               buildTermDetail(target, found.term);
@@ -358,21 +447,13 @@ const resolvedData = glossaryData.map((cat) => ({
             } while (pick.ci + "-" + pick.ti === activeTerm && pool.length > 1);
             activeTerm = pick.ci + "-" + pick.ti;
 
-            // Update active term pill in background
-            document.querySelectorAll(".term-pill.active").forEach(function(b) { b.classList.remove("active"); });
-            var activePill = null;
-            var termPills = termsPills.querySelectorAll(".term-pill");
-            termPills.forEach(function(p) {
-              if (p.textContent === pick.term.term) { p.classList.add("active"); activePill = p; }
-            });
-
-            // Scroll terms section to center on the selected pill (without moving the page)
-            if (activePill && !isMobile()) {
-              var container = termsSection;
-              var pillTop = activePill.offsetTop - container.offsetTop;
-              var pillHeight = activePill.offsetHeight;
-              var containerHeight = container.clientHeight;
-              container.scrollTo({ top: pillTop - (containerHeight / 2) + (pillHeight / 2), behavior: "smooth" });
+            // Navigate to the page containing the picked term and highlight it
+            var pickIndex = currentTerms.findIndex(function(e) { return e.ci === pick.ci && e.ti === pick.ti; });
+            if (pickIndex >= 0) {
+              for (var pg = pageBreaks.length - 1; pg >= 0; pg--) {
+                if (pageBreaks[pg] <= pickIndex) { currentPage = pg; break; }
+              }
+              renderTermsPage();
             }
 
             buildTermDetail(target, pick.term);
@@ -398,13 +479,8 @@ const resolvedData = glossaryData.map((cat) => ({
 
         const term = data[ci].terms[ti];
 
-        if (isMobile()) {
-          buildTermDetail(detailModalCard, term);
-          detailModal.showModal();
-        } else {
-          buildTermDetail(detailCard, term);
-          detailSection.classList.remove("hidden");
-        }
+        buildTermDetail(detailModalCard, term);
+        detailModal.showModal();
       }
 
       // Detail modal close
@@ -445,7 +521,7 @@ const resolvedData = glossaryData.map((cat) => ({
 .pill:hover { color: var(--accent); border-color: var(--accent); }
 .pill.active { color: var(--accent); border-color: var(--accent); background-color: color-mix(in srgb, var(--accent) 10%, transparent); }
 .pill.note-card { text-decoration: none; }
-.terms-pills, .detail-links { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+.detail-links { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
 .detail-card { position: relative; }
 .detail-shuffle { position: absolute; top: clamp(0.75rem, 2vw, 1rem); right: clamp(0.75rem, 2vw, 1rem); }
 .shuffle-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.7rem; font-size: 0.78rem; }
@@ -479,8 +555,8 @@ const resolvedData = glossaryData.map((cat) => ({
 :root:not([data-theme="light"]) .lightbox .diagram-dark { display: inline; }
 :root:not([data-theme="light"]) .lightbox .diagram-light { display: none; }
 
-/* Detail modal (mobile) */
-.detail-modal { border: none; background: var(--bg-card); width: 90vw; max-width: 90vw; max-height: 85vh; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3); position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0; overflow-y: auto; }
+/* Detail modal */
+.detail-modal { border: none; background: var(--bg-card); width: 90vw; max-width: 600px; max-height: 85vh; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3); position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0; overflow-y: auto; }
 .detail-modal::backdrop { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .detail-modal .detail-modal-close { position: absolute; top: 0.5rem; right: 0.5rem; background: none; color: var(--fg-soft); border: none; font-size: 1.5rem; width: 2rem; height: 2rem; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: color 0.15s ease, background 0.15s ease; }
 .detail-modal .detail-modal-close:hover { color: var(--fg); background: var(--bg-hover); }
@@ -491,7 +567,7 @@ const resolvedData = glossaryData.map((cat) => ({
 </style>
 
 <style>
-.glossary-page { max-width: 1200px; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2.5rem); min-height: 100vh; display: flex; flex-direction: column; }
+.glossary-page { max-width: 1200px; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2.5rem); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 .home-topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 2rem; border-bottom: 1px solid var(--line); margin-bottom: 2rem; }
 .home-topbar-actions { display: flex; align-items: center; gap: 0.5rem; }
 
@@ -499,19 +575,28 @@ const resolvedData = glossaryData.map((cat) => ({
 .glossary-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; color: var(--fg); margin-bottom: 0.5rem; line-height: 1.2; }
 .glossary-subtitle { font-family: var(--font-sans); font-size: clamp(0.9rem, 2vw, 1rem); color: var(--fg-muted); line-height: 1.6; }
 
-/* Three-column horizontal layout */
-.glossary-layout { display: flex; gap: 1rem; margin-bottom: 2rem; align-items: flex-start; }
-.category-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; flex-shrink: 0; width: 33%; position: sticky; top: 1rem; align-content: flex-start; max-height: calc(100vh - 2rem); overflow-y: auto; }
-.terms-section { flex: 1; min-width: 0; position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
-.detail-section { flex: 1; min-width: 0; position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; }
-.category-nav::-webkit-scrollbar, .terms-section::-webkit-scrollbar, .detail-section::-webkit-scrollbar { display: none; }
-.category-nav, .terms-section, .detail-section { scrollbar-width: none; }
+/* Two-column layout (categories + terms), detail opens as modal */
+.glossary-layout { display: flex; gap: 1rem; flex: 1; align-items: flex-start; overflow: hidden; }
+.category-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; flex-shrink: 0; width: 40%; align-content: flex-start; }
+.terms-section { flex: 1; min-width: 0; position: relative; padding: 0 2.5rem; }
+.terms-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+.detail-section { display: none; }
+
+/* Pagination nav buttons */
+.terms-nav { position: absolute; top: 6.5rem; background: var(--bg-card); border: 1px solid var(--line); border-radius: 50%; width: 2.2rem; height: 2.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg-muted); transition: color 0.15s ease, border-color 0.15s ease; z-index: 2; }
+.terms-nav:hover { color: var(--accent); border-color: var(--accent); }
+.terms-nav:focus { outline: none; }
+.terms-nav.nav-hidden { visibility: hidden; }
+.terms-prev { left: 0; }
+.terms-next { right: 0; }
 
 @media (max-width: 768px) {
-  .glossary-layout { flex-direction: column; gap: 1.5rem; }
+  .glossary-page { height: auto; overflow: auto; }
+  .glossary-layout { flex-direction: column; gap: 1.5rem; overflow: visible; }
   .category-nav { flex-direction: row; flex-wrap: wrap; width: auto; position: static; justify-content: center; }
   .category-nav.has-selection { padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
-  .detail-section { position: static; display: none; }
+  .terms-section { padding: 0; }
+  .terms-nav { display: none; }
 }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
