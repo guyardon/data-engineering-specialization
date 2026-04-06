@@ -156,7 +156,8 @@ with DAG(
     )
 
     # define dependencies -- Airflow handles execution order automatically
-    # both ingestion tasks run in parallel, then transform, combine, and load
+    # API ingestion feeds into transform, while database ingestion runs in parallel
+    # -- both converge at combine, then load
     [task_ingest_api >> task_transform_api, task_ingest_database] >> task_combine_data >> task_load_warehouse
 ```
 
@@ -184,3 +185,39 @@ s3_sensor = S3KeySensor(
 
 <img src="/data-engineering-specialization-website/images/diagrams/airflow-components-dark.svg" alt="Airflow core components architecture" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization-website/images/diagrams/airflow-components.svg" alt="Airflow core components architecture" class="diagram diagram-light" />
+
+## 4.1.4 Backfilling and Reprocessing
+
+**Backfilling** is the process of rerunning a pipeline over historical time intervals — for example, reprocessing the last 90 days after fixing a transformation bug or adding a new column. It is one of the most common operational tasks in data engineering.
+
+---
+
+**Why Backfills Happen**
+
+- A bug in transformation logic produced incorrect values for a period of time
+- A new column or metric is added and needs to be populated for historical data
+- A source system retroactively corrects or restates past records
+- A pipeline was down during a period and needs to catch up
+
+---
+
+**Backfilling in Airflow**
+
+`Airflow` has native support for backfilling through its scheduling model. Every DAG run is associated with a **logical date** (formerly `execution_date`) representing the data interval being processed, not the wall-clock time of execution.
+
+| Parameter | Role |
+|---|---|
+| **`start_date`** | The earliest logical date for the DAG |
+| **`catchup`** | When `True`, Airflow schedules runs for all missed intervals between `start_date` and now |
+| **`backfill` CLI** | Manually trigger runs for a specific date range: `airflow dags backfill -s 2025-01-01 -e 2025-03-01 my_dag` |
+
+---
+
+**Designing for Backfill-Friendliness**
+
+Pipelines that are easy to backfill share several properties:
+
+- **Idempotent** — rerunning the same interval produces the same result without side effects
+- **Parameterized by date** — the pipeline reads its processing window from the logical date, not from `datetime.now()`
+- **Partitioned output** — each run writes to a distinct partition (e.g., `s3://bucket/output/date=2025-03-15/`) so backfills overwrite only the affected intervals
+- **No cross-interval dependencies** — each run processes its interval independently without relying on the output of adjacent runs

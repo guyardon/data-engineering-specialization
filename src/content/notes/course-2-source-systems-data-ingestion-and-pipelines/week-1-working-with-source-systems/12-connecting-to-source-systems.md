@@ -83,7 +83,7 @@ Then connect using `pymysql.connect()`:
 import pymysql
 
 try:
-    conn = pymysql.connect(host=ENDPOINT, user=USER, passwd=token, port=PORT, database=DBNAME)
+    conn = pymysql.connect(host=ENDPOINT, user=USER, password=token, port=PORT, database=DBNAME)
     cur = conn.cursor()
     cur.execute("""SELECT * from pet""")
     query_results = cur.fetchall()

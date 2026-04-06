@@ -48,3 +48,36 @@ A typical deployment: `Kinesis Data Streams` ingests real-time events, `Managed 
 
 <img src="/data-engineering-specialization-website/images/diagrams/flink-streaming-aws-dark.png" alt="AWS streaming pipeline: Kinesis → Managed Apache Flink → S3 and Redshift" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization-website/images/diagrams/flink-streaming-aws.png" alt="AWS streaming pipeline: Kinesis → Managed Apache Flink → S3 and Redshift" class="diagram diagram-light" />
+
+## 3.4.3 Watermarks and Late-Arriving Data
+
+In real-world streaming systems, events rarely arrive in perfect order. Network delays, device buffering, and retries mean an event with **event time** 10:00:05 might arrive at the processing engine at 10:00:45 — or even minutes later. **Watermarks** are the mechanism streaming frameworks use to reason about this disorder.
+
+<img src="/data-engineering-specialization-website/images/diagrams/watermarks-dark.svg" alt="Watermarks and late data handling in stream processing" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/watermarks.svg" alt="Watermarks and late data handling in stream processing" class="diagram diagram-light" />
+
+---
+
+**Event Time vs. Processing Time**
+
+Every streaming event has two timestamps: the **event time** (when it actually occurred at the source) and the **processing time** (when the engine received it). Correct analytical results require aggregating by event time, but the engine only sees events in processing-time order. This gap is the core challenge watermarks solve.
+
+---
+
+**How Watermarks Work**
+
+A **watermark** is a declaration by the streaming engine that it believes all events with an event time up to a certain point have arrived. When a watermark advances past the end of a window, the engine considers that window complete and emits its result.
+
+Watermarks are typically set as a fixed offset from the latest observed event time. For example, a watermark of "10 seconds" means the engine waits 10 seconds of event-time progress before closing a window, allowing for that much lateness.
+
+---
+
+**Handling Late Data**
+
+Events that arrive after their window's watermark has passed are considered **late**. Frameworks provide three strategies for handling them:
+
+| Strategy | Behavior | Use Case |
+|---|---|---|
+| **Drop** | Discard the late event entirely | Acceptable when occasional data loss is tolerable (e.g., click analytics) |
+| **Allowed lateness** | Accept late events within a grace period and update the window result | When correctness matters but unbounded waiting is impractical |
+| **Side output** | Route late events to a separate stream for manual inspection or reprocessing | When no data should be silently lost (e.g., financial transactions) |

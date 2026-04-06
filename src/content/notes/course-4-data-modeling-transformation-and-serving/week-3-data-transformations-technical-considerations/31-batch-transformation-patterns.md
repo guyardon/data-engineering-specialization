@@ -93,3 +93,32 @@ CDC identifies changes in the source system and applies only those changes to th
 **Insert Performance**
 
 **Single-row inserts** work well for row-oriented OLTP databases but are inefficient for column-oriented OLAP systems — they create massive load and degrade read performance. **Micro-batch or batch inserts** are the preferred approach for OLAP.
+
+## 3.1.4 Idempotency in Batch Pipelines
+
+An **idempotent** pipeline produces the same result whether it runs once or multiple times with the same input. Idempotency is one of the most important reliability properties in data engineering — it means you can safely retry a failed run without creating duplicates, corrupting data, or producing inconsistent results.
+
+---
+
+**Why It Matters**
+
+Pipelines fail for countless reasons: network timeouts, cloud service outages, schema changes, resource limits. When a pipeline fails partway through, the recovery question is critical. Without idempotency, engineers must manually inspect what succeeded and what didn't before deciding whether to rerun. With idempotency, the answer is always: just rerun the whole thing.
+
+---
+
+**Common Patterns for Achieving Idempotency**
+
+| Pattern | How It Works | Tradeoff |
+|---|---|---|
+| **Truncate and reload** | Delete all data in the target partition, then write fresh | Simple and reliable, but expensive for large datasets |
+| **Upsert (MERGE)** | Insert new rows, update existing ones based on a key | Efficient for incremental loads, but requires a reliable unique key |
+| **Deterministic output paths** | Write to a path derived from the input (e.g., `/output/date=2025-03-15/`) so reruns overwrite the same location | Works well with object storage, relies on consistent naming |
+| **Deduplication on read** | Accept potential duplicates at write time, deduplicate downstream using `ROW_NUMBER()` or `QUALIFY` | Shifts complexity to the consumer, but decouples write reliability from correctness |
+
+---
+
+**Anti-patterns to Avoid**
+
+- **Appending without deduplication** — rerunning a pipeline that appends to a table without checking for existing records creates duplicates with every retry
+- **Using wall-clock timestamps as keys** — if a pipeline reruns, the timestamp changes, making it impossible to detect duplicate records
+- **Non-deterministic file names** — writing to randomly named files means reruns create new files instead of overwriting previous attempts

@@ -61,3 +61,20 @@ All three formats provide capabilities that were previously only available in tr
 **How Open Table Formats Work**
 
 Under the hood, data remains stored as **Parquet** or **ORC** files on object storage. The table format adds a **metadata layer** — a set of manifest files and logs that track which data files belong to each table version. When a write occurs, new data files are created and the metadata is atomically updated to point to the new snapshot, enabling ACID semantics without locks on the underlying storage.
+
+## 2.3.3 Medallion Architecture
+
+The **Medallion Architecture** is the most widely adopted organizational pattern for structuring data within a lakehouse. Data flows through three layers — **Bronze**, **Silver**, and **Gold** — each adding progressively more structure and business value.
+
+<img src="/data-engineering-specialization-website/images/diagrams/medallion-architecture-dark.svg" alt="Medallion Architecture: Bronze, Silver, and Gold layers" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/medallion-architecture.svg" alt="Medallion Architecture: Bronze, Silver, and Gold layers" class="diagram diagram-light" />
+
+| Layer | Purpose | Data Characteristics |
+|---|---|---|
+| **Bronze** | Raw ingestion — exact copy of source data | Unprocessed, may contain duplicates, nulls, and schema inconsistencies |
+| **Silver** | Cleaned and conformed | Deduplicated, type-cast, validated, and joined across sources |
+| **Gold** | Business-level aggregations | Modeled into star schemas, aggregated metrics, or ML feature tables |
+
+---
+
+The key benefit of this layered approach is **reprocessability**. If a transformation bug is discovered in the Gold layer, engineers can re-derive it from the Silver layer without re-ingesting from source systems. The Bronze layer serves as an immutable audit trail of everything that entered the pipeline, while the Silver layer provides a clean, reusable foundation that multiple Gold-layer consumers can build on independently.
