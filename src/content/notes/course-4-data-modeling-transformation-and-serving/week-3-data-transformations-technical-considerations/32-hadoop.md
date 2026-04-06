@@ -16,7 +16,7 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 **Apache Hadoop**
 
-`Hadoop` emerged from the big data era of the late 1990s and 2000s, when traditional monolithic data warehouses could not handle massive data volumes.
+`Hadoop` emerged in the mid-2000s, inspired by Google's GFS (2003) and MapReduce (2004) papers, when traditional monolithic data warehouses could not handle massive data volumes.
 
 ---
 

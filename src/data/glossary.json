@@ -249,7 +249,7 @@
       },
       {
         "term": "NoSQL Databases",
-        "description": "Non-relational databases that trade rigid schema structure for flexibility and horizontal scalability. They use non-tabular structures such as key-value stores, document stores, wide-column stores, and graph databases. NoSQL databases support eventual consistency and are horizontally scalable across multiple servers.",
+        "description": "Non-relational databases that trade rigid schema structure for flexibility and horizontal scalability. They use non-tabular structures such as key-value stores, document stores, wide-column stores, and graph databases. NoSQL databases typically favor eventual consistency for scalability, though some (like DynamoDB) also support strongly consistent reads. They are horizontally scalable across multiple servers.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -538,6 +538,21 @@
         ]
       },
       {
+        "term": "Dead Letter Queue",
+        "description": "A secondary queue that receives messages that could not be processed successfully after a configured number of retry attempts. Dead letter queues prevent a single bad message from blocking the entire pipeline and provide a holding area for investigation and reprocessing. Amazon SQS supports dead letter queues natively, and similar patterns exist in Kafka (dead letter topics) and streaming frameworks.",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/23-streaming-systems"
+          }
+        ],
+        "relatedTerms": [
+          "Message Queue",
+          "Amazon SQS",
+          "Event Streaming Platform",
+          "Stream Processing"
+        ]
+      },
+      {
         "term": "Event Streaming Platform",
         "description": "A system that provides an append-only persistent log where an event router distributes messages to subscribers. Unlike message queues, messages can be replayed or reprocessed since they persist in the log. Apache Kafka and Amazon Kinesis Data Streams are the most common examples.",
         "diagram": "streaming-concepts",
@@ -586,7 +601,7 @@
       },
       {
         "term": "Message Queue",
-        "description": "A buffer that delivers messages asynchronously on a FIFO basis between producers and consumers. Once a message is consumed, it is removed from the queue. Amazon SQS is a common example. Unlike event streaming platforms, message queues do not support message replay.",
+        "description": "A buffer that delivers messages asynchronously between producers and consumers, typically in FIFO order (though some implementations offer only best-effort ordering). Once a message is consumed, it is removed from the queue. Amazon SQS is a common example. Unlike event streaming platforms, message queues do not support message replay.",
         "diagram": "streaming-concepts",
         "notes": [
           {
@@ -800,7 +815,7 @@
       },
       {
         "term": "HDFS",
-        "description": "Hadoop Distributed File System, a distributed storage system that combines compute and storage on the same nodes. Large files are split into blocks of a few hundred megabytes, each replicated across three DataNodes for durability. A NameNode manages metadata and tracks block locations across the cluster.",
+        "description": "Hadoop Distributed File System, a distributed storage system that combines compute and storage on the same nodes. Large files are split into blocks of 128 megabytes by default, each replicated across three DataNodes for durability. A NameNode manages metadata and tracks block locations across the cluster.",
         "notes": [
           {
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
@@ -1085,6 +1100,40 @@
         ]
       },
       {
+        "term": "Medallion Architecture",
+        "description": "An organizational pattern for structuring data within a lakehouse using three progressive layers. The Bronze layer stores raw, unprocessed copies of source data. The Silver layer contains cleaned, deduplicated, and type-cast data. The Gold layer holds business-level aggregations, star schemas, and ML feature tables. This layered approach enables reprocessability — if a Gold-layer transformation has a bug, it can be re-derived from Silver without re-ingesting from source systems.",
+        "diagram": "medallion-architecture",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          }
+        ],
+        "relatedTerms": [
+          "Data Lakehouse",
+          "Data Lake",
+          "Open Table Formats",
+          "ETL"
+        ]
+      },
+      {
+        "term": "Schema Evolution",
+        "description": "The ability of a storage format or table to accommodate schema changes (adding columns, widening types, renaming fields) without breaking existing readers or requiring a full data rewrite. Avro provides strong evolution support through schema reconciliation at read time. Parquet handles missing columns by returning NULL. Open table formats like Iceberg and Delta Lake track schema changes as part of their version history, enabling transparent evolution across the table's lifecycle.",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/23-data-lakehouse"
+          }
+        ],
+        "relatedTerms": [
+          "Apache Avro",
+          "Apache Parquet",
+          "Open Table Formats",
+          "Data Lakehouse"
+        ]
+      },
+      {
         "term": "Schema-on-Read",
         "description": "A data management approach where structure is applied when data is queried rather than when it is written. This offers high flexibility since you can store any data format and decide how to interpret it later. It is the defining characteristic of data lakes.",
         "notes": [
@@ -1211,6 +1260,24 @@
           "Amazon Redshift",
           "Massively Parallel Processing (MPP)",
           "Sort Key"
+        ]
+      },
+      {
+        "term": "Exactly-Once Semantics",
+        "description": "A processing guarantee in streaming systems where each event is processed exactly one time, producing correct results even in the presence of failures and retries. Achieving exactly-once semantics requires coordination between the streaming engine, source, and sink — typically through checkpointing and transactional writes. Spark Structured Streaming and Apache Flink both provide exactly-once guarantees under specific configurations.",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
+          },
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          }
+        ],
+        "relatedTerms": [
+          "Stream Processing",
+          "Spark Structured Streaming",
+          "Apache Flink",
+          "Watermark (Streaming)"
         ]
       },
       {
@@ -1428,6 +1495,22 @@
           "Aggregate Queries",
           "SQL",
           "Common Table Expressions (CTEs)"
+        ]
+      },
+      {
+        "term": "Watermark (Streaming)",
+        "description": "A mechanism in stream processing that tracks the expected progress of event time, declaring when all events up to a certain point are believed to have arrived. When a watermark advances past the end of a window, the engine considers that window complete and emits its result. Watermarks are typically set as a fixed offset from the latest observed event time (e.g., 10 seconds), allowing for that much lateness before closing a window.",
+        "diagram": "watermarks",
+        "notes": [
+          {
+            "slug": "course-3-data-storage-and-queries/week-3-queries/34-streaming-queries"
+          }
+        ],
+        "relatedTerms": [
+          "Windowing (Tumbling, Sliding, Session)",
+          "Stream Processing",
+          "Exactly-Once Semantics",
+          "Apache Flink"
         ]
       },
       {
@@ -1689,6 +1772,22 @@
         ]
       },
       {
+        "term": "Slowly Changing Dimension (SCD)",
+        "description": "Strategies for handling changes in dimension table attributes over time. Type 0 retains the original value, Type 1 overwrites without history, Type 2 adds a new row with version tracking (effective dates and is_current flags) to preserve full history, and Type 3 adds a column for the previous value. Type 2 is the most common approach in data warehouses because it preserves the analytical context of each fact table transaction.",
+        "diagram": "scd-types",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
+          }
+        ],
+        "relatedTerms": [
+          "Dimension Table",
+          "Surrogate Key",
+          "Star Schema",
+          "Fact Table"
+        ]
+      },
+      {
         "term": "Surrogate Key",
         "description": "A synthetic identifier generated independently of the source data, used as a primary key instead of a natural business column. Common approaches include auto-incrementing integers or hash functions like MD5. Surrogate keys decouple the warehouse schema from source system changes.",
         "notes": [
@@ -1726,6 +1825,21 @@
           "MapReduce",
           "HDFS",
           "Apache Spark"
+        ]
+      },
+      {
+        "term": "Backfill",
+        "description": "The process of rerunning a pipeline over historical time intervals to reprocess past data. Common triggers include fixing transformation bugs, adding new columns or metrics, catching up after downtime, or handling retroactive corrections from source systems. In Airflow, backfilling is supported natively via the catchup parameter and the backfill CLI command. Pipelines designed for backfilling are idempotent, parameterized by date, and write to partitioned output paths.",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
+          }
+        ],
+        "relatedTerms": [
+          "Idempotency",
+          "Apache Airflow",
+          "Data Pipeline",
+          "Directed Acyclic Graph (DAG)"
         ]
       },
       {
@@ -1847,6 +1961,21 @@
           "Transformation",
           "Amazon SageMaker",
           "Serving"
+        ]
+      },
+      {
+        "term": "Idempotency",
+        "description": "A pipeline property where running the same operation multiple times with the same input produces the same result without side effects. Idempotent pipelines can be safely retried after failures without creating duplicates or corrupting data. Common patterns include truncate-and-reload, upserts (MERGE), deterministic output paths, and deduplication on read.",
+        "notes": [
+          {
+            "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
+          }
+        ],
+        "relatedTerms": [
+          "Backfill",
+          "Data Pipeline",
+          "Batch Processing",
+          "Change Data Capture (CDC)"
         ]
       },
       {
@@ -2296,6 +2425,21 @@
         ]
       },
       {
+        "term": "Data Contract",
+        "description": "A formal agreement between a data producer and its consumers that defines the structure, semantics, quality guarantees, and service-level expectations for a dataset. Data contracts specify schema (column names, types, nullability), freshness SLAs, expected volume ranges, ownership, and breaking change policies. They shift quality enforcement upstream so producers commit to a defined standard rather than consumers discovering problems after the fact.",
+        "notes": [
+          {
+            "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
+          }
+        ],
+        "relatedTerms": [
+          "Data Quality",
+          "Data Observability",
+          "Data Governance",
+          "DataOps"
+        ]
+      },
+      {
         "term": "Data Governance",
         "description": "The set of policies, processes, and standards that ensure the quality, integrity, security, and usability of an organization's data throughout its lifecycle. Data governance is a core component of data management and one of the undercurrents that runs beneath every stage of the data engineering lifecycle.",
         "diagram": "data-governance-wheel",
@@ -2537,7 +2681,7 @@
       },
       {
         "term": "Amazon SQS",
-        "description": "Amazon Simple Queue Service, a fully managed message queue that buffers messages asynchronously on a FIFO basis between producers and consumers. SQS is used for decoupling components in distributed systems. Unlike Kafka or Kinesis, consumed messages are removed from the queue.",
+        "description": "Amazon Simple Queue Service, a fully managed message queue that buffers messages asynchronously between producers and consumers. Standard queues offer best-effort ordering, while SQS FIFO queues guarantee strict message ordering. SQS is used for decoupling components in distributed systems. Unlike Kafka or Kinesis, consumed messages are removed from the queue.",
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/23-practical-examples-on-aws"
@@ -3062,6 +3206,22 @@
         "relatedTerms": [
           "Data Architecture",
           "Monolith vs. Modular"
+        ]
+      },
+      {
+        "term": "Data Mesh",
+        "description": "A decentralized architectural paradigm that shifts data ownership from a central data team to the individual business domains that produce and understand the data. Built on four principles: domain ownership (each domain owns its analytical data), data as a product (datasets published with SLAs and documentation), self-serve data platform (shared infrastructure for all domains), and federated computational governance (global standards with local autonomy). Data Mesh is primarily relevant for large organizations where a central data team has become a bottleneck.",
+        "diagram": "data-mesh",
+        "notes": [
+          {
+            "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
+          }
+        ],
+        "relatedTerms": [
+          "Data Architecture",
+          "Conway's Law",
+          "Loosely Coupled Systems",
+          "Data Contract"
         ]
       },
       {

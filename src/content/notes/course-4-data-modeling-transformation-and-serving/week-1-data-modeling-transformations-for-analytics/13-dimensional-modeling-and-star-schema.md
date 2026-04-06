@@ -115,3 +115,47 @@ FROM order_items oi
 JOIN orders o ON o.order_id = oi.order_id
 JOIN items i ON i.sku = oi.item_sku;
 ```
+
+## 1.3.4 Slowly Changing Dimensions (SCDs)
+
+Dimension data is not static — customers move, products are reclassified, employees change departments. **Slowly Changing Dimensions (SCDs)** are strategies for handling these changes in dimension tables while preserving the analytical accuracy of the fact table.
+
+<img src="/data-engineering-specialization-website/images/diagrams/scd-types-dark.svg" alt="Slowly Changing Dimension types: Type 1 overwrite vs Type 2 versioning" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/scd-types.svg" alt="Slowly Changing Dimension types: Type 1 overwrite vs Type 2 versioning" class="diagram diagram-light" />
+
+| Type | Strategy | History | Use Case |
+|---|---|---|---|
+| **Type 0** | Retain original value — never update | Original only | Fixed attributes (e.g., original sign-up date) |
+| **Type 1** | Overwrite the old value with the new one | No history | Corrections or when history is irrelevant (e.g., fixing a typo) |
+| **Type 2** | Add a new row with version tracking columns | Full history | When historical accuracy matters (e.g., a customer's address at the time of each order) |
+| **Type 3** | Add a column for the previous value | Limited (one prior value) | When only the most recent change matters |
+
+---
+
+**Type 2 in Practice**
+
+Type 2 is the most common approach in data warehouses. Each row gets three additional columns to track versioning:
+
+- **`effective_date`** — when this version became active
+- **`expiration_date`** — when this version was superseded (NULL for current)
+- **`is_current`** — boolean flag indicating the active row
+
+```sql
+-- Type 2: customer dimension with versioning
+SELECT
+    surrogate_key,
+    customer_id,        -- natural key (same across versions)
+    customer_name,
+    city,
+    effective_date,
+    expiration_date,
+    is_current
+FROM dim_customer
+WHERE customer_id = 101;
+
+-- surrogate_key | customer_id | customer_name | city | effective_date | expiration_date | is_current
+-- 1001          | 101         | Alice         | NYC  | 2024-01-01     | 2025-03-14      | false
+-- 1042          | 101         | Alice         | LA   | 2025-03-15     | NULL            | true
+```
+
+The surrogate key changes with each version, so fact table rows from 2024 still join to the NYC version while newer facts join to the LA version — preserving the analytical context of each transaction.

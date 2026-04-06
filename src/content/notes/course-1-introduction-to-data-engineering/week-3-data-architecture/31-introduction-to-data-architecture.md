@@ -167,3 +167,23 @@ Systems must continuously comply with current and future regulations. Building l
 
 - Medical: Health Insurance Portability and Accountability Act (HIPAA)
 - Financial: Sarbanes-Oxley Act (SOX) in the US
+
+## 3.1.5 Data Mesh
+
+**Data Mesh** is a decentralized architectural paradigm that shifts data ownership from a central data team to the individual business domains that produce and understand the data. Rather than funneling all data through a monolithic platform team, each domain (e.g., payments, logistics, marketing) takes responsibility for publishing its own data as a product.
+
+<img src="/data-engineering-specialization-website/images/diagrams/data-mesh-dark.svg" alt="Data Mesh principles: domain ownership, data as a product, self-serve platform, federated governance" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization-website/images/diagrams/data-mesh.svg" alt="Data Mesh principles: domain ownership, data as a product, self-serve platform, federated governance" class="diagram diagram-light" />
+
+Data Mesh is built on four principles:
+
+- **Domain ownership** — each business domain owns, produces, and serves its own analytical data rather than handing raw data to a central team for processing
+- **Data as a product** — domains treat their published datasets as products with clear documentation, SLAs, discoverability, and quality guarantees
+- **Self-serve data platform** — a shared infrastructure layer provides the tools, storage, and compute that domains need without requiring each team to build its own platform from scratch
+- **Federated computational governance** — global interoperability standards (naming conventions, security policies, quality thresholds) are enforced automatically through the platform, while domains retain autonomy over their internal implementation
+
+---
+
+**When Data Mesh Applies**
+
+Data Mesh is primarily relevant for large organizations where a central data team has become a bottleneck — too many domains competing for the same team's capacity, each with different data semantics that the central team struggles to understand deeply. For smaller organizations or teams with a manageable number of data sources, a centralized architecture is simpler and more practical.

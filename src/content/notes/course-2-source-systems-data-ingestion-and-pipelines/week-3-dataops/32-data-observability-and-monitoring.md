@@ -73,3 +73,27 @@ It collects **system-level metrics** (CPU, memory, disk, network) automatically 
 
 <img src="/data-engineering-specialization-website/images/diagrams/cloudwatch-dark.svg" alt="AWS CloudWatch" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization-website/images/diagrams/cloudwatch.svg" alt="AWS CloudWatch" class="diagram diagram-light" />
+
+## 3.2.4 Data Contracts
+
+A **data contract** is a formal agreement between a data producer and its consumers that defines the structure, semantics, quality guarantees, and service-level expectations for a dataset. Data contracts shift quality enforcement upstream — instead of consumers discovering problems after the fact, producers commit to delivering data that meets a defined standard.
+
+---
+
+**What a Data Contract Specifies**
+
+| Element | Description |
+|---|---|
+| **Schema** | Column names, data types, nullability constraints, and valid value ranges |
+| **Freshness SLA** | Maximum acceptable delay between data generation and availability (e.g., "within 2 hours of midnight UTC") |
+| **Volume expectations** | Expected row count ranges — an empty table or a 10x spike may indicate a problem |
+| **Ownership** | The team responsible for maintaining the contract and responding to violations |
+| **Breaking change policy** | How schema changes are communicated — e.g., deprecation windows, versioning rules |
+
+---
+
+**Why Data Contracts Matter**
+
+Without contracts, data pipelines are fragile. A source team renames a column, changes a data type, or stops populating a field — and downstream dashboards break silently. Data contracts make these dependencies explicit and enforceable. When a producer violates the contract, automated validation catches it before the bad data propagates downstream.
+
+Data contracts are closely related to **data observability** — the contract defines what "healthy" looks like, and observability tools monitor for violations.
