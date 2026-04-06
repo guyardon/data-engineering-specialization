@@ -33,6 +33,3 @@ __pycache__/
 # jetbrains setting folder
 .idea/
 
-# Generated content (run fetch-notion.mjs to regenerate)
-src/content/notes/
-public/images/
