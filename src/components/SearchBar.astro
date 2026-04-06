@@ -35,6 +35,14 @@ const { id = "search" } = Astro.props;
     width: 400px;
   }
 
+  @media (max-width: 640px) {
+    :global(.home-topbar-actions) .search-inline {
+      width: 100%;
+      max-width: 100%;
+      flex: 1;
+    }
+  }
+
   .search-dropdown {
     position: absolute;
     top: calc(100% + 6px);

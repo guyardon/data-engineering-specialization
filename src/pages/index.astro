@@ -115,13 +115,13 @@ const courses = [
 <style>
 .home { max-width: 900px; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2.5rem); min-height: 100vh; display: flex; flex-direction: column; }
 .home-topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 2rem; border-bottom: 1px solid var(--line); margin-bottom: 3rem; }
-.topbar-glossary-link { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--fg-muted); text-decoration: none; background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 0.4rem 0.85rem; transition: color 0.15s ease, border-color 0.15s ease; }
+.topbar-glossary-link { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: var(--fg-muted); text-decoration: none; background: var(--bg-card); border: 1px solid var(--line); border-radius: 8px; padding: 0.4rem 0.85rem; transition: color 0.15s ease, border-color 0.15s ease; }
 .topbar-glossary-link:hover { color: var(--accent); border-color: var(--accent); }
 .home-topbar-actions { display: flex; align-items: center; gap: 0.5rem; }
 .home-hero { text-align: center; margin-bottom: 2.5rem; }
 .home-title { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--fg); margin-bottom: 0.75rem; line-height: 1.2; }
 .home-subtitle { font-family: var(--font-sans); font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--fg-muted); line-height: 1.6; max-width: 520px; margin: 0 auto; }
-@media (max-width: 640px) { .home-topbar-actions .search-wrapper { max-width: 160px; } }
+
 
 .home-courses { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 3rem; }
 .course-card { display: flex; flex-direction: column; padding: clamp(1rem, 2vw, 1.5rem); background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; text-decoration: none; transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; }
@@ -134,5 +134,10 @@ const courses = [
 .course-card-meta { font-size: 0.75rem; color: var(--fg-soft); font-family: var(--font-sans); }
 .home-footer { margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--line); text-align: center; }
 .home-footer p { font-size: 0.78rem; color: var(--fg-soft); font-family: var(--font-sans); }
-@media (max-width: 640px) { .home-courses { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .home-topbar { flex-wrap: wrap; gap: 0.75rem; }
+  .topbar-glossary-link { order: 2; width: 100%; text-align: center; }
+  .home-topbar-actions { order: 1; width: 100%; justify-content: space-between; }
+  .home-courses { grid-template-columns: 1fr; }
+}
 </style>
