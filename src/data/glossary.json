@@ -7,11 +7,7 @@
         "term": "Batch Processing",
         "description": "A data processing pattern where data is collected over a time interval or until a size threshold is reached, then processed as a discrete chunk. Batch is the most common processing model and is simpler and cheaper than streaming, but introduces latency between data generation and availability.",
         "diagram": "batch-streaming",
-        "relatedTerms": [
-          "Stream Processing",
-          "Data Pipeline",
-          "ETL"
-        ],
+        "relatedTerms": ["Stream Processing", "Data Pipeline", "ETL"],
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-2-the-data-engineering-lifecycle-undercurrents/21-the-data-engineering-lifecycle"
@@ -31,11 +27,7 @@
         "term": "Data Engineering Lifecycle",
         "description": "The end-to-end framework describing how data moves from generation through ingestion, storage, transformation, and serving. Beneath these stages run cross-cutting undercurrents including security, data management, DataOps, orchestration, data architecture, and software engineering.",
         "diagram": "data-engineering-lifecycle",
-        "relatedTerms": [
-          "Data Pipeline",
-          "Undercurrents",
-          "DataOps"
-        ],
+        "relatedTerms": ["Data Pipeline", "Undercurrents", "DataOps"],
         "notes": [
           {
             "slug": "course-1-introduction-to-data-engineering/week-1-how-to-think-like-a-data-engineer/11-how-to-think-like-a-data-engineer"
@@ -151,12 +143,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
           }
         ],
-        "relatedTerms": [
-          "ETL",
-          "ELT",
-          "dbt",
-          "Apache Spark"
-        ]
+        "relatedTerms": ["ETL", "ELT", "dbt", "Apache Spark"]
       },
       {
         "term": "Undercurrents",
@@ -190,11 +177,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
           }
         ],
-        "relatedTerms": [
-          "Relational Databases",
-          "OLTP",
-          "NoSQL Databases"
-        ]
+        "relatedTerms": ["Relational Databases", "OLTP", "NoSQL Databases"]
       },
       {
         "term": "Amazon DynamoDB",
@@ -213,11 +196,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
           }
         ],
-        "relatedTerms": [
-          "NoSQL Databases",
-          "Boto3",
-          "Amazon S3"
-        ]
+        "relatedTerms": ["NoSQL Databases", "Boto3", "Amazon S3"]
       },
       {
         "term": "IoT Devices",
@@ -310,11 +289,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/22-etl-vs-elt"
           }
         ],
-        "relatedTerms": [
-          "Ingestion",
-          "JSON",
-          "Source Systems"
-        ]
+        "relatedTerms": ["Ingestion", "JSON", "Source Systems"]
       },
       {
         "term": "Source Systems",
@@ -385,11 +360,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/24-change-data-capture"
           }
         ],
-        "relatedTerms": [
-          "Fivetran",
-          "Change Data Capture (CDC)",
-          "ELT"
-        ]
+        "relatedTerms": ["Fivetran", "Change Data Capture (CDC)", "ELT"]
       },
       {
         "term": "Amazon Data Firehose",
@@ -516,12 +487,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
           }
         ],
-        "relatedTerms": [
-          "Debezium",
-          "AWS DMS",
-          "Airbyte",
-          "Stream Ingestion"
-        ]
+        "relatedTerms": ["Debezium", "AWS DMS", "Airbyte", "Stream Ingestion"]
       },
       {
         "term": "Debezium",
@@ -576,11 +542,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
           }
         ],
-        "relatedTerms": [
-          "Airbyte",
-          "ELT",
-          "Batch Ingestion"
-        ]
+        "relatedTerms": ["Airbyte", "ELT", "Batch Ingestion"]
       },
       {
         "term": "JDBC/ODBC",
@@ -593,11 +555,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-2-data-digestion/21-data-ingestion-patterns"
           }
         ],
-        "relatedTerms": [
-          "Batch Ingestion",
-          "Relational Databases",
-          "Ingestion"
-        ]
+        "relatedTerms": ["Batch Ingestion", "Relational Databases", "Ingestion"]
       },
       {
         "term": "Message Queue",
@@ -653,11 +611,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "Block Storage",
-          "Amazon EC2",
-          "Amazon EFS"
-        ]
+        "relatedTerms": ["Block Storage", "Amazon EC2", "Amazon EFS"]
       },
       {
         "term": "Amazon EFS",
@@ -667,11 +621,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "File Storage",
-          "Amazon EBS",
-          "Amazon S3"
-        ]
+        "relatedTerms": ["File Storage", "Amazon EBS", "Amazon S3"]
       },
       {
         "term": "Amazon RDS",
@@ -743,11 +693,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "File Storage",
-          "Object Storage",
-          "Amazon EBS"
-        ]
+        "relatedTerms": ["File Storage", "Object Storage", "Amazon EBS"]
       },
       {
         "term": "Cassandra",
@@ -807,11 +753,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "Block Storage",
-          "Object Storage",
-          "Amazon EFS"
-        ]
+        "relatedTerms": ["Block Storage", "Object Storage", "Amazon EFS"]
       },
       {
         "term": "HDFS",
@@ -842,11 +784,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
           }
         ],
-        "relatedTerms": [
-          "Redis",
-          "Memcached",
-          "Row-Oriented Storage"
-        ]
+        "relatedTerms": ["Redis", "Memcached", "Row-Oriented Storage"]
       },
       {
         "term": "Memcached",
@@ -856,10 +794,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
           }
         ],
-        "relatedTerms": [
-          "Redis",
-          "In-Memory Storage"
-        ]
+        "relatedTerms": ["Redis", "In-Memory Storage"]
       },
       {
         "term": "Object Storage",
@@ -888,10 +823,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/13-storage-in-databases"
           }
         ],
-        "relatedTerms": [
-          "Memcached",
-          "In-Memory Storage"
-        ]
+        "relatedTerms": ["Memcached", "In-Memory Storage"]
       },
       {
         "term": "Row-Oriented Storage",
@@ -916,11 +848,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/12-storage-tiers-and-distributed-systems"
           }
         ],
-        "relatedTerms": [
-          "Amazon S3",
-          "Object Storage",
-          "Block Storage"
-        ]
+        "relatedTerms": ["Amazon S3", "Object Storage", "Block Storage"]
       }
     ]
   },
@@ -1039,11 +967,7 @@
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/21-data-warehouses"
           }
         ],
-        "relatedTerms": [
-          "Data Warehouse",
-          "Star Schema",
-          "Serving"
-        ]
+        "relatedTerms": ["Data Warehouse", "Star Schema", "Serving"]
       },
       {
         "term": "Data Warehouse",
@@ -1141,10 +1065,7 @@
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
           }
         ],
-        "relatedTerms": [
-          "Schema-on-Write",
-          "Data Lake"
-        ]
+        "relatedTerms": ["Schema-on-Write", "Data Lake"]
       },
       {
         "term": "Schema-on-Write",
@@ -1154,10 +1075,7 @@
             "slug": "course-3-data-storage-and-queries/week-2-storage-abstractions/22-data-lakes"
           }
         ],
-        "relatedTerms": [
-          "Schema-on-Read",
-          "Data Warehouse"
-        ]
+        "relatedTerms": ["Schema-on-Read", "Data Warehouse"]
       },
       {
         "term": "Separation of Storage and Compute",
@@ -1191,11 +1109,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
           }
         ],
-        "relatedTerms": [
-          "Column-Oriented Storage",
-          "SQL",
-          "Window Functions"
-        ]
+        "relatedTerms": ["Column-Oriented Storage", "SQL", "Window Functions"]
       },
       {
         "term": "Amazon Athena",
@@ -1224,11 +1138,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
           }
         ],
-        "relatedTerms": [
-          "Index",
-          "Query Optimizer",
-          "EXPLAIN"
-        ]
+        "relatedTerms": ["Index", "Query Optimizer", "EXPLAIN"]
       },
       {
         "term": "Common Table Expressions (CTEs)",
@@ -1238,11 +1148,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
           }
         ],
-        "relatedTerms": [
-          "SQL",
-          "Window Functions",
-          "EXPLAIN"
-        ]
+        "relatedTerms": ["SQL", "Window Functions", "EXPLAIN"]
       },
       {
         "term": "Distribution Styles",
@@ -1288,11 +1194,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
           }
         ],
-        "relatedTerms": [
-          "Query Optimizer",
-          "Index",
-          "B-Tree Index"
-        ]
+        "relatedTerms": ["Query Optimizer", "Index", "B-Tree Index"]
       },
       {
         "term": "Hash Join",
@@ -1302,11 +1204,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
           }
         ],
-        "relatedTerms": [
-          "Joins",
-          "Sort Key",
-          "Distribution Styles"
-        ]
+        "relatedTerms": ["Joins", "Sort Key", "Distribution Styles"]
       },
       {
         "term": "Index",
@@ -1335,12 +1233,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
           }
         ],
-        "relatedTerms": [
-          "Hash Join",
-          "Star Schema",
-          "Denormalization",
-          "SQL"
-        ]
+        "relatedTerms": ["Hash Join", "Star Schema", "Denormalization", "SQL"]
       },
       {
         "term": "Massively Parallel Processing (MPP)",
@@ -1369,11 +1262,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/32-query-performance-and-advanced-sql"
           }
         ],
-        "relatedTerms": [
-          "Index",
-          "Query Optimizer",
-          "Sort Key"
-        ]
+        "relatedTerms": ["Index", "Query Optimizer", "Sort Key"]
       },
       {
         "term": "Query Optimizer",
@@ -1477,11 +1366,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
           }
         ],
-        "relatedTerms": [
-          "Amazon Redshift",
-          "PostgreSQL",
-          "Index"
-        ]
+        "relatedTerms": ["Amazon Redshift", "PostgreSQL", "Index"]
       },
       {
         "term": "Window Functions",
@@ -1542,11 +1427,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
           }
         ],
-        "relatedTerms": [
-          "Dimension Table",
-          "Star Schema",
-          "Fact Table"
-        ]
+        "relatedTerms": ["Dimension Table", "Star Schema", "Fact Table"]
       },
       {
         "term": "Data Vault",
@@ -1642,11 +1523,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/13-dimensional-modeling-and-star-schema"
           }
         ],
-        "relatedTerms": [
-          "Fact Table",
-          "Star Schema",
-          "Dimension Table"
-        ]
+        "relatedTerms": ["Fact Table", "Star Schema", "Dimension Table"]
       },
       {
         "term": "Inmon Approach",
@@ -1821,11 +1698,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/32-hadoop"
           }
         ],
-        "relatedTerms": [
-          "MapReduce",
-          "HDFS",
-          "Apache Spark"
-        ]
+        "relatedTerms": ["MapReduce", "HDFS", "Apache Spark"]
       },
       {
         "term": "Backfill",
@@ -1891,12 +1764,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-1-data-modeling-transformations-for-analytics/14-modeling-approaches-and-dbt"
           }
         ],
-        "relatedTerms": [
-          "ELT",
-          "Star Schema",
-          "Data Warehouse",
-          "SQL"
-        ]
+        "relatedTerms": ["ELT", "Star Schema", "Data Warehouse", "SQL"]
       },
       {
         "term": "ELT",
@@ -1916,12 +1784,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/31-batch-transformation-patterns"
           }
         ],
-        "relatedTerms": [
-          "ETL",
-          "dbt",
-          "Data Warehouse",
-          "Transformation"
-        ]
+        "relatedTerms": ["ETL", "dbt", "Data Warehouse", "Transformation"]
       },
       {
         "term": "ETL",
@@ -1957,11 +1820,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-2-data-modeling-transformations-for-machine-learning/21-tabular-data-for-machine-learning"
           }
         ],
-        "relatedTerms": [
-          "Transformation",
-          "Amazon SageMaker",
-          "Serving"
-        ]
+        "relatedTerms": ["Transformation", "Amazon SageMaker", "Serving"]
       },
       {
         "term": "Idempotency",
@@ -1990,11 +1849,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/32-hadoop"
           }
         ],
-        "relatedTerms": [
-          "Apache Hadoop",
-          "Apache Spark",
-          "HDFS"
-        ]
+        "relatedTerms": ["Apache Hadoop", "Apache Spark", "HDFS"]
       },
       {
         "term": "PySpark",
@@ -2025,12 +1880,7 @@
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
           }
         ],
-        "relatedTerms": [
-          "ETL",
-          "ELT",
-          "Serving",
-          "Data Pipeline"
-        ]
+        "relatedTerms": ["ETL", "ELT", "Serving", "Data Pipeline"]
       },
       {
         "term": "Spark DataFrames",
@@ -2072,11 +1922,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
           }
         ],
-        "relatedTerms": [
-          "PySpark",
-          "Spark DataFrames",
-          "Apache Spark"
-        ]
+        "relatedTerms": ["PySpark", "Spark DataFrames", "Apache Spark"]
       }
     ]
   },
@@ -2109,11 +1955,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
           }
         ],
-        "relatedTerms": [
-          "Feature Engineering",
-          "Serving",
-          "Amazon S3"
-        ]
+        "relatedTerms": ["Feature Engineering", "Serving", "Amazon S3"]
       },
       {
         "term": "Business Intelligence",
@@ -2157,11 +1999,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
           }
         ],
-        "relatedTerms": [
-          "View",
-          "Serving",
-          "Data Warehouse"
-        ]
+        "relatedTerms": ["View", "Serving", "Data Warehouse"]
       },
       {
         "term": "Metabase",
@@ -2199,11 +2037,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
           }
         ],
-        "relatedTerms": [
-          "Data Governance",
-          "Business Intelligence",
-          "dbt"
-        ]
+        "relatedTerms": ["Data Governance", "Business Intelligence", "dbt"]
       },
       {
         "term": "View",
@@ -2214,11 +2048,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-4-serving-data-and-analytics-for-machine-learning/41-serving-data-and-analytics"
           }
         ],
-        "relatedTerms": [
-          "Materialized View",
-          "SQL",
-          "Serving"
-        ]
+        "relatedTerms": ["Materialized View", "SQL", "Serving"]
       }
     ]
   },
@@ -2286,11 +2116,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
           }
         ],
-        "relatedTerms": [
-          "Apache Airflow",
-          "Prefect",
-          "Mage"
-        ]
+        "relatedTerms": ["Apache Airflow", "Prefect", "Mage"]
       },
       {
         "term": "Directed Acyclic Graph (DAG)",
@@ -2328,11 +2154,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
           }
         ],
-        "relatedTerms": [
-          "Apache Airflow",
-          "Dagster",
-          "Prefect"
-        ]
+        "relatedTerms": ["Apache Airflow", "Dagster", "Prefect"]
       },
       {
         "term": "Prefect",
@@ -2345,11 +2167,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-4-orchestration-monitoring-and-automating-your-data-pip/41-orchestration-overview"
           }
         ],
-        "relatedTerms": [
-          "Apache Airflow",
-          "Dagster",
-          "Mage"
-        ]
+        "relatedTerms": ["Apache Airflow", "Dagster", "Mage"]
       },
       {
         "term": "Taskflow API",
@@ -2401,11 +2219,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
           }
         ],
-        "relatedTerms": [
-          "Data Observability",
-          "DataOps",
-          "Incident Response"
-        ]
+        "relatedTerms": ["Data Observability", "DataOps", "Incident Response"]
       },
       {
         "term": "CI/CD",
@@ -2418,11 +2232,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
           }
         ],
-        "relatedTerms": [
-          "DataOps",
-          "Infrastructure as Code (IaC)",
-          "Terraform"
-        ]
+        "relatedTerms": ["DataOps", "Infrastructure as Code (IaC)", "Terraform"]
       },
       {
         "term": "Data Contract",
@@ -2531,11 +2341,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/32-data-observability-and-monitoring"
           }
         ],
-        "relatedTerms": [
-          "Data Quality",
-          "Data Observability",
-          "DataOps"
-        ]
+        "relatedTerms": ["Data Quality", "Data Observability", "DataOps"]
       },
       {
         "term": "Incident Response",
@@ -2545,11 +2351,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
           }
         ],
-        "relatedTerms": [
-          "DataOps",
-          "Data Observability",
-          "Amazon CloudWatch"
-        ]
+        "relatedTerms": ["DataOps", "Data Observability", "Amazon CloudWatch"]
       },
       {
         "term": "Infrastructure as Code (IaC)",
@@ -2560,11 +2362,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
           }
         ],
-        "relatedTerms": [
-          "Terraform",
-          "AWS CloudFormation",
-          "CI/CD"
-        ]
+        "relatedTerms": ["Terraform", "AWS CloudFormation", "CI/CD"]
       },
       {
         "term": "Terraform",
@@ -2602,12 +2400,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
           }
         ],
-        "relatedTerms": [
-          "Amazon EBS",
-          "Amazon VPC",
-          "Serverless",
-          "AWS Lambda"
-        ]
+        "relatedTerms": ["Amazon EBS", "Amazon VPC", "Serverless", "AWS Lambda"]
       },
       {
         "term": "Amazon EMR",
@@ -2620,12 +2413,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
           }
         ],
-        "relatedTerms": [
-          "Apache Spark",
-          "Apache Hadoop",
-          "AWS Glue",
-          "PySpark"
-        ]
+        "relatedTerms": ["Apache Spark", "Apache Hadoop", "AWS Glue", "PySpark"]
       },
       {
         "term": "Amazon Neptune",
@@ -2636,10 +2424,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/14-specialized-databases"
           }
         ],
-        "relatedTerms": [
-          "Neo4j",
-          "NoSQL Databases"
-        ]
+        "relatedTerms": ["Neo4j", "NoSQL Databases"]
       },
       {
         "term": "Amazon Redshift",
@@ -2708,11 +2493,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
           }
         ],
-        "relatedTerms": [
-          "Amazon EC2",
-          "Availability Zones",
-          "AWS IAM"
-        ]
+        "relatedTerms": ["Amazon EC2", "Availability Zones", "AWS IAM"]
       },
       {
         "term": "Apache Flink",
@@ -2779,10 +2560,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-3-dataops/31-dataops-automation"
           }
         ],
-        "relatedTerms": [
-          "Terraform",
-          "Infrastructure as Code (IaC)"
-        ]
+        "relatedTerms": ["Terraform", "Infrastructure as Code (IaC)"]
       },
       {
         "term": "AWS Glue",
@@ -2837,11 +2615,7 @@
             "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
           }
         ],
-        "relatedTerms": [
-          "Serverless",
-          "Amazon EC2",
-          "Data Pipeline"
-        ]
+        "relatedTerms": ["Serverless", "Amazon EC2", "Data Pipeline"]
       },
       {
         "term": "AWS Well-Architected Framework",
@@ -2911,11 +2685,7 @@
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"
           }
         ],
-        "relatedTerms": [
-          "AWS Glue",
-          "AWS Lake Formation",
-          "Amazon Athena"
-        ]
+        "relatedTerms": ["AWS Glue", "AWS Lake Formation", "Amazon Athena"]
       },
       {
         "term": "Google BigQuery",
@@ -2968,10 +2738,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/31-batch-queries"
           }
         ],
-        "relatedTerms": [
-          "Amazon Neptune",
-          "NoSQL Databases"
-        ]
+        "relatedTerms": ["Amazon Neptune", "NoSQL Databases"]
       },
       {
         "term": "Oracle",
@@ -2984,11 +2751,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/11-introduction-to-source-systems"
           }
         ],
-        "relatedTerms": [
-          "Relational Databases",
-          "MySQL",
-          "PostgreSQL"
-        ]
+        "relatedTerms": ["Relational Databases", "MySQL", "PostgreSQL"]
       },
       {
         "term": "PostgreSQL",
@@ -3007,12 +2770,7 @@
             "slug": "course-3-data-storage-and-queries/week-3-queries/33-joins-aggregations-and-redshift"
           }
         ],
-        "relatedTerms": [
-          "MySQL",
-          "Relational Databases",
-          "Amazon RDS",
-          "OLTP"
-        ]
+        "relatedTerms": ["MySQL", "Relational Databases", "Amazon RDS", "OLTP"]
       },
       {
         "term": "Snowflake",
@@ -3053,11 +2811,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "Apache Parquet",
-          "Serialization",
-          "JSON"
-        ]
+        "relatedTerms": ["Apache Parquet", "Serialization", "JSON"]
       },
       {
         "term": "Apache Parquet",
@@ -3102,11 +2856,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "JSON",
-          "Apache Parquet",
-          "Serialization"
-        ]
+        "relatedTerms": ["JSON", "Apache Parquet", "Serialization"]
       },
       {
         "term": "JSON",
@@ -3119,12 +2869,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "CSV",
-          "REST API",
-          "XML",
-          "Serialization"
-        ]
+        "relatedTerms": ["CSV", "REST API", "XML", "Serialization"]
       },
       {
         "term": "Serialization",
@@ -3135,12 +2880,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "Apache Parquet",
-          "Apache Avro",
-          "Compression",
-          "CSV"
-        ]
+        "relatedTerms": ["Apache Parquet", "Apache Avro", "Compression", "CSV"]
       },
       {
         "term": "XML",
@@ -3150,11 +2890,7 @@
             "slug": "course-3-data-storage-and-queries/week-1-data-storage-deep-dive/11-storage-fundamentals"
           }
         ],
-        "relatedTerms": [
-          "JSON",
-          "CSV",
-          "Serialization"
-        ]
+        "relatedTerms": ["JSON", "CSV", "Serialization"]
       }
     ]
   },
@@ -3203,10 +2939,7 @@
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/31-introduction-to-data-architecture"
           }
         ],
-        "relatedTerms": [
-          "Data Architecture",
-          "Monolith vs. Modular"
-        ]
+        "relatedTerms": ["Data Architecture", "Monolith vs. Modular"]
       },
       {
         "term": "Data Mesh",
@@ -3362,11 +3095,7 @@
             "slug": "course-2-source-systems-data-ingestion-and-pipelines/week-1-working-with-source-systems/12-connecting-to-source-systems"
           }
         ],
-        "relatedTerms": [
-          "AWS IAM",
-          "Shared Responsibility Model",
-          "GDPR"
-        ]
+        "relatedTerms": ["AWS IAM", "Shared Responsibility Model", "GDPR"]
       },
       {
         "term": "Replication",
@@ -3395,11 +3124,7 @@
             "slug": "course-1-introduction-to-data-engineering/week-4-translating-requirements-to-architecture/42-aws-services-for-batch-pipelines"
           }
         ],
-        "relatedTerms": [
-          "AWS Lambda",
-          "Amazon EC2",
-          "Loosely Coupled Systems"
-        ]
+        "relatedTerms": ["AWS Lambda", "Amazon EC2", "Loosely Coupled Systems"]
       },
       {
         "term": "Shared Responsibility Model",
@@ -3427,11 +3152,7 @@
             "slug": "course-1-introduction-to-data-engineering/week-3-data-architecture/32-choosing-the-right-technologies"
           }
         ],
-        "relatedTerms": [
-          "FinOps",
-          "Data Architecture",
-          "Serverless"
-        ]
+        "relatedTerms": ["FinOps", "Data Architecture", "Serverless"]
       }
     ]
   }
