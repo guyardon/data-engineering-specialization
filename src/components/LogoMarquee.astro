@@ -31,39 +31,87 @@ const row2 = [
 <div class="marquee-container">
   <div class="marquee" data-direction="left">
     <div class="marquee-track">
-      {row1.map((logo) => (
-        <div class="marquee-logo">
-          <img src={`${BASE}/images/logos/${logo.name}.svg`} alt={logo.alt} class="logo-light" loading="lazy" />
-          <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt={logo.alt} class="logo-dark" loading="lazy" />
-        </div>
-      ))}
+      {
+        row1.map((logo) => (
+          <div class="marquee-logo">
+            <img
+              src={`${BASE}/images/logos/${logo.name}.svg`}
+              alt={logo.alt}
+              class="logo-light"
+              loading="lazy"
+            />
+            <img
+              src={`${BASE}/images/logos/${logo.name}-dark.svg`}
+              alt={logo.alt}
+              class="logo-dark"
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
     </div>
     <div class="marquee-track" aria-hidden="true">
-      {row1.map((logo) => (
-        <div class="marquee-logo">
-          <img src={`${BASE}/images/logos/${logo.name}.svg`} alt="" class="logo-light" loading="lazy" />
-          <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt="" class="logo-dark" loading="lazy" />
-        </div>
-      ))}
+      {
+        row1.map((logo) => (
+          <div class="marquee-logo">
+            <img
+              src={`${BASE}/images/logos/${logo.name}.svg`}
+              alt=""
+              class="logo-light"
+              loading="lazy"
+            />
+            <img
+              src={`${BASE}/images/logos/${logo.name}-dark.svg`}
+              alt=""
+              class="logo-dark"
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
     </div>
   </div>
 
   <div class="marquee" data-direction="right">
     <div class="marquee-track">
-      {row2.map((logo) => (
-        <div class="marquee-logo">
-          <img src={`${BASE}/images/logos/${logo.name}.svg`} alt={logo.alt} class="logo-light" loading="lazy" />
-          <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt={logo.alt} class="logo-dark" loading="lazy" />
-        </div>
-      ))}
+      {
+        row2.map((logo) => (
+          <div class="marquee-logo">
+            <img
+              src={`${BASE}/images/logos/${logo.name}.svg`}
+              alt={logo.alt}
+              class="logo-light"
+              loading="lazy"
+            />
+            <img
+              src={`${BASE}/images/logos/${logo.name}-dark.svg`}
+              alt={logo.alt}
+              class="logo-dark"
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
     </div>
     <div class="marquee-track" aria-hidden="true">
-      {row2.map((logo) => (
-        <div class="marquee-logo">
-          <img src={`${BASE}/images/logos/${logo.name}.svg`} alt="" class="logo-light" loading="lazy" />
-          <img src={`${BASE}/images/logos/${logo.name}-dark.svg`} alt="" class="logo-dark" loading="lazy" />
-        </div>
-      ))}
+      {
+        row2.map((logo) => (
+          <div class="marquee-logo">
+            <img
+              src={`${BASE}/images/logos/${logo.name}.svg`}
+              alt=""
+              class="logo-light"
+              loading="lazy"
+            />
+            <img
+              src={`${BASE}/images/logos/${logo.name}-dark.svg`}
+              alt=""
+              class="logo-dark"
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
     </div>
   </div>
 </div>
@@ -115,13 +163,21 @@ const row2 = [
   }
 
   @keyframes scroll-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
 
   @keyframes scroll-right {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(0); }
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
 
   .marquee-logo {
@@ -144,9 +200,15 @@ const row2 = [
     object-fit: contain;
   }
 
-  .marquee-logo img.logo-dark { display: none; }
-  :root:not([data-theme="light"]) .marquee-logo img.logo-dark { display: block; }
-  :root:not([data-theme="light"]) .marquee-logo img.logo-light { display: none; }
+  .marquee-logo img.logo-dark {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .marquee-logo img.logo-dark {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .marquee-logo img.logo-light {
+    display: none;
+  }
 
   @media (prefers-reduced-motion: reduce) {
     .marquee-track {

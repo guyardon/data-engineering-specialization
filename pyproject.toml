@@ -12,3 +12,6 @@ dev = ["pytest>=8.0"]
 
 [tool.setuptools.packages.find]
 include = ["diagramlib*"]
+
+[tool.ruff.lint]
+ignore = ["E731"]

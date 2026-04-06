@@ -57,7 +57,9 @@ export function setupKeyboardNav(
   let activeIndex = -1;
 
   function getResults(): HTMLElement[] {
-    return Array.from(resultsContainer.querySelectorAll<HTMLElement>(".search-result"));
+    return Array.from(
+      resultsContainer.querySelectorAll<HTMLElement>(".search-result"),
+    );
   }
 
   function setActive(results: HTMLElement[], index: number): void {
@@ -116,7 +118,10 @@ export function createDevFallback(container: HTMLElement): void {
   svg.setAttribute("fill", "none");
   svg.setAttribute("stroke", "currentColor");
   svg.setAttribute("stroke-width", "2");
-  const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  const circle = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "circle",
+  );
   circle.setAttribute("cx", "11");
   circle.setAttribute("cy", "11");
   circle.setAttribute("r", "8");
