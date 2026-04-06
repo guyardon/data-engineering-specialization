@@ -50,17 +50,33 @@
     font-family: var(--font-sans);
     font-weight: 300;
     line-height: 1.75;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
 }
 
 @layer components {
   /* --- Diagrams: light/dark mode swap --- */
-  .diagram { width: 100%; max-height: 650px; object-fit: contain; border-radius: 12px; margin: 1rem 0; }
-  .diagram-light { display: none; }
-  .diagram-dark { display: block; }
-  [data-theme="light"] .diagram-light { display: block; }
-  [data-theme="light"] .diagram-dark { display: none; }
+  .diagram {
+    width: 100%;
+    max-height: 650px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin: 1rem 0;
+  }
+  .diagram-light {
+    display: none;
+  }
+  .diagram-dark {
+    display: block;
+  }
+  [data-theme="light"] .diagram-light {
+    display: block;
+  }
+  [data-theme="light"] .diagram-dark {
+    display: none;
+  }
 
   /* --- Tech logos --- */
   .tech-logos {
@@ -388,7 +404,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
   font-family: var(--font-sans);
   padding: 0;
 }
@@ -410,7 +428,9 @@
   outline: none;
   width: 100%;
   box-sizing: border-box;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .search-input:hover,

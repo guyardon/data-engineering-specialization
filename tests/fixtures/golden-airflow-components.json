@@ -151,14 +151,8 @@
       "height": 75,
       "angle": 0,
       "points": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          75
-        ]
+        [0, 0],
+        [0, 75]
       ],
       "startArrowhead": null,
       "endArrowhead": "arrow",
@@ -443,14 +437,8 @@
       "height": 0,
       "angle": 0,
       "points": [
-        [
-          0,
-          0
-        ],
-        [
-          60,
-          0
-        ]
+        [0, 0],
+        [60, 0]
       ],
       "startArrowhead": null,
       "endArrowhead": "arrow",
@@ -527,14 +515,8 @@
       "height": 75,
       "angle": 0,
       "points": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          75
-        ]
+        [0, 0],
+        [0, 75]
       ],
       "startArrowhead": null,
       "endArrowhead": "arrow",
@@ -715,14 +697,8 @@
       "height": 75,
       "angle": 0,
       "points": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          75
-        ]
+        [0, 0],
+        [0, 75]
       ],
       "startArrowhead": null,
       "endArrowhead": "arrow",
@@ -1007,14 +983,8 @@
       "height": 0,
       "angle": 0,
       "points": [
-        [
-          0,
-          0
-        ],
-        [
-          60,
-          0
-        ]
+        [0, 0],
+        [60, 0]
       ],
       "startArrowhead": null,
       "endArrowhead": "arrow",

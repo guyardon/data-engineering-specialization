@@ -1,0 +1,57 @@
+repos:
+  # Python — ruff (lint + format)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # Python — mypy
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.20.0
+    hooks:
+      - id: mypy
+        files: ^diagramlib/
+        pass_filenames: false
+        args: [diagramlib/]
+
+  # JavaScript/TypeScript — ESLint
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: npx eslint --fix
+        language: system
+        files: \.(js|mjs|ts|astro)$
+
+  # JavaScript/TypeScript — Prettier
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: npx prettier --write --ignore-unknown
+        language: system
+        files: \.(js|mjs|ts|astro|css|json|md|mdx)$
+
+  # Python — pytest
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: .venv/bin/pytest --tb=short -q
+        language: system
+        pass_filenames: false
+        always_run: true
+        files: \.(py)$
+
+  # JavaScript/TypeScript — vitest
+  - repo: local
+    hooks:
+      - id: vitest
+        name: vitest
+        entry: npx vitest run
+        language: system
+        pass_filenames: false
+        always_run: true
+        files: \.(ts|js)$

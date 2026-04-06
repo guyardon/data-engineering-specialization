@@ -111,8 +111,21 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     <Logo label="Home" />
     <div class="sidebar-header-actions">
       <ThemeToggle />
-      <button id="sidebar-close" class="sidebar-close-btn" aria-label="Close sidebar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button
+        id="sidebar-close"
+        class="sidebar-close-btn"
+        aria-label="Close sidebar"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -122,7 +135,9 @@ const activeWeekSlug = currentNote?.data.weekSlug;
 
   <div class="sidebar-search">
     <SearchModal />
-    <a href={`${BASE}/glossary/`} class="sidebar-glossary-link">📖 Glossary of Terms</a>
+    <a href={`${BASE}/glossary/`} class="sidebar-glossary-link"
+      >📖 Glossary of Terms</a
+    >
   </div>
 
   <div class="nav-tree">
@@ -133,7 +148,10 @@ const activeWeekSlug = currentNote?.data.weekSlug;
         return (
           <details class="course-details">
             <summary class={`course-summary ${isCourseActive ? "active" : ""}`}>
-              <span class="summary-text"><span class="nav-emoji">{courseEmojis[course.slug] || ""}</span> {course.title}</span>
+              <span class="summary-text">
+                <span class="nav-emoji">{courseEmojis[course.slug] || ""}</span>{" "}
+                {course.title}
+              </span>
               <span class="chevron">▸</span>
             </summary>
             <div class="course-content">
@@ -145,7 +163,12 @@ const activeWeekSlug = currentNote?.data.weekSlug;
                     <summary
                       class={`week-summary ${isWeekActive ? "active" : ""}`}
                     >
-                      <span class="summary-text"><span class="nav-emoji">{weekEmojis[week.slug] || ""}</span> {week.title}</span>
+                      <span class="summary-text">
+                        <span class="nav-emoji">
+                          {weekEmojis[week.slug] || ""}
+                        </span>{" "}
+                        {week.title}
+                      </span>
                       <span class="chevron">▸</span>
                     </summary>
                     <ul class="note-list">
@@ -361,7 +384,9 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     padding: 0.3rem;
     border: 1px solid var(--line);
     border-radius: 8px;
-    transition: color 0.15s ease, border-color 0.15s ease;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
   }
 
   .sidebar-glossary-link:hover {
@@ -395,7 +420,6 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   }
 </style>
 
-
 <script>
   const TREE_KEY = "sidebar-tree-state";
   const SCROLL_KEY = "sidebar-scroll-pos";
@@ -404,7 +428,8 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   // Save scroll position on link clicks (before navigation)
   document.querySelectorAll(".note-link").forEach((link) => {
     link.addEventListener("click", () => {
-      if (sidebar) sessionStorage.setItem(SCROLL_KEY, String(sidebar.scrollTop));
+      if (sidebar)
+        sessionStorage.setItem(SCROLL_KEY, String(sidebar.scrollTop));
     });
   });
 
@@ -430,7 +455,9 @@ const activeWeekSlug = currentNote?.data.weekSlug;
           if (state["c" + ci + "w" + wi]) week.setAttribute("open", "");
         });
       });
-    } catch (e) {}
+    } catch {
+      // Ignore corrupted sessionStorage
+    }
   }
 
   // Restore sidebar scroll position AFTER tree is expanded
@@ -442,7 +469,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   }
 
   // Save state on toggle and collapse weeks when closing a course
-  document.querySelectorAll(".course-details").forEach((course, ci) => {
+  document.querySelectorAll(".course-details").forEach((course) => {
     course.querySelector(".course-summary")?.addEventListener("click", () => {
       requestAnimationFrame(() => {
         if (!course.hasAttribute("open")) {

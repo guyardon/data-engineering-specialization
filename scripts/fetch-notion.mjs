@@ -161,7 +161,11 @@ async function richTextToMd(richText) {
     .join("");
 }
 
-async function processBlocks(blocks, depth = 0, imageBasePath = "/data-engineering-specialization-website/images") {
+async function processBlocks(
+  blocks,
+  depth = 0,
+  imageBasePath = "/data-engineering-specialization-website/images",
+) {
   const lines = [];
   let i = 0;
 
@@ -308,7 +312,6 @@ async function processBlocks(blocks, depth = 0, imageBasePath = "/data-engineeri
       case "table": {
         if (block.has_children) {
           const rows = await getBlockChildren(block.id);
-          const hasHeader = block.table.has_column_header;
           const mdRows = [];
 
           for (let r = 0; r < rows.length; r++) {
@@ -511,10 +514,7 @@ async function run() {
               content,
             });
             const safeSlug = sectionSlug || `section-${si + 1}`;
-            fs.writeFileSync(
-              path.join(weekDir, `${safeSlug}.md`),
-              mdxContent,
-            );
+            fs.writeFileSync(path.join(weekDir, `${safeSlug}.md`), mdxContent);
           }
         }
       }

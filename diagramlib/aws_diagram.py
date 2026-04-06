@@ -3,21 +3,21 @@
 import os
 
 CLUSTER_COLORS_LIGHT: dict[str, dict[str, str]] = {
-    "green":  {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
-    "blue":   {"bg": "#a5d8ff40", "fc": "#1971c2", "border": "#1971c2"},
+    "green": {"bg": "#b2f2bb40", "fc": "#2f9e44", "border": "#2f9e44"},
+    "blue": {"bg": "#a5d8ff40", "fc": "#1971c2", "border": "#1971c2"},
     "yellow": {"bg": "#ffec9940", "fc": "#e67700", "border": "#e67700"},
     "purple": {"bg": "#d0bfff40", "fc": "#6741d9", "border": "#6741d9"},
-    "red":    {"bg": "#ffc9c940", "fc": "#c92a2a", "border": "#c92a2a"},
-    "cyan":   {"bg": "#99e9f240", "fc": "#0c8599", "border": "#0c8599"},
+    "red": {"bg": "#ffc9c940", "fc": "#c92a2a", "border": "#c92a2a"},
+    "cyan": {"bg": "#99e9f240", "fc": "#0c8599", "border": "#0c8599"},
 }
 
 CLUSTER_COLORS_DARK: dict[str, dict[str, str]] = {
-    "green":  {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
-    "blue":   {"bg": "#1a1a2a", "fc": "#93c5fd", "border": "#1971c2"},
+    "green": {"bg": "#1a2a1a", "fc": "#86efac", "border": "#2f9e44"},
+    "blue": {"bg": "#1a1a2a", "fc": "#93c5fd", "border": "#1971c2"},
     "yellow": {"bg": "#2a2a1a", "fc": "#fde68a", "border": "#e67700"},
     "purple": {"bg": "#1a1a2a", "fc": "#c4b5fd", "border": "#6741d9"},
-    "red":    {"bg": "#2a1a1a", "fc": "#fca5a5", "border": "#c92a2a"},
-    "cyan":   {"bg": "#1a2a2a", "fc": "#67e8f9", "border": "#0c8599"},
+    "red": {"bg": "#2a1a1a", "fc": "#fca5a5", "border": "#c92a2a"},
+    "cyan": {"bg": "#1a2a2a", "fc": "#67e8f9", "border": "#0c8599"},
 }
 
 
