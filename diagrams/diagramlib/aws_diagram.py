@@ -81,5 +81,8 @@ def cluster_attrs(color_key: str, *, dark: bool) -> dict[str, str]:
 
 def output_dir() -> str:
     """Return the standard output directory for AWS diagram PNGs."""
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # diagrams/diagramlib/aws_diagram.py → up 3 levels to project root
+    project_root = os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
     return os.path.join(project_root, "public", "images", "diagrams")
