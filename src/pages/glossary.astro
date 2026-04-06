@@ -402,7 +402,9 @@ const resolvedData = glossaryData.map((cat) => ({
       // --- Terms pagination ---
       function buildTermsPages() {
         clearChildren(termsPills);
-        termsSection.classList.remove("paginated");
+        // Add paginated class BEFORE measuring so the narrower width
+        // (with nav arrow padding) is used during row counting.
+        termsSection.classList.add("paginated");
 
         pageBreaks = computePageBreaks(currentTerms.length, (_start, count) => {
           clearChildren(termsPills);
@@ -417,10 +419,9 @@ const resolvedData = glossaryData.map((cat) => ({
 
         clearChildren(termsPills);
         if (pageBreaks.length <= 1) {
+          termsSection.classList.remove("paginated");
           termsPrev.classList.add("nav-hidden");
           termsNext.classList.add("nav-hidden");
-        } else {
-          termsSection.classList.add("paginated");
         }
       }
 
@@ -518,6 +519,20 @@ const resolvedData = glossaryData.map((cat) => ({
             }
           });
         });
+
+      // --- Recompute pagination on resize ---
+      let resizeTimer: ReturnType<typeof setTimeout>;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (!isMobile() && activeCategory !== null) {
+            buildCatPages();
+            renderCatPage();
+            buildTermsPages();
+            renderTermsPage();
+          }
+        }, 150);
+      });
 
       // --- Detail card callbacks ---
       function navigateToTerm(entry: TermEntry) {
@@ -682,6 +697,25 @@ const resolvedData = glossaryData.map((cat) => ({
     color: var(--fg);
     margin-bottom: 0.75rem;
     padding-right: 5.5rem;
+  }
+  .detail-logo-title {
+    margin-bottom: 0.75rem;
+    padding-right: 5.5rem;
+  }
+  .detail-logo-title img {
+    height: 64px;
+    width: auto;
+  }
+  .detail-logo-title img.logo-dark {
+    display: none;
+  }
+  [data-theme="dark"] .detail-logo-title img.logo-dark,
+  :root:not([data-theme="light"]) .detail-logo-title img.logo-dark {
+    display: inline;
+  }
+  [data-theme="dark"] .detail-logo-title img.logo-light,
+  :root:not([data-theme="light"]) .detail-logo-title img.logo-light {
+    display: none;
   }
   .detail-desc {
     font-family: var(--font-sans);
