@@ -76,14 +76,26 @@ const resolvedData = glossaryData.map((cat) => ({
       </section>
 
       <div class="glossary-layout">
-        <nav class="category-nav" aria-label="Browse by category">
-          <button class="pill category-pill" data-category="all">📋 Show All</button>
-          {glossaryData.map((cat, i) => (
-            <button class="pill category-pill" data-category={i}>
-              {cat.icon} {cat.category}
-            </button>
-          ))}
-        </nav>
+        <div class="category-section">
+          <button id="cat-prev" class="cat-nav cat-prev nav-hidden" aria-label="Previous categories">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <nav id="category-nav" class="category-nav" aria-label="Browse by category">
+            <button class="pill category-pill" data-category="all">📋 Show All</button>
+            {glossaryData.map((cat, i) => (
+              <button class="pill category-pill" data-category={i}>
+                {cat.icon} {cat.category}
+              </button>
+            ))}
+          </nav>
+          <button id="cat-next" class="cat-nav cat-next nav-hidden" aria-label="Next categories">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 6 15 12 9 18"></polyline>
+            </svg>
+          </button>
+        </div>
 
         <section id="terms-section" class="terms-section hidden">
           <button id="terms-prev" class="terms-nav terms-prev nav-hidden" aria-label="Previous page">
@@ -143,8 +155,72 @@ const resolvedData = glossaryData.map((cat) => ({
       const detailModalCard = document.getElementById("detail-modal-card");
       const detailModalClose = detailModal.querySelector(".detail-modal-close");
 
-      const categoryNav = document.querySelector(".category-nav");
+      const categoryNav = document.getElementById("category-nav");
+      const catPrev = document.getElementById("cat-prev");
+      const catNext = document.getElementById("cat-next");
       function isMobile() { return window.innerWidth <= 768; }
+
+      // Category pagination
+      var catPageBreaks = [0];
+      var catCurrentPage = 0;
+      var allCatPills = Array.from(categoryNav.querySelectorAll(".category-pill"));
+
+      function countCatRows() {
+        var visible = allCatPills.filter(function(p) { return p.style.display !== "none"; });
+        if (visible.length === 0) return 0;
+        var rows = 1;
+        var prevTop = visible[0].offsetTop;
+        for (var i = 1; i < visible.length; i++) {
+          if (visible[i].offsetTop > prevTop) { rows++; prevTop = visible[i].offsetTop; }
+        }
+        return rows;
+      }
+
+      function buildCatPages() {
+        catPageBreaks = [0];
+        // Show all pills to measure
+        allCatPills.forEach(function(p) { p.style.display = ""; });
+        if (countCatRows() <= MAX_ROWS) return; // no pagination needed
+
+        // Need pagination — calculate page breaks
+        allCatPills.forEach(function(p) { p.style.display = "none"; });
+        var idx = 0;
+        while (idx < allCatPills.length) {
+          var count = 0;
+          for (var i = idx; i < allCatPills.length; i++) {
+            allCatPills[i].style.display = "";
+            count++;
+            if (countCatRows() > MAX_ROWS) {
+              allCatPills[i].style.display = "none";
+              count--;
+              break;
+            }
+          }
+          // Hide pills we just showed for next page measurement
+          for (var j = idx; j < idx + count; j++) allCatPills[j].style.display = "none";
+          idx += count;
+          if (idx < allCatPills.length) catPageBreaks.push(idx);
+          if (count === 0) break;
+        }
+        renderCatPage();
+      }
+
+      function renderCatPage() {
+        var start = catPageBreaks[catCurrentPage] || 0;
+        var end = (catCurrentPage + 1 < catPageBreaks.length) ? catPageBreaks[catCurrentPage + 1] : allCatPills.length;
+        allCatPills.forEach(function(p, i) {
+          p.style.display = (i >= start && i < end) ? "" : "none";
+        });
+        catPrev.classList.toggle("nav-hidden", catCurrentPage <= 0);
+        catNext.classList.toggle("nav-hidden", catCurrentPage >= catPageBreaks.length - 1);
+      }
+
+      catPrev.addEventListener("click", function() {
+        if (catCurrentPage > 0) { catCurrentPage--; renderCatPage(); }
+      });
+      catNext.addEventListener("click", function() {
+        if (catCurrentPage < catPageBreaks.length - 1) { catCurrentPage++; renderCatPage(); }
+      });
 
       let activeCategory = null;
       let activeTerm = null;
@@ -508,6 +584,9 @@ const resolvedData = glossaryData.map((cat) => ({
         if (e.target === lightbox) lightbox.close();
       });
 
+      // Build category pagination on desktop
+      if (!isMobile()) buildCatPages();
+
       // Auto-select "Show All" on page load
       const showAllBtn = document.querySelector('.category-pill[data-category="all"]');
       if (showAllBtn) showAllBtn.click();
@@ -577,7 +656,16 @@ const resolvedData = glossaryData.map((cat) => ({
 
 /* Two-column layout (categories + terms), detail opens as modal */
 .glossary-layout { display: flex; gap: 1rem; flex: 1; align-items: flex-start; overflow: hidden; }
-.category-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; flex-shrink: 0; width: 40%; align-content: flex-start; }
+.category-section { flex-shrink: 0; width: 40%; position: relative; padding: 0 2.5rem; }
+.category-nav { display: flex; flex-wrap: wrap; gap: 0.4rem; align-content: flex-start; justify-content: center; }
+
+/* Category pagination nav buttons */
+.cat-nav { position: absolute; top: 6.5rem; background: var(--bg-card); border: 1px solid var(--line); border-radius: 50%; width: 2.2rem; height: 2.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fg-muted); transition: color 0.15s ease, border-color 0.15s ease; z-index: 2; }
+.cat-nav:hover { color: var(--accent); border-color: var(--accent); }
+.cat-nav:focus { outline: none; }
+.cat-nav.nav-hidden { visibility: hidden; }
+.cat-prev { left: 0; }
+.cat-next { right: 0; }
 .terms-section { flex: 1; min-width: 0; position: relative; padding: 0 2.5rem; }
 .terms-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
 .detail-section { display: none; }
@@ -593,10 +681,12 @@ const resolvedData = glossaryData.map((cat) => ({
 @media (max-width: 768px) {
   .glossary-page { height: auto; overflow: auto; }
   .glossary-layout { flex-direction: column; gap: 1.5rem; overflow: visible; }
+  .category-section { width: auto; padding: 0; }
   .category-nav { flex-direction: row; flex-wrap: wrap; width: auto; position: static; justify-content: center; }
   .category-nav.has-selection { padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
   .terms-section { padding: 0; }
   .terms-nav { display: none; }
+  .cat-nav { display: none; }
 }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
