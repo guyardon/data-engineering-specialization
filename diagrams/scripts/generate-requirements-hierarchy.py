@@ -66,23 +66,24 @@ cards = [
 ]
 
 # Calculate card heights
+card_heights: dict[str, int] = {}
 for c in cards:
     title_h = th(c["title"], FONT_TITLE)
     if c["subtitle"]:
         sub_h = th(c["subtitle"], FONT_SUB)
-        c["h"] = max(90, title_h + SUB_GAP + sub_h + 30)
+        card_heights[c["id"]] = max(90, title_h + SUB_GAP + sub_h + 30)
     else:
-        c["h"] = max(60, title_h + 30)
+        card_heights[c["id"]] = max(60, title_h + 30)
 
 # ── Build main cards with arrows ──
 cur_y = START_Y
-card_positions = {}
+card_positions: dict[str, dict[str, int]] = {}
 
 for i, c in enumerate(cards):
     card_id = c["id"]
     title_id = f"{card_id}_title"
     sub_id = f"{card_id}_sub"
-    h = c["h"]
+    h = card_heights[card_id]
 
     # Arrow bindings
     bnd = [{"type": "text", "id": title_id}]
@@ -186,14 +187,15 @@ sub_cards = [
 ]
 
 # Calculate sub-card heights
+sub_card_heights: dict[str, int] = {}
 for sc in sub_cards:
     title_h = th(sc["title"], FONT_TITLE)
     sub_h = th(sc["subtitle"], FONT_SUB)
-    sc["h"] = max(90, title_h + SUB_GAP + sub_h + 30)  # type: ignore
+    sub_card_heights[sc["id"]] = max(90, title_h + SUB_GAP + sub_h + 30)
 
-sub_h_max = max(sc["h"] for sc in sub_cards)
+sub_h_max = max(sub_card_heights.values())
 for sc in sub_cards:
-    sc["h"] = sub_h_max  # uniform height
+    sub_card_heights[sc["id"]] = sub_h_max  # uniform height
 
 # Place sub-cards side by side
 left_x = PAD_X
@@ -204,7 +206,7 @@ for j, sc in enumerate(sub_cards):
     sc_id = sc["id"]
     title_id = f"{sc_id}_title"
     sub_id = f"{sc_id}_sub"
-    h = sc["h"]
+    h = sub_card_heights[sc_id]
 
     bnd = [
         {"type": "text", "id": title_id},
