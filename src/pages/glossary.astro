@@ -155,7 +155,11 @@ const resolvedData = glossaryData.map((cat) => ({
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </button>
-          <div id="terms-pills" class="terms-pills"></div>
+          <div class="terms-viewport">
+            <div id="terms-track" class="terms-track">
+              <div id="terms-pills" class="terms-pills"></div>
+            </div>
+          </div>
           <button
             id="terms-next"
             class="terms-nav terms-next nav-hidden"
@@ -400,8 +404,18 @@ const resolvedData = glossaryData.map((cat) => ({
       });
 
       // --- Terms pagination ---
+      const termsTrack = document.getElementById("terms-track")!;
+
+      const termsViewport = termsTrack.parentElement!;
+
       function buildTermsPages() {
+        // Reset track and use termsPills as measurement container
+        clearChildren(termsTrack);
+        termsTrack.style.transform = "";
+        termsTrack.style.transition = "";
+        termsTrack.appendChild(termsPills);
         clearChildren(termsPills);
+
         // Add paginated class BEFORE measuring so the narrower width
         // (with nav arrow padding) is used during row counting.
         termsSection.classList.add("paginated");
@@ -425,27 +439,43 @@ const resolvedData = glossaryData.map((cat) => ({
         }
       }
 
-      function renderTermsPage() {
-        clearChildren(termsPills);
-        const [start, end] = getPageRange(
-          pageBreaks,
-          currentPage,
-          currentTerms.length,
-        );
-
-        for (let i = start; i < end; i++) {
-          const entry = currentTerms[i];
-          const pill = document.createElement("button");
-          pill.className = "pill term-pill";
-          if (activeTerm === termKey(entry.ci, entry.ti))
-            pill.classList.add("active");
-          pill.textContent = entry.term.term;
-          pill.addEventListener("click", () =>
-            handleTermClick(entry.ci, entry.ti, pill),
+      function renderAllPages() {
+        clearChildren(termsTrack);
+        for (let pg = 0; pg < pageBreaks.length; pg++) {
+          const [start, end] = getPageRange(
+            pageBreaks,
+            pg,
+            currentTerms.length,
           );
-          termsPills.appendChild(pill);
+          const page = document.createElement("div");
+          page.className = "terms-pills";
+          for (let i = start; i < end; i++) {
+            const entry = currentTerms[i];
+            const pill = document.createElement("button");
+            pill.className = "pill term-pill";
+            if (activeTerm === termKey(entry.ci, entry.ti))
+              pill.classList.add("active");
+            pill.textContent = entry.term.term;
+            pill.addEventListener("click", () =>
+              handleTermClick(entry.ci, entry.ti, pill),
+            );
+            page.appendChild(pill);
+          }
+          termsTrack.appendChild(page);
         }
+        scrollToPage(false);
+      }
 
+      function scrollToPage(animate = true) {
+        const vpWidth = termsViewport.clientWidth;
+        const offset = currentPage * vpWidth;
+        const prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        termsTrack.style.transition =
+          animate && !prefersReduced ? "transform 0.35s ease" : "none";
+        // Use pixels since percentage would resolve against the track width
+        termsTrack.style.transform = `translateX(-${offset}px)`;
         termsPrev.classList.toggle("nav-hidden", currentPage <= 0);
         termsNext.classList.toggle(
           "nav-hidden",
@@ -454,7 +484,9 @@ const resolvedData = glossaryData.map((cat) => ({
       }
 
       function renderAllTerms() {
-        clearChildren(termsPills);
+        clearChildren(termsTrack);
+        const page = document.createElement("div");
+        page.className = "terms-pills";
         currentTerms.forEach((entry) => {
           const pill = document.createElement("button");
           pill.className = "pill term-pill";
@@ -464,20 +496,23 @@ const resolvedData = glossaryData.map((cat) => ({
           pill.addEventListener("click", () =>
             handleTermClick(entry.ci, entry.ti, pill),
           );
-          termsPills.appendChild(pill);
+          page.appendChild(pill);
         });
+        termsTrack.appendChild(page);
+        termsTrack.style.transform = "";
+        termsTrack.style.transition = "";
       }
 
       termsPrev.addEventListener("click", () => {
         if (currentPage > 0) {
           currentPage--;
-          renderTermsPage();
+          scrollToPage();
         }
       });
       termsNext.addEventListener("click", () => {
         if (currentPage < pageBreaks.length - 1) {
           currentPage++;
-          renderTermsPage();
+          scrollToPage();
         }
       });
 
@@ -513,7 +548,7 @@ const resolvedData = glossaryData.map((cat) => ({
             termsSection.classList.remove("hidden");
             if (!isMobile()) {
               buildTermsPages();
-              renderTermsPage();
+              renderAllPages();
             } else {
               renderAllTerms();
             }
@@ -529,7 +564,7 @@ const resolvedData = glossaryData.map((cat) => ({
             buildCatPages();
             renderCatPage();
             buildTermsPages();
-            renderTermsPage();
+            renderAllPages();
           }
         }, 150);
       });
@@ -542,7 +577,7 @@ const resolvedData = glossaryData.map((cat) => ({
         );
         if (idx >= 0) {
           currentPage = findPageForIndex(pageBreaks, idx);
-          renderTermsPage();
+          renderAllPages();
         }
         buildDetailCard(
           detailModalCard,
@@ -1007,11 +1042,22 @@ const resolvedData = glossaryData.map((cat) => ({
   .terms-section.paginated {
     padding: 0 2.5rem;
   }
-  .terms-pills {
+  .terms-viewport {
+    overflow: hidden;
+    container-type: inline-size;
+  }
+  .terms-viewport :global(.terms-track) {
+    display: flex;
+    align-items: flex-start;
+  }
+  .terms-viewport :global(.terms-pills) {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
     justify-content: center;
+    align-content: flex-start;
+    flex-shrink: 0;
+    width: 100cqi;
   }
   .detail-section {
     display: none;
