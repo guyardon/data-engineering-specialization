@@ -1,6 +1,6 @@
 <div align="center">
 
-# Data Engineering Specialization Website
+# Data Engineering Professional Certificate
 
 **Comprehensive course notes with 200+ auto-generated diagrams, interactive glossary, and full-text search.**
 
@@ -18,7 +18,7 @@
 
 ## What Is This?
 
-A static website built from detailed notes on the [Data Engineering Specialization](https://www.deeplearning.ai/courses/data-engineering-specialization/) by Joe Reis and Matt Housley — a four-course program covering the full data engineering lifecycle from source systems to serving analytics.
+A static website built from detailed notes on the [Data Engineering Professional Certificate](https://www.coursera.org/professional-certificates/data-engineering) by Joe Reis and DeepLearning.AI — a four-course program covering the full data engineering lifecycle from source systems to serving analytics.
 
 The courses cover:
 
