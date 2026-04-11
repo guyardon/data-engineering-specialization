@@ -136,7 +136,7 @@ Cloud providers offer three main storage paradigms, each optimized for different
 
 ## 1.1.4 Schema Evolution
 
-As data systems grow, schemas inevitably change — new columns are added, types are widened, fields are renamed or deprecated. **Schema evolution** is the ability of a storage format or table to accommodate these changes without breaking existing readers or requiring a full data rewrite.
+As data systems grow, schemas inevitably change - new columns are added, types are widened, fields are renamed or deprecated. **Schema evolution** is the ability of a storage format or table to accommodate these changes without breaking existing readers or requiring a full data rewrite.
 
 ---
 
@@ -155,12 +155,12 @@ Different serialization formats handle evolution with varying degrees of flexibi
 
 | Format             | Evolution Support                                       | Approach                                                                                           |
 | ------------------ | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| **Apache Avro**    | Strong — supports adding, removing, and renaming fields | Schema stored alongside data; readers reconcile old and new schemas at read time using field names |
-| **Apache Parquet** | Good — supports adding and removing columns             | Column-based storage means missing columns return NULL; extra columns are ignored by old readers   |
-| **CSV / JSON**     | Weak — no formal schema enforcement                     | Schema changes are undetected until downstream code fails on missing or unexpected fields          |
+| **Apache Avro**    | Strong - supports adding, removing, and renaming fields | Schema stored alongside data; readers reconcile old and new schemas at read time using field names |
+| **Apache Parquet** | Good - supports adding and removing columns             | Column-based storage means missing columns return NULL; extra columns are ignored by old readers   |
+| **CSV / JSON**     | Weak - no formal schema enforcement                     | Schema changes are undetected until downstream code fails on missing or unexpected fields          |
 
 ---
 
 **Schema Evolution in Open Table Formats**
 
-Open table formats (`Apache Iceberg`, `Delta Lake`, `Apache Hudi`) add a metadata layer that tracks schema changes as part of the table's version history. This enables operations like adding a column that automatically applies to all future queries while leaving historical data untouched. Some formats also support **partition evolution** — changing how data is partitioned without rewriting existing files.
+Open table formats (`Apache Iceberg`, `Delta Lake`, `Apache Hudi`) add a metadata layer that tracks schema changes as part of the table's version history. This enables operations like adding a column that automatically applies to all future queries while leaving historical data untouched. Some formats also support **partition evolution** - changing how data is partitioned without rewriting existing files.

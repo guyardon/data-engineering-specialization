@@ -18,7 +18,7 @@ notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 | ------------------ | --------------------------------------------------------------------------------------------------------- |
 | **Data ingestion** | Integrates with `Glue` crawlers and ETL jobs to ingest from databases, S3, and streaming sources          |
 | **Data catalog**   | Automatically discovers and catalogs datasets with schema, partition, and location metadata               |
-| **Access control** | Fine-grained permissions at the database, table, column, and row level — centralized across all consumers |
+| **Access control** | Fine-grained permissions at the database, table, column, and row level - centralized across all consumers |
 | **Data sharing**   | Cross-account and cross-organization data sharing without copying data                                    |
 
 ## 2.4.2 Implementing a Data Lakehouse on AWS

@@ -12,7 +12,7 @@ notionId: "20a969a7-aa01-800d-8146-c81f183ff15e"
 
 ## 4.1.1 Serving Data for Analytics and ML
 
-The final stage of the data engineering lifecycle is **serving** — delivering processed data to downstream consumers for analytics and machine learning.
+The final stage of the data engineering lifecycle is **serving** - delivering processed data to downstream consumers for analytics and machine learning.
 
 ---
 
@@ -36,9 +36,9 @@ The primary end users are data scientists and ML engineers. The data engineer's 
 
 | Method                | Description                                                                                            |
 | --------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Table**             | Physical storage of data — queries read directly from disk/memory                                      |
-| **View**              | A saved SQL query that runs on demand — always returns fresh results but recomputes every time         |
-| **Materialized View** | A pre-computed snapshot of a query result stored physically — fast reads but requires periodic refresh |
+| **Table**             | Physical storage of data - queries read directly from disk/memory                                      |
+| **View**              | A saved SQL query that runs on demand - always returns fresh results but recomputes every time         |
+| **Materialized View** | A pre-computed snapshot of a query result stored physically - fast reads but requires periodic refresh |
 
 ---
 
@@ -46,7 +46,7 @@ The primary end users are data scientists and ML engineers. The data engineer's 
 
 | Delivery Method                 | Details                                                                                                                      |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **As files**                    | Text files for language modeling, Parquet/CSV for tabular ML, image formats for computer vision — common for ad hoc requests |
+| **As files**                    | Text files for language modeling, Parquet/CSV for tabular ML, image formats for computer vision - common for ad hoc requests |
 | **From databases / warehouses** | Access via SQL queries with schema enforcement, fine-grained permissions, and high query performance                         |
 | **From streaming systems**      | Real-time data delivery for low-latency analytics across both historical and current data                                    |
 
@@ -60,11 +60,11 @@ A **semantic layer** documents definitions, derives business metrics, and create
 
 | Property        | View                                              | Materialized View                               |
 | --------------- | ------------------------------------------------- | ----------------------------------------------- |
-| **Storage**     | No physical storage — query runs on demand        | Pre-computed result stored on disk              |
+| **Storage**     | No physical storage - query runs on demand        | Pre-computed result stored on disk              |
 | **Freshness**   | Always up-to-date (recomputes on every query)     | Stale until refreshed (manual or scheduled)     |
-| **Performance** | Slower for complex queries (recomputes each time) | Fast reads — serves pre-computed results        |
+| **Performance** | Slower for complex queries (recomputes each time) | Fast reads - serves pre-computed results        |
 | **Use case**    | Simple transformations, access control layers     | Expensive aggregations queried frequently       |
-| **Maintenance** | None — just a saved SQL definition                | Requires refresh strategy (incremental or full) |
+| **Maintenance** | None - just a saved SQL definition                | Requires refresh strategy (incremental or full) |
 
 <img src="/data-engineering-specialization/images/diagrams/views-vs-materialized-dark.svg" alt="View recomputes SQL on every query vs materialized view reads cached result" class="diagram diagram-dark" style="max-height: 900px;" />
 <img src="/data-engineering-specialization/images/diagrams/views-vs-materialized.svg" alt="View recomputes SQL on every query vs materialized view reads cached result" class="diagram diagram-light" style="max-height: 900px;" />

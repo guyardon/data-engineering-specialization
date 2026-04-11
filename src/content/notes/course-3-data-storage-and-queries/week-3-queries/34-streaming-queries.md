@@ -20,9 +20,9 @@ When data arrives continuously, query patterns must reflect that real-time natur
 
 | Window Type               | Behavior                                                                                                              | Use Case                                                         |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| **Tumbling (fixed-time)** | Non-overlapping windows of equal duration. Each event belongs to exactly one window.                                  | Regular aggregations — e.g., count events per minute             |
-| **Sliding**               | Overlapping windows that advance by a fixed step smaller than the window size. Events can appear in multiple windows. | Moving averages — e.g., 5-minute average computed every 1 minute |
-| **Session**               | Variable-size windows grouped by activity. An inactivity gap triggers a new session.                                  | User behavior analysis — e.g., web session tracking              |
+| **Tumbling (fixed-time)** | Non-overlapping windows of equal duration. Each event belongs to exactly one window.                                  | Regular aggregations - e.g., count events per minute             |
+| **Sliding**               | Overlapping windows that advance by a fixed step smaller than the window size. Events can appear in multiple windows. | Moving averages - e.g., 5-minute average computed every 1 minute |
+| **Session**               | Variable-size windows grouped by activity. An inactivity gap triggers a new session.                                  | User behavior analysis - e.g., web session tracking              |
 
 <img src="/data-engineering-specialization/images/diagrams/streaming-windows-dark.svg" alt="Streaming window types: tumbling, sliding, and session" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/streaming-windows.svg" alt="Streaming window types: tumbling, sliding, and session" class="diagram diagram-light" />
@@ -39,9 +39,9 @@ AWS provides a fully managed service for running `Apache Flink` applications, ha
 
 | Feature                    | Description                                                                                                           |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **Managed infrastructure** | No servers to provision — AWS handles cluster sizing, patching, and scaling                                           |
+| **Managed infrastructure** | No servers to provision - AWS handles cluster sizing, patching, and scaling                                           |
 | **Automatic scaling**      | Adjusts parallelism based on incoming data throughput                                                                 |
-| **Fault tolerance**        | Built-in checkpointing and state recovery — processing resumes from the last checkpoint after failures                |
+| **Fault tolerance**        | Built-in checkpointing and state recovery - processing resumes from the last checkpoint after failures                |
 | **Integration**            | Reads from `Kinesis Data Streams`, `Amazon MSK` (Kafka), and `S3`; writes to `S3`, `Redshift`, `OpenSearch`, and more |
 
 A typical deployment: `Kinesis Data Streams` ingests real-time events, `Managed Apache Flink` processes and transforms the stream using SQL or Java/Python applications, and results are written to `S3` or `Redshift` for downstream analytics.
@@ -51,7 +51,7 @@ A typical deployment: `Kinesis Data Streams` ingests real-time events, `Managed 
 
 ## 3.4.3 Watermarks and Late-Arriving Data
 
-In real-world streaming systems, events rarely arrive in perfect order. Network delays, device buffering, and retries mean an event with **event time** 10:00:05 might arrive at the processing engine at 10:00:45 — or even minutes later. **Watermarks** are the mechanism streaming frameworks use to reason about this disorder.
+In real-world streaming systems, events rarely arrive in perfect order. Network delays, device buffering, and retries mean an event with **event time** 10:00:05 might arrive at the processing engine at 10:00:45 - or even minutes later. **Watermarks** are the mechanism streaming frameworks use to reason about this disorder.
 
 <img src="/data-engineering-specialization/images/diagrams/watermarks-dark.svg" alt="Watermarks and late data handling in stream processing" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/watermarks.svg" alt="Watermarks and late data handling in stream processing" class="diagram diagram-light" />

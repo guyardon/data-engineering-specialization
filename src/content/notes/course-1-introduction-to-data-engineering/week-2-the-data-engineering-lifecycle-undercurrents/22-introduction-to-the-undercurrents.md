@@ -10,18 +10,18 @@ order: 2
 notionId: "145969a7-aa01-8084-ba9c-d2bb87535441"
 ---
 
-Beneath every stage of the data engineering lifecycle run a set of cross-cutting concerns — the **undercurrents**. These practices shape how data systems are built, operated, and evolved.
+Beneath every stage of the data engineering lifecycle run a set of cross-cutting concerns - the **undercurrents**. These practices shape how data systems are built, operated, and evolved.
 
 ## 2.2.1 Security
 
-Security in data engineering centers on the **principle of least privilege**: give users or applications access to only the essential data and resources they need, and only for the duration required. Adopt a defensive mindset — be cautious with sensitive data and design every system with the assumption that attacks will happen.
+Security in data engineering centers on the **principle of least privilege**: give users or applications access to only the essential data and resources they need, and only for the duration required. Adopt a defensive mindset - be cautious with sensitive data and design every system with the assumption that attacks will happen.
 
 ## 2.2.2 Data Management
 
 Data management is _"the development, execution, and supervision of plans, programs, and practices that deliver, control, protect, and enhance the value of data and information assets throughout their life cycles."_ At its core, **data governance** ensures the quality, integrity, security, and usability of the data an organization collects.
 
-<img src="/data-engineering-specialization/images/diagrams/data-governance-wheel-dark.svg" alt="Data Management — DAMA Framework" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization/images/diagrams/data-governance-wheel.svg" alt="Data Management — DAMA Framework" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/data-governance-wheel-dark.svg" alt="Data Management - DAMA Framework" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/data-governance-wheel.svg" alt="Data Management - DAMA Framework" class="diagram diagram-light" />
 
 <img src="/data-engineering-specialization/images/diagrams/data-quality-dark.svg" alt="Data Quality" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/data-quality.svg" alt="Data Quality" class="diagram diagram-light" />
@@ -43,8 +43,8 @@ Just as DevOps improves the development process and quality of software products
 
 DataOps is a set of cultural habits and practices built on communication, collaboration, continuous improvement, and rapid iteration. Its two main pillars are:
 
-- **Automation** — in DevOps this means CI/CD; in DataOps it means automated change management across code, configuration, environments, and data pipelines, often powered by orchestration frameworks like `Apache Airflow`
-- **Observability and monitoring** — everything fails eventually, so the goal is to detect failures before they reach downstream consumers (ML models, analytics dashboards, reports) and have a clear incident response process
+- **Automation** - in DevOps this means CI/CD; in DataOps it means automated change management across code, configuration, environments, and data pipelines, often powered by orchestration frameworks like `Apache Airflow`
+- **Observability and monitoring** - everything fails eventually, so the goal is to detect failures before they reach downstream consumers (ML models, analytics dashboards, reports) and have a clear incident response process
 
 <img src="/data-engineering-specialization/images/diagrams/dataops-dark.svg" alt="DataOps" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/dataops.svg" alt="DataOps" class="diagram diagram-light" />
@@ -81,14 +81,14 @@ The most popular orchestration tools today include:
   </div>
 </div>
 
-These frameworks model workflows as **Directed Acyclic Graphs (DAGs)** — directed (data flows one way), acyclic (no backward loops), and composed of nodes and edges. Tasks can be triggered by events, and monitoring or alerting is configured alongside them.
+These frameworks model workflows as **Directed Acyclic Graphs (DAGs)** - directed (data flows one way), acyclic (no backward loops), and composed of nodes and edges. Tasks can be triggered by events, and monitoring or alerting is configured alongside them.
 
 <img src="/data-engineering-specialization/images/diagrams/orchestration-dags-dark.svg" alt="Orchestration & DAGs" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/orchestration-dags.svg" alt="Orchestration & DAGs" class="diagram diagram-light" />
 
 ## 2.2.6 Software Engineering
 
-Software engineering — the design, development, deployment, and maintenance of applications — underpins everything a data engineer builds.
+Software engineering - the design, development, deployment, and maintenance of applications - underpins everything a data engineer builds.
 
 Common languages and frameworks span a wide range:
 

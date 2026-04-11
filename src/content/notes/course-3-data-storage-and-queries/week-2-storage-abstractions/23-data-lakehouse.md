@@ -12,7 +12,7 @@ notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 
 ## 2.3.1 The Data Lakehouse Architecture
 
-The data lakehouse, first introduced by Databricks, merges the best of both worlds: the **flexibility and low-cost storage** of a data lake with the **superior query performance and robust data management** of a data warehouse — eliminating the need to maintain two separate systems.
+The data lakehouse, first introduced by Databricks, merges the best of both worlds: the **flexibility and low-cost storage** of a data lake with the **superior query performance and robust data management** of a data warehouse - eliminating the need to maintain two separate systems.
 
 The key insight is that an **open table format** layer sits between the query engines and the raw storage, adding transactional capabilities and metadata management on top of cheap object storage.
 
@@ -21,7 +21,7 @@ The key insight is that an **open table format** layer sits between the query en
 
 ## 2.3.2 Open Table Formats
 
-The lakehouse architecture is made possible by **open table formats** — specialized storage formats that add transactional capabilities to data stored in a lake. They enable record-level updates and deletes while supporting full **ACID** guarantees.
+The lakehouse architecture is made possible by **open table formats** - specialized storage formats that add transactional capabilities to data stored in a lake. They enable record-level updates and deletes while supporting full **ACID** guarantees.
 
 | Format           | Origin     | Key Differentiator                                                     |
 | ---------------- | ---------- | ---------------------------------------------------------------------- |
@@ -50,28 +50,28 @@ The lakehouse architecture is made possible by **open table formats** — specia
 
 All three formats provide capabilities that were previously only available in traditional data warehouses:
 
-- **ACID transactions** — concurrent reads and writes without data corruption, even at scale
-- **Time travel and snapshots** — query data as it existed at any point in time, enabling auditing and rollback
-- **Schema evolution** — add, drop, or rename columns without breaking existing queries or rewriting data
-- **Partition evolution** — change partitioning strategies on existing tables without a full rewrite
-- **Open source** — multiple query engines (Spark, Trino, Flink, Athena) can read and write the same data
+- **ACID transactions** - concurrent reads and writes without data corruption, even at scale
+- **Time travel and snapshots** - query data as it existed at any point in time, enabling auditing and rollback
+- **Schema evolution** - add, drop, or rename columns without breaking existing queries or rewriting data
+- **Partition evolution** - change partitioning strategies on existing tables without a full rewrite
+- **Open source** - multiple query engines (Spark, Trino, Flink, Athena) can read and write the same data
 
 ---
 
 **How Open Table Formats Work**
 
-Under the hood, data remains stored as **Parquet** or **ORC** files on object storage. The table format adds a **metadata layer** — a set of manifest files and logs that track which data files belong to each table version. When a write occurs, new data files are created and the metadata is atomically updated to point to the new snapshot, enabling ACID semantics without locks on the underlying storage.
+Under the hood, data remains stored as **Parquet** or **ORC** files on object storage. The table format adds a **metadata layer** - a set of manifest files and logs that track which data files belong to each table version. When a write occurs, new data files are created and the metadata is atomically updated to point to the new snapshot, enabling ACID semantics without locks on the underlying storage.
 
 ## 2.3.3 Medallion Architecture
 
-The **Medallion Architecture** is the most widely adopted organizational pattern for structuring data within a lakehouse. Data flows through three layers — **Bronze**, **Silver**, and **Gold** — each adding progressively more structure and business value.
+The **Medallion Architecture** is the most widely adopted organizational pattern for structuring data within a lakehouse. Data flows through three layers - **Bronze**, **Silver**, and **Gold** - each adding progressively more structure and business value.
 
 <img src="/data-engineering-specialization/images/diagrams/medallion-architecture-dark.svg" alt="Medallion Architecture: Bronze, Silver, and Gold layers" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/medallion-architecture.svg" alt="Medallion Architecture: Bronze, Silver, and Gold layers" class="diagram diagram-light" />
 
 | Layer      | Purpose                                   | Data Characteristics                                                   |
 | ---------- | ----------------------------------------- | ---------------------------------------------------------------------- |
-| **Bronze** | Raw ingestion — exact copy of source data | Unprocessed, may contain duplicates, nulls, and schema inconsistencies |
+| **Bronze** | Raw ingestion - exact copy of source data | Unprocessed, may contain duplicates, nulls, and schema inconsistencies |
 | **Silver** | Cleaned and conformed                     | Deduplicated, type-cast, validated, and joined across sources          |
 | **Gold**   | Business-level aggregations               | Modeled into star schemas, aggregated metrics, or ML feature tables    |
 

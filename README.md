@@ -18,32 +18,32 @@
 
 ## What Is This?
 
-A static website built from detailed notes on the [Data Engineering Professional Certificate](https://www.coursera.org/professional-certificates/data-engineering) by Joe Reis and DeepLearning.AI — a four-course program covering the full data engineering lifecycle from source systems to serving analytics.
+A static website built from detailed notes on the [Data Engineering Professional Certificate](https://www.coursera.org/professional-certificates/data-engineering) by Joe Reis and DeepLearning.AI - a four-course program covering the full data engineering lifecycle from source systems to serving analytics.
 
 The courses cover:
 
-- **Course 1 — Introduction to Data Engineering:** How to think like a data engineer, the data engineering lifecycle, undercurrents (security, data management, DataOps, orchestration), and translating business requirements into architecture.
-- **Course 2 — Source Systems, Data Ingestion & Pipelines:** Relational and NoSQL databases, APIs, message queues, batch vs streaming ingestion, orchestration with Airflow, and building end-to-end pipelines.
-- **Course 3 — Data Storage & Queries:** Storage abstractions (object stores, data lakes, lakehouses), query engines, data warehousing on AWS (Redshift, Athena, Glue), partitioning, indexing, and query optimization.
-- **Course 4 — Data Modeling, Transformation & Serving:** Normalization, dimensional modeling (Kimball), slowly changing dimensions, dbt transformations, analytics dashboards, ML feature stores, and reverse ETL.
+- **Course 1 - Introduction to Data Engineering:** How to think like a data engineer, the data engineering lifecycle, undercurrents (security, data management, DataOps, orchestration), and translating business requirements into architecture.
+- **Course 2 - Source Systems, Data Ingestion & Pipelines:** Relational and NoSQL databases, APIs, message queues, batch vs streaming ingestion, orchestration with Airflow, and building end-to-end pipelines.
+- **Course 3 - Data Storage & Queries:** Storage abstractions (object stores, data lakes, lakehouses), query engines, data warehousing on AWS (Redshift, Athena, Glue), partitioning, indexing, and query optimization.
+- **Course 4 - Data Modeling, Transformation & Serving:** Normalization, dimensional modeling (Kimball), slowly changing dimensions, dbt transformations, analytics dashboards, ML feature stores, and reverse ETL.
 
 ### Why build this?
 
-Course notes in Notion are useful for the person who wrote them, but hard to share, search, or reference quickly. This site turns those notes into a browsable, searchable, diagram-rich resource — both as a personal reference and as a way to reinforce the material by restructuring it into clean, well-organized content with purpose-built diagrams that didn't exist in the original courses.
+Course notes in Notion are useful for the person who wrote them, but hard to share, search, or reference quickly. This site turns those notes into a browsable, searchable, diagram-rich resource - both as a personal reference and as a way to reinforce the material by restructuring it into clean, well-organized content with purpose-built diagrams that didn't exist in the original courses.
 
 ---
 
 ## Highlights
 
-**Dark & Light Themes** — Dark-first design with full theme switching. Every diagram, code block, and UI element adapts automatically.
+**Dark & Light Themes** - Dark-first design with full theme switching. Every diagram, code block, and UI element adapts automatically.
 
-**200+ Diagrams** — Programmatically generated from Python scripts. AWS architecture diagrams with real service icons and Excalidraw hand-drawn conceptual diagrams, each with dark and light variants.
+**200+ Diagrams** - Programmatically generated from Python scripts. AWS architecture diagrams with real service icons and Excalidraw hand-drawn conceptual diagrams, each with dark and light variants.
 
-**Interactive Glossary** — Categorized terms with drill-down detail views, pagination, diagram lightbox, and cross-references to course notes.
+**Interactive Glossary** - Categorized terms with drill-down detail views, pagination, diagram lightbox, and cross-references to course notes.
 
-**Full-Text Search** — Pagefind-powered static search indexed at build time. Instant results with keyboard navigation.
+**Full-Text Search** - Pagefind-powered static search indexed at build time. Instant results with keyboard navigation.
 
-**Content from Notion** — Course notes authored in Notion, synced to markdown, validated with Zod schemas, and rendered as static HTML.
+**Content from Notion** - Course notes authored in Notion, synced to markdown, validated with Zod schemas, and rendered as static HTML.
 
 ---
 
@@ -53,14 +53,14 @@ Course notes in Notion are useful for the person who wrote them, but hard to sha
 <tr>
 <td width="50%" valign="top">
 
-**AWS Architecture** — Real service icons via Python `diagrams` library
+**AWS Architecture** - Real service icons via Python `diagrams` library
 
 <img src="public/images/diagrams/batch-pipeline-aws-dark.png" alt="AWS Batch Pipeline" width="100%">
 
 </td>
 <td width="50%" valign="top">
 
-**Excalidraw Conceptual** — Hand-drawn style generated from Python scripts
+**Excalidraw Conceptual** - Hand-drawn style generated from Python scripts
 
 <img src="public/images/diagrams/batch-streaming-dark.svg" alt="Batch vs Streaming" width="100%">
 
@@ -72,20 +72,20 @@ Course notes in Notion are useful for the person who wrote them, but hard to sha
 
 ## Architecture
 
-**Dual-language monorepo** — TypeScript/Astro for the website, Python for diagram generation. Separate dependency management with `package.json` and `pyproject.toml`.
+**Dual-language monorepo** - TypeScript/Astro for the website, Python for diagram generation. Separate dependency management with `package.json` and `pyproject.toml`.
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-**Content Pipeline** — Notion to GitHub Pages
+**Content Pipeline** - Notion to GitHub Pages
 
 <img src="public/images/diagrams/readme-content-pipeline-dark.svg" alt="Content Pipeline" width="100%">
 
 </td>
 <td width="50%" valign="top">
 
-**Diagram Pipeline** — Python scripts to themed SVG/PNG
+**Diagram Pipeline** - Python scripts to themed SVG/PNG
 
 <img src="public/images/diagrams/readme-diagram-pipeline-dark.svg" alt="Diagram Pipeline" width="100%">
 

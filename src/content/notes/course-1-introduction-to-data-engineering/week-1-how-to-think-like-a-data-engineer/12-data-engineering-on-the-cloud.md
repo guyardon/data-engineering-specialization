@@ -21,20 +21,20 @@ AWS provides on-demand delivery of IT resources with pay-as-you-go pricing. Thes
 
 **Advantages of Building on Cloud**
 
-Cloud resources are **scalable** and **elastic**. You don't need to predict exact storage capacity upfront or manage scaling operations yourself — the cloud handles that.
+Cloud resources are **scalable** and **elastic**. You don't need to predict exact storage capacity upfront or manage scaling operations yourself - the cloud handles that.
 
 ---
 
 **AWS Regions**
 
-AWS infrastructure is organized into **regions** — geographically distributed collections of data centers. Each region contains multiple **availability zones** (AZs), which are separate data centers interconnected for reliability and performance.
+AWS infrastructure is organized into **regions** - geographically distributed collections of data centers. Each region contains multiple **availability zones** (AZs), which are separate data centers interconnected for reliability and performance.
 
 The purpose of multiple AZs is **high availability and fault tolerance**. If one AZ goes down due to a power outage or natural disaster, your workloads in other AZs continue running.
 
 <img src="/data-engineering-specialization/images/diagrams/aws-region-azs-dark.svg" alt="AWS Region & Availability Zones" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/aws-region-azs.svg" alt="AWS Region & Availability Zones" class="diagram diagram-light" />
 
-As of 2026, AWS operates **34 regions** across **114+ availability zones** worldwide. Regions are grouped across four geographies — Americas, Europe, Asia Pacific, and Middle East & Africa. Most regions have 3 AZs, with a few exceptions like `us-east-1` (N. Virginia) which has 6. When choosing a region, consider **latency** to your users, **data residency** requirements, and **service availability**.
+As of 2026, AWS operates **34 regions** across **114+ availability zones** worldwide. Regions are grouped across four geographies - Americas, Europe, Asia Pacific, and Middle East & Africa. Most regions have 3 AZs, with a few exceptions like `us-east-1` (N. Virginia) which has 6. When choosing a region, consider **latency** to your users, **data residency** requirements, and **service availability**.
 
 <img src="/data-engineering-specialization/images/diagrams/aws-global-infra-dark.svg" alt="AWS Global Infrastructure" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/aws-global-infra.svg" alt="AWS Global Infrastructure" class="diagram diagram-light" />
@@ -61,11 +61,11 @@ As of 2026, AWS operates **34 regions** across **114+ availability zones** world
 
 AWS offers several storage types, each suited to different use cases:
 
-- **Object Storage (`S3`)** — primarily for unstructured data
-- **Block Storage (`EBS`)** — for databases, VM file systems, and other low-latency workloads
-- **File Storage (`EFS`)** — data organized into files and directories, similar to a local filesystem
-- **Relational Database Service (`RDS`)** — managed relational databases
-- `Amazon Redshift` — a data warehouse service for storing, transforming, and serving data to end users
+- **Object Storage (`S3`)** - primarily for unstructured data
+- **Block Storage (`EBS`)** - for databases, VM file systems, and other low-latency workloads
+- **File Storage (`EFS`)** - data organized into files and directories, similar to a local filesystem
+- **Relational Database Service (`RDS`)** - managed relational databases
+- `Amazon Redshift` - a data warehouse service for storing, transforming, and serving data to end users
 
 <div class="tech-logos">
   <div class="tech-logo">
@@ -95,7 +95,7 @@ AWS uses a **Shared Responsibility Model**: AWS is responsible for security _of_
 
 <img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/ec2.svg" alt="Amazon EC2" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/ec2-dark.svg" alt="Amazon EC2" />
 
-`Amazon EC2` (Elastic Compute Cloud) provides **virtual servers** on AWS. It's one of the foundational cloud services — giving you the compute resources needed to run your applications.
+`Amazon EC2` (Elastic Compute Cloud) provides **virtual servers** on AWS. It's one of the foundational cloud services - giving you the compute resources needed to run your applications.
 
 ---
 
@@ -103,7 +103,7 @@ AWS uses a **Shared Responsibility Model**: AWS is responsible for security _of_
 
 A **server** is a computer (or set of computers) that hosts and runs applications. It consists of physical hardware (CPU, RAM, storage, networking), an operating system, and the applications on top.
 
-On the cloud, your application doesn't interact with physical hardware directly. Instead, it runs on **virtual hardware** — a software emulation of real hardware. The combination of virtual hardware, an OS, and your application forms a **virtual machine**. This abstraction allows multiple VMs to share the same physical resources efficiently.
+On the cloud, your application doesn't interact with physical hardware directly. Instead, it runs on **virtual hardware** - a software emulation of real hardware. The combination of virtual hardware, an OS, and your application forms a **virtual machine**. This abstraction allows multiple VMs to share the same physical resources efficiently.
 
 Resource sharing is managed by a **hypervisor**, which distributes physical CPU, memory, and other resources across virtual machines as needed.
 
@@ -119,10 +119,10 @@ Resource sharing is managed by a **hypervisor**, which distributes physical CPU,
 
 AWS uses a naming convention for instance types. For example, `t3a.micro` breaks down as:
 
-- **t** — family name
-- **3** — generation
-- **a** — optional capabilities
-- **micro** — size
+- **t** - family name
+- **3** - generation
+- **a** - optional capabilities
+- **micro** - size
 
 For pricing, **on-demand instances** offer compute capacity with no long-term commitment. **Spot instances** provide unused `EC2` capacity at a steep discount, ideal for fault-tolerant or flexible workloads.
 
@@ -135,17 +135,17 @@ Networking is a fundamental building block for hosting workloads on the cloud.
 
 **What is a network?**
 
-A **network** is a collection of devices connected together, exchanging requests and responses. When you create AWS resources, you need them to communicate with each other — and potentially with the public internet. This requires understanding a few core concepts: IP addresses, VPCs, and subnets.
+A **network** is a collection of devices connected together, exchanging requests and responses. When you create AWS resources, you need them to communicate with each other - and potentially with the public internet. This requires understanding a few core concepts: IP addresses, VPCs, and subnets.
 
 ---
 
 **What is an IP address?**
 
-Every device in a network is assigned an **IP address** — a unique identifier that ensures traffic reaches the correct destination.
+Every device in a network is assigned an **IP address** - a unique identifier that ensures traffic reaches the correct destination.
 
 **IPv4** is the most widely used version. An IPv4 address is a 32-bit number written as four octets (e.g., `192.101.0.2`), where each octet ranges from 0 to 255.
 
-**CIDR notation** (Classless Inter-Domain Routing) represents a range of IP addresses for a network. For example, `192.101.0.0/24` means the first 24 bits are fixed and the last 8 bits vary — covering all addresses from `192.101.0.0` to `192.101.0.255`. CIDR lets you provision exactly the number of addresses a network needs.
+**CIDR notation** (Classless Inter-Domain Routing) represents a range of IP addresses for a network. For example, `192.101.0.0/24` means the first 24 bits are fixed and the last 8 bits vary - covering all addresses from `192.101.0.0` to `192.101.0.255`. CIDR lets you provision exactly the number of addresses a network needs.
 
 ---
 
