@@ -22,13 +22,13 @@ The main landing page lists every DAG discovered in the DAG directory. For each 
 
 Clicking into a DAG opens a set of views that help you understand and debug pipeline runs:
 
-| View | Purpose |
-|---|---|
-| Grid | Matrix of all runs with per-task status cells -- quickly spot patterns of failure |
-| Graph | Visual representation of task dependencies -- shows the DAG structure |
-| Gantt | Timeline bars for each task -- identifies bottlenecks and long-running tasks |
-| Code | The Python source code that defines the DAG |
-| Logs | Stdout/stderr output for each task instance -- primary debugging tool |
+| View  | Purpose                                                                           |
+| ----- | --------------------------------------------------------------------------------- |
+| Grid  | Matrix of all runs with per-task status cells -- quickly spot patterns of failure |
+| Graph | Visual representation of task dependencies -- shows the DAG structure             |
+| Gantt | Timeline bars for each task -- identifies bottlenecks and long-running tasks      |
+| Code  | The Python source code that defines the DAG                                       |
+| Logs  | Stdout/stderr output for each task instance -- primary debugging tool             |
 
 ## 4.2.2 Creating DAGs and Using Operators
 
@@ -70,13 +70,13 @@ with DAG(
 
 [Operators](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/operators.html) define what each task actually does. `Airflow` provides a rich library of built-in operators:
 
-| Operator | Module | Purpose |
-|---|---|---|
-| `PythonOperator` | `airflow.operators.python` | Executes a Python callable |
-| `BashOperator` | `airflow.operators.bash` | Runs a bash command or script |
-| `EmptyOperator` | `airflow.operators.empty` | No-op task -- useful as a join point for complex dependencies |
-| `EmailOperator` | `airflow.operators.email` | Sends email notifications |
-| `S3KeySensor` | `airflow.providers.amazon.aws.sensors.s3` | Waits for a file to appear in `S3` before proceeding |
+| Operator         | Module                                    | Purpose                                                       |
+| ---------------- | ----------------------------------------- | ------------------------------------------------------------- |
+| `PythonOperator` | `airflow.operators.python`                | Executes a Python callable                                    |
+| `BashOperator`   | `airflow.operators.bash`                  | Runs a bash command or script                                 |
+| `EmptyOperator`  | `airflow.operators.empty`                 | No-op task -- useful as a join point for complex dependencies |
+| `EmailOperator`  | `airflow.operators.email`                 | Sends email notifications                                     |
+| `S3KeySensor`    | `airflow.providers.amazon.aws.sensors.s3` | Waits for a file to appear in `S3` before proceeding          |
 
 ---
 
@@ -84,8 +84,8 @@ with DAG(
 
 The `>>` and `<<` bit-shift operators define execution order between tasks. Use Python lists to express parallel execution and convergence:
 
-<img src="/data-engineering-specialization-website/images/diagrams/dag-dependencies-dark.svg" alt="DAG dependency patterns: linear, fan-out, fan-in, and complex chain" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/dag-dependencies.svg" alt="DAG dependency patterns: linear, fan-out, fan-in, and complex chain" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/dag-dependencies-dark.svg" alt="DAG dependency patterns: linear, fan-out, fan-in, and complex chain" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/dag-dependencies.svg" alt="DAG dependency patterns: linear, fan-out, fan-in, and complex chain" class="diagram diagram-light" />
 
 For complex many-to-many dependencies where list syntax won't work, use the `chain()` utility:
 
@@ -105,8 +105,8 @@ chain(task0, [task1, task2], [task3, task4], task5)
 
 The flow works through the **metadata database**: one task pushes a value with `xcom_push`, and another task retrieves it with `xcom_pull`. Both methods are accessed through the task instance object in the execution context.
 
-<img src="/data-engineering-specialization-website/images/diagrams/xcom-flow-dark.svg" alt="XCom cross-communication flow between tasks via metadata database" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/xcom-flow.svg" alt="XCom cross-communication flow between tasks via metadata database" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/xcom-flow-dark.svg" alt="XCom cross-communication flow between tasks via metadata database" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/xcom-flow.svg" alt="XCom cross-communication flow between tasks via metadata database" class="diagram diagram-light" />
 
 ```python
 def extract_from_api(**context):
@@ -184,15 +184,15 @@ task_load_s3 = PythonOperator(
 
 Well-written DAGs are efficient, readable, idempotent, and reproducible.
 
-| Practice | Details |
-|---|---|
-| **Keep tasks atomic** | Each task should represent a single operation. An ETL pipeline needs at least three tasks (extract, transform, load) -- not one monolithic task that does everything. Atomic tasks improve visibility, enable targeted retries, and support idempotency. |
-| **Avoid top-level code** | Any code outside of DAG/operator definitions is parsed by the scheduler every ~30 seconds. API calls, database queries, or heavy computations at the module level cause performance issues. Keep all logic inside operator callables. |
-| **Use variables** | Don't hard-code values like bucket names, API URLs, or thresholds. Store them as `Airflow` Variables or environment variables so they can be updated without code changes. |
-| **Use task groups** | Organize related tasks visually in the UI using `TaskGroup`. This improves readability for complex DAGs without changing execution behavior. |
-| **Airflow is an orchestrator, not an executor** | Heavy processing belongs in execution frameworks like `Spark`, `dbt`, or `AWS Glue`. `Airflow` should trigger and monitor these jobs, not run the computation itself. |
-| **Don't pass large data via XComs** | XComs store data in the metadata database. For large objects, write to intermediate storage (`S3`, a staging table) and pass the reference path instead. |
-| **Keep task code in separate files** | Import your Python functions from a module rather than defining them inline in the DAG file. This improves readability and testability. |
+| Practice                                        | Details                                                                                                                                                                                                                                                  |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Keep tasks atomic**                           | Each task should represent a single operation. An ETL pipeline needs at least three tasks (extract, transform, load) -- not one monolithic task that does everything. Atomic tasks improve visibility, enable targeted retries, and support idempotency. |
+| **Avoid top-level code**                        | Any code outside of DAG/operator definitions is parsed by the scheduler every ~30 seconds. API calls, database queries, or heavy computations at the module level cause performance issues. Keep all logic inside operator callables.                    |
+| **Use variables**                               | Don't hard-code values like bucket names, API URLs, or thresholds. Store them as `Airflow` Variables or environment variables so they can be updated without code changes.                                                                               |
+| **Use task groups**                             | Organize related tasks visually in the UI using `TaskGroup`. This improves readability for complex DAGs without changing execution behavior.                                                                                                             |
+| **Airflow is an orchestrator, not an executor** | Heavy processing belongs in execution frameworks like `Spark`, `dbt`, or `AWS Glue`. `Airflow` should trigger and monitor these jobs, not run the computation itself.                                                                                    |
+| **Don't pass large data via XComs**             | XComs store data in the metadata database. For large objects, write to intermediate storage (`S3`, a staging table) and pass the reference path instead.                                                                                                 |
+| **Keep task code in separate files**            | Import your Python functions from a module rather than defining them inline in the DAG file. This improves readability and testability.                                                                                                                  |
 
 **Task Groups Example**
 

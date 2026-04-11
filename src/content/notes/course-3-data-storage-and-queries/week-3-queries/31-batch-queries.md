@@ -24,7 +24,7 @@ A **query** is a statement written in a specific query language to retrieve or a
 
 **Query Languages**
 
-SQL and its relatives are **declarative** — you describe *what* data you want, and the DBMS handles the execution steps. That abstraction does not mean you can ignore what happens behind the scenes, though. This week covers:
+SQL and its relatives are **declarative** — you describe _what_ data you want, and the DBMS handles the execution steps. That abstraction does not mean you can ignore what happens behind the scenes, though. This week covers:
 
 - SQL execution behind the scenes
 - Techniques to improve query performance (e.g., database indexes)
@@ -35,13 +35,13 @@ SQL and its relatives are **declarative** — you describe *what* data you want,
 
 A batch query travels through several stages within the DBMS before returning results.
 
-<img src="/data-engineering-specialization-website/images/diagrams/query-lifecycle-dark.svg" alt="Query lifecycle stages from transport through storage engine" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/query-lifecycle.svg" alt="Query lifecycle stages from transport through storage engine" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/query-lifecycle-dark.svg" alt="Query lifecycle stages from transport through storage engine" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/query-lifecycle.svg" alt="Query lifecycle stages from transport through storage engine" class="diagram diagram-light" style="max-height: 900px;" />
 
-| Stage | Component | What Happens |
-|---|---|---|
-| **1. Transport** | Network layer | Client sends the SQL query over a network connection to the DBMS |
-| **2. Parsing** | Query parser | Tokenizes the query, checks syntax, validates access permissions, compiles tokens to bytecode |
-| **3. Optimization** | Query optimizer | Evaluates candidate execution plans — considers operation types, index availability, data scan size — calculates the cost of each (I/O, computation, memory) and selects the least expensive |
-| **4. Execution** | Execution engine | Executes the chosen plan against the storage layer |
-| **5. Storage** | Storage engine | Reads/writes data blocks on disk and returns results back up the chain |
+| Stage               | Component        | What Happens                                                                                                                                                                                 |
+| ------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Transport**    | Network layer    | Client sends the SQL query over a network connection to the DBMS                                                                                                                             |
+| **2. Parsing**      | Query parser     | Tokenizes the query, checks syntax, validates access permissions, compiles tokens to bytecode                                                                                                |
+| **3. Optimization** | Query optimizer  | Evaluates candidate execution plans — considers operation types, index availability, data scan size — calculates the cost of each (I/O, computation, memory) and selects the least expensive |
+| **4. Execution**    | Execution engine | Executes the chosen plan against the storage layer                                                                                                                                           |
+| **5. Storage**      | Storage engine   | Reads/writes data blocks on disk and returns results back up the chain                                                                                                                       |

@@ -127,7 +127,7 @@ dist/                         (static HTML/CSS/JS)
 dist/_pagefind/               (search index)
       |
       v  (GitHub Actions deploy.yml)
-GitHub Pages (guyardon.github.io/data-engineering-specialization-website)
+GitHub Pages (guyardon.github.io/data-engineering-specialization)
 ```
 
 Diagram generation is a separate offline pipeline:
@@ -151,7 +151,7 @@ public/images/diagrams/*.png       (light + dark PNGs)
 
 ### Base Path
 
-All asset references must include `/data-engineering-specialization-website` prefix because the site is deployed to a subdirectory on GitHub Pages. The `BASE` constant from `src/lib/base.ts` provides this at build time.
+All asset references must include `/data-engineering-specialization` prefix because the site is deployed to a subdirectory on GitHub Pages. The `BASE` constant from `src/lib/base.ts` provides this at build time.
 
 ### Theme System
 

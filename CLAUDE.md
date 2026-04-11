@@ -83,7 +83,7 @@ Use when introducing a set of technologies — show their logos side by side for
 <div class="tech-logos">
   <div class="tech-logo">
     <img
-      src="/data-engineering-specialization-website/images/logos/name.svg"
+      src="/data-engineering-specialization/images/logos/name.svg"
       alt="Name"
     />
     <span>Display Name</span>
@@ -103,16 +103,16 @@ Powered by Pagefind (indexed at build time via `npx pagefind`). Component: `src/
 
 ### Theme switching (both libraries)
 
-The site uses `base: "/data-engineering-specialization-website"` — all image `src` paths must include this prefix.
+The site uses `base: "/data-engineering-specialization"` — all image `src` paths must include this prefix.
 
 ```html
 <img
-  src="/data-engineering-specialization-website/images/diagrams/name-dark.svg"
+  src="/data-engineering-specialization/images/diagrams/name-dark.svg"
   alt="..."
   class="diagram diagram-dark"
 />
 <img
-  src="/data-engineering-specialization-website/images/diagrams/name.svg"
+  src="/data-engineering-specialization/images/diagrams/name.svg"
   alt="..."
   class="diagram diagram-light"
 />
@@ -126,11 +126,11 @@ CSS in `src/styles/global.css` handles show/hide based on `[data-theme]`.
 - Always run `npm run build` automatically after any content or style change — don't wait to be asked
 - Commit frequently — after each logical unit of work (a diagram, a content change, a style fix). Break changes into multiple conventional commits grouped by context.
 - For diagrams: build, embed, and rebuild the site, then wait for user review before committing.
-- **Critical:** All asset paths in markdown must include the base path prefix `/data-engineering-specialization-website/`. Never use bare `/images/...` paths — they will 404.
+- **Critical:** All asset paths in markdown must include the base path prefix `/data-engineering-specialization/`. Never use bare `/images/...` paths — they will 404.
 
 ## Graphify Knowledge Graph (RAG)
 
-A persistent knowledge graph lives at `graphify-out/graph.json` (absolute path: `/Users/guyardon/Repositories/data-engineering-specialization-website/graphify-out/graph.json`).
+A persistent knowledge graph lives at `graphify-out/graph.json` (absolute path: `/Users/guyardon/Repositories/data-engineering-specialization/graphify-out/graph.json`).
 
 - **Use this as your primary lookup** before re-reading files from scratch. Run `graphify query "<question>"` or load `graph.json` to traverse relationships between code modules, course content, diagram scripts, and concepts.
 - The graph contains 457 nodes and 388 edges covering all source code (AST-extracted) and course content (semantically extracted).

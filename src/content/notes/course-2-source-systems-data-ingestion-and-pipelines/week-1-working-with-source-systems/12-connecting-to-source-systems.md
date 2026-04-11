@@ -109,13 +109,12 @@ Half of all cloud data breaches are caused by human error -- things like leaving
   - **Example 1:** Let's say you run a code on an `EC2` instance that needs to read from `S3`. By default, the `EC2` instance does not have permission to read from `S3`. You can transfer your credentials to `EC2`, but this is not secure. A better approach is to create a role, attach the required policy to read from `S3`, and allow the `EC2` instance to assume this role.
   - **Example 2:** Let's say you run a `Glue` ETL job and want it to write the ingested and transformed data to `S3`. You can create a role with permissions to write to `S3`, then allow `Glue` ETL to assume this role.
 
-<img src="/data-engineering-specialization-website/images/diagrams/iam-permissions-dark.svg" alt="AWS IAM & Permissions" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/iam-permissions.svg" alt="AWS IAM & Permissions" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/iam-permissions-dark.svg" alt="AWS IAM & Permissions" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/iam-permissions.svg" alt="AWS IAM & Permissions" class="diagram diagram-light" style="max-height: 900px;" />
 
 ## 1.2.4 Basics of Networking in the Cloud
 
 Cloud providers organize their infrastructure into a physical hierarchy that directly impacts how you design and secure your systems.
-
 
 ---
 
@@ -142,8 +141,8 @@ Data and resources are replicated across availability zones to ensure resilience
 - Availability (more availability zones = better disaster recovery)
 - Cost
 
-<img src="/data-engineering-specialization-website/images/diagrams/cloud-networking-dark.svg" alt="Cloud Networking Basics" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/cloud-networking.svg" alt="Cloud Networking Basics" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/cloud-networking-dark.svg" alt="Cloud Networking Basics" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/cloud-networking.svg" alt="Cloud Networking Basics" class="diagram diagram-light" style="max-height: 900px;" />
 
 ## 1.2.5 AWS Networking Overview - VPCs and Subnets
 
@@ -151,8 +150,8 @@ This section walks through building a complete networking setup for a web applic
 
 **Core networking concepts:** Amazon `VPC`s, subnets, gateways, route tables, network ACLs, and security groups.
 
-<img src="/data-engineering-specialization-website/images/diagrams/vpc-networking-aws-dark.png" alt="AWS VPC Networking" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/vpc-networking-aws.png" alt="AWS VPC Networking" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/vpc-networking-aws-dark.png" alt="AWS VPC Networking" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/vpc-networking-aws.png" alt="AWS VPC Networking" class="diagram diagram-light" />
 
 ---
 
@@ -168,8 +167,8 @@ A **Default VPC** exists in each region and can be used for experimentation, but
 
 Each subnet is associated with a specific Availability Zone. In the `VPC` dashboard, create subnets and assign them CIDR blocks (e.g., `10.0.1.0/24` and `10.0.2.0/24` in different AZs). At this point, no subnets have internet access.
 
-<img src="/data-engineering-specialization-website/images/diagrams/vpc-subnets-dark.svg" alt="Configure VPC and Subnets" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/vpc-subnets.svg" alt="Configure VPC and Subnets" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/vpc-subnets-dark.svg" alt="Configure VPC and Subnets" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/vpc-subnets.svg" alt="Configure VPC and Subnets" class="diagram diagram-light" />
 
 ---
 
@@ -181,8 +180,8 @@ Three components enable internet access:
 - **NAT Gateway (Network Address Translation)**: Allows resources in a private subnet to reach the internet for outbound traffic only, without exposing them to inbound connections.
 - **ALB (Application Load Balancer)**: Distributes incoming traffic across multiple backend targets, keeping `EC2` instances private while ensuring responsiveness and availability.
 
-<img src="/data-engineering-specialization-website/images/diagrams/internet-connectivity-aws-dark.png" alt="Internet Connectivity" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/internet-connectivity-aws.png" alt="Internet Connectivity" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/internet-connectivity-aws-dark.png" alt="Internet Connectivity" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/internet-connectivity-aws.png" alt="Internet Connectivity" class="diagram diagram-light" />
 
 ---
 
@@ -195,8 +194,8 @@ Route tables direct network traffic within your `VPC`. A default route table all
 
 In practice, what makes a subnet public or private is its route table configuration.
 
-<img src="/data-engineering-specialization-website/images/diagrams/route-tables-aws-dark.png" alt="Route Tables" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/route-tables-aws.png" alt="Route Tables" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/route-tables-aws-dark.png" alt="Route Tables" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/route-tables-aws.png" alt="Route Tables" class="diagram diagram-light" />
 
 ---
 
@@ -210,8 +209,8 @@ A typical security group chain looks like this:
 - The `EC2` instance's security group references the ALB's security group as its source.
 - The `RDS` instance's security group references the `EC2` security group as its source.
 
-<img src="/data-engineering-specialization-website/images/diagrams/security-groups-aws-dark.png" alt="Security Groups" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/security-groups-aws.png" alt="Security Groups" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/security-groups-aws-dark.png" alt="Security Groups" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/security-groups-aws.png" alt="Security Groups" class="diagram diagram-light" />
 
 **Network ACLs** provide an additional security layer at the subnet level. They are **stateless**, requiring explicit inbound and outbound rules for more granular traffic control.
 

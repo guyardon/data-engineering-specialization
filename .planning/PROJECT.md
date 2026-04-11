@@ -36,7 +36,7 @@ Navigate and read course notes in a fast, well-designed interface — content ov
 
 ## Context
 
-**Existing codebase:** Astro 6.1.2 + TypeScript (strict) + TailwindCSS 4.2.2 + @notionhq/client. Project skeleton exists with content collection schema, `scripts/fetch-notion.mjs`, basic components (NoteLayout, Sidebar, TOC), and a GitHub Actions deploy workflow. Base path `/data-engineering-specialization-website` configured for GitHub Pages.
+**Existing codebase:** Astro 6.1.2 + TypeScript (strict) + TailwindCSS 4.2.2 + @notionhq/client. Project skeleton exists with content collection schema, `scripts/fetch-notion.mjs`, basic components (NoteLayout, Sidebar, TOC), and a GitHub Actions deploy workflow. Base path `/data-engineering-specialization` configured for GitHub Pages.
 
 **Content:** Notion root page `139969a7aa018017b81fc3858c54fc8f`. Hierarchy: Root → Courses → Weeks → Sections → Subsections → `.md` files. Script handles paragraphs, headings, lists, tables, code blocks, images (downloaded to `public/images/`), callouts, toggles, equations.
 
@@ -45,7 +45,7 @@ Navigate and read course notes in a fast, well-designed interface — content ov
 ## Constraints
 
 - **Tech stack:** Astro (static output) — no server runtime, no SSR
-- **Hosting:** GitHub Pages sub-path (`/data-engineering-specialization-website`) — base path must stay in sync
+- **Hosting:** GitHub Pages sub-path (`/data-engineering-specialization`) — base path must stay in sync
 - **Content source:** Notion API (read-only, `NOTION_TOKEN` secret) — one-time sync only
 - **Design:** Dark mode only, Tailwind CSS 4 — no component library (custom design)
 - **Node:** >= 22.12.0

@@ -10,13 +10,12 @@ order: 2
 notionId: "144969a7-aa01-80aa-8aa6-f29d8bdc1634"
 ---
 
-
 ## 1.2.1 Intro to AWS Cloud
 
 AWS provides on-demand delivery of IT resources with pay-as-you-go pricing. These resources fall into three categories:
 
-<img src="/data-engineering-specialization-website/images/diagrams/aws-cloud-pillars-dark.svg" alt="AWS Cloud: Three Pillars" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/aws-cloud-pillars.svg" alt="AWS Cloud: Three Pillars" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/aws-cloud-pillars-dark.svg" alt="AWS Cloud: Three Pillars" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/aws-cloud-pillars.svg" alt="AWS Cloud: Three Pillars" class="diagram diagram-light" />
 
 ---
 
@@ -32,18 +31,17 @@ AWS infrastructure is organized into **regions** — geographically distributed 
 
 The purpose of multiple AZs is **high availability and fault tolerance**. If one AZ goes down due to a power outage or natural disaster, your workloads in other AZs continue running.
 
-<img src="/data-engineering-specialization-website/images/diagrams/aws-region-azs-dark.svg" alt="AWS Region & Availability Zones" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/aws-region-azs.svg" alt="AWS Region & Availability Zones" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/aws-region-azs-dark.svg" alt="AWS Region & Availability Zones" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/aws-region-azs.svg" alt="AWS Region & Availability Zones" class="diagram diagram-light" />
 
 As of 2026, AWS operates **34 regions** across **114+ availability zones** worldwide. Regions are grouped across four geographies — Americas, Europe, Asia Pacific, and Middle East & Africa. Most regions have 3 AZs, with a few exceptions like `us-east-1` (N. Virginia) which has 6. When choosing a region, consider **latency** to your users, **data residency** requirements, and **service availability**.
 
-<img src="/data-engineering-specialization-website/images/diagrams/aws-global-infra-dark.svg" alt="AWS Global Infrastructure" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/aws-global-infra.svg" alt="AWS Global Infrastructure" class="diagram diagram-light" />
-
+<img src="/data-engineering-specialization/images/diagrams/aws-global-infra-dark.svg" alt="AWS Global Infrastructure" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/aws-global-infra.svg" alt="AWS Global Infrastructure" class="diagram diagram-light" />
 
 ## 1.2.2 Intro to AWS Core Services
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/ec2.svg" alt="Amazon EC2" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/ec2-dark.svg" alt="Amazon EC2" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/ec2.svg" alt="Amazon EC2" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/ec2-dark.svg" alt="Amazon EC2" />
 
 **Compute**
 
@@ -51,7 +49,7 @@ As of 2026, AWS operates **34 regions** across **114+ availability zones** world
 
 ---
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/vpc.svg" alt="Amazon VPC" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/vpc-dark.svg" alt="Amazon VPC" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/vpc.svg" alt="Amazon VPC" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/vpc-dark.svg" alt="Amazon VPC" />
 
 **Networking**
 
@@ -71,16 +69,16 @@ AWS offers several storage types, each suited to different use cases:
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/ebs.svg" alt="Amazon EBS" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/ebs-dark.svg" alt="Amazon EBS" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/ebs.svg" alt="Amazon EBS" class="logo-light" /><img src="/data-engineering-specialization/images/logos/ebs-dark.svg" alt="Amazon EBS" class="logo-dark" />
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/rds.svg" alt="Amazon RDS" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/rds-dark.svg" alt="Amazon RDS" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/rds.svg" alt="Amazon RDS" class="logo-light" /><img src="/data-engineering-specialization/images/logos/rds-dark.svg" alt="Amazon RDS" class="logo-dark" />
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
   </div>
 </div>
 
@@ -88,15 +86,14 @@ AWS offers several storage types, each suited to different use cases:
 
 **Security**
 
-AWS uses a **Shared Responsibility Model**: AWS is responsible for security *of* the cloud (infrastructure), while the customer is responsible for security *in* the cloud (data, access, configuration).
+AWS uses a **Shared Responsibility Model**: AWS is responsible for security _of_ the cloud (infrastructure), while the customer is responsible for security _in_ the cloud (data, access, configuration).
 
-<img src="/data-engineering-specialization-website/images/diagrams/aws-core-services-dark.svg" alt="AWS Core Services" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/aws-core-services.svg" alt="AWS Core Services" class="diagram diagram-light" />
-
+<img src="/data-engineering-specialization/images/diagrams/aws-core-services-dark.svg" alt="AWS Core Services" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/aws-core-services.svg" alt="AWS Core Services" class="diagram diagram-light" />
 
 ## 1.2.3 Compute - Amazon Elastic Compute Cloud (EC2)
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/ec2.svg" alt="Amazon EC2" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/ec2-dark.svg" alt="Amazon EC2" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/ec2.svg" alt="Amazon EC2" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/ec2-dark.svg" alt="Amazon EC2" />
 
 `Amazon EC2` (Elastic Compute Cloud) provides **virtual servers** on AWS. It's one of the foundational cloud services — giving you the compute resources needed to run your applications.
 
@@ -129,9 +126,8 @@ AWS uses a naming convention for instance types. For example, `t3a.micro` breaks
 
 For pricing, **on-demand instances** offer compute capacity with no long-term commitment. **Spot instances** provide unused `EC2` capacity at a steep discount, ideal for fault-tolerant or flexible workloads.
 
-<img src="/data-engineering-specialization-website/images/diagrams/ec2-overview-dark.svg" alt="Amazon EC2 Overview" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/ec2-overview.svg" alt="Amazon EC2 Overview" class="diagram diagram-light" />
-
+<img src="/data-engineering-specialization/images/diagrams/ec2-overview-dark.svg" alt="Amazon EC2 Overview" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/ec2-overview.svg" alt="Amazon EC2 Overview" class="diagram diagram-light" />
 
 ## 1.2.4 Networking - Virtual Private Cloud (VPC) & Subnets
 
@@ -172,5 +168,5 @@ When creating a VPC, you specify a **CIDR block** that determines the network's 
 
 Resources across multiple subnets of the same VPC can still communicate because they share the same network.
 
-<img src="/data-engineering-specialization-website/images/diagrams/vpc-networking-dark.svg" alt="VPC, Subnets & Networking" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/vpc-networking.svg" alt="VPC, Subnets & Networking" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/vpc-networking-dark.svg" alt="VPC, Subnets & Networking" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/vpc-networking.svg" alt="VPC, Subnets & Networking" class="diagram diagram-light" />

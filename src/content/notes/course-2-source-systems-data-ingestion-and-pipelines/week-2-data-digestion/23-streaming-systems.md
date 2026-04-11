@@ -14,7 +14,6 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 Streaming systems come in two flavors, and the distinction matters for how you design your consumers.
 
-
 ---
 
 **Message Queues vs. Event Streaming Platforms**
@@ -23,12 +22,12 @@ A **Message Queue** is a buffer that delivers messages asynchronously on a FIFO 
 
 An **Event Streaming Platform** is an append-only persistent log where an event router distributes messages to subscribers. The key differentiator is that messages can be **replayed or re-processed** since they persist in the log.
 
-<img src="/data-engineering-specialization-website/images/diagrams/streaming-concepts-dark.svg" alt="Message Queue vs Event Streaming Platform" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/streaming-concepts.svg" alt="Message Queue vs Event Streaming Platform" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/streaming-concepts-dark.svg" alt="Message Queue vs Event Streaming Platform" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/streaming-concepts.svg" alt="Message Queue vs Event Streaming Platform" class="diagram diagram-light" />
 
 ## 2.3.2 Apache Kafka
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/kafka.svg" alt="Apache Kafka" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/kafka-dark.svg" alt="Apache Kafka" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/kafka.svg" alt="Apache Kafka" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/kafka-dark.svg" alt="Apache Kafka" />
 
 **Apache Kafka**
 
@@ -42,8 +41,8 @@ Message streams are organized into **topics** -- categories that hold collection
 
 **Event Consumers** read or pull messages from the `Kafka` cluster and subscribe to one or more topics.
 
-<img src="/data-engineering-specialization-website/images/diagrams/kafka-architecture-dark.svg" alt="Apache Kafka Architecture" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/kafka-architecture.svg" alt="Apache Kafka Architecture" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/kafka-architecture-dark.svg" alt="Apache Kafka Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/kafka-architecture.svg" alt="Apache Kafka Architecture" class="diagram diagram-light" />
 
 ## 2.3.3 Kinesis Data Streams
 
@@ -56,8 +55,8 @@ Message streams are split into **streams** (analogous to `Kafka` topics), which 
 
 Each **Data Record** contains a **Partition Key** (determines the shard), a **Sequence Number**, and a **Binary Large Object (BLOB)**.
 
-<img src="/data-engineering-specialization-website/images/diagrams/kinesis-data-streams-aws-dark.png" alt="Kinesis Data Streams Architecture" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/kinesis-data-streams-aws.png" alt="Kinesis Data Streams Architecture" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/kinesis-data-streams-aws-dark.png" alt="Kinesis Data Streams Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/kinesis-data-streams-aws.png" alt="Kinesis Data Streams Architecture" class="diagram diagram-light" />
 
 ---
 

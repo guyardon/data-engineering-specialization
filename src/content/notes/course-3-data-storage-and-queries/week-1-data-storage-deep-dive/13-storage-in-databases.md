@@ -16,17 +16,17 @@ A **database management system (DBMS)** is the software layer that sits between 
 
 **DBMS Architecture**
 
-| Component | Role |
-|---|---|
-| **Transport system** | Handles client connections and network communication |
-| **Query processor** | Parses SQL/query language and optimizes the execution plan |
-| **Execution engine** | Runs the optimized query plan against the storage layer |
-| **Storage engine** | Manages how data is serialized, arranged on disk, and indexed |
+| Component            | Role                                                          |
+| -------------------- | ------------------------------------------------------------- |
+| **Transport system** | Handles client connections and network communication          |
+| **Query processor**  | Parses SQL/query language and optimizes the execution plan    |
+| **Execution engine** | Runs the optimized query plan against the storage layer       |
+| **Storage engine**   | Manages how data is serialized, arranged on disk, and indexed |
 
 The **storage engine** is the most relevant component for understanding performance tradeoffs.
 
-<img src="/data-engineering-specialization-website/images/diagrams/dbms-architecture-dark.svg" alt="DBMS architecture layers from client to disk" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/dbms-architecture.svg" alt="DBMS architecture layers from client to disk" class="diagram diagram-light" style="max-height: 900px;" /> An **index** is a data structure that locates data in O(log n) time via binary search, instead of scanning all rows in O(n). Modern storage engines are optimized for SSDs, handle complex data types, and offer columnar support for analytical workloads.
+<img src="/data-engineering-specialization/images/diagrams/dbms-architecture-dark.svg" alt="DBMS architecture layers from client to disk" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/dbms-architecture.svg" alt="DBMS architecture layers from client to disk" class="diagram diagram-light" style="max-height: 900px;" /> An **index** is a data structure that locates data in O(log n) time via binary search, instead of scanning all rows in O(n). Modern storage engines are optimized for SSDs, handle complex data types, and offer columnar support for analytical workloads.
 
 ---
 
@@ -34,17 +34,17 @@ The **storage engine** is the most relevant component for understanding performa
 
 In-memory stores trade durability for speed -- they are fast and low-latency, but volatile. Common use cases include caching, real-time applications, and gaming.
 
-| System | Type | Use case |
-|---|---|---|
-| **Memcached** | Key-value store | Caching database query results or API responses. Acceptable when data loss is tolerable. |
-| `Redis` | Key-value store | Richer data types (lists, sets, hashes). High-performance apps that can tolerate minor data loss. |
+| System        | Type            | Use case                                                                                          |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------- |
+| **Memcached** | Key-value store | Caching database query results or API responses. Acceptable when data loss is tolerable.          |
+| `Redis`       | Key-value store | Richer data types (lists, sets, hashes). High-performance apps that can tolerate minor data loss. |
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/memcached.svg" alt="Memcached" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/memcached-dark.svg" alt="Memcached" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/memcached.svg" alt="Memcached" class="logo-light" /><img src="/data-engineering-specialization/images/logos/memcached-dark.svg" alt="Memcached" class="logo-dark" />
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/redis.svg" alt="Redis" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redis-dark.svg" alt="Redis" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/redis.svg" alt="Redis" class="logo-light" /><img src="/data-engineering-specialization/images/logos/redis-dark.svg" alt="Redis" class="logo-dark" />
   </div>
 </div>
 
@@ -67,38 +67,38 @@ Consider a table with 1 billion rows, 30 columns, 100 bytes per entry, and a 200
 SELECT SUM(price) FROM my_table
 ```
 
-| Storage type | Data read | Calculation | Time |
-|---|---|---|---|
-| **Row-oriented** | All 30 columns, all rows | 1B × 30 × 100 bytes = 3,000,000 MB | ~4.2 hours |
-| **Column-oriented** | Only the `price` column | 1B × 100 bytes = 100,000 MB | ~8.3 minutes |
+| Storage type        | Data read                | Calculation                        | Time         |
+| ------------------- | ------------------------ | ---------------------------------- | ------------ |
+| **Row-oriented**    | All 30 columns, all rows | 1B × 30 × 100 bytes = 3,000,000 MB | ~4.2 hours   |
+| **Column-oriented** | Only the `price` column  | 1B × 100 bytes = 100,000 MB        | ~8.3 minutes |
 
-| | Row-Oriented | Column-Oriented |
-|---|---|---|
-| **Optimized for** | OLTP (transactional) | OLAP (analytical) |
-| **Read pattern** | Full rows at a time | Individual columns at a time |
-| **Write pattern** | Append entire rows efficiently | Must write to each column file separately |
-| **Best when** | Reading/writing complete records | Aggregating single columns across many rows |
-| **Examples** | `PostgreSQL`, `MySQL` | `Redshift`, `BigQuery`, `Snowflake` |
+|                   | Row-Oriented                     | Column-Oriented                             |
+| ----------------- | -------------------------------- | ------------------------------------------- |
+| **Optimized for** | OLTP (transactional)             | OLAP (analytical)                           |
+| **Read pattern**  | Full rows at a time              | Individual columns at a time                |
+| **Write pattern** | Append entire rows efficiently   | Must write to each column file separately   |
+| **Best when**     | Reading/writing complete records | Aggregating single columns across many rows |
+| **Examples**      | `PostgreSQL`, `MySQL`            | `Redshift`, `BigQuery`, `Snowflake`         |
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/postgresql.svg" alt="PostgreSQL" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/postgresql-dark.svg" alt="PostgreSQL" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/postgresql.svg" alt="PostgreSQL" class="logo-light" /><img src="/data-engineering-specialization/images/logos/postgresql-dark.svg" alt="PostgreSQL" class="logo-dark" />
     <span>PostgreSQL</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/mysql.svg" alt="MySQL" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/mysql-dark.svg" alt="MySQL" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/mysql.svg" alt="MySQL" class="logo-light" /><img src="/data-engineering-specialization/images/logos/mysql-dark.svg" alt="MySQL" class="logo-dark" />
     <span>MySQL</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
     <span>Redshift</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/bigquery.svg" alt="Google BigQuery" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/bigquery-dark.svg" alt="Google BigQuery" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/bigquery.svg" alt="Google BigQuery" class="logo-light" /><img src="/data-engineering-specialization/images/logos/bigquery-dark.svg" alt="Google BigQuery" class="logo-dark" />
     <span>BigQuery</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/snowflake.svg" alt="Snowflake" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/snowflake-dark.svg" alt="Snowflake" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/snowflake.svg" alt="Snowflake" class="logo-light" /><img src="/data-engineering-specialization/images/logos/snowflake-dark.svg" alt="Snowflake" class="logo-dark" />
     <span>Snowflake</span>
   </div>
 </div>

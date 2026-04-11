@@ -33,5 +33,5 @@ Where you land the processed data depends on the use case:
 - `Amazon Redshift` — if running complex analytical queries on massive datasets
 - `Amazon S3` — for ML model artifacts or any workload that benefits from flexible, scalable, cost-effective object storage
 
-<img src="/data-engineering-specialization-website/images/diagrams/batch-pipeline-aws-dark.png" alt="AWS Batch ETL Pipeline" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/batch-pipeline-aws.png" alt="AWS Batch ETL Pipeline" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/batch-pipeline-aws-dark.png" alt="AWS Batch ETL Pipeline" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/batch-pipeline-aws.png" alt="AWS Batch ETL Pipeline" class="diagram diagram-light" />

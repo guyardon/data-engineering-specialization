@@ -191,8 +191,8 @@ npm run build  →  astro build && npx pagefind --site dist --glob '**/*.html'
 
 ## Deployment Target
 
-- **GitHub Pages** at `https://guyardon.github.io/data-engineering-specialization-website`
-- Base path: `/data-engineering-specialization-website`
+- **GitHub Pages** at `https://guyardon.github.io/data-engineering-specialization`
+- Base path: `/data-engineering-specialization`
 - Static output only (no server-side rendering)
 
 ---

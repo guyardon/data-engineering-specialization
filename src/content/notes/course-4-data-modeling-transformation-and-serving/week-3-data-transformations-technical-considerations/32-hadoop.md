@@ -12,7 +12,7 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 ## 3.2.1 Hadoop Background and HDFS
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/hadoop.svg" alt="Apache Hadoop" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/hadoop-dark.svg" alt="Apache Hadoop" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/hadoop.svg" alt="Apache Hadoop" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/hadoop-dark.svg" alt="Apache Hadoop" />
 
 **Apache Hadoop**
 
@@ -24,12 +24,13 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 `HDFS` combines compute and storage on the same nodes, unlike object storage which has limited compute support for internal processing. Large files are broken into **blocks** of a few hundred megabytes each.
 
-| Component | Role |
-|---|---|
-| **NameNode** | Manages directories, file metadata, and a catalog describing where file blocks reside in the cluster |
+| Component     | Role                                                                                                       |
+| ------------- | ---------------------------------------------------------------------------------------------------------- |
+| **NameNode**  | Manages directories, file metadata, and a catalog describing where file blocks reside in the cluster       |
 | **DataNodes** | Store the actual data blocks — each block is replicated across 3 DataNodes for durability and availability |
 
 Key properties:
+
 - **Replication** — each block stored on 3 nodes increases durability and availability
 - **Combined compute and storage** — enables in-place data processing via `MapReduce`
 
@@ -37,16 +38,16 @@ Key properties:
 
 `MapReduce` sends computation code to the nodes that contain the data, favoring **data locality** rather than moving data to the application. The computation has three phases:
 
-| Phase | Action |
-|---|---|
-| **Map** | Read individual data blocks inside DataNodes and produce key-value pairs |
+| Phase       | Action                                                                     |
+| ----------- | -------------------------------------------------------------------------- |
+| **Map**     | Read individual data blocks inside DataNodes and produce key-value pairs   |
 | **Shuffle** | Redistribute results across the cluster so each DataNode holds unique keys |
-| **Reduce** | Aggregate data on each node into final results |
+| **Reduce**  | Aggregate data on each node into final results                             |
 
 For example, counting user events: the Map phase scans log blocks and emits `(user_id, 1)` pairs, the Shuffle phase groups all pairs by `user_id`, and the Reduce phase sums the counts per user.
 
-<img src="/data-engineering-specialization-website/images/diagrams/mapreduce-flow-dark.svg" alt="MapReduce flow: Map emits key-value pairs, Shuffle groups by key, Reduce aggregates" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/mapreduce-flow.svg" alt="MapReduce flow: Map emits key-value pairs, Shuffle groups by key, Reduce aggregates" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/mapreduce-flow-dark.svg" alt="MapReduce flow: Map emits key-value pairs, Shuffle groups by key, Reduce aggregates" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/mapreduce-flow.svg" alt="MapReduce flow: Map emits key-value pairs, Shuffle groups by key, Reduce aggregates" class="diagram diagram-light" />
 
 ---
 

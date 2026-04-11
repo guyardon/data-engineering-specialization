@@ -46,7 +46,7 @@ Extract to a shared inline snippet or a `<ThemeInit />` component.
 
 ### Hardcoded base path in fetch-notion.mjs
 
-`scripts/fetch-notion.mjs` line 167 hardcodes the image base path as `"/data-engineering-specialization-website/images"`. This must be kept in sync with `base` in `astro.config.mjs`. If the base path changes, all fetched content will have broken image URLs. Consider reading the base from the Astro config or a shared constant.
+`scripts/fetch-notion.mjs` line 167 hardcodes the image base path as `"/data-engineering-specialization/images"`. This must be kept in sync with `base` in `astro.config.mjs`. If the base path changes, all fetched content will have broken image URLs. Consider reading the base from the Astro config or a shared constant.
 
 ### Hardcoded Notion root page ID
 

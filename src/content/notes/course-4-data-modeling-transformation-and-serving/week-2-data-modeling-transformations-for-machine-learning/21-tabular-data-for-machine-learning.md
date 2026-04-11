@@ -14,24 +14,24 @@ notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 
 This section covers how data engineers prepare tabular data for machine learning workflows.
 
-| Learning Type | How it Works | Task Types |
-|---|---|---|
-| **Supervised** | Models learn from **features** (inputs) and **labels** (outputs) | Classification (categorical labels), Regression (numerical labels) |
-| **Unsupervised** | Models operate without labels — discover structure in data | Clustering, dimensionality reduction, anomaly detection |
+| Learning Type    | How it Works                                                     | Task Types                                                         |
+| ---------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
+| **Supervised**   | Models learn from **features** (inputs) and **labels** (outputs) | Classification (categorical labels), Regression (numerical labels) |
+| **Unsupervised** | Models operate without labels — discover structure in data       | Clustering, dimensionality reduction, anomaly detection            |
 
 ## 2.1.2 Machine Learning Lifecycle
 
 The ML lifecycle has four major stages:
 
-| Stage | Activities |
-|---|---|
-| **Scoping** | Define project goals and success criteria |
-| **Data** | Define data requirements, establish baselines, handle labeling and organization |
-| **Algorithm Development** | Train/test split → train models → cross-validation → error analysis → iterate |
-| **Deployment** | Write production software, monitor and maintain system performance |
+| Stage                     | Activities                                                                      |
+| ------------------------- | ------------------------------------------------------------------------------- |
+| **Scoping**               | Define project goals and success criteria                                       |
+| **Data**                  | Define data requirements, establish baselines, handle labeling and organization |
+| **Algorithm Development** | Train/test split → train models → cross-validation → error analysis → iterate   |
+| **Deployment**            | Write production software, monitor and maintain system performance              |
 
-<img src="/data-engineering-specialization-website/images/diagrams/ml-lifecycle-dark.svg" alt="ML lifecycle with data engineer role highlighted in data and deployment stages" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/ml-lifecycle.svg" alt="ML lifecycle with data engineer role highlighted in data and deployment stages" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/ml-lifecycle-dark.svg" alt="ML lifecycle with data engineer role highlighted in data and deployment stages" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/ml-lifecycle.svg" alt="ML lifecycle with data engineer role highlighted in data and deployment stages" class="diagram diagram-light" style="max-height: 900px;" />
 
 ---
 
@@ -43,46 +43,46 @@ Data engineers help organizations adopt a **data-centric approach** to ML — "g
 
 Feature engineering is any change or preprocessing applied to raw columns, or the creation of new features.
 
-| Technique | Description |
-|---|---|
+| Technique                   | Description                                                                                            |
+| --------------------------- | ------------------------------------------------------------------------------------------------------ |
 | **Handling missing values** | Delete columns/rows if no valuable data is lost, or impute with mean, median, or similar-record values |
-| **Feature scaling** | Required for gradient descent and distance-based algorithms |
-| **Encoding categoricals** | Convert text categories to numbers for ML algorithms |
-| **Creating new columns** | Combine or modify existing columns to create more predictive features |
+| **Feature scaling**         | Required for gradient descent and distance-based algorithms                                            |
+| **Encoding categoricals**   | Convert text categories to numbers for ML algorithms                                                   |
+| **Creating new columns**    | Combine or modify existing columns to create more predictive features                                  |
 
 ---
 
 **Feature Scaling Methods**
 
-| Method | Formula | Result |
-|---|---|---|
-| **Standardization** | (x - mean) / std | Mean = 0, Std = 1 |
-| **Min-Max scaling** | (x - min) / (max - min) | Range [0, 1] |
+| Method              | Formula                 | Result            |
+| ------------------- | ----------------------- | ----------------- |
+| **Standardization** | (x - mean) / std        | Mean = 0, Std = 1 |
+| **Min-Max scaling** | (x - min) / (max - min) | Range [0, 1]      |
 
 ---
 
 **Encoding Categorical Columns**
 
-| Method | How it Works | Trade-off |
-|---|---|---|
-| **One-hot encoding** | Creates a binary column per category (0 or 1) | Increases dimensionality for high-cardinality columns |
-| **Ordinal encoding** | Maps categories to ordered integers (e.g., basic=0, platinum=1) | Implies an ordering that may not exist |
-| **Hashing** | Converts categories to hash values | Fixed output size, but collisions possible |
-| **Embeddings** | Dense vector representations learned during training | Best for high-cardinality, requires neural network |
+| Method               | How it Works                                                    | Trade-off                                             |
+| -------------------- | --------------------------------------------------------------- | ----------------------------------------------------- |
+| **One-hot encoding** | Creates a binary column per category (0 or 1)                   | Increases dimensionality for high-cardinality columns |
+| **Ordinal encoding** | Maps categories to ordered integers (e.g., basic=0, platinum=1) | Implies an ordering that may not exist                |
+| **Hashing**          | Converts categories to hash values                              | Fixed output size, but collisions possible            |
+| **Embeddings**       | Dense vector representations learned during training            | Best for high-cardinality, requires neural network    |
 
 ## 2.1.4 Scikit-Learn and Pandas for Processing Tabular Data
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/scikit-learn.svg" alt="Scikit-learn" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/scikit-learn-dark.svg" alt="Scikit-learn" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/scikit-learn.svg" alt="Scikit-learn" class="logo-light" /><img src="/data-engineering-specialization/images/logos/scikit-learn-dark.svg" alt="Scikit-learn" class="logo-dark" />
     <span>Scikit-learn</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/pandas.svg" alt="Pandas" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/pandas-dark.svg" alt="Pandas" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/pandas.svg" alt="Pandas" class="logo-light" /><img src="/data-engineering-specialization/images/logos/pandas-dark.svg" alt="Pandas" class="logo-dark" />
     <span>Pandas</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/numpy.svg" alt="NumPy" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/numpy-dark.svg" alt="NumPy" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/numpy.svg" alt="NumPy" class="logo-light" /><img src="/data-engineering-specialization/images/logos/numpy-dark.svg" alt="NumPy" class="logo-dark" />
     <span>NumPy</span>
   </div>
 </div>

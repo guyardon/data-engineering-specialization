@@ -53,8 +53,8 @@
 
 - [ ] **DEPLOY-01**: GitHub Actions workflow builds and deploys on push to `main`
 - [ ] **DEPLOY-02**: `NOTION_TOKEN` stored as GitHub secret (not in code)
-- [ ] **DEPLOY-03**: Site accessible at `https://guyardon.github.io/data-engineering-specialization-website`
-- [ ] **DEPLOY-04**: All links work correctly under the `/data-engineering-specialization-website` base path
+- [ ] **DEPLOY-03**: Site accessible at `https://guyardon.github.io/data-engineering-specialization`
+- [ ] **DEPLOY-04**: All links work correctly under the `/data-engineering-specialization` base path
 
 ## v2 Requirements
 

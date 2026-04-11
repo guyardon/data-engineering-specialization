@@ -10,14 +10,12 @@ order: 3
 notionId: "146969a7-aa01-8018-8e73-f2b8bce0869a"
 ---
 
-
-
 ## 2.3.1 The Data Engineering Lifecycle on AWS
 
 Each stage of the data engineering lifecycle maps to concrete AWS services. Here is how they break down.
 
-<img src="/data-engineering-specialization-website/images/diagrams/aws-lifecycle-pipeline-tech-dark.png" alt="Data Engineering Lifecycle on AWS" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/aws-lifecycle-pipeline-tech.png" alt="Data Engineering Lifecycle on AWS" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/aws-lifecycle-pipeline-tech-dark.png" alt="Data Engineering Lifecycle on AWS" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/aws-lifecycle-pipeline-tech.png" alt="Data Engineering Lifecycle on AWS" class="diagram diagram-light" />
 
 **Source Systems**
 
@@ -45,19 +43,19 @@ Each stage of the data engineering lifecycle maps to concrete AWS services. Here
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/kinesis.svg" alt="Amazon Kinesis" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/kinesis-dark.svg" alt="Amazon Kinesis" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/kinesis.svg" alt="Amazon Kinesis" class="logo-light" /><img src="/data-engineering-specialization/images/logos/kinesis-dark.svg" alt="Amazon Kinesis" class="logo-dark" />
     <span>Amazon Kinesis</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/glue.svg" alt="AWS Glue" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/glue-dark.svg" alt="AWS Glue" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/glue.svg" alt="AWS Glue" class="logo-light" /><img src="/data-engineering-specialization/images/logos/glue-dark.svg" alt="AWS Glue" class="logo-dark" />
     <span>AWS Glue</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/redshift.svg" alt="Amazon Redshift" class="logo-light" /><img src="/data-engineering-specialization/images/logos/redshift-dark.svg" alt="Amazon Redshift" class="logo-dark" />
     <span>Amazon Redshift</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
     <span>Amazon S3</span>
   </div>
 </div>
@@ -66,8 +64,8 @@ Each stage of the data engineering lifecycle maps to concrete AWS services. Here
 
 The undercurrents also have direct AWS counterparts.
 
-<img src="/data-engineering-specialization-website/images/diagrams/aws-undercurrents-tech-dark.png" alt="AWS Undercurrents" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/aws-undercurrents-tech.png" alt="AWS Undercurrents" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/aws-undercurrents-tech-dark.png" alt="AWS Undercurrents" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/aws-undercurrents-tech.png" alt="AWS Undercurrents" class="diagram diagram-light" />
 
 **Security** — AWS uses a shared responsibility model. `IAM` (Identity and Access Management) enforces permissions based on roles.
 

@@ -311,18 +311,18 @@ All diagrams require both dark and light variants with CSS-based show/hide:
 
 ```html
 <img
-  src="/data-engineering-specialization-website/images/diagrams/name-dark.svg"
+  src="/data-engineering-specialization/images/diagrams/name-dark.svg"
   alt="..."
   class="diagram diagram-dark"
 />
 <img
-  src="/data-engineering-specialization-website/images/diagrams/name.svg"
+  src="/data-engineering-specialization/images/diagrams/name.svg"
   alt="..."
   class="diagram diagram-light"
 />
 ```
 
-All asset paths **must** include the base path prefix `/data-engineering-specialization-website/`.
+All asset paths **must** include the base path prefix `/data-engineering-specialization/`.
 
 ---
 

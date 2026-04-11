@@ -29,13 +29,13 @@ WHERE employee_id = 123;
 
 Beyond basic `SELECT`/`FROM`/`WHERE`, SQL offers several powerful constructs for shaping data.
 
-| Construct | Purpose |
-|---|---|
-| `SELECT DISTINCT` | Return only unique combinations of selected columns |
-| `CASE...WHEN...THEN` | Conditional logic — create computed columns based on rules |
-| `WITH...AS` (CTEs) | Define named temporary result sets for readability |
-| Subqueries | Embed a query inside another query for filtering |
-| Window functions | Apply aggregates over a sliding range without collapsing rows |
+| Construct            | Purpose                                                       |
+| -------------------- | ------------------------------------------------------------- |
+| `SELECT DISTINCT`    | Return only unique combinations of selected columns           |
+| `CASE...WHEN...THEN` | Conditional logic — create computed columns based on rules    |
+| `WITH...AS` (CTEs)   | Define named temporary result sets for readability            |
+| Subqueries           | Embed a query inside another query for filtering              |
+| Window functions     | Apply aggregates over a sliding range without collapsing rows |
 
 ---
 
@@ -165,13 +165,13 @@ Index data is stored in **blocks** linked together to maintain order — the phy
 
 To retrieve indexed data, the DBMS traverses a **Balanced Search Tree (B-Tree)** where children are evenly distributed, giving **O(log n)** lookup time. If the indexed column contains non-unique values, the search may need to traverse a chain of leaf nodes horizontally — potentially as expensive as scanning the full tree. The query optimizer evaluates whether this trade-off is worthwhile.
 
-| Scan Type | When Used | Complexity |
-|---|---|---|
-| **Index scan** | Query filters on an indexed column | O(log n) |
-| **Sequential scan** | No matching index, or optimizer decides full scan is cheaper | O(n) |
+| Scan Type           | When Used                                                    | Complexity |
+| ------------------- | ------------------------------------------------------------ | ---------- |
+| **Index scan**      | Query filters on an indexed column                           | O(log n)   |
+| **Sequential scan** | No matching index, or optimizer decides full scan is cheaper | O(n)       |
 
-<img src="/data-engineering-specialization-website/images/diagrams/btree-index-dark.svg" alt="B-Tree index lookup in 3 steps vs sequential scan checking 7 rows" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/btree-index.svg" alt="B-Tree index lookup in 3 steps vs sequential scan checking 7 rows" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/btree-index-dark.svg" alt="B-Tree index lookup in 3 steps vs sequential scan checking 7 rows" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/btree-index.svg" alt="B-Tree index lookup in 3 steps vs sequential scan checking 7 rows" class="diagram diagram-light" />
 
 ---
 
@@ -206,10 +206,10 @@ WHERE ordernumber = 10101;
 
 Running `SELECT * FROM orders` forces large amounts of data to transfer from disk to memory and can be expensive on pay-as-you-go cloud databases. Use **pruning techniques** to exclude irrelevant data from being scanned.
 
-| Technique | How it Works | Example |
-|---|---|---|
-| **Row pruning** | Filter rows using indexes or `WHERE` clauses | `WHERE rental_id = 1` |
-| **Column pruning** | Select only the columns you need | `SELECT customer_id, rental_id FROM payment` |
+| Technique             | How it Works                                                        | Example                                                           |
+| --------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Row pruning**       | Filter rows using indexes or `WHERE` clauses                        | `WHERE rental_id = 1`                                             |
+| **Column pruning**    | Select only the columns you need                                    | `SELECT customer_id, rental_id FROM payment`                      |
 | **Partition pruning** | Scan only relevant partitions based on a partition key (e.g., date) | `WHERE order_date = '2024-01-15'` skips all other date partitions |
 
 ```sql

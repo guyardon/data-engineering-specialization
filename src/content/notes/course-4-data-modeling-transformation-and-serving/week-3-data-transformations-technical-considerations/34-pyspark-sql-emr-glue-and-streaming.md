@@ -76,7 +76,7 @@ spark.sql("""
 
 ## 3.4.2 Amazon EMR
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/emr.svg" alt="Amazon EMR" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/emr-dark.svg" alt="Amazon EMR" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/emr.svg" alt="Amazon EMR" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/emr-dark.svg" alt="Amazon EMR" />
 
 **Amazon EMR**
 
@@ -84,27 +84,27 @@ spark.sql("""
 
 ---
 
-| Feature | Description |
-|---|---|
-| **Frameworks** | `Apache Spark`, `Hadoop`, `Hive`, `Presto`, `Flink`, `HBase` |
-| **Integration** | Native with `S3`, `DynamoDB`, `RDS`, `Redshift` |
-| **Storage** | Decouples compute from storage via `S3` — multiple clusters can process the same data |
-| **Scaling** | Clusters scale elastically based on workload |
+| Feature         | Description                                                                           |
+| --------------- | ------------------------------------------------------------------------------------- |
+| **Frameworks**  | `Apache Spark`, `Hadoop`, `Hive`, `Presto`, `Flink`, `HBase`                          |
+| **Integration** | Native with `S3`, `DynamoDB`, `RDS`, `Redshift`                                       |
+| **Storage**     | Decouples compute from storage via `S3` — multiple clusters can process the same data |
+| **Scaling**     | Clusters scale elastically based on workload                                          |
 
 ---
 
 **EMR Studio and Serverless**
 
-| Variant | Description |
-|---|---|
-| **EMR Studio** | Browser-based IDE (built on Jupyter) for interactive analysis and job execution |
+| Variant            | Description                                                                         |
+| ------------------ | ----------------------------------------------------------------------------------- |
+| **EMR Studio**     | Browser-based IDE (built on Jupyter) for interactive analysis and job execution     |
 | **EMR Serverless** | Eliminates manual cluster management — automatic scaling, pay only for what you use |
 
 A typical workflow: create an EMR Serverless application with default Spark settings, launch an EMR Studio workspace, attach it to the application, choose the PySpark kernel, and run Spark jobs interactively.
 
 ## 3.4.3 AWS Glue
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/glue.svg" alt="AWS Glue" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/glue-dark.svg" alt="AWS Glue" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/glue.svg" alt="AWS Glue" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/glue-dark.svg" alt="AWS Glue" />
 
 **AWS Glue**
 
@@ -116,11 +116,11 @@ A typical workflow: create an EMR Serverless application with default Spark sett
 
 ETL pipelines in AWS Glue are called **Glue jobs**. Three ways to create them:
 
-| Method | Skill Level | Description |
-|---|---|---|
-| **Glue DataBrew** | No-code | Visual spreadsheet-like interface for transforms, powered by Spark |
-| **Glue Studio** | Low-code | Drag-and-drop UI for sources, transforms, and destinations with optional custom code |
-| **Jupyter Notebooks** | Code | Write Spark code from scratch, run via Glue |
+| Method                | Skill Level | Description                                                                          |
+| --------------------- | ----------- | ------------------------------------------------------------------------------------ |
+| **Glue DataBrew**     | No-code     | Visual spreadsheet-like interface for transforms, powered by Spark                   |
+| **Glue Studio**       | Low-code    | Drag-and-drop UI for sources, transforms, and destinations with optional custom code |
+| **Jupyter Notebooks** | Code        | Write Spark code from scratch, run via Glue                                          |
 
 Glue jobs can be orchestrated using **Glue triggers, blueprints, and workflows**.
 
@@ -134,7 +134,7 @@ The Glue Data Catalog integrates with `Amazon Athena` (SQL queries), `Amazon Qui
 
 ## 3.4.4 AWS Glue Visual ETL
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/glue.svg" alt="AWS Glue Visual ETL" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/glue-dark.svg" alt="AWS Glue Visual ETL" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/glue.svg" alt="AWS Glue Visual ETL" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/glue-dark.svg" alt="AWS Glue Visual ETL" />
 
 **Glue Visual ETL**
 
@@ -228,13 +228,13 @@ job.commit()
 
 **Choosing Between SQL and Python**
 
-| Aspect | Spark DataFrames (Python) | Spark SQL |
-|---|---|---|
-| **Syntax** | Programmatic (Python API) | Declarative (SQL queries) |
-| **Complex transforms** | Easier to implement (e.g., transpose, custom logic) | Limited for non-standard operations |
-| **Reusability** | High — modular, testable, supports libraries | Low — limited reuse for complex queries |
-| **Maintainability** | Easier with modular code structure | Harder with large, nested queries |
-| **Best for** | Complex logic, reusable components | Simple, declarative data manipulation |
+| Aspect                 | Spark DataFrames (Python)                           | Spark SQL                               |
+| ---------------------- | --------------------------------------------------- | --------------------------------------- |
+| **Syntax**             | Programmatic (Python API)                           | Declarative (SQL queries)               |
+| **Complex transforms** | Easier to implement (e.g., transpose, custom logic) | Limited for non-standard operations     |
+| **Reusability**        | High — modular, testable, supports libraries        | Low — limited reuse for complex queries |
+| **Maintainability**    | Easier with modular code structure                  | Harder with large, nested queries       |
+| **Best for**           | Complex logic, reusable components                  | Simple, declarative data manipulation   |
 
 Both compile to the same execution plan — mix and match freely.
 
@@ -242,12 +242,12 @@ Both compile to the same execution plan — mix and match freely.
 
 **Spark vs. Pandas**
 
-| Aspect | Pandas | `Spark` |
-|---|---|---|
-| **Data size** | Fits in memory on a single machine | Exceeds memory — distributed across nodes |
-| **Execution** | Single machine | Distributed cluster |
-| **Setup** | Minimal | Requires cluster (local or cloud) |
-| **Best for** | Prototyping, local exploration, lightweight tasks | Production pipelines, high-volume processing |
+| Aspect        | Pandas                                            | `Spark`                                      |
+| ------------- | ------------------------------------------------- | -------------------------------------------- |
+| **Data size** | Fits in memory on a single machine                | Exceeds memory — distributed across nodes    |
+| **Execution** | Single machine                                    | Distributed cluster                          |
+| **Setup**     | Minimal                                           | Requires cluster (local or cloud)            |
+| **Best for**  | Prototyping, local exploration, lightweight tasks | Production pipelines, high-volume processing |
 
 ---
 

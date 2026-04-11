@@ -101,7 +101,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
 
 1. Push to main triggers GitHub Actions build and deploy automatically
-2. Site is accessible at https://guyardon.github.io/data-engineering-specialization-website
+2. Site is accessible at https://guyardon.github.io/data-engineering-specialization
 3. All internal links work correctly under the base path
 4. Build passes in CI with zero errors
    **Plans**: 4 plans

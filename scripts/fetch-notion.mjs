@@ -164,7 +164,7 @@ async function richTextToMd(richText) {
 async function processBlocks(
   blocks,
   depth = 0,
-  imageBasePath = "/data-engineering-specialization-website/images",
+  imageBasePath = "/data-engineering-specialization/images",
 ) {
   const lines = [];
   let i = 0;

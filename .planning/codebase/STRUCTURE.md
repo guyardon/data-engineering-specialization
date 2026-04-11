@@ -3,7 +3,7 @@
 ## Root
 
 ```
-data-engineering-specialization-website/
+data-engineering-specialization/
 ├── .github/workflows/         # CI/CD
 ├── .planning/                 # GSD workflow state
 ├── .vscode/                   # Editor settings

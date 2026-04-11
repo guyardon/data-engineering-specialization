@@ -32,8 +32,8 @@
 
 | Detail       | Value                                                                                                         |
 | ------------ | ------------------------------------------------------------------------------------------------------------- |
-| URL          | `https://guyardon.github.io/data-engineering-specialization-website`                                          |
-| Base path    | `/data-engineering-specialization-website`                                                                    |
+| URL          | `https://guyardon.github.io/data-engineering-specialization`                                                  |
+| Base path    | `/data-engineering-specialization`                                                                            |
 | Workflow     | `.github/workflows/deploy.yml`                                                                                |
 | Trigger      | Push to `main` branch or manual dispatch                                                                      |
 | Actions used | `actions/checkout@v4`, `actions/setup-node@v4`, `actions/upload-pages-artifact@v3`, `actions/deploy-pages@v4` |
