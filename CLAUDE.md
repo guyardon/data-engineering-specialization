@@ -128,6 +128,16 @@ CSS in `src/styles/global.css` handles show/hide based on `[data-theme]`.
 - For diagrams: build, embed, and rebuild the site, then wait for user review before committing.
 - **Critical:** All asset paths in markdown must include the base path prefix `/data-engineering-specialization-website/`. Never use bare `/images/...` paths — they will 404.
 
+## Graphify Knowledge Graph (RAG)
+
+A persistent knowledge graph lives at `graphify-out/graph.json` (absolute path: `/Users/guyardon/Repositories/data-engineering-specialization-website/graphify-out/graph.json`).
+
+- **Use this as your primary lookup** before re-reading files from scratch. Run `graphify query "<question>"` or load `graph.json` to traverse relationships between code modules, course content, diagram scripts, and concepts.
+- The graph contains 457 nodes and 388 edges covering all source code (AST-extracted) and course content (semantically extracted).
+- To update after code/content changes: `/graphify . --update`
+- To query: `/graphify query "how does X connect to Y"`
+- Interactive visualization: open `graphify-out/graph.html` in a browser.
+
 ## Content conventions
 
 - `backticks` for tools/products (S3, Airflow, dbt)
