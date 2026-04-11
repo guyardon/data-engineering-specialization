@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      fetch_notion:
+        description: "Fetch latest content from Notion before building"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -29,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Fetch Notion content
-        if: env.NOTION_TOKEN != ''
+        if: github.event_name == 'workflow_dispatch' && inputs.fetch_notion
         run: node scripts/fetch-notion.mjs
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
