@@ -33,3 +33,5 @@ __pycache__/
 # jetbrains setting folder
 .idea/
 
+graphify-out/
+.obsidian/
