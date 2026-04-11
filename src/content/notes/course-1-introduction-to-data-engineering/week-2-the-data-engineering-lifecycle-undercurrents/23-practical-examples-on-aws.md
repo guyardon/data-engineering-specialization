@@ -19,7 +19,7 @@ Each stage of the data engineering lifecycle maps to concrete AWS services. Here
 
 **Source Systems**
 
-- **Databases:** `Amazon RDS` — managed relational databases, reducing operational overhead. `Amazon DynamoDB` — serverless NoSQL with flexible schemas, best for low-latency access to large volumes of data.
+- **Databases:** `Amazon RDS` - managed relational databases, reducing operational overhead. `Amazon DynamoDB` - serverless NoSQL with flexible schemas, best for low-latency access to large volumes of data.
 - **Streaming Sources:** `Amazon Kinesis Data Streams`, `Amazon SQS`, `Amazon MSK`
 
 **Ingestion**
@@ -29,8 +29,8 @@ Each stage of the data engineering lifecycle maps to concrete AWS services. Here
 
 **Storage**
 
-- `Amazon Redshift` — traditional cloud data warehouse
-- `Amazon S3` — object storage, also the foundation for a lakehouse arrangement that can handle both structured and unstructured data
+- `Amazon Redshift` - traditional cloud data warehouse
+- `Amazon S3` - object storage, also the foundation for a lakehouse arrangement that can handle both structured and unstructured data
 
 **Transformation**
 
@@ -67,14 +67,14 @@ The undercurrents also have direct AWS counterparts.
 <img src="/data-engineering-specialization/images/diagrams/aws-undercurrents-tech-dark.png" alt="AWS Undercurrents" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/aws-undercurrents-tech.png" alt="AWS Undercurrents" class="diagram diagram-light" />
 
-**Security** — AWS uses a shared responsibility model. `IAM` (Identity and Access Management) enforces permissions based on roles.
+**Security** - AWS uses a shared responsibility model. `IAM` (Identity and Access Management) enforces permissions based on roles.
 
-**Data Management** — `AWS Glue`, `Glue Crawler`, and `Glue Data Catalog` discover, create, and manage metadata for data stored across AWS storage systems.
+**Data Management** - `AWS Glue`, `Glue Crawler`, and `Glue Data Catalog` discover, create, and manage metadata for data stored across AWS storage systems.
 
-**DataOps** — `Amazon CloudWatch` collects metrics and provides monitoring for cloud resources, applications, and on-prem systems. `Amazon SNS` (Simple Notification Service) handles alerting.
+**DataOps** - `Amazon CloudWatch` collects metrics and provides monitoring for cloud resources, applications, and on-prem systems. `Amazon SNS` (Simple Notification Service) handles alerting.
 
-**Orchestration** — `Apache Airflow` remains the industry standard, available as a managed service through `Amazon MWAA`.
+**Orchestration** - `Apache Airflow` remains the industry standard, available as a managed service through `Amazon MWAA`.
 
-**Architecture** — The AWS Well-Architected Framework provides the guiding principles.
+**Architecture** - The AWS Well-Architected Framework provides the guiding principles.
 
-**Software Engineering** — AWS Cloud9 IDE (hosted on `EC2`) for development, `AWS CodeDeploy` for automated deployments, and `Git`/`GitHub` for source code management.
+**Software Engineering** - AWS Cloud9 IDE (hosted on `EC2`) for development, `AWS CodeDeploy` for automated deployments, and `Git`/`GitHub` for source code management.

@@ -16,7 +16,7 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 **Apache Spark**
 
-`Apache Spark` started at UC Berkeley in 2009 to address MapReduce's shortcomings — primarily by storing intermediate results in memory.
+`Apache Spark` started at UC Berkeley in 2009 to address MapReduce's shortcomings - primarily by storing intermediate results in memory.
 
 ---
 
@@ -26,7 +26,7 @@ Modern Spark includes stream processing, ML libraries, graph processing, and a c
 
 | Component           | Role                                                                                           |
 | ------------------- | ---------------------------------------------------------------------------------------------- |
-| **Driver Node**     | Central controller — creates the SparkSession, builds execution plans, coordinates workers     |
+| **Driver Node**     | Central controller - creates the SparkSession, builds execution plans, coordinates workers     |
 | **Cluster Manager** | Allocates and manages memory and CPU resources across the cluster (YARN, Mesos, or Kubernetes) |
 | **Worker Nodes**    | Each contains a **Spark Executor** that runs tasks assigned by the driver                      |
 
@@ -50,8 +50,8 @@ Spark DataFrames provide a high-level abstraction for working with large, distri
 | **DataFrames vs. RDDs** | RDDs are low-level, require manual optimization. DataFrames offer expressive APIs (`filter`, `select`, `groupBy`) with automatic optimization via Catalyst. |
 | **Transformations**     | Lazy operations that return new DataFrames without modifying originals (`select`, `filter`, `join`, `groupBy`)                                              |
 | **Actions**             | Trigger actual execution of queued transformations (`count`, `show`, `save`)                                                                                |
-| **Immutability**        | Original data is never modified — transformations create new DataFrames                                                                                     |
-| **Lineage**             | A record of transformations enables fault recovery — if a partition is lost, Spark recomputes it from the lineage                                           |
+| **Immutability**        | Original data is never modified - transformations create new DataFrames                                                                                     |
+| **Lineage**             | A record of transformations enables fault recovery - if a partition is lost, Spark recomputes it from the lineage                                           |
 | **Lazy evaluation**     | Defers computation to optimize the full execution plan before running                                                                                       |
 
 ## 3.3.3 Basic PySpark DataFrame Operations
@@ -114,7 +114,7 @@ from pyspark.sql.functions import col
 # Select specific columns
 transactions_df.select("price", "quantity", "country").show(5)
 
-# Add a computed column (DataFrames are immutable — creates new DF)
+# Add a computed column (DataFrames are immutable - creates new DF)
 transactions_df = transactions_df.withColumn(
     "amount", col("price") * col("quantity")
 )

@@ -17,7 +17,7 @@ This section covers how data engineers prepare tabular data for machine learning
 | Learning Type    | How it Works                                                     | Task Types                                                         |
 | ---------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
 | **Supervised**   | Models learn from **features** (inputs) and **labels** (outputs) | Classification (categorical labels), Regression (numerical labels) |
-| **Unsupervised** | Models operate without labels — discover structure in data       | Clustering, dimensionality reduction, anomaly detection            |
+| **Unsupervised** | Models operate without labels - discover structure in data       | Clustering, dimensionality reduction, anomaly detection            |
 
 ## 2.1.2 Machine Learning Lifecycle
 
@@ -37,7 +37,7 @@ The ML lifecycle has four major stages:
 
 **The Data Engineer's Role in ML**
 
-Data engineers help organizations adopt a **data-centric approach** to ML — "garbage in, garbage out." They collect high-quality data, prepare and serve data the model needs during deployment, and provide updated datasets for retraining.
+Data engineers help organizations adopt a **data-centric approach** to ML - "garbage in, garbage out." They collect high-quality data, prepare and serve data the model needs during deployment, and provide updated datasets for retraining.
 
 ## 2.1.3 Feature Engineering for Tabular Data
 
@@ -160,5 +160,5 @@ X_train_final = pd.concat(
 X_train_final.to_parquet("train.parquet")
 
 # For the test set: use scaler.transform() and encoder.transform()
-# Do NOT re-fit — statistics must come from the training set
+# Do NOT re-fit - statistics must come from the training set
 ```

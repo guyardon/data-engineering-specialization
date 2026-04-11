@@ -21,7 +21,7 @@ The data warehouse was created to separate source systems from analytical system
 Stores data in the warehouse in highly **normalized third normal form**, then provides additional data marts (often as star schemas) for specific departments.
 
 - Source systems → 3NF warehouse → Star schema data marts → Business users
-- Prioritizes **data quality and consistency** — single source of truth
+- Prioritizes **data quality and consistency** - single source of truth
 - Slower to set up, but more robust and flexible long-term
 
 ---
@@ -31,7 +31,7 @@ Stores data in the warehouse in highly **normalized third normal form**, then pr
 Serves data structured as **star schemas directly in the data warehouse**, skipping the normalized intermediate layer.
 
 - Source systems → Star schema warehouse → Business users
-- Prioritizes **speed of delivery** — faster modeling and iteration
+- Prioritizes **speed of delivery** - faster modeling and iteration
 - Introduces more redundancy, but simpler for business users to query
 
 ---
@@ -50,12 +50,12 @@ Serves data structured as **star schemas directly in the data warehouse**, skipp
 
 ## 1.4.2 Data Vault Modeling Approach
 
-While Inmon and Kimball focus on how business logic is structured in the warehouse, **Data Vault** focuses on separating the structural aspects of data — business entities and their relationships. This separation keeps the warehouse flexible, agile, and scalable even as the business evolves.
+While Inmon and Kimball focus on how business logic is structured in the warehouse, **Data Vault** focuses on separating the structural aspects of data - business entities and their relationships. This separation keeps the warehouse flexible, agile, and scalable even as the business evolves.
 
 **Key characteristics:**
 
 - Three layers: Staging → Enterprise Data Warehouse → Information Delivery
-- No notion of "good," "bad," or "conformed" data — only changes the storage structure
+- No notion of "good," "bad," or "conformed" data - only changes the storage structure
 - Full traceability back to source systems
 - Minimal restructuring when business requirements change
 
@@ -86,7 +86,7 @@ The One Big Table approach uses a single **wide table** (potentially thousands o
 | Low storage cost on cloud columnar stores | Business logic can get lost in analytics      |
 | Nested data allows flexible schemas       | Complex data structures for nested data       |
 | Reading nulls in columnar storage is free | Update and aggregation performance can suffer |
-| No joins needed — simpler queries         | Harder to maintain data integrity             |
+| No joins needed - simpler queries         | Harder to maintain data integrity             |
 
 Works well when you have a large volume of data that needs more flexibility than traditional modeling approaches provide.
 
@@ -112,4 +112,4 @@ It helps document and validate data within the data warehouse.
 | **dbt Core**  | Open-source CLI tool that communicates with databases through adapters (e.g., `dbt-postgres`, `dbt-redshift`) |
 | **dbt Cloud** | Hosted environment with a browser-based interface that runs dbt Core under the hood                           |
 
-`dbt` enables version-controlled, testable, and documented data transformations — treating SQL-based modeling like software engineering.
+`dbt` enables version-controlled, testable, and documented data transformations - treating SQL-based modeling like software engineering.

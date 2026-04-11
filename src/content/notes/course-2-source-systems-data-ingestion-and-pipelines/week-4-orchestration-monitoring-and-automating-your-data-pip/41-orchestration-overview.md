@@ -188,7 +188,7 @@ s3_sensor = S3KeySensor(
 
 ## 4.1.4 Backfilling and Reprocessing
 
-**Backfilling** is the process of rerunning a pipeline over historical time intervals — for example, reprocessing the last 90 days after fixing a transformation bug or adding a new column. It is one of the most common operational tasks in data engineering.
+**Backfilling** is the process of rerunning a pipeline over historical time intervals - for example, reprocessing the last 90 days after fixing a transformation bug or adding a new column. It is one of the most common operational tasks in data engineering.
 
 ---
 
@@ -217,7 +217,7 @@ s3_sensor = S3KeySensor(
 
 Pipelines that are easy to backfill share several properties:
 
-- **Idempotent** — rerunning the same interval produces the same result without side effects
-- **Parameterized by date** — the pipeline reads its processing window from the logical date, not from `datetime.now()`
-- **Partitioned output** — each run writes to a distinct partition (e.g., `s3://bucket/output/date=2025-03-15/`) so backfills overwrite only the affected intervals
-- **No cross-interval dependencies** — each run processes its interval independently without relying on the output of adjacent runs
+- **Idempotent** - rerunning the same interval produces the same result without side effects
+- **Parameterized by date** - the pipeline reads its processing window from the logical date, not from `datetime.now()`
+- **Partitioned output** - each run writes to a distinct partition (e.g., `s3://bucket/output/date=2025-03-15/`) so backfills overwrite only the affected intervals
+- **No cross-interval dependencies** - each run processes its interval independently without relying on the output of adjacent runs

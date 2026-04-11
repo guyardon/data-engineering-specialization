@@ -12,7 +12,7 @@ notionId: "1f7969a7-aa01-8017-917c-eb29354e53f7"
 
 ## 2.2.1 Image Data for Machine Learning
 
-Unstructured data — images, text, audio — requires specialized preprocessing before it can be fed into ML models.
+Unstructured data - images, text, audio - requires specialized preprocessing before it can be fed into ML models.
 
 ---
 
@@ -24,7 +24,7 @@ Traditional ML algorithms expect tabular input, but treating images as flat tabu
 
 **Convolutional Neural Networks (CNNs)**
 
-The preferred approach is a **CNN** where each layer identifies progressively more complex features — early layers detect edges and textures, deeper layers capture complex structures. In practice, ML teams start with **pre-trained CNN models** and fine-tune them on their specific task and data.
+The preferred approach is a **CNN** where each layer identifies progressively more complex features - early layers detect edges and textures, deeper layers capture complex structures. In practice, ML teams start with **pre-trained CNN models** and fine-tune them on their specific task and data.
 
 ---
 
@@ -32,13 +32,13 @@ The preferred approach is a **CNN** where each layer identifies progressively mo
 
 Preparing images for deep learning typically involves augmentations to increase training data diversity:
 
-| Augmentation | Purpose |
-|---|---|
-| Resizing | Standardize dimensions for batch processing |
+| Augmentation            | Purpose                                             |
+| ----------------------- | --------------------------------------------------- |
+| Resizing                | Standardize dimensions for batch processing         |
 | Scaling (normalization) | Scale pixel values to [0, 1] for faster convergence |
-| Flipping / Rotating | Teach invariance to orientation |
-| Cropping | Focus on relevant regions |
-| Brightness / Contrast | Teach robustness to lighting conditions |
+| Flipping / Rotating     | Teach invariance to orientation                     |
+| Cropping                | Focus on relevant regions                           |
+| Brightness / Contrast   | Teach robustness to lighting conditions             |
 
 ```python
 import tensorflow as tf
@@ -75,13 +75,13 @@ NLP tasks span sentiment analysis, article classification, chatbots, spam detect
 
 **Preprocessing Pipeline**
 
-| Step | Action | Example |
-|---|---|---|
-| **1. Cleaning** | Remove punctuation, extra spaces, special characters | `"Hello!! World"` → `"Hello World"` |
-| **2. Normalization** | Lowercase, expand contractions, convert symbols | `"I can't"` → `"i cannot"` |
-| **3. Tokenization** | Split into individual tokens (words, subwords) | `"i cannot go"` → `["i", "cannot", "go"]` |
-| **4. Stop word removal** | Filter common words with little meaning | `["i", "cannot", "go"]` → `["cannot", "go"]` |
-| **5. Lemmatization** | Replace words with their base form (lemma) | `"getting"` → `"get"`, `"got"` → `"get"` |
+| Step                     | Action                                               | Example                                      |
+| ------------------------ | ---------------------------------------------------- | -------------------------------------------- |
+| **1. Cleaning**          | Remove punctuation, extra spaces, special characters | `"Hello!! World"` → `"Hello World"`          |
+| **2. Normalization**     | Lowercase, expand contractions, convert symbols      | `"I can't"` → `"i cannot"`                   |
+| **3. Tokenization**      | Split into individual tokens (words, subwords)       | `"i cannot go"` → `["i", "cannot", "go"]`    |
+| **4. Stop word removal** | Filter common words with little meaning              | `["i", "cannot", "go"]` → `["cannot", "go"]` |
+| **5. Lemmatization**     | Replace words with their base form (lemma)           | `"getting"` → `"get"`, `"got"` → `"get"`     |
 
 ```python
 import re
@@ -131,10 +131,10 @@ After preprocessing, text must be converted into numerical representations for M
 
 **Traditional Vectorization**
 
-| Method | How it Works | Limitations |
-|---|---|---|
-| **Bag of Words** | Binary vector — `1` if word appears in document, `0` otherwise | High-frequency words dominate; rare but meaningful words are underweighted |
-| **TF-IDF** | TF (term frequency in document) × IDF (inverse document frequency across corpus) | High-dimensional sparse vectors, ignores word proximity and context |
+| Method           | How it Works                                                                     | Limitations                                                                |
+| ---------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **Bag of Words** | Binary vector - `1` if word appears in document, `0` otherwise                   | High-frequency words dominate; rare but meaningful words are underweighted |
+| **TF-IDF**       | TF (term frequency in document) × IDF (inverse document frequency across corpus) | High-dimensional sparse vectors, ignores word proximity and context        |
 
 Both work well for smaller datasets where key words are significant to the task (e.g., sentiment analysis).
 
@@ -169,10 +169,10 @@ A **word embedding** is a dense vector that captures semantic meaning, learned f
 
 **Sentence embeddings** capture the semantic meaning of entire sentences in lower-dimensional vectors. Pre-trained models:
 
-| Source | Models |
-|---|---|
-| **Open source** | SentenceTransformers (`sbert.net`) |
-| **Closed source** | OpenAI, Anthropic, Google |
+| Source            | Models                             |
+| ----------------- | ---------------------------------- |
+| **Open source**   | SentenceTransformers (`sbert.net`) |
+| **Closed source** | OpenAI, Anthropic, Google          |
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -193,7 +193,7 @@ print(embeddings.shape)  # (3, 384)
 
 # Compute cosine similarity to first sentence
 sim = cosine_similarity(embeddings, embeddings)[0, 1:]
-print(sim)  # [0.51, 0.14] — first pair is more similar
+print(sim)  # [0.51, 0.14] - first pair is more similar
 ```
 
 Embeddings can be used as features for downstream ML algorithms, or directly for clustering and similarity search.

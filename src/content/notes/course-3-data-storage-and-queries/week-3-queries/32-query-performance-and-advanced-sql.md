@@ -12,7 +12,7 @@ notionId: "1e7969a7-aa01-80f3-9892-df23d918832b"
 
 ## 3.2.1 Understanding Query Performance
 
-The `EXPLAIN` command reveals the execution plan the DBMS has chosen for a query — the sequence of steps, resource consumption, and performance statistics at each stage. It is the primary tool for diagnosing slow queries.
+The `EXPLAIN` command reveals the execution plan the DBMS has chosen for a query - the sequence of steps, resource consumption, and performance statistics at each stage. It is the primary tool for diagnosing slow queries.
 
 ```sql
 -- EXPLAIN shows the chosen execution plan without running the query
@@ -32,7 +32,7 @@ Beyond basic `SELECT`/`FROM`/`WHERE`, SQL offers several powerful constructs for
 | Construct            | Purpose                                                       |
 | -------------------- | ------------------------------------------------------------- |
 | `SELECT DISTINCT`    | Return only unique combinations of selected columns           |
-| `CASE...WHEN...THEN` | Conditional logic — create computed columns based on rules    |
+| `CASE...WHEN...THEN` | Conditional logic - create computed columns based on rules    |
 | `WITH...AS` (CTEs)   | Define named temporary result sets for readability            |
 | Subqueries           | Embed a query inside another query for filtering              |
 | Window functions     | Apply aggregates over a sliding range without collapsing rows |
@@ -82,7 +82,7 @@ LIMIT 5;
 CTEs define temporary result sets that subsequent queries can reference. They start with `WITH <name> AS (<query>)` and are especially useful for breaking complex queries into readable steps.
 
 ```sql
--- CTEs can be chained — each one feeds into the next
+-- CTEs can be chained - each one feeds into the next
 WITH customer_payment_info AS (
     SELECT
         fact_rental.customer_id,
@@ -126,7 +126,7 @@ WHERE length > (SELECT AVG(length) FROM dim_film);
 
 **Window Functions**
 
-Window functions apply aggregate or ranking functions over a sliding range of rows without collapsing them — each row remains separate in the output.
+Window functions apply aggregate or ranking functions over a sliding range of rows without collapsing them - each row remains separate in the output.
 
 ```sql
 -- rank() assigns a rank within each partition
@@ -161,9 +161,9 @@ An **index** is a separate data structure with its own disk space that contains 
 
 **B-Tree Index Structure**
 
-Index data is stored in **blocks** linked together to maintain order — the physical location of these blocks on disk does not matter. This linked structure makes it efficient to update the index when rows are inserted or deleted.
+Index data is stored in **blocks** linked together to maintain order - the physical location of these blocks on disk does not matter. This linked structure makes it efficient to update the index when rows are inserted or deleted.
 
-To retrieve indexed data, the DBMS traverses a **Balanced Search Tree (B-Tree)** where children are evenly distributed, giving **O(log n)** lookup time. If the indexed column contains non-unique values, the search may need to traverse a chain of leaf nodes horizontally — potentially as expensive as scanning the full tree. The query optimizer evaluates whether this trade-off is worthwhile.
+To retrieve indexed data, the DBMS traverses a **Balanced Search Tree (B-Tree)** where children are evenly distributed, giving **O(log n)** lookup time. If the indexed column contains non-unique values, the search may need to traverse a chain of leaf nodes horizontally - potentially as expensive as scanning the full tree. The query optimizer evaluates whether this trade-off is worthwhile.
 
 | Scan Type           | When Used                                                    | Complexity |
 | ------------------- | ------------------------------------------------------------ | ---------- |
@@ -200,7 +200,7 @@ WHERE ordernumber = 10101;
 
 **Columnar Indexes**
 
-**Columnar storage** applies the same ideas differently. On `Amazon Redshift`, you define a **sort key** on one or more columns — data is sorted by that key on disk. On `Google BigQuery`, the equivalent is a **cluster key**. Both enable the engine to skip irrelevant data blocks during scans.
+**Columnar storage** applies the same ideas differently. On `Amazon Redshift`, you define a **sort key** on one or more columns - data is sorted by that key on disk. On `Google BigQuery`, the equivalent is a **cluster key**. Both enable the engine to skip irrelevant data blocks during scans.
 
 ## 3.2.4 Retrieving Only the Data You Need
 

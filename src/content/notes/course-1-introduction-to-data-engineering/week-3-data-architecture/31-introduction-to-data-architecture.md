@@ -21,12 +21,12 @@ notionId: "18c969a7-aa01-8012-908e-cb0e0b1f7b79"
 
 Enterprise architecture is _"the design of systems to **support change in enterprise**, achieved by flexible and reversible decisions reached through a careful evaluation of trade-offs."_ It spans several domains:
 
-- **Business architecture** — product or service strategy and business model
-- **Application architecture** — structure and interaction of key applications
-- **Technical architecture** — interaction of software and hardware components
-- **Data architecture** — supporting the evolving data needs of the organization
+- **Business architecture** - product or service strategy and business model
+- **Application architecture** - structure and interaction of key applications
+- **Technical architecture** - interaction of software and hardware components
+- **Data architecture** - supporting the evolving data needs of the organization
 
-A key concept in enterprise architecture is **change management** — adapting to organizational changes. Decisions fall into two categories: "one-way door" decisions that are impossible to reverse and "two-way door" decisions that can be undone. The distinction depends on the stakes involved.
+A key concept in enterprise architecture is **change management** - adapting to organizational changes. Decisions fall into two categories: "one-way door" decisions that are impossible to reverse and "two-way door" decisions that can be undone. The distinction depends on the stakes involved.
 
 ---
 
@@ -51,7 +51,7 @@ Common components facilitate team collaboration. The key is identifying tools th
 
 **Always be architecting**:
 
-Architecture is never finished. Make reversible "two-way door" decisions, support today's needs while anticipating tomorrow's, and build **loosely coupled systems** — components that can be swapped out without redesigning the entire system, interfacing via APIs.
+Architecture is never finished. Make reversible "two-way door" decisions, support today's needs while anticipating tomorrow's, and build **loosely coupled systems** - components that can be swapped out without redesigning the entire system, interfacing via APIs.
 
 ---
 
@@ -59,11 +59,11 @@ Architecture is never finished. Make reversible "two-way door" decisions, suppor
 
 Designing for failure means understanding several key metrics:
 
-1. **Availability** — the percentage of time a service is in an operable state (e.g., 99.5% = ~44 hours of downtime/year; 99.99% = ~1 hour/year)
-2. **Reliability** — the probability a service performs its intended function during a given time interval
-3. **Durability** — the ability of a storage system to withstand data loss from hardware failures, software failures, or natural disasters (e.g., `Amazon S3` offers 99.999999999% durability)
-4. **Recovery Time Objective (RTO)** — the maximum acceptable duration for a service outage
-5. **Recovery Point Objective (RPO)** — the maximum acceptable data loss after recovery
+1. **Availability** - the percentage of time a service is in an operable state (e.g., 99.5% = ~44 hours of downtime/year; 99.99% = ~1 hour/year)
+2. **Reliability** - the probability a service performs its intended function during a given time interval
+3. **Durability** - the ability of a storage system to withstand data loss from hardware failures, software failures, or natural disasters (e.g., `Amazon S3` offers 99.999999999% durability)
+4. **Recovery Time Objective (RTO)** - the maximum acceptable duration for a service outage
+5. **Recovery Point Objective (RPO)** - the maximum acceptable data loss after recovery
 
 ---
 
@@ -125,7 +125,7 @@ Key technologies include `Apache Kafka` as the event streaming platform, and too
 
 Batch and stream architectures can be combined. The **Lambda Architecture** runs parallel batch and streaming systems with a unified serving layer that aggregates results from both, though it has fallen out of favor due to its complexity. The **Kappa Architecture** uses a single stream-processing system that retains some historical data, but it has not seen wide adoption either.
 
-Tools like `Google Dataflow` and `Beam` attempt to unify multiple code paths. `Apache Flink` takes this further by providing a single system for both stream and batch processing — treating batch as simply bounded streaming.
+Tools like `Google Dataflow` and `Beam` attempt to unify multiple code paths. `Apache Flink` takes this further by providing a single system for both stream and batch processing - treating batch as simply bounded streaming.
 
 <div class="tech-logos">
   <div class="tech-logo">
@@ -173,13 +173,13 @@ Systems must continuously comply with current and future regulations. Building l
 
 Data Mesh is built on four principles:
 
-- **Domain ownership** — each business domain owns, produces, and serves its own analytical data rather than handing raw data to a central team for processing
-- **Data as a product** — domains treat their published datasets as products with clear documentation, SLAs, discoverability, and quality guarantees
-- **Self-serve data platform** — a shared infrastructure layer provides the tools, storage, and compute that domains need without requiring each team to build its own platform from scratch
-- **Federated computational governance** — global interoperability standards (naming conventions, security policies, quality thresholds) are enforced automatically through the platform, while domains retain autonomy over their internal implementation
+- **Domain ownership** - each business domain owns, produces, and serves its own analytical data rather than handing raw data to a central team for processing
+- **Data as a product** - domains treat their published datasets as products with clear documentation, SLAs, discoverability, and quality guarantees
+- **Self-serve data platform** - a shared infrastructure layer provides the tools, storage, and compute that domains need without requiring each team to build its own platform from scratch
+- **Federated computational governance** - global interoperability standards (naming conventions, security policies, quality thresholds) are enforced automatically through the platform, while domains retain autonomy over their internal implementation
 
 ---
 
 **When Data Mesh Applies**
 
-Data Mesh is primarily relevant for large organizations where a central data team has become a bottleneck — too many domains competing for the same team's capacity, each with different data semantics that the central team struggles to understand deeply. For smaller organizations or teams with a manageable number of data sources, a centralized architecture is simpler and more practical.
+Data Mesh is primarily relevant for large organizations where a central data team has become a bottleneck - too many domains competing for the same team's capacity, each with different data semantics that the central team struggles to understand deeply. For smaller organizations or teams with a manageable number of data sources, a centralized architecture is simpler and more practical.

@@ -14,12 +14,12 @@ notionId: "18c969a7-aa01-80c5-a4a8-f6020314ad79"
 
 The AWS Well-Architected Framework provides a structured way to evaluate and improve cloud architectures. It is organized around six key pillars:
 
-- **Operational Excellence** — developing and running workloads effectively, with an emphasis on monitoring and continuous improvement
-- **Security** — leveraging cloud technologies to protect data, systems, and assets
-- **Reliability** — designing for reliability, planning for failure, and adapting to change
-- **Performance Efficiency** — taking a data-driven approach to building high-performance architectures and evaluating whether compute resources meet system requirements
-- **Cost Optimization** — delivering maximum business value at the lowest price point
-- **Sustainability** — minimizing the environmental impact of cloud workloads
+- **Operational Excellence** - developing and running workloads effectively, with an emphasis on monitoring and continuous improvement
+- **Security** - leveraging cloud technologies to protect data, systems, and assets
+- **Reliability** - designing for reliability, planning for failure, and adapting to change
+- **Performance Efficiency** - taking a data-driven approach to building high-performance architectures and evaluating whether compute resources meet system requirements
+- **Cost Optimization** - delivering maximum business value at the lowest price point
+- **Sustainability** - minimizing the environmental impact of cloud workloads
 
 <img src="/data-engineering-specialization/images/diagrams/aws-well-architected-dark.png" alt="AWS Well-Architected Framework" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/aws-well-architected.png" alt="AWS Well-Architected Framework" class="diagram diagram-light" />

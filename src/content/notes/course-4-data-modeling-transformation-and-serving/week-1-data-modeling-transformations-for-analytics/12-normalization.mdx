@@ -19,22 +19,22 @@ import Mermaid from "../../../../components/Mermaid.astro";
 1. Free relations from undesirable insertion, update, and deletion dependencies
 2. Reduce the need to restructure relations as new data types are introduced
 
-Consider the difference: in **first normal form**, data lives in a single wide table — updating a customer name requires changing multiple rows, and adding a new column affects every row. In **third normal form**, changing a name means updating a single row in the customers table, and new attributes can be added through dedicated tables.
+Consider the difference: in **first normal form**, data lives in a single wide table - updating a customer name requires changing multiple rows, and adding a new column affects every row. In **third normal form**, changing a name means updating a single row in the customers table, and new attributes can be added through dedicated tables.
 
 ## 1.2.2 Normal Forms
 
 | Normal Form      | Requirements                                                                                   | What It Eliminates                                     |
 | ---------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| **Denormalized** | No rules — all data in one table, may contain nested JSON                                      | Nothing — significant redundancy                       |
+| **Denormalized** | No rules - all data in one table, may contain nested JSON                                      | Nothing - significant redundancy                       |
 | **1NF**          | Each column holds a single value, unique primary key exists                                    | Repeating groups and multi-valued columns              |
 | **2NF**          | Meets 1NF + no partial dependencies (non-key columns depend on the full composite key)         | Partial dependencies on composite keys                 |
-| **3NF**          | Meets 2NF + no transitive dependencies (non-key columns don't depend on other non-key columns) | Transitive dependencies — data is fully **normalized** |
+| **3NF**          | Meets 2NF + no transitive dependencies (non-key columns don't depend on other non-key columns) | Transitive dependencies - data is fully **normalized** |
 
 ---
 
 **Denormalized Form**
 
-All data sits in one table. Some columns may contain nested JSON. The table contains significant redundancy — the same customer name and address appear on every order row.
+All data sits in one table. Some columns may contain nested JSON. The table contains significant redundancy - the same customer name and address appear on every order row.
 
 <Mermaid
   chart={`
@@ -78,7 +78,7 @@ erDiagram
 
 **2nd Normal Form (2NF)**
 
-Builds on 1NF by removing **partial dependencies** — cases where a subset of non-key columns depends on only part of a composite key. However, 2NF can still contain **transitive dependencies** where a non-key column depends on another non-key column. For example, `price` and `name` depend on `product_id` in order items, while `customer_name` and `address` depend on `customer_id` in orders.
+Builds on 1NF by removing **partial dependencies** - cases where a subset of non-key columns depends on only part of a composite key. However, 2NF can still contain **transitive dependencies** where a non-key column depends on another non-key column. For example, `price` and `name` depend on `product_id` in order items, while `customer_name` and `address` depend on `customer_id` in orders.
 
 <Mermaid
   chart={`
@@ -145,7 +145,7 @@ erDiagram
 
 **Choosing the Right Level**
 
-The right degree of normalization depends on the use case — there is no one-size-fits-all solution:
+The right degree of normalization depends on the use case - there is no one-size-fits-all solution:
 
 | Approach                 | Advantages                                               | Trade-offs                                              |
 | ------------------------ | -------------------------------------------------------- | ------------------------------------------------------- |

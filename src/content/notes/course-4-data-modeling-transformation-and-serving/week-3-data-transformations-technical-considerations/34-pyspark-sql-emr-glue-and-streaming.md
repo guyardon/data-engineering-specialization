@@ -24,7 +24,7 @@ A **temporary view** is a virtual table that exists only while the Spark session
 # Register DataFrame as a temporary SQL view
 transactions_df.createOrReplaceTempView("orders")
 
-# Query using SQL syntax — returns a DataFrame
+# Query using SQL syntax - returns a DataFrame
 spark.sql("SELECT * FROM orders").show()
 ```
 
@@ -46,7 +46,7 @@ spark.sql("""
 
 **UDFs in SQL**
 
-SQL queries cannot use raw Python functions directly — register them with Spark first:
+SQL queries cannot use raw Python functions directly - register them with Spark first:
 
 ```python
 def to_lower(word):
@@ -88,7 +88,7 @@ spark.sql("""
 | --------------- | ------------------------------------------------------------------------------------- |
 | **Frameworks**  | `Apache Spark`, `Hadoop`, `Hive`, `Presto`, `Flink`, `HBase`                          |
 | **Integration** | Native with `S3`, `DynamoDB`, `RDS`, `Redshift`                                       |
-| **Storage**     | Decouples compute from storage via `S3` — multiple clusters can process the same data |
+| **Storage**     | Decouples compute from storage via `S3` - multiple clusters can process the same data |
 | **Scaling**     | Clusters scale elastically based on workload                                          |
 
 ---
@@ -98,7 +98,7 @@ spark.sql("""
 | Variant            | Description                                                                         |
 | ------------------ | ----------------------------------------------------------------------------------- |
 | **EMR Studio**     | Browser-based IDE (built on Jupyter) for interactive analysis and job execution     |
-| **EMR Serverless** | Eliminates manual cluster management — automatic scaling, pay only for what you use |
+| **EMR Serverless** | Eliminates manual cluster management - automatic scaling, pay only for what you use |
 
 A typical workflow: create an EMR Serverless application with default Spark settings, launch an EMR Studio workspace, attach it to the application, choose the PySpark kernel, and run Spark jobs interactively.
 
@@ -128,7 +128,7 @@ Glue jobs can be orchestrated using **Glue triggers, blueprints, and workflows**
 
 **Data Catalog and Governance**
 
-`AWS Glue` includes a **centralized data catalog** for managing metadata and enabling governance. **Glue Crawlers** scan data sources to populate the catalog with schema, data types, structure, and partitioning information — essential for data lakes and lakehouses.
+`AWS Glue` includes a **centralized data catalog** for managing metadata and enabling governance. **Glue Crawlers** scan data sources to populate the catalog with schema, data types, structure, and partitioning information - essential for data lakes and lakehouses.
 
 The Glue Data Catalog integrates with `Amazon Athena` (SQL queries), `Amazon QuickSight` (BI dashboards), and `Amazon SageMaker` (ML models).
 
@@ -144,11 +144,11 @@ Glue Visual ETL is a low-code interface in `AWS Glue Studio` for designing ETL p
 
 **Typical Workflow**
 
-1. **Configure sources** — add source nodes (e.g., MySQL tables via JDBC) and specify connections
-2. **Define transforms** — add SQL Query nodes for each dimension and fact table
-3. **Set targets** — add `S3` target nodes with Parquet format
-4. **Generate script** — preview and customize the auto-generated PySpark script
-5. **Run and verify** — configure workers, run the job, monitor until succeeded
+1. **Configure sources** - add source nodes (e.g., MySQL tables via JDBC) and specify connections
+2. **Define transforms** - add SQL Query nodes for each dimension and fact table
+3. **Set targets** - add `S3` target nodes with Parquet format
+4. **Generate script** - preview and customize the auto-generated PySpark script
+5. **Run and verify** - configure workers, run the job, monitor until succeeded
 
 ---
 
@@ -232,11 +232,11 @@ job.commit()
 | ---------------------- | --------------------------------------------------- | --------------------------------------- |
 | **Syntax**             | Programmatic (Python API)                           | Declarative (SQL queries)               |
 | **Complex transforms** | Easier to implement (e.g., transpose, custom logic) | Limited for non-standard operations     |
-| **Reusability**        | High — modular, testable, supports libraries        | Low — limited reuse for complex queries |
+| **Reusability**        | High - modular, testable, supports libraries        | Low - limited reuse for complex queries |
 | **Maintainability**    | Easier with modular code structure                  | Harder with large, nested queries       |
 | **Best for**           | Complex logic, reusable components                  | Simple, declarative data manipulation   |
 
-Both compile to the same execution plan — mix and match freely.
+Both compile to the same execution plan - mix and match freely.
 
 ---
 
@@ -244,7 +244,7 @@ Both compile to the same execution plan — mix and match freely.
 
 | Aspect        | Pandas                                            | `Spark`                                      |
 | ------------- | ------------------------------------------------- | -------------------------------------------- |
-| **Data size** | Fits in memory on a single machine                | Exceeds memory — distributed across nodes    |
+| **Data size** | Fits in memory on a single machine                | Exceeds memory - distributed across nodes    |
 | **Execution** | Single machine                                    | Distributed cluster                          |
 | **Setup**     | Minimal                                           | Requires cluster (local or cloud)            |
 | **Best for**  | Prototyping, local exploration, lightweight tasks | Production pipelines, high-volume processing |
@@ -255,5 +255,5 @@ Both compile to the same execution plan — mix and match freely.
 
 For streaming, the key consideration is **latency requirements**:
 
-- **Micro-batch** (e.g., Spark Structured Streaming) — processes small batches at regular intervals, trading a few seconds of latency for simpler semantics
-- **True streaming** (e.g., `Apache Flink`) — processes events individually with millisecond latency, more complex but lower latency
+- **Micro-batch** (e.g., Spark Structured Streaming) - processes small batches at regular intervals, trading a few seconds of latency for simpler semantics
+- **True streaming** (e.g., `Apache Flink`) - processes events individually with millisecond latency, more complex but lower latency

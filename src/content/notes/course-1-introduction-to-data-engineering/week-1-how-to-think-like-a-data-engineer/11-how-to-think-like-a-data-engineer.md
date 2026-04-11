@@ -33,24 +33,24 @@ At its core, the data engineer's job is to get raw data from somewhere, transfor
 
 ## 1.1.2 The History of Data and Data Engineering
 
-Data engineering didn't appear overnight — it evolved alongside decades of database and computing innovation.
+Data engineering didn't appear overnight - it evolved alongside decades of database and computing innovation.
 
 <img src="/data-engineering-specialization/images/diagrams/history-of-data-engineering-dark.svg" alt="History of Data Engineering" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/history-of-data-engineering.svg" alt="History of Data Engineering" class="diagram diagram-light" />
 
-- **1960s** — `IMS` (Information Management System) was IBM's **hierarchical database**, one of the first to manage data at scale. `CODASYL` defined the **network database model**, an early standard for how programs interact with databases.
+- **1960s** - `IMS` (Information Management System) was IBM's **hierarchical database**, one of the first to manage data at scale. `CODASYL` defined the **network database model**, an early standard for how programs interact with databases.
 
-- **1970s** — Edgar Codd's **relational model** changed everything. `Oracle` and `IBM DB2` turned that theory into commercial products, and `SQL` became the standard query language that still dominates today.
+- **1970s** - Edgar Codd's **relational model** changed everything. `Oracle` and `IBM DB2` turned that theory into commercial products, and `SQL` became the standard query language that still dominates today.
 
-- **1980s** — `Teradata` pioneered **massively parallel data warehouses**, enabling analytics on large datasets. `Informatica` introduced **ETL tooling** to move and transform data between systems.
+- **1980s** - `Teradata` pioneered **massively parallel data warehouses**, enabling analytics on large datasets. `Informatica` introduced **ETL tooling** to move and transform data between systems.
 
-- **1990s** — **Ralph Kimball** and **Bill Inmon** defined competing approaches to **data warehouse design** (dimensional vs. enterprise). `OLAP` (Online Analytical Processing) enabled **multidimensional analysis**. The dot-com boom drove massive investment in web backends and databases.
+- **1990s** - **Ralph Kimball** and **Bill Inmon** defined competing approaches to **data warehouse design** (dimensional vs. enterprise). `OLAP` (Online Analytical Processing) enabled **multidimensional analysis**. The dot-com boom drove massive investment in web backends and databases.
 
-- **2000s** — Google's papers on `GFS` (Google File System) and `MapReduce` laid the foundation for **distributed computing**. `Hadoop` made those ideas open source, kicking off the **Big Data era**.
+- **2000s** - Google's papers on `GFS` (Google File System) and `MapReduce` laid the foundation for **distributed computing**. `Hadoop` made those ideas open source, kicking off the **Big Data era**.
 
-- **2010s** — `Spark` replaced MapReduce with faster **in-memory processing**. `Kafka` enabled **real-time event streaming**. `Redshift` brought **cloud-native data warehousing** to the masses.
+- **2010s** - `Spark` replaced MapReduce with faster **in-memory processing**. `Kafka` enabled **real-time event streaming**. `Redshift` brought **cloud-native data warehousing** to the masses.
 
-- **Today** — `dbt` brought **software engineering practices** to SQL transformations. `Snowflake` decoupled **storage from compute** in the cloud warehouse. `Airflow` became the standard for **pipeline orchestration**. The "Big Data Engineer" role has matured into the modern "Data Engineer" — focused on building with existing tools rather than inventing infrastructure from scratch.
+- **Today** - `dbt` brought **software engineering practices** to SQL transformations. `Snowflake` decoupled **storage from compute** in the cloud warehouse. `Airflow` became the standard for **pipeline orchestration**. The "Big Data Engineer" role has matured into the modern "Data Engineer" - focused on building with existing tools rather than inventing infrastructure from scratch.
 
 ## 1.1.3 The Data Engineer Among Other Stakeholders
 
@@ -63,7 +63,7 @@ Communication with **upstream** stakeholders matters for understanding the data 
 
 ## 1.1.4 Business Value
 
-The most important question for a data engineer: how does your work add value to the organization? Don't get hung up on every new technology — focus on what drives business outcomes.
+The most important question for a data engineer: how does your work add value to the organization? Don't get hung up on every new technology - focus on what drives business outcomes.
 
 <img src="/data-engineering-specialization/images/diagrams/business-value-dark.svg" alt="Business Value of Data Engineering" class="diagram diagram-dark" />
 <img src="/data-engineering-specialization/images/diagrams/business-value.svg" alt="Business Value of Data Engineering" class="diagram diagram-light" />

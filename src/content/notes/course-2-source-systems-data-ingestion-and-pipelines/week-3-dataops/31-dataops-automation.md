@@ -52,7 +52,7 @@ Both `AWS CloudFormation` and `Terraform` are IaC tools.
 Each resource block follows the pattern: `resource "<type>" "<name>" { ... }` with key-value pairs inside.
 
 ```hcl
-# vpc.tf — create a VPC with a /16 CIDR block (65,536 IP addresses).
+# vpc.tf - create a VPC with a /16 CIDR block (65,536 IP addresses).
 # instance_tenancy = "default" means EC2 instances run on shared hardware.
 resource "aws_vpc" "main" {
   cidr_block       = "10.0.0.0/16"
@@ -65,7 +65,7 @@ resource "aws_vpc" "main" {
 ```
 
 ```hcl
-# ec2.tf — launch an EC2 instance using an Ubuntu AMI looked up via a data source.
+# ec2.tf - launch an EC2 instance using an Ubuntu AMI looked up via a data source.
 # t3.micro is a small, burstable instance type (free tier eligible).
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
@@ -78,7 +78,7 @@ resource "aws_instance" "web" {
 ```
 
 ```hcl
-# s3.tf — create an S3 bucket for the data lake.
+# s3.tf - create an S3 bucket for the data lake.
 # bucket_prefix generates a unique name using the project variable
 # and the AWS account ID from a data source.
 resource "aws_s3_bucket" "data_lake" {
@@ -118,7 +118,7 @@ This example creates an `EC2` instance and launches it in the default `VPC` of y
 - Create a `main.tf` config file structured into 5 sections: **Terraform settings**, **Providers**, **Resources**, **Inputs**, and **Outputs**.
 
 ```hcl
-# main.tf — complete single-file Terraform config for an EC2 instance.
+# main.tf - complete single-file Terraform config for an EC2 instance.
 
 # Declare required providers and their version constraints.
 # "source" tells Terraform where to download the provider plugin.
@@ -161,7 +161,7 @@ Core `Terraform` commands:
 Variables let you avoid hardcoding values that may change. Define them in your config and reference them using `var.<variable_name>` syntax. Variables can live in the same file or in a separate `.tfvars` file that `Terraform` automatically loads at plan/apply time.
 
 ```hcl
-# main.tf — updated to use variables instead of hardcoded values.
+# main.tf - updated to use variables instead of hardcoded values.
 
 terraform {
   required_providers {
@@ -200,7 +200,7 @@ variable "region" {
 variable "server_name" {
   description = "name of the server running the website"
   type        = string
-  # no default — Terraform will prompt for this value at apply time
+  # no default - Terraform will prompt for this value at apply time
 }
 
 # Export resource attributes so they can be viewed in the console,
@@ -218,7 +218,7 @@ output "server_arn" {
 ```
 
 ```hcl
-# terraform.tfvars — supply values for variables without defaults.
+# terraform.tfvars - supply values for variables without defaults.
 # Terraform automatically loads this file when running plan/apply.
 server_name = "ExampleServer"
 ```
@@ -234,7 +234,7 @@ As configs grow, split `main.tf` into `variables.tf`, `outputs.tf`, and `provide
 Data sources are `data` blocks that reference resources created outside `Terraform` or in another `Terraform` workspace. They are read-only -- they fetch info but don't create resources. Referenced using the pattern `data.<type>.<name>.<attribute>`.
 
 ```hcl
-# main.tf — launch an EC2 instance inside a pre-existing subnet.
+# main.tf - launch an EC2 instance inside a pre-existing subnet.
 
 # Look up an existing subnet created outside this config
 # (e.g., manually or in another Terraform workspace).

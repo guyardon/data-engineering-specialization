@@ -26,8 +26,8 @@ Data observability borrows from DevOps observability but focuses on the health o
 - Is the null rate higher or lower than it should be?
 - Has the schema changed?
 
-<img src="/data-engineering-specialization/images/diagrams/observability-concepts-dark.svg" alt="Observability Concepts — DevOps vs Data Observability" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization/images/diagrams/observability-concepts.svg" alt="Observability Concepts — DevOps vs Data Observability" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/observability-concepts-dark.svg" alt="Observability Concepts - DevOps vs Data Observability" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/observability-concepts.svg" alt="Observability Concepts - DevOps vs Data Observability" class="diagram diagram-light" />
 
 **5 Pillars of Data Observability:**
 
@@ -50,11 +50,11 @@ Focus your monitoring efforts on the metrics that matter most. The core dimensio
 
 **Great Expectations**
 
-`Great Expectations` (GX) is an open-source Python library for validating, documenting, and profiling data. It lets you define **expectations** — declarative assertions about what your data should look like.
+`Great Expectations` (GX) is an open-source Python library for validating, documenting, and profiling data. It lets you define **expectations** - declarative assertions about what your data should look like.
 
 ---
 
-When expectations fail, GX generates detailed reports showing exactly which rows or columns violated the rules, making it easy to catch data quality issues before they reach downstream consumers. GX stores all metadata — expectations, validation results, checkpoints, and data docs — in configurable backend stores, keeping your validation logic versioned and reproducible.
+When expectations fail, GX generates detailed reports showing exactly which rows or columns violated the rules, making it easy to catch data quality issues before they reach downstream consumers. GX stores all metadata - expectations, validation results, checkpoints, and data docs - in configurable backend stores, keeping your validation logic versioned and reproducible.
 
 **Core Components**
 
@@ -76,7 +76,7 @@ It collects **system-level metrics** (CPU, memory, disk, network) automatically 
 
 ## 3.2.4 Data Contracts
 
-A **data contract** is a formal agreement between a data producer and its consumers that defines the structure, semantics, quality guarantees, and service-level expectations for a dataset. Data contracts shift quality enforcement upstream — instead of consumers discovering problems after the fact, producers commit to delivering data that meets a defined standard.
+A **data contract** is a formal agreement between a data producer and its consumers that defines the structure, semantics, quality guarantees, and service-level expectations for a dataset. Data contracts shift quality enforcement upstream - instead of consumers discovering problems after the fact, producers commit to delivering data that meets a defined standard.
 
 ---
 
@@ -86,14 +86,14 @@ A **data contract** is a formal agreement between a data producer and its consum
 | -------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | **Schema**                 | Column names, data types, nullability constraints, and valid value ranges                                  |
 | **Freshness SLA**          | Maximum acceptable delay between data generation and availability (e.g., "within 2 hours of midnight UTC") |
-| **Volume expectations**    | Expected row count ranges — an empty table or a 10x spike may indicate a problem                           |
+| **Volume expectations**    | Expected row count ranges - an empty table or a 10x spike may indicate a problem                           |
 | **Ownership**              | The team responsible for maintaining the contract and responding to violations                             |
-| **Breaking change policy** | How schema changes are communicated — e.g., deprecation windows, versioning rules                          |
+| **Breaking change policy** | How schema changes are communicated - e.g., deprecation windows, versioning rules                          |
 
 ---
 
 **Why Data Contracts Matter**
 
-Without contracts, data pipelines are fragile. A source team renames a column, changes a data type, or stops populating a field — and downstream dashboards break silently. Data contracts make these dependencies explicit and enforceable. When a producer violates the contract, automated validation catches it before the bad data propagates downstream.
+Without contracts, data pipelines are fragile. A source team renames a column, changes a data type, or stops populating a field - and downstream dashboards break silently. Data contracts make these dependencies explicit and enforceable. When a producer violates the contract, automated validation catches it before the bad data propagates downstream.
 
-Data contracts are closely related to **data observability** — the contract defines what "healthy" looks like, and observability tools monitor for violations.
+Data contracts are closely related to **data observability** - the contract defines what "healthy" looks like, and observability tools monitor for violations.

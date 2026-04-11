@@ -27,12 +27,12 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 | Component     | Role                                                                                                       |
 | ------------- | ---------------------------------------------------------------------------------------------------------- |
 | **NameNode**  | Manages directories, file metadata, and a catalog describing where file blocks reside in the cluster       |
-| **DataNodes** | Store the actual data blocks — each block is replicated across 3 DataNodes for durability and availability |
+| **DataNodes** | Store the actual data blocks - each block is replicated across 3 DataNodes for durability and availability |
 
 Key properties:
 
-- **Replication** — each block stored on 3 nodes increases durability and availability
-- **Combined compute and storage** — enables in-place data processing via `MapReduce`
+- **Replication** - each block stored on 3 nodes increases durability and availability
+- **Combined compute and storage** - enables in-place data processing via `MapReduce`
 
 ## 3.2.2 Hadoop MapReduce
 
@@ -53,6 +53,6 @@ For example, counting user events: the Map phase scans log blocks and emits `(us
 
 **Shortcomings of MapReduce**
 
-MapReduce writes to disk at every intermediate step — never to memory. This simplifies state management and minimizes memory consumption, but results in high disk bandwidth utilization and slow processing for iterative algorithms.
+MapReduce writes to disk at every intermediate step - never to memory. This simplifies state management and minimizes memory consumption, but results in high disk bandwidth utilization and slow processing for iterative algorithms.
 
 `Spark` improved on this with **in-memory caching**. RAM is faster than SSD/HDD in both transfer speed and seek time, delivering dramatic speedups. Spark treats data as a distributed set that resides in memory, using disk only as a fallback when data overflows available memory.

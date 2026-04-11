@@ -16,23 +16,23 @@ Technology choices shape the entire data stack. Software solutions generally fal
 
 Key considerations include:
 
-- **Location** — on-premises, cloud, or hybrid
-- **Cost optimization** — total spend across the solution's lifecycle
-- **Team size and capabilities** — what your team can realistically build and maintain
+- **Location** - on-premises, cloud, or hybrid
+- **Cost optimization** - total spend across the solution's lifecycle
+- **Team size and capabilities** - what your team can realistically build and maintain
 
 ## 3.2.2 Location
 
 Where your infrastructure lives has major implications for cost, control, and agility.
 
-**On-premises** — the company owns and maintains all hardware and software, handling provisioning, maintenance, updates, and scaling in-house.
+**On-premises** - the company owns and maintains all hardware and software, handling provisioning, maintenance, updates, and scaling in-house.
 
 ---
 
-**Cloud** — a cloud provider owns and maintains hardware in data centers. You rent compute and storage resources without provisioning or maintaining any physical infrastructure.
+**Cloud** - a cloud provider owns and maintains hardware in data centers. You rent compute and storage resources without provisioning or maintaining any physical infrastructure.
 
 ---
 
-**Hybrid** — some companies keep certain data systems on-prem due to regulations, security, or client privacy concerns while running others in the cloud.
+**Hybrid** - some companies keep certain data systems on-prem due to regulations, security, or client privacy concerns while running others in the cloud.
 
 This course focuses on building data systems in the cloud.
 
@@ -67,8 +67,8 @@ Understanding costs is essential to making sound technology decisions.
 
 **Costs of Hardware/Software:**
 
-- **Capital Expenses (CapEx)** — upfront payments for long-term fixed assets (common before the cloud era), which depreciate slowly over time
-- **Operational Expenses (OpEx)** — day-to-day "pay-as-you-go" costs, made practical by cloud computing
+- **Capital Expenses (CapEx)** - upfront payments for long-term fixed assets (common before the cloud era), which depreciate slowly over time
+- **Operational Expenses (OpEx)** - day-to-day "pay-as-you-go" costs, made practical by cloud computing
 
 ---
 
@@ -77,7 +77,7 @@ Understanding costs is essential to making sound technology decisions.
 - **Immutable technologies** (unlikely to change soon): object storage, networking, `SQL`
 - **Transitory technologies** (rapidly evolving): stream processing, orchestration, AI
 
-**FinOps** ties it all together — minimize TCO and TOCO while maximizing revenue.
+**FinOps** ties it all together - minimize TCO and TOCO while maximizing revenue.
 
 ## 3.2.5 Build vs. Buy
 
@@ -100,12 +100,12 @@ Key questions to ask:
 
 Three compute models offer different trade-offs between control and convenience.
 
-**Server** — you set up and manage the server (e.g., `Amazon EC2`), handling OS updates, package installation, patching, networking, scaling, and security yourself.
+**Server** - you set up and manage the server (e.g., `Amazon EC2`), handling OS updates, package installation, patching, networking, scaling, and security yourself.
 
 ---
 
-**Container** — a modular unit that packages application code and dependencies to run on a server. Containers are lightweight and portable; you manage the application layer while the infrastructure is handled separately.
+**Container** - a modular unit that packages application code and dependencies to run on a server. Containers are lightweight and portable; you manage the application layer while the infrastructure is handled separately.
 
 ---
 
-**Serverless** — the cloud provider manages servers entirely behind the scenes, providing automatic scaling, availability, fault tolerance, and pay-as-you-go pricing. Serverless is ideal for small, discrete tasks executed on demand. It is generally not suited for heavy compute workloads or memory-intensive applications. Use it when it is more cost-effective than the alternatives.
+**Serverless** - the cloud provider manages servers entirely behind the scenes, providing automatic scaling, availability, fault tolerance, and pay-as-you-go pricing. Serverless is ideal for small, discrete tasks executed on demand. It is generally not suited for heavy compute workloads or memory-intensive applications. Use it when it is more cost-effective than the alternatives.

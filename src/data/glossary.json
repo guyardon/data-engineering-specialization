@@ -1025,7 +1025,7 @@
       },
       {
         "term": "Medallion Architecture",
-        "description": "An organizational pattern for structuring data within a lakehouse using three progressive layers. The Bronze layer stores raw, unprocessed copies of source data. The Silver layer contains cleaned, deduplicated, and type-cast data. The Gold layer holds business-level aggregations, star schemas, and ML feature tables. This layered approach enables reprocessability — if a Gold-layer transformation has a bug, it can be re-derived from Silver without re-ingesting from source systems.",
+        "description": "An organizational pattern for structuring data within a lakehouse using three progressive layers. The Bronze layer stores raw, unprocessed copies of source data. The Silver layer contains cleaned, deduplicated, and type-cast data. The Gold layer holds business-level aggregations, star schemas, and ML feature tables. This layered approach enables reprocessability - if a Gold-layer transformation has a bug, it can be re-derived from Silver without re-ingesting from source systems.",
         "diagram": "medallion-architecture",
         "notes": [
           {
@@ -1170,7 +1170,7 @@
       },
       {
         "term": "Exactly-Once Semantics",
-        "description": "A processing guarantee in streaming systems where each event is processed exactly one time, producing correct results even in the presence of failures and retries. Achieving exactly-once semantics requires coordination between the streaming engine, source, and sink — typically through checkpointing and transactional writes. Spark Structured Streaming and Apache Flink both provide exactly-once guarantees under specific configurations.",
+        "description": "A processing guarantee in streaming systems where each event is processed exactly one time, producing correct results even in the presence of failures and retries. Achieving exactly-once semantics requires coordination between the streaming engine, source, and sink - typically through checkpointing and transactional writes. Spark Structured Streaming and Apache Flink both provide exactly-once guarantees under specific configurations.",
         "notes": [
           {
             "slug": "course-4-data-modeling-transformation-and-serving/week-3-data-transformations-technical-considerations/34-pyspark-sql-emr-glue-and-streaming"

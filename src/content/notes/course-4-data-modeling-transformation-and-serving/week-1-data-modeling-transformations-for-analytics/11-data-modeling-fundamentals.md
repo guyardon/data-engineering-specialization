@@ -14,16 +14,16 @@ notionId: "1f5969a7-aa01-8098-b997-efefcc37a158"
 
 This course covers how to model, transform, and serve data for both analytics and machine learning workloads.
 
-| Week | Topic | Focus |
-|---|---|---|
-| **Week 1** | Batch data modeling | Normalization, star schemas, and modeling approaches |
-| **Week 2** | Data modeling for ML | Tabular and unstructured data preparation |
+| Week       | Topic                    | Focus                                                       |
+| ---------- | ------------------------ | ----------------------------------------------------------- |
+| **Week 1** | Batch data modeling      | Normalization, star schemas, and modeling approaches        |
+| **Week 2** | Data modeling for ML     | Tabular and unstructured data preparation                   |
 | **Week 3** | Transformation deep-dive | Distributed processing with Hadoop, Spark, and AWS services |
-| **Week 4** | Serving data | End-to-end pipeline for analytics and ML |
+| **Week 4** | Serving data             | End-to-end pipeline for analytics and ML                    |
 
 ## 1.1.2 Data Modeling Concepts
 
-**Data modeling** is the practice of choosing a coherent data structure that aligns with business goals and logic. It has traditionally been used to structure data in warehouses and relational databases. During the data lake 1.0 era, modeling was often ignored, leading to "data swamps." The recommended approach today is **target data modeling** — model data for specific business domains.
+**Data modeling** is the practice of choosing a coherent data structure that aligns with business goals and logic. It has traditionally been used to structure data in warehouses and relational databases. During the data lake 1.0 era, modeling was often ignored, leading to "data swamps." The recommended approach today is **target data modeling** - model data for specific business domains.
 
 A **data model** organizes and standardizes data in a precise, structured representation to enable and guide human and machine behavior, inform decision making, and facilitate actions. For tabular data, this means deciding which tables make up the model, how they relate to each other, and which columns to include.
 
@@ -31,12 +31,12 @@ A **data model** organizes and standardizes data in a precise, structured repres
 
 **Good vs. Bad Data Models**
 
-| Good Data Models | Bad Data Models |
-|---|---|
-| Reflect business goals and logic while incorporating business rules | Don't reflect how the business operates |
-| Ensure compliance with operational and legal requirements | Create more problems than they solve |
-| Outline relationships between business processes | Provide stakeholders with inaccurate information |
-| Serve as a communication tool, creating a shared language | Generate confusion rather than clarity |
+| Good Data Models                                                    | Bad Data Models                                  |
+| ------------------------------------------------------------------- | ------------------------------------------------ |
+| Reflect business goals and logic while incorporating business rules | Don't reflect how the business operates          |
+| Ensure compliance with operational and legal requirements           | Create more problems than they solve             |
+| Outline relationships between business processes                    | Provide stakeholders with inaccurate information |
+| Serve as a communication tool, creating a shared language           | Generate confusion rather than clarity           |
 
 ---
 
@@ -51,11 +51,11 @@ A **data model** organizes and standardizes data in a precise, structured repres
 
 Data models exist at three levels of abstraction, each adding more implementation detail.
 
-| Level | Description | Contains |
-|---|---|---|
-| **Conceptual** | High-level business entities and relationships, visualized with an Entity-Relationship Diagram | Entities, relationships, cardinality notation |
-| **Logical** | Adds implementation details to the conceptual model | Data types, primary keys, foreign keys |
-| **Physical** | Specifies how the logical model is implemented in a specific DBMS | Configuration, storage approach, partitioning, replication |
+| Level          | Description                                                                                    | Contains                                                   |
+| -------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| **Conceptual** | High-level business entities and relationships, visualized with an Entity-Relationship Diagram | Entities, relationships, cardinality notation              |
+| **Logical**    | Adds implementation details to the conceptual model                                            | Data types, primary keys, foreign keys                     |
+| **Physical**   | Specifies how the logical model is implemented in a specific DBMS                              | Configuration, storage approach, partitioning, replication |
 
 ---
 
@@ -63,11 +63,11 @@ Data models exist at three levels of abstraction, each adding more implementatio
 
 ER diagrams use notation to express the nature of relationships between entities:
 
-| Notation | Meaning | Example |
-|---|---|---|
-| `\|\|` | One and only one | Each order detail belongs to exactly one order |
-| `\|O` | Zero or one | A customer may or may not have a profile |
-| `\|{` | One or many | Each order has one or many order details |
-| `O{` | Zero or many | Each product appears in zero or many order details |
+| Notation | Meaning          | Example                                            |
+| -------- | ---------------- | -------------------------------------------------- |
+| `\|\|`   | One and only one | Each order detail belongs to exactly one order     |
+| `\|O`    | Zero or one      | A customer may or may not have a profile           |
+| `\|{`    | One or many      | Each order has one or many order details           |
+| `O{`     | Zero or many     | Each product appears in zero or many order details |
 
 The symbol at each **end** of the relationship line describes the cardinality from that entity's perspective.
