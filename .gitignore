@@ -35,3 +35,5 @@ __pycache__/
 
 graphify-out/
 .obsidian/
+.planning/
+CLAUDE.md
