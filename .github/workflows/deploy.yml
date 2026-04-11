@@ -29,6 +29,7 @@ jobs:
         run: npm ci
 
       - name: Fetch Notion content
+        if: env.NOTION_TOKEN != ''
         run: node scripts/fetch-notion.mjs
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
