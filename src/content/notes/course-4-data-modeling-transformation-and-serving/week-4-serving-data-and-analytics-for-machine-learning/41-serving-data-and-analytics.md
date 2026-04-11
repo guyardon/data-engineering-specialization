@@ -18,11 +18,11 @@ The final stage of the data engineering lifecycle is **serving** — delivering 
 
 **Analytical Use Cases**
 
-| Use Case | Description |
-|---|---|
-| **Business Intelligence** | Dashboards and reports for strategic decision-making |
+| Use Case                  | Description                                                                            |
+| ------------------------- | -------------------------------------------------------------------------------------- |
+| **Business Intelligence** | Dashboards and reports for strategic decision-making                                   |
 | **Operational Analytics** | Monitoring data to inform immediate action, served within required latency constraints |
-| **Embedded Analytics** | Client-facing data products or dashboards |
+| **Embedded Analytics**    | Client-facing data products or dashboards                                              |
 
 ---
 
@@ -34,21 +34,21 @@ The primary end users are data scientists and ML engineers. The data engineer's 
 
 **Ways to Serve Data**
 
-| Method | Description |
-|---|---|
-| **Table** | Physical storage of data — queries read directly from disk/memory |
-| **View** | A saved SQL query that runs on demand — always returns fresh results but recomputes every time |
+| Method                | Description                                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Table**             | Physical storage of data — queries read directly from disk/memory                                      |
+| **View**              | A saved SQL query that runs on demand — always returns fresh results but recomputes every time         |
 | **Materialized View** | A pre-computed snapshot of a query result stored physically — fast reads but requires periodic refresh |
 
 ---
 
 **How Data Scientists Accept Data**
 
-| Delivery Method | Details |
-|---|---|
-| **As files** | Text files for language modeling, Parquet/CSV for tabular ML, image formats for computer vision — common for ad hoc requests |
-| **From databases / warehouses** | Access via SQL queries with schema enforcement, fine-grained permissions, and high query performance |
-| **From streaming systems** | Real-time data delivery for low-latency analytics across both historical and current data |
+| Delivery Method                 | Details                                                                                                                      |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **As files**                    | Text files for language modeling, Parquet/CSV for tabular ML, image formats for computer vision — common for ad hoc requests |
+| **From databases / warehouses** | Access via SQL queries with schema enforcement, fine-grained permissions, and high query performance                         |
+| **From streaming systems**      | Real-time data delivery for low-latency analytics across both historical and current data                                    |
 
 ---
 
@@ -58,16 +58,16 @@ A **semantic layer** documents definitions, derives business metrics, and create
 
 ## 4.1.2 Views and Materialized Views
 
-| Property | View | Materialized View |
-|---|---|---|
-| **Storage** | No physical storage — query runs on demand | Pre-computed result stored on disk |
-| **Freshness** | Always up-to-date (recomputes on every query) | Stale until refreshed (manual or scheduled) |
-| **Performance** | Slower for complex queries (recomputes each time) | Fast reads — serves pre-computed results |
-| **Use case** | Simple transformations, access control layers | Expensive aggregations queried frequently |
-| **Maintenance** | None — just a saved SQL definition | Requires refresh strategy (incremental or full) |
+| Property        | View                                              | Materialized View                               |
+| --------------- | ------------------------------------------------- | ----------------------------------------------- |
+| **Storage**     | No physical storage — query runs on demand        | Pre-computed result stored on disk              |
+| **Freshness**   | Always up-to-date (recomputes on every query)     | Stale until refreshed (manual or scheduled)     |
+| **Performance** | Slower for complex queries (recomputes each time) | Fast reads — serves pre-computed results        |
+| **Use case**    | Simple transformations, access control layers     | Expensive aggregations queried frequently       |
+| **Maintenance** | None — just a saved SQL definition                | Requires refresh strategy (incremental or full) |
 
-<img src="/data-engineering-specialization-website/images/diagrams/views-vs-materialized-dark.svg" alt="View recomputes SQL on every query vs materialized view reads cached result" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/views-vs-materialized.svg" alt="View recomputes SQL on every query vs materialized view reads cached result" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/views-vs-materialized-dark.svg" alt="View recomputes SQL on every query vs materialized view reads cached result" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/views-vs-materialized.svg" alt="View recomputes SQL on every query vs materialized view reads cached result" class="diagram diagram-light" style="max-height: 900px;" />
 
 ```sql
 -- Create a view: recomputes on every query

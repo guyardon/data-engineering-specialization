@@ -21,8 +21,8 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 - **Unbounded Data:** Continuous stream of events (stream ingestion).
 - **Bounded Data:** Data ingested in chunks (batch ingestion), either time-based or size-based.
 
-<img src="/data-engineering-specialization-website/images/diagrams/ingestion-continuum-dark.svg" alt="Data Ingestion Continuum" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/ingestion-continuum.svg" alt="Data Ingestion Continuum" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/ingestion-continuum-dark.svg" alt="Data Ingestion Continuum" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/ingestion-continuum.svg" alt="Data Ingestion Continuum" class="diagram diagram-light" />
 
 ## 2.1.2 Ways to Ingest Data
 
@@ -40,8 +40,8 @@ Data ingestion isn't a binary choice between batch and streaming -- it exists on
 **Ingesting Data from Streaming Systems:**
 Via **Message Queues** or **Streaming Platforms**.
 
-<img src="/data-engineering-specialization-website/images/diagrams/ways-to-ingest-dark.svg" alt="Ways to Ingest Data" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/ways-to-ingest.svg" alt="Ways to Ingest Data" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/ways-to-ingest-dark.svg" alt="Ways to Ingest Data" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/ways-to-ingest.svg" alt="Ways to Ingest Data" class="diagram diagram-light" />
 
 **Popular AWS Data Ingestion Tools**
 
@@ -51,10 +51,10 @@ Via **Message Queues** or **Streaming Platforms**.
 
 **`AWS Glue` ETL vs. `Amazon EMR`**
 
-| Feature | `AWS Glue` ETL | `Amazon EMR` |
-| --- | --- | --- |
-| **Ease of Use** | Serverless, minimal setup | Requires configuration |
-| **Scaling** | Automated scaling | Custom resource allocation |
+| Feature         | `AWS Glue` ETL            | `Amazon EMR`               |
+| --------------- | ------------------------- | -------------------------- |
+| **Ease of Use** | Serverless, minimal setup | Requires configuration     |
+| **Scaling**     | Automated scaling         | Custom resource allocation |
 
 `AWS DMS` (Data Migration Service) moves data between databases without transformation, supports migrations between different database engines, and is available in serverless and provisioned modes.
 
@@ -65,8 +65,8 @@ Via **Message Queues** or **Streaming Platforms**.
 
 **Third-Party Ingestion Tools:** `Airbyte`, `Matillion`, `Fivetran` -- cloud-based ETL tools.
 
-<img src="/data-engineering-specialization-website/images/diagrams/aws-ingestion-tools-dark.png" alt="AWS Data Ingestion Tools" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/aws-ingestion-tools.png" alt="AWS Data Ingestion Tools" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/aws-ingestion-tools-dark.png" alt="AWS Data Ingestion Tools" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/aws-ingestion-tools.png" alt="AWS Data Ingestion Tools" class="diagram diagram-light" />
 
 **Streaming Ingestion Tools**
 
@@ -89,5 +89,5 @@ Choosing between batch and streaming ingestion comes down to business value vers
 
 **Recommendation:** Use real-time streaming only if the business case justifies the trade-offs.
 
-<img src="/data-engineering-specialization-website/images/diagrams/batch-vs-streaming-dark.svg" alt="Batch vs Streaming Ingestion" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/batch-vs-streaming.svg" alt="Batch vs Streaming Ingestion" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/batch-vs-streaming-dark.svg" alt="Batch vs Streaming Ingestion" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/batch-vs-streaming.svg" alt="Batch vs Streaming Ingestion" class="diagram diagram-light" />

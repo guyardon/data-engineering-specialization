@@ -37,7 +37,7 @@ let pagefind: PagefindInstance | null = null;
 const BASE_URL =
   typeof import.meta !== "undefined" && import.meta.env?.BASE_URL
     ? import.meta.env.BASE_URL.replace(/\/$/, "")
-    : "/data-engineering-specialization-website";
+    : "/data-engineering-specialization";
 
 export async function initPagefind(): Promise<boolean> {
   try {

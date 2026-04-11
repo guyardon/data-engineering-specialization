@@ -55,28 +55,28 @@ This "pure scheduling approach" has significant drawbacks: if one task fails, do
 
 As data pipelines grew in complexity, the industry developed increasingly sophisticated tools to manage workflow dependencies and execution:
 
-<img src="/data-engineering-specialization-website/images/diagrams/orchestration-timeline-dark.svg" alt="Evolution of orchestration tools from Dataswarm to modern platforms" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/orchestration-timeline.svg" alt="Evolution of orchestration tools from Dataswarm to modern platforms" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/orchestration-timeline-dark.svg" alt="Evolution of orchestration tools from Dataswarm to modern platforms" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/orchestration-timeline.svg" alt="Evolution of orchestration tools from Dataswarm to modern platforms" class="diagram diagram-light" />
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/oozie.png" alt="Apache Oozie" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/oozie.png" alt="Apache Oozie" class="logo-dark" style="filter: brightness(1.6)" />
+    <img src="/data-engineering-specialization/images/logos/oozie.png" alt="Apache Oozie" class="logo-light" /><img src="/data-engineering-specialization/images/logos/oozie.png" alt="Apache Oozie" class="logo-dark" style="filter: brightness(1.6)" />
     <span>Apache Oozie</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/airflow.svg" alt="Apache Airflow" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/airflow-dark.svg" alt="Apache Airflow" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/airflow.svg" alt="Apache Airflow" class="logo-light" /><img src="/data-engineering-specialization/images/logos/airflow-dark.svg" alt="Apache Airflow" class="logo-dark" />
     <span>Apache Airflow</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/prefect.svg" alt="Prefect" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/prefect-dark.svg" alt="Prefect" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/prefect.svg" alt="Prefect" class="logo-light" /><img src="/data-engineering-specialization/images/logos/prefect-dark.svg" alt="Prefect" class="logo-dark" />
     <span>Prefect</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/dagster.svg" alt="Dagster" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/dagster-dark.svg" alt="Dagster" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/dagster.svg" alt="Dagster" class="logo-light" /><img src="/data-engineering-specialization/images/logos/dagster-dark.svg" alt="Dagster" class="logo-dark" />
     <span>Dagster</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/mage.svg" alt="Mage" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/mage-dark.svg" alt="Mage" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/mage.svg" alt="Mage" class="logo-light" /><img src="/data-engineering-specialization/images/logos/mage-dark.svg" alt="Mage" class="logo-dark" />
     <span>Mage</span>
   </div>
 </div>
@@ -85,16 +85,16 @@ As data pipelines grew in complexity, the industry developed increasingly sophis
 
 Orchestration adds structure and reliability on top of simple scheduling. Instead of relying on hardcoded time offsets between steps, an orchestrator understands **task dependencies** and ensures each step runs only after its prerequisites complete successfully.
 
-| | Pros | Cons |
-|---|---|---|
-| 1 | Set up dependencies between tasks | More operational overhead than simple cron scheduling |
-| 2 | Monitor task execution in real time | Requires learning a new framework and its conventions |
-| 3 | Get alerts on failures automatically | Additional infrastructure to deploy and maintain |
-| 4 | Create fallback and retry plans | Can introduce complexity for very simple pipelines |
+|     | Pros                                 | Cons                                                  |
+| --- | ------------------------------------ | ----------------------------------------------------- |
+| 1   | Set up dependencies between tasks    | More operational overhead than simple cron scheduling |
+| 2   | Monitor task execution in real time  | Requires learning a new framework and its conventions |
+| 3   | Get alerts on failures automatically | Additional infrastructure to deploy and maintain      |
+| 4   | Create fallback and retry plans      | Can introduce complexity for very simple pipelines    |
 
 ## 4.1.3 Introduction to Apache Airflow
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/airflow.svg" alt="Apache Airflow" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/airflow-dark.svg" alt="Apache Airflow" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/airflow.svg" alt="Apache Airflow" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/airflow-dark.svg" alt="Apache Airflow" />
 
 **Apache Airflow**
 
@@ -104,13 +104,13 @@ Orchestration adds structure and reliability on top of simple scheduling. Instea
 
 `Airflow` lets you define workflows as Python code, giving you the full power of a programming language to express complex dependency logic, branching, and dynamic task generation.
 
-| Advantages | Challenges |
-|---|---|
-| Written in Python -- familiar to most data engineers | Scalability limitations with very large DAG counts |
-| Open source with a very active community | Ensuring data integrity across task retries |
-| Available as a managed service on `AWS` (MWAA) and `GCP` (Cloud Composer) | No native support for streaming pipelines |
-| Extensive library of pre-built operators and hooks | Scheduler can become a bottleneck under heavy load |
-| Rich UI for monitoring and debugging workflows | DAG parsing overhead grows with codebase size |
+| Advantages                                                                | Challenges                                         |
+| ------------------------------------------------------------------------- | -------------------------------------------------- |
+| Written in Python -- familiar to most data engineers                      | Scalability limitations with very large DAG counts |
+| Open source with a very active community                                  | Ensuring data integrity across task retries        |
+| Available as a managed service on `AWS` (MWAA) and `GCP` (Cloud Composer) | No native support for streaming pipelines          |
+| Extensive library of pre-built operators and hooks                        | Scheduler can become a bottleneck under heavy load |
+| Rich UI for monitoring and debugging workflows                            | DAG parsing overhead grows with codebase size      |
 
 **Airflow Architecture**
 
@@ -183,8 +183,8 @@ s3_sensor = S3KeySensor(
 
 `Airflow`'s architecture consists of several interacting components. Python scripts defining DAGs are stored in the **DAG Directory**. The **Scheduler** continuously monitors this directory, determines which tasks are ready to run, and pushes them to the **Workers** for execution. Workers update task statuses (scheduled, queued, running, success, or failed) in the **Metadata Database**. The **Web Server** reads from this database and renders the information in the **User Interface**, where engineers can visualize DAGs, inspect logs, and trigger manual runs.
 
-<img src="/data-engineering-specialization-website/images/diagrams/airflow-components-dark.svg" alt="Airflow core components architecture" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/airflow-components.svg" alt="Airflow core components architecture" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/airflow-components-dark.svg" alt="Airflow core components architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/airflow-components.svg" alt="Airflow core components architecture" class="diagram diagram-light" />
 
 ## 4.1.4 Backfilling and Reprocessing
 
@@ -205,10 +205,10 @@ s3_sensor = S3KeySensor(
 
 `Airflow` has native support for backfilling through its scheduling model. Every DAG run is associated with a **logical date** (formerly `execution_date`) representing the data interval being processed, not the wall-clock time of execution.
 
-| Parameter | Role |
-|---|---|
-| **`start_date`** | The earliest logical date for the DAG |
-| **`catchup`** | When `True`, Airflow schedules runs for all missed intervals between `start_date` and now |
+| Parameter          | Role                                                                                                        |
+| ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| **`start_date`**   | The earliest logical date for the DAG                                                                       |
+| **`catchup`**      | When `True`, Airflow schedules runs for all missed intervals between `start_date` and now                   |
 | **`backfill` CLI** | Manually trigger runs for a specific date range: `airflow dags backfill -s 2025-01-01 -e 2025-03-01 my_dag` |
 
 ---

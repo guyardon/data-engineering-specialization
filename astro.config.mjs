@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 
 export default defineConfig({
   site: "https://guyardon.github.io",
-  base: "/data-engineering-specialization-website",
+  base: "/data-engineering-specialization",
   output: "static",
   vite: {
     plugins: [tailwindcss()],

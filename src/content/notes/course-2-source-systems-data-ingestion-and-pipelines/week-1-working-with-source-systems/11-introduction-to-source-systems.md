@@ -14,7 +14,6 @@ notionId: "18d969a7-aa01-80e1-8091-d2f8fc8a1024"
 
 Before building any data pipeline, you need to understand the landscape of source systems you'll be pulling from. Data comes in three fundamental shapes:
 
-
 ---
 
 **Types of Data**
@@ -35,13 +34,12 @@ Source systems generally fall into three categories, each with distinct access p
 - **Files** span formats like `.txt, .png, .mp3, .mp4, .csv` and can be **structured** (spreadsheets), **semi-structured** (JSON), or **unstructured** (audio, video, images).
 - **Streaming Systems** provide a continuous flow of data from producers to consumers, powered by message queues or streaming platforms like `Amazon Kinesis` and `Kafka`.
 
-<img src="/data-engineering-specialization-website/images/diagrams/source-systems-taxonomy-dark.svg" alt="Source Systems Taxonomy" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/source-systems-taxonomy.svg" alt="Source Systems Taxonomy" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/source-systems-taxonomy-dark.svg" alt="Source Systems Taxonomy" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/source-systems-taxonomy.svg" alt="Source Systems Taxonomy" class="diagram diagram-light" />
 
 ## 1.1.2 Relational Databases
 
 Relational databases remain the backbone of most transactional systems. Understanding their structure is essential for any data engineer working with source systems.
-
 
 ---
 
@@ -69,7 +67,6 @@ Popular systems include `MySQL`, `PostgreSQL`, `SQL Server`, and `Oracle Databas
 ## 1.1.3 SQL Queries
 
 SQL is the universal language for querying relational databases. Here are the core commands every data engineer uses daily.
-
 
 ---
 
@@ -99,7 +96,6 @@ SQL is the universal language for querying relational databases. Here are the co
 
 NoSQL databases trade the rigid structure of relational systems for flexibility and horizontal scalability, making them a common source system in modern architectures.
 
-
 ---
 
 **Characteristics**
@@ -125,13 +121,12 @@ NoSQL databases trade the rigid structure of relational systems for flexibility 
 - **Key-Value Databases** (e.g., caching user session data).
 - **Document Databases** (e.g., storing JSON documents for content management, catalogs, sensor readings).
 
-<img src="/data-engineering-specialization-website/images/diagrams/nosql-types-dark.svg" alt="NoSQL Database Types" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/nosql-types.svg" alt="NoSQL Database Types" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/nosql-types-dark.svg" alt="NoSQL Database Types" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/nosql-types.svg" alt="NoSQL Database Types" class="diagram diagram-light" />
 
 ## 1.1.5 Database ACID Compliance
 
 `ACID` compliance is what separates databases you can trust for transactions from those better suited for other workloads.
-
 
 ---
 
@@ -151,13 +146,12 @@ NoSQL databases trade the rigid structure of relational systems for flexibility 
 
 These principles **ensure database reliability and a consistent view of data**.
 
-<img src="/data-engineering-specialization-website/images/diagrams/acid-principles-dark.svg" alt="ACID Principles" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/acid-principles.svg" alt="ACID Principles" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/acid-principles-dark.svg" alt="ACID Principles" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/acid-principles.svg" alt="ACID Principles" class="diagram diagram-light" />
 
 ## 1.1.6 Lab - Interacting with Amazon DynamoDB (NoSQL Database)
 
 `DynamoDB` is AWS's fully managed NoSQL offering. This lab covers its core data model and how to interact with it programmatically.
-
 
 ---
 
@@ -178,7 +172,6 @@ These principles **ensure database reliability and a consistent view of data**.
 ## 1.1.7 Object Storage
 
 Object storage has become the default landing zone for data lakes and modern data architectures, thanks to its scalability and cost profile.
-
 
 ---
 
@@ -203,15 +196,14 @@ Object storage treats files as **objects** rather than using a hierarchical file
 - **Cost-Effectiveness**: Cheaper than other storage options.
 - **Used for Modern Architectures**: **Data Lakes, Data Lakehouses**.
 
-<img src="/data-engineering-specialization-website/images/diagrams/object-storage-dark.svg" alt="Object Storage" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/object-storage.svg" alt="Object Storage" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/object-storage-dark.svg" alt="Object Storage" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/object-storage.svg" alt="Object Storage" class="diagram diagram-light" />
 
 ## 1.1.8 Logs
 
 Logs are one of the most ubiquitous source systems and often overlooked until something breaks.
 
 Logs are an **append-only sequence of records ordered by time**, capturing system events like user activity, database updates, and errors.
-
 
 ---
 
@@ -224,7 +216,6 @@ Logs are an **append-only sequence of records ordered by time**, capturing syste
 ## 1.1.9 Streaming Systems
 
 Streaming systems enable real-time data flow from producers to consumers. Understanding their vocabulary is key to working with event-driven architectures.
-
 
 ---
 
@@ -244,5 +235,5 @@ Streaming systems enable real-time data flow from producers to consumers. Unders
 - **Streaming Platform**: Persistent message storage (e.g., `Kafka`, `Kinesis`).
 - **Log**: Append-only sequence of events (enables replaying past events).
 
-<img src="/data-engineering-specialization-website/images/diagrams/streaming-components-dark.svg" alt="Streaming Architecture" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/streaming-components.svg" alt="Streaming Architecture" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/streaming-components-dark.svg" alt="Streaming Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/streaming-components.svg" alt="Streaming Architecture" class="diagram diagram-light" />

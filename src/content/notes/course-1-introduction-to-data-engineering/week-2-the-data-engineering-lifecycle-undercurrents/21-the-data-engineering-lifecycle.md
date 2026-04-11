@@ -10,8 +10,8 @@ order: 1
 notionId: "146969a7-aa01-8042-9f80-da699a7409de"
 ---
 
-<img src="/data-engineering-specialization-website/images/diagrams/data-engineering-lifecycle-dark.svg" alt="The Data Engineering Lifecycle" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/data-engineering-lifecycle.svg" alt="The Data Engineering Lifecycle" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/data-engineering-lifecycle-dark.svg" alt="The Data Engineering Lifecycle" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/data-engineering-lifecycle.svg" alt="The Data Engineering Lifecycle" class="diagram diagram-light" />
 
 ## 2.1.1 Data Generation in Source Systems
 
@@ -25,10 +25,8 @@ The data engineering lifecycle begins at the source. Data can originate from a w
 
 The upstream stakeholders for data generation are usually software engineers or third-party platform owners. Source systems are often unpredictable, so it is important to build relationships with source system owners and understand how the data and its schema might change over time.
 
-<img src="/data-engineering-specialization-website/images/diagrams/source-systems-dark.svg" alt="Data Generation — Source Systems" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/source-systems.svg" alt="Data Generation — Source Systems" class="diagram diagram-light" />
-
-
+<img src="/data-engineering-specialization/images/diagrams/source-systems-dark.svg" alt="Data Generation — Source Systems" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/source-systems.svg" alt="Data Generation — Source Systems" class="diagram diagram-light" />
 
 ## 2.1.2 Ingestion
 
@@ -36,10 +34,8 @@ The upstream stakeholders for data generation are usually software engineers or 
 
 **Batch ingestion** processes data on a predetermined time interval or once a size threshold is reached. **Stream ingestion** uses an event-streaming platform or message queue to provide continuous, near-real-time data availability shortly after production. Streaming adds cost, complexity, and maintenance burden, so it should only be adopted when there is a clear business use case. In practice, data engineers often decide where the boundary between batch and streaming falls.
 
-<img src="/data-engineering-specialization-website/images/diagrams/ingestion-batch-stream-dark.svg" alt="Ingestion — Batch vs Stream" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/ingestion-batch-stream.svg" alt="Ingestion — Batch vs Stream" class="diagram diagram-light" />
-
-
+<img src="/data-engineering-specialization/images/diagrams/ingestion-batch-stream-dark.svg" alt="Ingestion — Batch vs Stream" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/ingestion-batch-stream.svg" alt="Ingestion — Batch vs Stream" class="diagram diagram-light" />
 
 ## 2.1.3 Data Storage
 
@@ -47,19 +43,19 @@ Storage sits at every stage of the lifecycle. The raw hardware ingredients trade
 
 Data engineers typically work with **database management systems**, **object storage**, `Apache Iceberg`, **cache/memory-based stores**, and **streaming storage**. These sit behind higher-level abstractions — **data warehouses**, **data lakes**, and **data lakehouses** — that let you configure latency, scalability, and cost to match your workload.
 
-<img src="/data-engineering-specialization-website/images/diagrams/data-storage-dark.svg" alt="Data Storage" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/data-storage.svg" alt="Data Storage" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/data-storage-dark.svg" alt="Data Storage" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/data-storage.svg" alt="Data Storage" class="diagram diagram-light" />
 
 ## 2.1.4 Data Transformation
 
 Transformation is where raw data becomes something useful. It breaks down into three parts.
 
-<img src="/data-engineering-specialization-website/images/diagrams/data-transformation-dark.svg" alt="Data Transformation" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/data-transformation.svg" alt="Data Transformation" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/data-transformation-dark.svg" alt="Data Transformation" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/data-transformation.svg" alt="Data Transformation" class="diagram diagram-light" />
 
 ## 2.1.5 Serving Data
 
 The final stage delivers data to end consumers across three main channels: **analytics**, **machine learning**, and **reverse ETL**.
 
-<img src="/data-engineering-specialization-website/images/diagrams/serving-data-dark.svg" alt="Serving Data" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/serving-data.svg" alt="Serving Data" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/serving-data-dark.svg" alt="Serving Data" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/serving-data.svg" alt="Serving Data" class="diagram diagram-light" />

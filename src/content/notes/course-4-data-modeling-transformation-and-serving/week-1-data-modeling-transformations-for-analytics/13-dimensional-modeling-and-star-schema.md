@@ -20,11 +20,11 @@ While normalized models focus on connecting data entities and reducing redundanc
 
 A fact table contains **quantitative business measurements** that result from a business event or process. For example, a rideshare order event produces facts like trip duration, price, tip, and delays — all unique to that event.
 
-| Property | Description |
-|---|---|
-| **Shape** | Narrow and long — few columns but many rows |
-| **Mutability** | Immutable (append-only) |
-| **Grain** | The level of detail — atomic grain (one event per row) is the most detailed and recommended |
+| Property       | Description                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------- |
+| **Shape**      | Narrow and long — few columns but many rows                                                 |
+| **Mutability** | Immutable (append-only)                                                                     |
+| **Grain**      | The level of detail — atomic grain (one event per row) is the most detailed and recommended |
 
 ---
 
@@ -32,8 +32,8 @@ A fact table contains **quantitative business measurements** that result from a 
 
 Dimension tables provide the reference data, attributes, and relational context for the events in the fact table. They describe the **who, what, where, and when** of each event. Dimension tables are typically **wide and short** — many descriptive columns but fewer rows.
 
-<img src="/data-engineering-specialization-website/images/diagrams/star-schema-dark.svg" alt="Star schema with central fact table connected to dimension tables" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/star-schema.svg" alt="Star schema with central fact table connected to dimension tables" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/star-schema-dark.svg" alt="Star schema with central fact table connected to dimension tables" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/star-schema.svg" alt="Star schema with central fact table connected to dimension tables" class="diagram diagram-light" />
 
 ## 1.3.2 Fact-Dimension Relationships and Analytical Queries
 
@@ -120,15 +120,15 @@ JOIN items i ON i.sku = oi.item_sku;
 
 Dimension data is not static — customers move, products are reclassified, employees change departments. **Slowly Changing Dimensions (SCDs)** are strategies for handling these changes in dimension tables while preserving the analytical accuracy of the fact table.
 
-<img src="/data-engineering-specialization-website/images/diagrams/scd-types-dark.svg" alt="Slowly Changing Dimension types: Type 1 overwrite vs Type 2 versioning" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/scd-types.svg" alt="Slowly Changing Dimension types: Type 1 overwrite vs Type 2 versioning" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/scd-types-dark.svg" alt="Slowly Changing Dimension types: Type 1 overwrite vs Type 2 versioning" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/scd-types.svg" alt="Slowly Changing Dimension types: Type 1 overwrite vs Type 2 versioning" class="diagram diagram-light" />
 
-| Type | Strategy | History | Use Case |
-|---|---|---|---|
-| **Type 0** | Retain original value — never update | Original only | Fixed attributes (e.g., original sign-up date) |
-| **Type 1** | Overwrite the old value with the new one | No history | Corrections or when history is irrelevant (e.g., fixing a typo) |
-| **Type 2** | Add a new row with version tracking columns | Full history | When historical accuracy matters (e.g., a customer's address at the time of each order) |
-| **Type 3** | Add a column for the previous value | Limited (one prior value) | When only the most recent change matters |
+| Type       | Strategy                                    | History                   | Use Case                                                                                |
+| ---------- | ------------------------------------------- | ------------------------- | --------------------------------------------------------------------------------------- |
+| **Type 0** | Retain original value — never update        | Original only             | Fixed attributes (e.g., original sign-up date)                                          |
+| **Type 1** | Overwrite the old value with the new one    | No history                | Corrections or when history is irrelevant (e.g., fixing a typo)                         |
+| **Type 2** | Add a new row with version tracking columns | Full history              | When historical accuracy matters (e.g., a customer's address at the time of each order) |
+| **Type 3** | Add a column for the previous value         | Limited (one prior value) | When only the most recent change matters                                                |
 
 ---
 

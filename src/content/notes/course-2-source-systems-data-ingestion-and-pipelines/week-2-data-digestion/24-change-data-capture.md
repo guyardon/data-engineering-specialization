@@ -14,7 +14,6 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 **Change Data Capture (CDC)** is a method for extracting each change event (insert, update, delete) that occurs in a database and making it available for downstream systems. It solves the fundamental problem of keeping storage systems in sync with source data.
 
-
 ---
 
 **Ways to Keep Storage Systems In Sync**
@@ -22,8 +21,8 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 - **Full Snapshot / Full Load**: Delete all old data and re-extract every row from the source table. This ensures consistency but becomes processing- and memory-heavy at high volumes. Best suited for applications without frequent update requirements.
 - **Incremental (Differential) Load**: Only load updates and changes since the last read, for example by using a `last_updated_at` column. This requires more complex logic but is far more efficient. When applied to databases, this process is called **Change Data Capture (CDC)**.
 
-<img src="/data-engineering-specialization-website/images/diagrams/cdc-sync-methods-dark.svg" alt="Full Snapshot vs CDC Sync Methods" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/cdc-sync-methods.svg" alt="Full Snapshot vs CDC Sync Methods" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/cdc-sync-methods-dark.svg" alt="Full Snapshot vs CDC Sync Methods" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/cdc-sync-methods.svg" alt="Full Snapshot vs CDC Sync Methods" class="diagram diagram-light" />
 
 ---
 
@@ -43,7 +42,6 @@ CDC can be implemented using either a push or pull model, each with different la
 
 ---
 
-
 ---
 
 **CDC Implementation Patterns**
@@ -61,13 +59,12 @@ CDC can be implemented using either a push or pull model, each with different la
 - `Kafka` Connect API
 - `Airbyte` log-based CDC
 
-<img src="/data-engineering-specialization-website/images/diagrams/cdc-patterns-dark.svg" alt="CDC Implementation Patterns" class="diagram diagram-dark" style="max-height: 1200px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/cdc-patterns.svg" alt="CDC Implementation Patterns" class="diagram diagram-light" style="max-height: 1200px;" />
+<img src="/data-engineering-specialization/images/diagrams/cdc-patterns-dark.svg" alt="CDC Implementation Patterns" class="diagram diagram-dark" style="max-height: 1200px;" />
+<img src="/data-engineering-specialization/images/diagrams/cdc-patterns.svg" alt="CDC Implementation Patterns" class="diagram diagram-light" style="max-height: 1200px;" />
 
 ## 2.4.3 General Considerations for Choosing Ingestion Tools
 
 Selecting the right ingestion tool requires evaluating both the data characteristics and your reliability requirements.
-
 
 ---
 
@@ -85,5 +82,5 @@ Selecting the right ingestion tool requires evaluating both the data characteris
 
 **Reliability** means ingestion systems perform their intended function properly. **Durability** means data isn't lost or corrupted. Evaluate the tradeoffs between the cost of losing data versus building an appropriate level of redundancy.
 
-<img src="/data-engineering-specialization-website/images/diagrams/ingestion-considerations-dark.svg" alt="Ingestion Tool Selection Considerations" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/ingestion-considerations.svg" alt="Ingestion Tool Selection Considerations" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/ingestion-considerations-dark.svg" alt="Ingestion Tool Selection Considerations" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/ingestion-considerations.svg" alt="Ingestion Tool Selection Considerations" class="diagram diagram-light" />

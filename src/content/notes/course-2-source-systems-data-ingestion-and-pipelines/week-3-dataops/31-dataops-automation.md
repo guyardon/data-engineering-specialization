@@ -14,7 +14,6 @@ notionId: "1d3969a7-aa01-80e3-b264-c6789380bcaa"
 
 **DataOps** is a set of practices and cultural habits centered around building robust data systems and delivering high-quality data products. It is to data engineering what DevOps is to software engineering.
 
-
 ---
 
 **3 Pillars of DataOps**
@@ -23,8 +22,8 @@ notionId: "1d3969a7-aa01-80e3-b264-c6789380bcaa"
 - **Observability and Monitoring**
 - **Incident Response**
 
-<img src="/data-engineering-specialization-website/images/diagrams/dataops-pillars-dark.svg" alt="DataOps 3 Pillars: Automation, Observability & Monitoring, Incident Response" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/dataops-pillars.svg" alt="DataOps 3 Pillars: Automation, Observability & Monitoring, Incident Response" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/dataops-pillars-dark.svg" alt="DataOps 3 Pillars: Automation, Observability & Monitoring, Incident Response" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/dataops-pillars.svg" alt="DataOps 3 Pillars: Automation, Observability & Monitoring, Incident Response" class="diagram diagram-light" />
 
 ---
 
@@ -34,7 +33,7 @@ CI/CD brings version control to both code (via git) and data (enabling rollback 
 
 ## 3.1.2 Infrastructure as Code with Terraform
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/terraform.svg" alt="Terraform" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/terraform-dark.svg" alt="Terraform" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/terraform.svg" alt="Terraform" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/terraform-dark.svg" alt="Terraform" />
 
 **Terraform**
 
@@ -105,8 +104,8 @@ resource "aws_s3_bucket_public_access_block" "data_lake" {
 3. You approve the plan.
 4. `Terraform` applies the proposed steps.
 
-<img src="/data-engineering-specialization-website/images/diagrams/terraform-workflow-dark.svg" alt="Terraform workflow: Define HCL config, run CLI commands, provision cloud resources" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/terraform-workflow.svg" alt="Terraform workflow: Define HCL config, run CLI commands, provision cloud resources" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/terraform-workflow-dark.svg" alt="Terraform workflow: Define HCL config, run CLI commands, provision cloud resources" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/terraform-workflow.svg" alt="Terraform workflow: Define HCL config, run CLI commands, provision cloud resources" class="diagram diagram-light" style="max-height: 900px;" />
 
 ## 3.1.3 Terraform Tutorials and Examples
 

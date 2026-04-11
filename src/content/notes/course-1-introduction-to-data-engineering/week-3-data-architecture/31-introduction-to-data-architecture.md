@@ -10,17 +10,16 @@ order: 1
 notionId: "18c969a7-aa01-8012-908e-cb0e0b1f7b79"
 ---
 
-
 ## 3.1.1 What is Data Architecture
 
-<img src="/data-engineering-specialization-website/images/diagrams/enterprise-architecture-dark.svg" alt="Enterprise Architecture Domains" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/enterprise-architecture.svg" alt="Enterprise Architecture Domains" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/enterprise-architecture-dark.svg" alt="Enterprise Architecture Domains" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/enterprise-architecture.svg" alt="Enterprise Architecture Domains" class="diagram diagram-light" />
 
 **What is Data Architecture?**
 
 **Enterprise Architecture:**
 
-Enterprise architecture is *"the design of systems to **support change in enterprise**, achieved by flexible and reversible decisions reached through a careful evaluation of trade-offs."* It spans several domains:
+Enterprise architecture is _"the design of systems to **support change in enterprise**, achieved by flexible and reversible decisions reached through a careful evaluation of trade-offs."_ It spans several domains:
 
 - **Business architecture** — product or service strategy and business model
 - **Application architecture** — structure and interaction of key applications
@@ -33,13 +32,12 @@ A key concept in enterprise architecture is **change management** — adapting t
 
 **Conway's Law:**
 
-*"Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure."* In practice, isolated departments build isolated systems; collaborative departments build shared data platforms.
-
+_"Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure."_ In practice, isolated departments build isolated systems; collaborative departments build shared data platforms.
 
 ## 3.1.2 Principles of Good Architecture
 
-<img src="/data-engineering-specialization-website/images/diagrams/architecture-principles-w3-dark.svg" alt="Principles of Good Data Architecture" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/architecture-principles-w3.svg" alt="Principles of Good Data Architecture" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/architecture-principles-w3-dark.svg" alt="Principles of Good Data Architecture" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/architecture-principles-w3.svg" alt="Principles of Good Data Architecture" class="diagram diagram-light" />
 
 **Principles of Good Architecture**
 
@@ -77,11 +75,10 @@ Designing for failure means understanding several key metrics:
 
 FinOps guards against large unforeseen costs and missed revenue opportunities by making cloud spending a first-class engineering concern.
 
-
 ## 3.1.3 Batch and Streaming Architectures
 
-<img src="/data-engineering-specialization-website/images/diagrams/batch-streaming-dark.svg" alt="Batch and Streaming Architectures" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/batch-streaming.svg" alt="Batch and Streaming Architectures" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/batch-streaming-dark.svg" alt="Batch and Streaming Architectures" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/batch-streaming.svg" alt="Batch and Streaming Architectures" class="diagram diagram-light" />
 
 **Batch Architectures**
 
@@ -115,8 +112,8 @@ ELT is becoming more popular thanks to the power of modern cloud data warehouses
 
 A **data mart** is an optional subset of a data warehouse scoped to a specific department, function, or business area. It sits after transformation but before serving, and may have its own additional transformation stages.
 
-<img src="/data-engineering-specialization-website/images/diagrams/data-marts-dark.svg" alt="Data Warehouse to Data Marts" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/data-marts.svg" alt="Data Warehouse to Data Marts" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/data-marts-dark.svg" alt="Data Warehouse to Data Marts" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/data-marts.svg" alt="Data Warehouse to Data Marts" class="diagram diagram-light" />
 
 ---
 
@@ -132,15 +129,15 @@ Tools like `Google Dataflow` and `Beam` attempt to unify multiple code paths. `A
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/kafka.svg" alt="Apache Kafka" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/kafka-dark.svg" alt="Apache Kafka" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/kafka.svg" alt="Apache Kafka" class="logo-light" /><img src="/data-engineering-specialization/images/logos/kafka-dark.svg" alt="Apache Kafka" class="logo-dark" />
     <span>Apache Kafka</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/flink.svg" alt="Apache Flink" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/flink-dark.svg" alt="Apache Flink" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/flink.svg" alt="Apache Flink" class="logo-light" /><img src="/data-engineering-specialization/images/logos/flink-dark.svg" alt="Apache Flink" class="logo-dark" />
     <span>Apache Flink</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/spark.svg" alt="Apache Spark" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/spark-dark.svg" alt="Apache Spark" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/spark.svg" alt="Apache Spark" class="logo-light" /><img src="/data-engineering-specialization/images/logos/spark-dark.svg" alt="Apache Spark" class="logo-dark" />
     <span>Apache Spark</span>
   </div>
 </div>
@@ -151,11 +148,10 @@ Tools like `Google Dataflow` and `Beam` attempt to unify multiple code paths. `A
 
 The prevailing view is that batch is a "special case" of streaming.
 
-
 ## 3.1.4 Architecting for Compliance
 
-<img src="/data-engineering-specialization-website/images/diagrams/compliance-framework-dark.svg" alt="Architecting for Compliance" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/compliance-framework.svg" alt="Architecting for Compliance" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/compliance-framework-dark.svg" alt="Architecting for Compliance" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/compliance-framework.svg" alt="Architecting for Compliance" class="diagram diagram-light" />
 
 **Architecting for Compliance**
 
@@ -172,8 +168,8 @@ Systems must continuously comply with current and future regulations. Building l
 
 **Data Mesh** is a decentralized architectural paradigm that shifts data ownership from a central data team to the individual business domains that produce and understand the data. Rather than funneling all data through a monolithic platform team, each domain (e.g., payments, logistics, marketing) takes responsibility for publishing its own data as a product.
 
-<img src="/data-engineering-specialization-website/images/diagrams/data-mesh-dark.svg" alt="Data Mesh principles: domain ownership, data as a product, self-serve platform, federated governance" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/data-mesh.svg" alt="Data Mesh principles: domain ownership, data as a product, self-serve platform, federated governance" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/data-mesh-dark.svg" alt="Data Mesh principles: domain ownership, data as a product, self-serve platform, federated governance" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/data-mesh.svg" alt="Data Mesh principles: domain ownership, data as a product, self-serve platform, federated governance" class="diagram diagram-light" />
 
 Data Mesh is built on four principles:
 

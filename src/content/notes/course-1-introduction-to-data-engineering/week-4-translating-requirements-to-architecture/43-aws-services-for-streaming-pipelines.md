@@ -22,5 +22,5 @@ Both services scale to handle petabyte-level data volumes with millisecond laten
 
 `Amazon Data Firehose` integrates with `Kinesis Data Streams` to simplify the downstream work — it handles creating connections, reading from the stream, chunking data, and writing to storage, eliminating the need for custom code.
 
-<img src="/data-engineering-specialization-website/images/diagrams/streaming-pipeline-aws-dark.png" alt="AWS Streaming Pipeline" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/streaming-pipeline-aws.png" alt="AWS Streaming Pipeline" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/streaming-pipeline-aws-dark.png" alt="AWS Streaming Pipeline" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/streaming-pipeline-aws.png" alt="AWS Streaming Pipeline" class="diagram diagram-light" />

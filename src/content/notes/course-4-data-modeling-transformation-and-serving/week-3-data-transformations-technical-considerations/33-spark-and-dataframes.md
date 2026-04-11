@@ -12,7 +12,7 @@ notionId: "1fc969a7-aa01-805e-8f9a-f648e027b479"
 
 ## 3.3.1 Spark Overview and Architecture
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/spark.svg" alt="Apache Spark" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/spark-dark.svg" alt="Apache Spark" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/spark.svg" alt="Apache Spark" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/spark-dark.svg" alt="Apache Spark" />
 
 **Apache Spark**
 
@@ -24,14 +24,14 @@ Modern Spark includes stream processing, ML libraries, graph processing, and a c
 
 **Spark Application Architecture**
 
-| Component | Role |
-|---|---|
-| **Driver Node** | Central controller — creates the SparkSession, builds execution plans, coordinates workers |
+| Component           | Role                                                                                           |
+| ------------------- | ---------------------------------------------------------------------------------------------- |
+| **Driver Node**     | Central controller — creates the SparkSession, builds execution plans, coordinates workers     |
 | **Cluster Manager** | Allocates and manages memory and CPU resources across the cluster (YARN, Mesos, or Kubernetes) |
-| **Worker Nodes** | Each contains a **Spark Executor** that runs tasks assigned by the driver |
+| **Worker Nodes**    | Each contains a **Spark Executor** that runs tasks assigned by the driver                      |
 
-<img src="/data-engineering-specialization-website/images/diagrams/spark-architecture-dark.svg" alt="Spark architecture with Driver, Cluster Manager, and Worker Nodes containing Executors" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/spark-architecture.svg" alt="Spark architecture with Driver, Cluster Manager, and Worker Nodes containing Executors" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/spark-architecture-dark.svg" alt="Spark architecture with Driver, Cluster Manager, and Worker Nodes containing Executors" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/spark-architecture.svg" alt="Spark architecture with Driver, Cluster Manager, and Worker Nodes containing Executors" class="diagram diagram-light" />
 
 ---
 
@@ -45,14 +45,14 @@ The **SparkSession** is the single unified entry point to all Spark functionalit
 
 Spark DataFrames provide a high-level abstraction for working with large, distributed tabular datasets, hiding the complexity of distributed computation. They are built on top of **RDDs** (Resilient Distributed Datasets).
 
-| Concept | Description |
-|---|---|
+| Concept                 | Description                                                                                                                                                 |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **DataFrames vs. RDDs** | RDDs are low-level, require manual optimization. DataFrames offer expressive APIs (`filter`, `select`, `groupBy`) with automatic optimization via Catalyst. |
-| **Transformations** | Lazy operations that return new DataFrames without modifying originals (`select`, `filter`, `join`, `groupBy`) |
-| **Actions** | Trigger actual execution of queued transformations (`count`, `show`, `save`) |
-| **Immutability** | Original data is never modified — transformations create new DataFrames |
-| **Lineage** | A record of transformations enables fault recovery — if a partition is lost, Spark recomputes it from the lineage |
-| **Lazy evaluation** | Defers computation to optimize the full execution plan before running |
+| **Transformations**     | Lazy operations that return new DataFrames without modifying originals (`select`, `filter`, `join`, `groupBy`)                                              |
+| **Actions**             | Trigger actual execution of queued transformations (`count`, `show`, `save`)                                                                                |
+| **Immutability**        | Original data is never modified — transformations create new DataFrames                                                                                     |
+| **Lineage**             | A record of transformations enables fault recovery — if a partition is lost, Spark recomputes it from the lineage                                           |
+| **Lazy evaluation**     | Defers computation to optimize the full execution plan before running                                                                                       |
 
 ## 3.3.3 Basic PySpark DataFrame Operations
 

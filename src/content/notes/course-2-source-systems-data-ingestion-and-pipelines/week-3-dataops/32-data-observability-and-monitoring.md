@@ -26,8 +26,8 @@ Data observability borrows from DevOps observability but focuses on the health o
 - Is the null rate higher or lower than it should be?
 - Has the schema changed?
 
-<img src="/data-engineering-specialization-website/images/diagrams/observability-concepts-dark.svg" alt="Observability Concepts — DevOps vs Data Observability" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/observability-concepts.svg" alt="Observability Concepts — DevOps vs Data Observability" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/observability-concepts-dark.svg" alt="Observability Concepts — DevOps vs Data Observability" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/observability-concepts.svg" alt="Observability Concepts — DevOps vs Data Observability" class="diagram diagram-light" />
 
 **5 Pillars of Data Observability:**
 
@@ -37,8 +37,8 @@ Data observability borrows from DevOps observability but focuses on the health o
 4. **Lineage**: According to [Barr](https://towardsdatascience.com/introducing-the-five-pillars-of-data-observability-e73734b263d5), "When data breaks, the first question is always 'where?'" Data lineage traces the data journey from source to destination, visualizing transformations and storage locations to identify the source of errors.
 5. **Schema**: Monitors changes in data structure or types to prevent pipeline failures.
 
-<img src="/data-engineering-specialization-website/images/diagrams/five-pillars-dark.svg" alt="5 Pillars of Data Observability" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/five-pillars.svg" alt="5 Pillars of Data Observability" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/five-pillars-dark.svg" alt="5 Pillars of Data Observability" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/five-pillars.svg" alt="5 Pillars of Data Observability" class="diagram diagram-light" style="max-height: 900px;" />
 
 ## 3.2.2 Monitoring Data Quality
 
@@ -46,7 +46,7 @@ Focus your monitoring efforts on the metrics that matter most. The core dimensio
 
 ## 3.2.3 Observability Tools
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/great-expectations.svg" alt="Great Expectations" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/great-expectations-dark.svg" alt="Great Expectations" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/great-expectations.svg" alt="Great Expectations" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/great-expectations-dark.svg" alt="Great Expectations" />
 
 **Great Expectations**
 
@@ -58,10 +58,10 @@ When expectations fail, GX generates detailed reports showing exactly which rows
 
 **Core Components**
 
-<img src="/data-engineering-specialization-website/images/diagrams/great-expectations-workflow-dark.svg" alt="Great Expectations Workflow" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/great-expectations-workflow.svg" alt="Great Expectations Workflow" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/great-expectations-workflow-dark.svg" alt="Great Expectations Workflow" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/great-expectations-workflow.svg" alt="Great Expectations Workflow" class="diagram diagram-light" style="max-height: 900px;" />
 
-<img class="tech-logo-aside logo-light" src="/data-engineering-specialization-website/images/logos/cloudwatch.svg" alt="AWS CloudWatch" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization-website/images/logos/cloudwatch-dark.svg" alt="AWS CloudWatch" />
+<img class="tech-logo-aside logo-light" src="/data-engineering-specialization/images/logos/cloudwatch.svg" alt="AWS CloudWatch" /><img class="tech-logo-aside logo-dark" src="/data-engineering-specialization/images/logos/cloudwatch-dark.svg" alt="AWS CloudWatch" />
 
 **CloudWatch**
 
@@ -71,8 +71,8 @@ When expectations fail, GX generates detailed reports showing exactly which rows
 
 It collects **system-level metrics** (CPU, memory, disk, network) automatically from AWS resources, and supports **custom metrics** for application-specific measurements like transaction counts or API response times. `CloudWatch` **Alarms** let you define thresholds on any metric and trigger notifications or automated actions when those thresholds are breached. It retains metrics data for up to 15 months, enabling long-term trend analysis and capacity planning.
 
-<img src="/data-engineering-specialization-website/images/diagrams/cloudwatch-dark.svg" alt="AWS CloudWatch" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/cloudwatch.svg" alt="AWS CloudWatch" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/cloudwatch-dark.svg" alt="AWS CloudWatch" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/cloudwatch.svg" alt="AWS CloudWatch" class="diagram diagram-light" />
 
 ## 3.2.4 Data Contracts
 
@@ -82,13 +82,13 @@ A **data contract** is a formal agreement between a data producer and its consum
 
 **What a Data Contract Specifies**
 
-| Element | Description |
-|---|---|
-| **Schema** | Column names, data types, nullability constraints, and valid value ranges |
-| **Freshness SLA** | Maximum acceptable delay between data generation and availability (e.g., "within 2 hours of midnight UTC") |
-| **Volume expectations** | Expected row count ranges — an empty table or a 10x spike may indicate a problem |
-| **Ownership** | The team responsible for maintaining the contract and responding to violations |
-| **Breaking change policy** | How schema changes are communicated — e.g., deprecation windows, versioning rules |
+| Element                    | Description                                                                                                |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Schema**                 | Column names, data types, nullability constraints, and valid value ranges                                  |
+| **Freshness SLA**          | Maximum acceptable delay between data generation and availability (e.g., "within 2 hours of midnight UTC") |
+| **Volume expectations**    | Expected row count ranges — an empty table or a 10x spike may indicate a problem                           |
+| **Ownership**              | The team responsible for maintaining the contract and responding to violations                             |
+| **Breaking change policy** | How schema changes are communicated — e.g., deprecation windows, versioning rules                          |
 
 ---
 

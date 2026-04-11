@@ -8,9 +8,9 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.2-06b6d4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Python](https://img.shields.io/badge/Python-3.13+-3776ab?logo=python&logoColor=white)](https://python.org)
-[![Deploy](https://img.shields.io/github/actions/workflow/status/guyardon/data-engineering-specialization-website/deploy.yml?label=deploy&logo=github)](https://github.com/guyardon/data-engineering-specialization-website/actions)
+[![Deploy](https://img.shields.io/github/actions/workflow/status/guyardon/data-engineering-specialization/deploy.yml?label=deploy&logo=github)](https://github.com/guyardon/data-engineering-specialization/actions)
 
-[**View Live Site →**](https://guyardon.github.io/data-engineering-specialization-website)
+[**View Live Site →**](https://guyardon.github.io/data-engineering-specialization)
 
 </div>
 

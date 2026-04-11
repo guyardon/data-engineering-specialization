@@ -14,13 +14,13 @@ notionId: "1e3969a7-aa01-80c6-8d1b-d10f852165d0"
 
 Semi-structured and unstructured data do not fit neatly into a fixed schema. Data lakes address this by providing a central repository for storing large volumes of data with no predefined schema or set of transformations. Instead, they use a **schema-on-read** pattern — structure is applied when data is queried, not when it is written.
 
-| Property | Data Warehouse | Data Lake |
-|---|---|---|
-| **Schema** | Schema-on-write (defined before loading) | Schema-on-read (applied at query time) |
-| **Data types** | Structured only | Structured, semi-structured, unstructured |
-| **Storage cost** | Higher (optimized storage engines) | Lower (object storage like `S3`) |
-| **Query performance** | Fast (pre-modeled, indexed) | Slower (no pre-optimization) |
-| **Flexibility** | Low (rigid schema changes) | High (store anything, decide later) |
+| Property              | Data Warehouse                           | Data Lake                                 |
+| --------------------- | ---------------------------------------- | ----------------------------------------- |
+| **Schema**            | Schema-on-write (defined before loading) | Schema-on-read (applied at query time)    |
+| **Data types**        | Structured only                          | Structured, semi-structured, unstructured |
+| **Storage cost**      | Higher (optimized storage engines)       | Lower (object storage like `S3`)          |
+| **Query performance** | Fast (pre-modeled, indexed)              | Slower (no pre-optimization)              |
+| **Flexibility**       | Low (rigid schema changes)               | High (store anything, decide later)       |
 
 ## 2.2.2 Data Lake 1.0 and Its Shortcomings
 
@@ -28,19 +28,19 @@ The first generation of data lakes combined storage technologies (`Hadoop HDFS`,
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/hadoop.svg" alt="Apache Hadoop" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/hadoop-dark.svg" alt="Apache Hadoop" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/hadoop.svg" alt="Apache Hadoop" class="logo-light" /><img src="/data-engineering-specialization/images/logos/hadoop-dark.svg" alt="Apache Hadoop" class="logo-dark" />
     <span>Hadoop HDFS</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/s3.svg" alt="Amazon S3" class="logo-light" /><img src="/data-engineering-specialization/images/logos/s3-dark.svg" alt="Amazon S3" class="logo-dark" />
     <span>Amazon S3</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/presto.svg" alt="Presto" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/presto-dark.svg" alt="Presto" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/presto.svg" alt="Presto" class="logo-light" /><img src="/data-engineering-specialization/images/logos/presto-dark.svg" alt="Presto" class="logo-dark" />
     <span>Presto</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/hive.svg" alt="Apache Hive" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/hive-dark.svg" alt="Apache Hive" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/hive.svg" alt="Apache Hive" class="logo-light" /><img src="/data-engineering-specialization/images/logos/hive-dark.svg" alt="Apache Hive" class="logo-dark" />
     <span>Apache Hive</span>
   </div>
 </div>
@@ -55,14 +55,14 @@ Large companies like Facebook built custom tooling to work around these issues, 
 
 Next-generation data lakes introduced several key improvements:
 
-| Improvement | Description |
-|---|---|
-| **Zones** | Data organized by processing stage — raw landing, cleaned/transformed, and curated/enriched zones with appropriate governance at each stage |
-| **Data partitioning** | Datasets divided by criteria like time or location, allowing queries to scan only relevant partitions |
-| **Data catalog** | Centralized metadata about each dataset — owner, source, partitions, schema, and schema evolution history |
+| Improvement           | Description                                                                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Zones**             | Data organized by processing stage — raw landing, cleaned/transformed, and curated/enriched zones with appropriate governance at each stage |
+| **Data partitioning** | Datasets divided by criteria like time or location, allowing queries to scan only relevant partitions                                       |
+| **Data catalog**      | Centralized metadata about each dataset — owner, source, partitions, schema, and schema evolution history                                   |
 
-<img src="/data-engineering-specialization-website/images/diagrams/data-lake-zones-dark.svg" alt="Data lake zone architecture with raw, cleaned, and curated zones" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/data-lake-zones.svg" alt="Data lake zone architecture with raw, cleaned, and curated zones" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/data-lake-zones-dark.svg" alt="Data lake zone architecture with raw, cleaned, and curated zones" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/data-lake-zones.svg" alt="Data lake zone architecture with raw, cleaned, and curated zones" class="diagram diagram-light" style="max-height: 900px;" />
 
 ---
 

@@ -14,15 +14,14 @@ notionId: "190969a7-aa01-80b5-b7ef-df594fb8212d"
 
 The order in which you extract, transform, and load data has significant implications for pipeline speed, flexibility, and data quality.
 
-<img src="/data-engineering-specialization-website/images/diagrams/etl-vs-elt-dark.svg" alt="ETL vs ELT comparison diagram" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/etl-vs-elt.svg" alt="ETL vs ELT comparison diagram" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/etl-vs-elt-dark.svg" alt="ETL vs ELT comparison diagram" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/etl-vs-elt.svg" alt="ETL vs ELT comparison diagram" class="diagram diagram-light" />
 
 **ETL (Extract-Transform-Load)** extracts raw data from the source, transforms it in a staging area, then loads the transformed data into the target destination.
 
 **ELT (Extract-Load-Transform)** loads raw data directly into a cloud data warehouse (e.g., `Redshift`, Snowflake), then transforms it within the warehouse. This allows flexible transformations to be applied later.
 
 ---
-
 
 ---
 
@@ -42,14 +41,14 @@ The main risk is creating an "EL pipeline" where no transformation ever happens,
 
 **Comparison of ETL vs. ELT**
 
-| Feature | ETL | ELT |
-| --- | --- | --- |
-| **History** | Developed in the 80s/90s when storage was expensive | Gained popularity in the cloud era |
-| **Transformation Timing** | Before loading | After loading |
-| **Load Time** | Longer | Faster |
-| **Flexibility** | Structured data only | Structured, semi-structured, and unstructured data |
-| **Scalability** | Manual effort required for scaling | Uses cloud warehouse power for large-scale processing |
-| **Data Quality** | Ensures data quality before loading | Requires transformations after loading |
+| Feature                   | ETL                                                 | ELT                                                   |
+| ------------------------- | --------------------------------------------------- | ----------------------------------------------------- |
+| **History**               | Developed in the 80s/90s when storage was expensive | Gained popularity in the cloud era                    |
+| **Transformation Timing** | Before loading                                      | After loading                                         |
+| **Load Time**             | Longer                                              | Faster                                                |
+| **Flexibility**           | Structured data only                                | Structured, semi-structured, and unstructured data    |
+| **Scalability**           | Manual effort required for scaling                  | Uses cloud warehouse power for large-scale processing |
+| **Data Quality**          | Ensures data quality before loading                 | Requires transformations after loading                |
 
 ## 2.2.2 REST API
 
@@ -61,14 +60,13 @@ APIs are a fundamental ingestion mechanism. Jeff Bezos famously enforced API-bas
 
 ---
 
-
 ---
 
 **HTTP Request Types**
 
-| Method | Purpose |
-| --- | --- |
-| `GET` | Retrieve a resource |
-| `POST` | Create a resource |
-| `PUT` | Update/replace a resource |
-| `DELETE` | Remove a resource |
+| Method   | Purpose                   |
+| -------- | ------------------------- |
+| `GET`    | Retrieve a resource       |
+| `POST`   | Create a resource         |
+| `PUT`    | Update/replace a resource |
+| `DELETE` | Remove a resource         |

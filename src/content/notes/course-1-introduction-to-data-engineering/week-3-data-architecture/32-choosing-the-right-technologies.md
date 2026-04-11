@@ -10,8 +10,6 @@ order: 2
 notionId: "18c969a7-aa01-80ab-b4fd-ee68b1385af5"
 ---
 
-
-
 ## 3.2.1 Choosing Tools and Technologies
 
 Technology choices shape the entire data stack. Software solutions generally fall into three categories: **open source**, **managed open source**, and **proprietary**. The end goal should always drive the decision.
@@ -21,7 +19,6 @@ Key considerations include:
 - **Location** — on-premises, cloud, or hybrid
 - **Cost optimization** — total spend across the solution's lifecycle
 - **Team size and capabilities** — what your team can realistically build and maintain
-
 
 ## 3.2.2 Location
 
@@ -39,11 +36,10 @@ Where your infrastructure lives has major implications for cost, control, and ag
 
 This course focuses on building data systems in the cloud.
 
-
 ## 3.2.3 Monolith vs. Modular Systems
 
-<img src="/data-engineering-specialization-website/images/diagrams/monolith-modular-dark.svg" alt="Monolith vs. Modular Systems" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/monolith-modular.svg" alt="Monolith vs. Modular Systems" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/monolith-modular-dark.svg" alt="Monolith vs. Modular Systems" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/monolith-modular.svg" alt="Monolith vs. Modular Systems" class="diagram diagram-light" />
 
 **Monolithic System**
 
@@ -57,8 +53,8 @@ A modular system is built from loosely coupled, self-contained services. Each mi
 
 ## 3.2.4 Cost Optimization and Business Value
 
-<img src="/data-engineering-specialization-website/images/diagrams/cost-optimization-dark.svg" alt="Cost Optimization and Business Value" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/cost-optimization.svg" alt="Cost Optimization and Business Value" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/cost-optimization-dark.svg" alt="Cost Optimization and Business Value" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/cost-optimization.svg" alt="Cost Optimization and Business Value" class="diagram diagram-light" />
 
 Understanding costs is essential to making sound technology decisions.
 
@@ -97,12 +93,10 @@ Key questions to ask:
 - Does building in-house provide a genuine competitive advantage?
 - Are you avoiding undifferentiated heavy lifting?
 
-
-
 ## 3.2.6 Server, Container, and Serverless Compute Options
 
-<img src="/data-engineering-specialization-website/images/diagrams/compute-models-dark.svg" alt="Server, Container, and Serverless Compute Models" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/compute-models.svg" alt="Server, Container, and Serverless Compute Models" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/compute-models-dark.svg" alt="Server, Container, and Serverless Compute Models" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/compute-models.svg" alt="Server, Container, and Serverless Compute Models" class="diagram diagram-light" />
 
 Three compute models offer different trade-offs between control and convenience.
 

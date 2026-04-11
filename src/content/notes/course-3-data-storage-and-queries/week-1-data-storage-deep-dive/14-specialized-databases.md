@@ -14,52 +14,52 @@ notionId: "1de969a7-aa01-8031-b2e1-cef9c6db8b8d"
 
 Graph databases model data as **nodes** (entities) connected by **edges** (relationships). While the same data could live in a relational database, graph databases treat relationships as first-class citizens, making it natural to traverse connections through graph queries rather than complex SQL joins.
 
-| Use case | Example |
-|---|---|
-| Recommendation systems | "Customers who bought X also bought Y" |
-| Social networks | Friendship graphs, follower relationships |
-| Data lineage | Tracing how data flows through pipelines |
-| Fraud detection | Identifying suspicious transaction patterns |
-| Knowledge graphs | Connecting entities and their relationships |
-| Network/IT operations | Mapping infrastructure dependencies |
-| Supply chain logistics | Simulating logistics flows |
+| Use case               | Example                                     |
+| ---------------------- | ------------------------------------------- |
+| Recommendation systems | "Customers who bought X also bought Y"      |
+| Social networks        | Friendship graphs, follower relationships   |
+| Data lineage           | Tracing how data flows through pipelines    |
+| Fraud detection        | Identifying suspicious transaction patterns |
+| Knowledge graphs       | Connecting entities and their relationships |
+| Network/IT operations  | Mapping infrastructure dependencies         |
+| Supply chain logistics | Simulating logistics flows                  |
 
 Popular graph databases include `Neo4j`, `ArangoDB`, and `Amazon Neptune`. Query languages include **Cypher**, **Gremlin**, and **SPARQL**.
 
-<img src="/data-engineering-specialization-website/images/diagrams/graph-database-dark.svg" alt="Graph database schematic showing nodes, edges, and properties" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/graph-database.svg" alt="Graph database schematic showing nodes, edges, and properties" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/graph-database-dark.svg" alt="Graph database schematic showing nodes, edges, and properties" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/graph-database.svg" alt="Graph database schematic showing nodes, edges, and properties" class="diagram diagram-light" />
 
 ## 1.4.2 Vector Databases
 
 Vector databases are optimized for **similarity search** -- efficiently querying data based on semantic closeness rather than exact matches.
 
-| Aspect | Details |
-|---|---|
-| **Core concept** | Store and query **vector embeddings** -- numerical representations of data |
-| **Similarity metrics** | Euclidean distance, cosine distance |
-| **Core algorithm** | **K-Nearest Neighbors (KNN)**, optimized via **Approximate Nearest Neighbors (ANN)** for scale |
-| **Use cases** | Recommendation systems, anomaly detection, text generation, semantic search |
+| Aspect                 | Details                                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| **Core concept**       | Store and query **vector embeddings** -- numerical representations of data                     |
+| **Similarity metrics** | Euclidean distance, cosine distance                                                            |
+| **Core algorithm**     | **K-Nearest Neighbors (KNN)**, optimized via **Approximate Nearest Neighbors (ANN)** for scale |
+| **Use cases**          | Recommendation systems, anomaly detection, text generation, semantic search                    |
 
-<img src="/data-engineering-specialization-website/images/diagrams/vector-database-dark.svg" alt="Vector database schematic showing embedding, vector space, and KNN search" class="diagram diagram-dark" style="max-height: 900px;" />
-<img src="/data-engineering-specialization-website/images/diagrams/vector-database.svg" alt="Vector database schematic showing embedding, vector space, and KNN search" class="diagram diagram-light" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/vector-database-dark.svg" alt="Vector database schematic showing embedding, vector space, and KNN search" class="diagram diagram-dark" style="max-height: 900px;" />
+<img src="/data-engineering-specialization/images/diagrams/vector-database.svg" alt="Vector database schematic showing embedding, vector space, and KNN search" class="diagram diagram-light" style="max-height: 900px;" />
 
 ## 1.4.3 Neo4j and the Cypher Query Language
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/neo4j.svg" alt="Neo4j" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/neo4j-dark.svg" alt="Neo4j" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/neo4j.svg" alt="Neo4j" class="logo-light" /><img src="/data-engineering-specialization/images/logos/neo4j-dark.svg" alt="Neo4j" class="logo-dark" />
     <span>Neo4j</span>
   </div>
 </div>
 
 `Neo4j` uses the **Property Graph Model** to describe graph structure:
 
-| Concept | Description |
-|---|---|
-| **Node label** | The type/category of a node (e.g., `Product`, `Order`, `Category`) |
-| **Relationship type** | The type of an edge (e.g., `ORDERS`, `PART_OF`) |
-| **Node properties** | Key-value attributes on nodes (e.g., `name`, `unitPrice`) |
-| **Relationship properties** | Key-value attributes on edges (e.g., `quantity`, `unitPrice`) |
+| Concept                     | Description                                                        |
+| --------------------------- | ------------------------------------------------------------------ |
+| **Node label**              | The type/category of a node (e.g., `Product`, `Order`, `Category`) |
+| **Relationship type**       | The type of an edge (e.g., `ORDERS`, `PART_OF`)                    |
+| **Node properties**         | Key-value attributes on nodes (e.g., `name`, `unitPrice`)          |
+| **Relationship properties** | Key-value attributes on edges (e.g., `quantity`, `unitPrice`)      |
 
 ---
 

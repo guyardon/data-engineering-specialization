@@ -16,30 +16,30 @@ The data lakehouse, first introduced by Databricks, merges the best of both worl
 
 The key insight is that an **open table format** layer sits between the query engines and the raw storage, adding transactional capabilities and metadata management on top of cheap object storage.
 
-<img src="/data-engineering-specialization-website/images/diagrams/lakehouse-architecture-dark.svg" alt="Data lakehouse architecture with query engines, open table format, and object storage layers" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/lakehouse-architecture.svg" alt="Data lakehouse architecture with query engines, open table format, and object storage layers" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/lakehouse-architecture-dark.svg" alt="Data lakehouse architecture with query engines, open table format, and object storage layers" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/lakehouse-architecture.svg" alt="Data lakehouse architecture with query engines, open table format, and object storage layers" class="diagram diagram-light" />
 
 ## 2.3.2 Open Table Formats
 
 The lakehouse architecture is made possible by **open table formats** — specialized storage formats that add transactional capabilities to data stored in a lake. They enable record-level updates and deletes while supporting full **ACID** guarantees.
 
-| Format | Origin | Key Differentiator |
-|---|---|---|
-| `Delta Lake` | Databricks | Tight Spark integration, transaction log-based, most mature ecosystem |
-| `Apache Iceberg` | Netflix | Engine-agnostic design, hidden partitioning, best multi-engine support |
-| `Apache Hudi` | Uber | Optimized for incremental upserts and streaming ingestion |
+| Format           | Origin     | Key Differentiator                                                     |
+| ---------------- | ---------- | ---------------------------------------------------------------------- |
+| `Delta Lake`     | Databricks | Tight Spark integration, transaction log-based, most mature ecosystem  |
+| `Apache Iceberg` | Netflix    | Engine-agnostic design, hidden partitioning, best multi-engine support |
+| `Apache Hudi`    | Uber       | Optimized for incremental upserts and streaming ingestion              |
 
 <div class="tech-logos">
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/delta-lake.svg" alt="Delta Lake" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/delta-lake-dark.svg" alt="Delta Lake" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/delta-lake.svg" alt="Delta Lake" class="logo-light" /><img src="/data-engineering-specialization/images/logos/delta-lake-dark.svg" alt="Delta Lake" class="logo-dark" />
     <span>Delta Lake</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/iceberg.svg" alt="Apache Iceberg" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/iceberg-dark.svg" alt="Apache Iceberg" class="logo-dark" />
+    <img src="/data-engineering-specialization/images/logos/iceberg.svg" alt="Apache Iceberg" class="logo-light" /><img src="/data-engineering-specialization/images/logos/iceberg-dark.svg" alt="Apache Iceberg" class="logo-dark" />
     <span>Apache Iceberg</span>
   </div>
   <div class="tech-logo">
-    <img src="/data-engineering-specialization-website/images/logos/hudi.png" alt="Apache Hudi" class="logo-light" /><img src="/data-engineering-specialization-website/images/logos/hudi.png" alt="Apache Hudi" class="logo-dark" style="filter: brightness(1.6)" />
+    <img src="/data-engineering-specialization/images/logos/hudi.png" alt="Apache Hudi" class="logo-light" /><img src="/data-engineering-specialization/images/logos/hudi.png" alt="Apache Hudi" class="logo-dark" style="filter: brightness(1.6)" />
     <span>Apache Hudi</span>
   </div>
 </div>
@@ -66,14 +66,14 @@ Under the hood, data remains stored as **Parquet** or **ORC** files on object st
 
 The **Medallion Architecture** is the most widely adopted organizational pattern for structuring data within a lakehouse. Data flows through three layers — **Bronze**, **Silver**, and **Gold** — each adding progressively more structure and business value.
 
-<img src="/data-engineering-specialization-website/images/diagrams/medallion-architecture-dark.svg" alt="Medallion Architecture: Bronze, Silver, and Gold layers" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/medallion-architecture.svg" alt="Medallion Architecture: Bronze, Silver, and Gold layers" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/medallion-architecture-dark.svg" alt="Medallion Architecture: Bronze, Silver, and Gold layers" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/medallion-architecture.svg" alt="Medallion Architecture: Bronze, Silver, and Gold layers" class="diagram diagram-light" />
 
-| Layer | Purpose | Data Characteristics |
-|---|---|---|
+| Layer      | Purpose                                   | Data Characteristics                                                   |
+| ---------- | ----------------------------------------- | ---------------------------------------------------------------------- |
 | **Bronze** | Raw ingestion — exact copy of source data | Unprocessed, may contain duplicates, nulls, and schema inconsistencies |
-| **Silver** | Cleaned and conformed | Deduplicated, type-cast, validated, and joined across sources |
-| **Gold** | Business-level aggregations | Modeled into star schemas, aggregated metrics, or ML feature tables |
+| **Silver** | Cleaned and conformed                     | Deduplicated, type-cast, validated, and joined across sources          |
+| **Gold**   | Business-level aggregations               | Modeled into star schemas, aggregated metrics, or ML feature tables    |
 
 ---
 

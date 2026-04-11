@@ -10,22 +10,20 @@ order: 1
 notionId: "144969a7-aa01-805a-8d43-f23e81e41cd5"
 ---
 
-
-
 ## 1.1.1 The Data Engineering Lifecycle
 
 **Data Engineering Definition** (from Fundamentals of Data Engineering):
 
-*Data engineering is the development, implementation, and maintenance of systems and processes that take in raw data and produce high quality consistent information that supports downstream use cases, such as analysis and machine learning. Data engineering is the intersection of security, data management, DataOps, data architecture, orchestration, and software engineering. *
+_Data engineering is the development, implementation, and maintenance of systems and processes that take in raw data and produce high quality consistent information that supports downstream use cases, such as analysis and machine learning. Data engineering is the intersection of security, data management, DataOps, data architecture, orchestration, and software engineering. _
 
-<img src="/data-engineering-specialization-website/images/diagrams/data-engineering-lifecycle-dark.svg" alt="The Data Engineering Lifecycle" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/data-engineering-lifecycle.svg" alt="The Data Engineering Lifecycle" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/data-engineering-lifecycle-dark.svg" alt="The Data Engineering Lifecycle" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/data-engineering-lifecycle.svg" alt="The Data Engineering Lifecycle" class="diagram diagram-light" />
 
 ---
 
 **Data Pipeline Definition**
 
-*The combination of architecture, systems, and processes that move data through the data engineering lifecycle.*
+_The combination of architecture, systems, and processes that move data through the data engineering lifecycle._
 
 ---
 
@@ -33,14 +31,12 @@ notionId: "144969a7-aa01-805a-8d43-f23e81e41cd5"
 
 At its core, the data engineer's job is to get raw data from somewhere, transform it into something useful, and make it available to downstream consumers.
 
-
-
 ## 1.1.2 The History of Data and Data Engineering
 
 Data engineering didn't appear overnight — it evolved alongside decades of database and computing innovation.
 
-<img src="/data-engineering-specialization-website/images/diagrams/history-of-data-engineering-dark.svg" alt="History of Data Engineering" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/history-of-data-engineering.svg" alt="History of Data Engineering" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/history-of-data-engineering-dark.svg" alt="History of Data Engineering" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/history-of-data-engineering.svg" alt="History of Data Engineering" class="diagram diagram-light" />
 
 - **1960s** — `IMS` (Information Management System) was IBM's **hierarchical database**, one of the first to manage data at scale. `CODASYL` defined the **network database model**, an early standard for how programs interact with databases.
 
@@ -56,47 +52,41 @@ Data engineering didn't appear overnight — it evolved alongside decades of dat
 
 - **Today** — `dbt` brought **software engineering practices** to SQL transformations. `Snowflake` decoupled **storage from compute** in the cloud warehouse. `Airflow` became the standard for **pipeline orchestration**. The "Big Data Engineer" role has matured into the modern "Data Engineer" — focused on building with existing tools rather than inventing infrastructure from scratch.
 
-
 ## 1.1.3 The Data Engineer Among Other Stakeholders
 
 Data engineers sit between the teams that produce data and the teams that consume it.
 
-<img src="/data-engineering-specialization-website/images/diagrams/data-engineer-stakeholders-dark.svg" alt="The Data Engineer Among Stakeholders" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/data-engineer-stakeholders.svg" alt="The Data Engineer Among Stakeholders" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/data-engineer-stakeholders-dark.svg" alt="The Data Engineer Among Stakeholders" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/data-engineer-stakeholders.svg" alt="The Data Engineer Among Stakeholders" class="diagram diagram-light" />
 
 Communication with **upstream** stakeholders matters for understanding the data you're ingesting and catching anything that might disrupt the pipeline. Communication with **downstream** stakeholders matters for understanding how the data you serve relates to their goals and where it adds business value.
-
 
 ## 1.1.4 Business Value
 
 The most important question for a data engineer: how does your work add value to the organization? Don't get hung up on every new technology — focus on what drives business outcomes.
 
-<img src="/data-engineering-specialization-website/images/diagrams/business-value-dark.svg" alt="Business Value of Data Engineering" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/business-value.svg" alt="Business Value of Data Engineering" class="diagram diagram-light" />
-
+<img src="/data-engineering-specialization/images/diagrams/business-value-dark.svg" alt="Business Value of Data Engineering" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/business-value.svg" alt="Business Value of Data Engineering" class="diagram diagram-light" />
 
 ## 1.1.5 Gathering System Requirements
 
 Once you understand the business need, translate it into system requirements. These fall into two categories.
 
-<img src="/data-engineering-specialization-website/images/diagrams/system-requirements-dark.svg" alt="Gathering System Requirements" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/system-requirements.svg" alt="Gathering System Requirements" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/system-requirements-dark.svg" alt="Gathering System Requirements" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/system-requirements.svg" alt="Gathering System Requirements" class="diagram diagram-light" />
 
 Cost and security constraints should be factored in from the start.
-
-
 
 ## 1.1.6 Translating Stakeholder Needs into Specific Requirements
 
 Turning vague stakeholder needs into concrete requirements takes structured discovery.
 
-<img src="/data-engineering-specialization-website/images/diagrams/translating-needs-dark.svg" alt="Translating Stakeholder Needs" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/translating-needs.svg" alt="Translating Stakeholder Needs" class="diagram diagram-light" />
-
+<img src="/data-engineering-specialization/images/diagrams/translating-needs-dark.svg" alt="Translating Stakeholder Needs" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/translating-needs.svg" alt="Translating Stakeholder Needs" class="diagram diagram-light" />
 
 ## 1.1.7 Thinking Like a Data Engineer
 
 Putting it all together, here is a repeatable framework for approaching any data engineering problem:
 
-<img src="/data-engineering-specialization-website/images/diagrams/thinking-like-de-dark.svg" alt="Thinking Like a Data Engineer" class="diagram diagram-dark" />
-<img src="/data-engineering-specialization-website/images/diagrams/thinking-like-de.svg" alt="Thinking Like a Data Engineer" class="diagram diagram-light" />
+<img src="/data-engineering-specialization/images/diagrams/thinking-like-de-dark.svg" alt="Thinking Like a Data Engineer" class="diagram diagram-dark" />
+<img src="/data-engineering-specialization/images/diagrams/thinking-like-de.svg" alt="Thinking Like a Data Engineer" class="diagram diagram-light" />
