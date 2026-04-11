@@ -111,7 +111,7 @@ uv run pre-commit install
 npm run dev
 ```
 
-Open [localhost:4321](http://localhost:4321) to view the site.
+Open [localhost:4321](http://localhost:4321) to view the site, or visit the [deployed site](https://guyardon.github.io/data-engineering-specialization/).
 
 ---
 
