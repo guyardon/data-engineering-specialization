@@ -36,7 +36,7 @@ const resolvedData = glossaryData.map((cat) => ({
     notes: term.notes.map((ref) => ({
       ...ref,
       title: noteMap.get(ref.slug) as string,
-      href: `${BASE}/notes/${ref.slug}/${ref.anchor ?? ""}`,
+      href: `${BASE}/notes/${ref.slug}/${"anchor" in ref ? ref.anchor : ""}`,
     })),
   })),
 }));

@@ -434,7 +434,7 @@ const activeWeekSlug = currentNote?.data.weekSlug;
   });
 
   function saveTreeState() {
-    const state = {};
+    const state: Record<string, boolean> = {};
     document.querySelectorAll(".course-details").forEach((course, ci) => {
       state["c" + ci] = course.hasAttribute("open");
       course.querySelectorAll(".week-details").forEach((week, wi) => {
