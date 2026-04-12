@@ -1,6 +1,3 @@
-ci:
-  skip: [eslint, prettier, pytest, vitest]
-
 repos:
   # Python — ruff (lint + format)
   - repo: https://github.com/astral-sh/ruff-pre-commit
