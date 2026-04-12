@@ -354,11 +354,13 @@ const {
     .page-title {
       font-size: 1.4rem;
     }
-    .page-nav {
-      flex-direction: column;
-    }
+    .page-nav-prev,
     .page-nav-next {
-      margin-left: 0;
+      flex: 1;
+      min-width: 0;
+    }
+    .page-nav-link {
+      width: auto;
     }
   }
 </style>
