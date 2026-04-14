@@ -515,6 +515,10 @@ const {
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .diagram-lightbox::backdrop {
     background: rgba(0, 0, 0, 0.4);
@@ -527,6 +531,7 @@ const {
     object-fit: contain;
     border-radius: 10px;
     display: block;
+    margin: 0 auto;
   }
   .diagram-lightbox .diagram-lb-svg {
     display: none;
@@ -563,7 +568,7 @@ const {
     display: none;
   }
   :global(:root:not([data-theme="light"])) .diagram-lightbox .diagram-dark {
-    display: inline;
+    display: block;
   }
   :global(:root:not([data-theme="light"])) .diagram-lightbox .diagram-light {
     display: none;
