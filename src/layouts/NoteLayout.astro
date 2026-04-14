@@ -114,6 +114,28 @@ const {
       </aside>
     </div>
 
+    <!-- Mobile diagram lightbox -->
+    <dialog id="diagram-lightbox" class="diagram-lightbox">
+      <button class="diagram-lightbox-close" aria-label="Close">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <img id="diagram-lb-light" class="diagram-lb-img diagram-light" alt="" />
+      <img id="diagram-lb-dark" class="diagram-lb-img diagram-dark" alt="" />
+      <div id="diagram-lb-svg" class="diagram-lb-svg"></div>
+    </dialog>
+
     <script>
       const openBtn = document.getElementById("sidebar-open");
       const closeBtn = document.getElementById("sidebar-close");
@@ -178,6 +200,111 @@ const {
       }
 
       wrapSectionsInCards();
+    </script>
+
+    <script>
+      (function () {
+        const lightbox = document.getElementById(
+          "diagram-lightbox",
+        ) as HTMLDialogElement;
+        const lbImgLight = document.getElementById(
+          "diagram-lb-light",
+        ) as HTMLImageElement;
+        const lbImgDark = document.getElementById(
+          "diagram-lb-dark",
+        ) as HTMLImageElement;
+        const lbSvgContainer = document.getElementById(
+          "diagram-lb-svg",
+        ) as HTMLDivElement;
+        const lbClose = lightbox.querySelector(".diagram-lightbox-close")!;
+
+        function isMobile() {
+          return window.innerWidth <= 768;
+        }
+
+        function openImgLightbox(
+          lightSrc: string,
+          darkSrc: string,
+          alt: string,
+        ) {
+          lbImgLight.src = lightSrc;
+          lbImgLight.alt = alt;
+          lbImgDark.src = darkSrc;
+          lbImgDark.alt = alt;
+          lbImgLight.style.display = "";
+          lbImgDark.style.display = "";
+          lbSvgContainer.style.display = "none";
+          lbSvgContainer.innerHTML = "";
+          lightbox.showModal();
+        }
+
+        function openSvgLightbox(svg: SVGElement) {
+          const clone = svg.cloneNode(true) as SVGElement;
+          clone.style.maxWidth = "85vw";
+          clone.style.maxHeight = "80vh";
+          clone.style.width = "100%";
+          clone.style.height = "auto";
+          lbImgLight.style.display = "none";
+          lbImgDark.style.display = "none";
+          lbSvgContainer.style.display = "flex";
+          lbSvgContainer.innerHTML = "";
+          lbSvgContainer.appendChild(clone);
+          lightbox.showModal();
+        }
+
+        // Use event delegation so dynamically rendered Mermaid diagrams work
+        const prose = document.getElementById("prose-content");
+        if (prose) {
+          prose.addEventListener("click", function (e) {
+            if (!isMobile()) return;
+            const target = e.target as HTMLElement;
+
+            // Static diagram images (light/dark pairs)
+            const img = target.closest("img.diagram") as HTMLImageElement;
+            if (img) {
+              const isDark = img.classList.contains("diagram-dark");
+              const sibling = isDark
+                ? img.nextElementSibling
+                : img.previousElementSibling;
+
+              let lightSrc: string;
+              let darkSrc: string;
+              if (isDark) {
+                darkSrc = img.src;
+                lightSrc =
+                  sibling instanceof HTMLImageElement &&
+                  sibling.classList.contains("diagram-light")
+                    ? sibling.src
+                    : img.src;
+              } else {
+                lightSrc = img.src;
+                darkSrc =
+                  sibling instanceof HTMLImageElement &&
+                  sibling.classList.contains("diagram-dark")
+                    ? sibling.src
+                    : img.src;
+              }
+              openImgLightbox(lightSrc, darkSrc, img.alt);
+              return;
+            }
+
+            // Mermaid diagrams (SVG inside .mermaid-diagram)
+            const mermaidEl = target.closest(".mermaid-diagram");
+            if (mermaidEl) {
+              const svg = mermaidEl.querySelector("svg");
+              if (svg) openSvgLightbox(svg);
+            }
+          });
+        }
+
+        // Close handlers
+        lbClose.addEventListener("click", function () {
+          lightbox.close();
+        });
+        lightbox.addEventListener("click", function (e) {
+          if (e.target === lightbox) lightbox.close();
+        });
+      })();
     </script>
   </body>
 </html>
@@ -362,5 +489,83 @@ const {
     .page-nav-link {
       width: auto;
     }
+  }
+
+  /* Mobile diagram tap hint */
+  @media (max-width: 768px) {
+    :global(.prose img.diagram) {
+      cursor: pointer;
+    }
+    :global(.mermaid-diagram) {
+      cursor: pointer;
+    }
+  }
+
+  /* Diagram lightbox */
+  .diagram-lightbox {
+    border: none;
+    background: var(--bg-card);
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+  .diagram-lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .diagram-lightbox .diagram-lb-img {
+    max-width: 85vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+  }
+  .diagram-lightbox .diagram-lb-svg {
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  .diagram-lightbox .diagram-lightbox-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--bg-card);
+    color: var(--fg-soft);
+    border: 1px solid var(--line);
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+    z-index: 10;
+  }
+  .diagram-lightbox .diagram-lightbox-close:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .diagram-lightbox .diagram-lightbox-close:focus {
+    outline: none;
+  }
+  .diagram-lightbox .diagram-dark {
+    display: none;
+  }
+  :global(:root:not([data-theme="light"])) .diagram-lightbox .diagram-dark {
+    display: inline;
+  }
+  :global(:root:not([data-theme="light"])) .diagram-lightbox .diagram-light {
+    display: none;
   }
 </style>
