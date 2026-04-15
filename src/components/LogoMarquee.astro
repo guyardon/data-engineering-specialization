@@ -151,33 +151,10 @@ const row2 = [
     gap: 2rem;
     flex-shrink: 0;
     padding: 0 1rem;
-    animation: scroll-left 28s linear infinite;
-  }
-
-  .marquee[data-direction="right"] .marquee-track {
-    animation: scroll-right 32s linear infinite;
   }
 
   .marquee:hover .marquee-track {
     animation-play-state: paused;
-  }
-
-  @keyframes scroll-left {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
-  @keyframes scroll-right {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
   }
 
   .marquee-logo {
@@ -209,26 +186,43 @@ const row2 = [
   :root:not([data-theme="light"]) .marquee-logo img.logo-light {
     display: none;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-      animation: none !important;
-    }
-    .marquee-container {
-      -webkit-mask-image: none;
-      mask-image: none;
-    }
-    .marquee {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-    .marquee-track[aria-hidden="true"] {
-      display: none;
-    }
-    .marquee-track {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
 </style>
+
+<script>
+  function initMarquees() {
+    document.querySelectorAll<HTMLElement>(".marquee").forEach((marquee) => {
+      const track = marquee.querySelector<HTMLElement>(".marquee-track");
+      if (!track) return;
+
+      const trackWidth = track.scrollWidth;
+      const direction = marquee.dataset.direction || "left";
+      // Scale speed to content width so both rows feel consistent
+      const speed = 50; // px per second
+      const duration = trackWidth / speed;
+
+      const name = `marquee-${direction}-${Math.random().toString(36).slice(2, 8)}`;
+      const from = direction === "left" ? "0px" : `-${trackWidth}px`;
+      const to = direction === "left" ? `-${trackWidth}px` : "0px";
+
+      const sheet = new CSSStyleSheet();
+      sheet.replaceSync(`
+        @keyframes ${name} {
+          from { transform: translateX(${from}); }
+          to   { transform: translateX(${to}); }
+        }
+      `);
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+
+      marquee.querySelectorAll<HTMLElement>(".marquee-track").forEach((t) => {
+        t.style.animation = `${name} ${duration}s linear infinite`;
+      });
+    });
+  }
+
+  // Run after images load so scrollWidth is accurate
+  if (document.readyState === "complete") {
+    initMarquees();
+  } else {
+    window.addEventListener("load", initMarquees);
+  }
+</script>
