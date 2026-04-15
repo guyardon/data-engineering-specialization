@@ -48,8 +48,10 @@
     background-color: var(--bg);
     color: var(--fg);
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     transition:
       background-color 0.2s ease,
       color 0.2s ease;
@@ -161,7 +163,7 @@
     color: var(--fg);
     max-width: none;
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .prose h1 {
@@ -218,7 +220,7 @@
   .prose p {
     line-height: 1.75;
     margin-bottom: 1rem;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .prose ul {
@@ -234,7 +236,7 @@
   .prose li {
     line-height: 1.75;
     margin-bottom: 0.25rem;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .prose ul ul,
