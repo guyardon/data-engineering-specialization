@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48">
+  <defs>
+    <linearGradient x1="0%" y1="100%" x2="100%" y2="0%" id="lg-cloudformation-dark">
+      <stop stop-color="#B0084D" offset="0%"/><stop stop-color="#FF4F8B" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 0) scale(0.1875)">
+    <rect fill="url(#lg-cloudformation-dark)" x="0" y="0" width="256" height="256" rx="30" ry="30"/>
+    <g fill="#FFFFFF" stroke="none">
+      <rect x="64" y="64" width="128" height="28" rx="6"/>
+      <rect x="64" y="114" width="128" height="28" rx="6"/>
+      <rect x="64" y="164" width="128" height="28" rx="6"/>
+    </g>
+  </g>
+  <text x="62" y="20" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#e8e8ea" font-weight="600" text-anchor="start">AWS Cloud</text>
+  <text x="62" y="32" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#e8e8ea" font-weight="600" text-anchor="start">Formation</text>
+</svg>

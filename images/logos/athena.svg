@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48">
+  <defs>
+    <linearGradient x1="0%" y1="100%" x2="100%" y2="0%" id="lg-athena">
+      <stop stop-color="#4D27A8" offset="0%"/><stop stop-color="#A166FF" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 0) scale(0.1875)">
+    <rect fill="url(#lg-athena)" x="0" y="0" width="256" height="256" rx="30" ry="30"/>
+    <g fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="128" cy="120" r="64"/>
+      <line x1="128" y1="56" x2="128" y2="184"/>
+      <line x1="64" y1="120" x2="192" y2="120"/>
+      <path d="M84,76 Q128,120 84,164"/>
+      <path d="M172,76 Q128,120 172,164"/>
+    </g>
+  </g>
+  <text x="62" y="20" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#232F3E" font-weight="600" text-anchor="start">Amazon</text>
+  <text x="62" y="32" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#232F3E" font-weight="600" text-anchor="start">Athena</text>
+</svg>
