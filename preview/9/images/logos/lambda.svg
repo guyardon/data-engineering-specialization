@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48">
+  <defs>
+    <linearGradient x1="0%" y1="100%" x2="100%" y2="0%" id="lg-lambda">
+      <stop stop-color="#C8511B" offset="0%"/><stop stop-color="#F7981F" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(10, 0) scale(0.1875)">
+    <rect fill="url(#lg-lambda)" x="0" y="0" width="256" height="256" rx="30" ry="30"/>
+    <path d="M128 56 L184 200 L208 200 M128 56 L72 200 L48 200 M88 56 L48 56" stroke="#FFFFFF" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="62" y="27" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#232F3E" font-weight="600" text-anchor="start">AWS Lambda</text>
+</svg>
