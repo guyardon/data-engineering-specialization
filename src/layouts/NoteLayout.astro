@@ -1,7 +1,6 @@
 ---
 import Sidebar from "../components/Sidebar.astro";
 import TableOfContents from "../components/TableOfContents.astro";
-import CodeSandbox from "../components/CodeSandbox.astro";
 import "../styles/global.css";
 import { BASE } from "../lib/base";
 
@@ -82,8 +81,6 @@ const {
           <div class="prose" id="prose-content" data-pagefind-body>
             <slot />
           </div>
-
-          <CodeSandbox />
 
           <!-- Prev/Next navigation -->
           <nav class="page-nav" aria-label="Previous and next">
