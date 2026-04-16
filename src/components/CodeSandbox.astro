@@ -1,0 +1,319 @@
+---
+/**
+ * CodeSandbox
+ *
+ * Client-side enhancement that upgrades all Python/SQL code blocks on
+ * the page into interactive sandboxes (edit + run). Follows the same
+ * "insert once per page, enhance DOM on load" pattern as Mermaid.astro.
+ *
+ * - No content-file changes required.
+ * - Authors can opt out per block with `# sandbox: off` (Python) or
+ *   `-- sandbox: off` (SQL) as the first line.
+ * - Lazy-loads CodeMirror on first Edit/Run, and Pyodide or sql.js on
+ *   first Run, so initial page weight is unaffected.
+ */
+---
+import "../styles/sandbox.css";
+---
+
+<div id="code-sandbox-root" data-sandbox-root></div>
+
+<script>
+  import type {
+    EditorHandle,
+    EditorLanguage,
+  } from "../lib/sandbox/editor";
+
+  type SandboxLang = EditorLanguage;
+
+  interface SandboxState {
+    language: SandboxLang;
+    originalCode: string;
+    originalPre: HTMLElement;
+    container: HTMLElement;
+    editorHost: HTMLElement;
+    outputHost: HTMLElement;
+    runBtn: HTMLButtonElement;
+    editor?: EditorHandle;
+    running: boolean;
+  }
+
+  const OPT_OUT_MARKERS = [
+    "# sandbox: off",
+    "// sandbox: off",
+    "-- sandbox: off",
+  ];
+
+  function shouldSkip(code: string): boolean {
+    const firstLine = code.split("\n", 1)[0]?.trim().toLowerCase() ?? "";
+    return OPT_OUT_MARKERS.some((m) => firstLine === m.toLowerCase());
+  }
+
+  function detectLanguage(codeEl: HTMLElement): SandboxLang | null {
+    const classList = Array.from(codeEl.classList);
+    for (const cls of classList) {
+      if (cls === "language-python" || cls === "language-py") return "python";
+      if (cls === "language-sql") return "sql";
+    }
+    // Astro/Shiki sometimes puts the language on the parent <pre>.
+    const pre = codeEl.closest("pre");
+    if (pre) {
+      if (pre.dataset.language === "python") return "python";
+      if (pre.dataset.language === "sql") return "sql";
+    }
+    return null;
+  }
+
+  function createToolbar(state: SandboxState): HTMLElement {
+    const toolbar = document.createElement("div");
+    toolbar.className = "sandbox-toolbar";
+
+    const langBadge = document.createElement("span");
+    langBadge.className = "sandbox-lang-badge";
+    langBadge.textContent = state.language === "python" ? "Python" : "SQL";
+
+    const copyBtn = document.createElement("button");
+    copyBtn.type = "button";
+    copyBtn.className = "sandbox-btn sandbox-btn-copy";
+    copyBtn.title = "Copy code";
+    copyBtn.setAttribute("aria-label", "Copy code");
+    copyBtn.textContent = "Copy";
+    copyBtn.addEventListener("click", async () => {
+      const code = state.editor
+        ? state.editor.getCode()
+        : state.originalCode;
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = "Copied";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
+      } catch {
+        copyBtn.textContent = "Failed";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
+      }
+    });
+
+    const editBtn = document.createElement("button");
+    editBtn.type = "button";
+    editBtn.className = "sandbox-btn sandbox-btn-edit";
+    editBtn.title = "Edit in browser";
+    editBtn.setAttribute("aria-label", "Edit code");
+    editBtn.textContent = "Edit";
+    editBtn.addEventListener("click", () => activateEditor(state));
+
+    const runBtn = document.createElement("button");
+    runBtn.type = "button";
+    runBtn.className = "sandbox-btn sandbox-btn-run";
+    runBtn.title = "Run code (Cmd/Ctrl+Enter in editor)";
+    runBtn.setAttribute("aria-label", "Run code");
+    runBtn.innerHTML = '<span class="sandbox-run-icon">▶</span> Run';
+    runBtn.addEventListener("click", () => runSandbox(state));
+    state.runBtn = runBtn;
+
+    toolbar.append(langBadge, copyBtn, editBtn, runBtn);
+    return toolbar;
+  }
+
+  async function activateEditor(state: SandboxState): Promise<void> {
+    if (state.editor) {
+      state.editor.view.focus();
+      return;
+    }
+    const code = state.originalCode;
+    // Hide the static <pre> and mount the editor in its place.
+    state.originalPre.style.display = "none";
+    state.editorHost.classList.add("sandbox-editor-active");
+
+    const { createEditor } = await import("../lib/sandbox/editor");
+    state.editor = createEditor(
+      state.editorHost,
+      code,
+      state.language,
+      () => runSandbox(state),
+    );
+    state.editor.view.focus();
+  }
+
+  function setOutputMessage(
+    state: SandboxState,
+    message: string,
+    variant: "info" | "error" | "ok" = "info",
+  ): void {
+    state.outputHost.innerHTML = "";
+    const box = document.createElement("div");
+    box.className = `sandbox-output-message sandbox-output-${variant}`;
+    box.textContent = message;
+    state.outputHost.append(box);
+    state.outputHost.classList.add("sandbox-output-visible");
+  }
+
+  function appendText(
+    state: SandboxState,
+    text: string,
+    variant: "stdout" | "stderr" = "stdout",
+  ): void {
+    if (!text) return;
+    const pre = document.createElement("pre");
+    pre.className = `sandbox-output-text sandbox-output-${variant}`;
+    pre.textContent = text;
+    state.outputHost.append(pre);
+  }
+
+  function renderSqlTable(
+    state: SandboxState,
+    columns: string[],
+    rows: unknown[][],
+  ): void {
+    const wrapper = document.createElement("div");
+    wrapper.className = "sandbox-sql-table-wrapper";
+    const table = document.createElement("table");
+    table.className = "sandbox-sql-table";
+    const thead = document.createElement("thead");
+    const headRow = document.createElement("tr");
+    for (const col of columns) {
+      const th = document.createElement("th");
+      th.textContent = col;
+      headRow.append(th);
+    }
+    thead.append(headRow);
+    const tbody = document.createElement("tbody");
+    for (const row of rows) {
+      const tr = document.createElement("tr");
+      for (const cell of row) {
+        const td = document.createElement("td");
+        td.textContent = cell === null || cell === undefined ? "NULL" : String(cell);
+        if (cell === null || cell === undefined) td.classList.add("sandbox-cell-null");
+        tr.append(td);
+      }
+      tbody.append(tr);
+    }
+    table.append(thead, tbody);
+    wrapper.append(table);
+    const caption = document.createElement("div");
+    caption.className = "sandbox-sql-meta";
+    caption.textContent = `${rows.length} row${rows.length === 1 ? "" : "s"}`;
+    state.outputHost.append(wrapper, caption);
+  }
+
+  async function runSandbox(state: SandboxState): Promise<void> {
+    if (state.running) return;
+    state.running = true;
+    state.runBtn.disabled = true;
+    state.runBtn.classList.add("sandbox-btn-loading");
+
+    // Make sure the editor is up so users see what's being run.
+    if (!state.editor) await activateEditor(state);
+    const code = state.editor ? state.editor.getCode() : state.originalCode;
+
+    state.outputHost.innerHTML = "";
+    state.outputHost.classList.add("sandbox-output-visible");
+    setOutputMessage(state, "Loading runtime...", "info");
+
+    try {
+      if (state.language === "python") {
+        const { runPython } = await import("../lib/sandbox/python-runner");
+        const result = await runPython(code, (msg) =>
+          setOutputMessage(state, msg, "info"),
+        );
+        state.outputHost.innerHTML = "";
+        if (result.stdout) appendText(state, result.stdout, "stdout");
+        if (result.stderr) appendText(state, result.stderr, "stderr");
+        if (result.error) appendText(state, result.error, "stderr");
+        if (!result.stdout && !result.stderr && !result.error) {
+          setOutputMessage(state, "(no output)", "info");
+        }
+      } else {
+        const { runSQL } = await import("../lib/sandbox/sql-runner");
+        const result = await runSQL(code, (msg) =>
+          setOutputMessage(state, msg, "info"),
+        );
+        state.outputHost.innerHTML = "";
+        if (result.error) {
+          appendText(state, result.error, "stderr");
+        } else if (result.tables.length > 0) {
+          for (const table of result.tables) {
+            renderSqlTable(state, table.columns, table.rows);
+          }
+        } else {
+          setOutputMessage(
+            state,
+            result.rowsAffected !== undefined
+              ? `OK — ${result.rowsAffected} row${result.rowsAffected === 1 ? "" : "s"} affected`
+              : "OK — no rows returned",
+            "ok",
+          );
+        }
+      }
+    } catch (err) {
+      state.outputHost.innerHTML = "";
+      setOutputMessage(
+        state,
+        err instanceof Error ? err.message : String(err),
+        "error",
+      );
+    } finally {
+      state.running = false;
+      state.runBtn.disabled = false;
+      state.runBtn.classList.remove("sandbox-btn-loading");
+    }
+  }
+
+  function enhancePre(pre: HTMLElement): void {
+    if (pre.dataset.sandboxEnhanced === "true") return;
+    const codeEl = pre.querySelector<HTMLElement>("code");
+    if (!codeEl) return;
+    const language = detectLanguage(codeEl);
+    if (!language) return;
+
+    const originalCode = codeEl.textContent ?? "";
+    if (shouldSkip(originalCode)) return;
+
+    pre.dataset.sandboxEnhanced = "true";
+
+    const container = document.createElement("div");
+    container.className = `sandbox-container sandbox-lang-${language}`;
+
+    const editorHost = document.createElement("div");
+    editorHost.className = "sandbox-editor-host";
+
+    const outputHost = document.createElement("div");
+    outputHost.className = "sandbox-output-host";
+
+    // Move the existing <pre> inside our container so Shiki styling is preserved.
+    const parent = pre.parentNode;
+    if (!parent) return;
+    parent.insertBefore(container, pre);
+
+    const state: SandboxState = {
+      language,
+      originalCode,
+      originalPre: pre,
+      container,
+      editorHost,
+      outputHost,
+      runBtn: null as unknown as HTMLButtonElement,
+      running: false,
+    };
+
+    const toolbar = createToolbar(state);
+    container.append(toolbar, pre, editorHost, outputHost);
+  }
+
+  function enhanceAll(): void {
+    // Only enhance code blocks inside the article prose area.
+    const roots = document.querySelectorAll<HTMLElement>(".prose, article");
+    const seen = new Set<HTMLElement>();
+    for (const root of roots) {
+      root.querySelectorAll<HTMLElement>("pre").forEach((pre) => {
+        if (seen.has(pre)) return;
+        seen.add(pre);
+        enhancePre(pre);
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", enhanceAll);
+  } else {
+    enhanceAll();
+  }
+</script>
