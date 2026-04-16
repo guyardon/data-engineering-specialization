@@ -52,7 +52,7 @@ export default tseslint.config(
 
   // Node.js scripts — add node globals
   {
-    files: ["scripts/**/*.mjs", "scripts/**/*.js"],
+    files: ["scripts/**/*.mjs", "scripts/**/*.js", "astro.config.mjs"],
     languageOptions: {
       globals: {
         ...globals.node,
