@@ -218,8 +218,9 @@ const {
         ) as HTMLDivElement;
         const lbClose = lightbox.querySelector(".diagram-lightbox-close")!;
 
-        function isMobile() {
-          return window.innerWidth <= 768;
+        function clearSvgContainer() {
+          while (lbSvgContainer.firstChild)
+            lbSvgContainer.removeChild(lbSvgContainer.firstChild);
         }
 
         function openImgLightbox(
@@ -233,8 +234,8 @@ const {
           lbImgDark.alt = alt;
           lbImgLight.style.display = "";
           lbImgDark.style.display = "";
-          lbSvgContainer.style.display = "none";
-          lbSvgContainer.innerHTML = "";
+          lbSvgContainer.classList.remove("is-active");
+          clearSvgContainer();
           lightbox.showModal();
         }
 
@@ -246,8 +247,8 @@ const {
           clone.style.height = "auto";
           lbImgLight.style.display = "none";
           lbImgDark.style.display = "none";
-          lbSvgContainer.style.display = "flex";
-          lbSvgContainer.innerHTML = "";
+          lbSvgContainer.classList.add("is-active");
+          clearSvgContainer();
           lbSvgContainer.appendChild(clone);
           lightbox.showModal();
         }
@@ -256,7 +257,6 @@ const {
         const prose = document.getElementById("prose-content");
         if (prose) {
           prose.addEventListener("click", function (e) {
-            if (!isMobile()) return;
             const target = e.target as HTMLElement;
 
             // Static diagram images (light/dark pairs)
@@ -510,11 +510,11 @@ const {
     padding: 1.5rem;
     border-radius: 16px;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
   }
   .diagram-lightbox::backdrop {
     background: rgba(0, 0, 0, 0.4);
@@ -530,6 +530,9 @@ const {
   }
   .diagram-lightbox .diagram-lb-svg {
     display: none;
+  }
+  .diagram-lightbox .diagram-lb-svg.is-active {
+    display: flex;
     justify-content: center;
     align-items: center;
   }
