@@ -84,7 +84,7 @@
   .tech-logos {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: 1.5rem;
     margin: 1rem 0 0.5rem;
     flex-wrap: wrap;
@@ -123,6 +123,8 @@
   .tech-logo span {
     font-size: 0.85rem;
     color: var(--fg-muted);
+    text-align: center;
+    line-height: 1.2;
   }
 
   /* --- Tech logo aside (float right next to text) --- */
