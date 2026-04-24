@@ -168,12 +168,7 @@ const flatNotes = [...notes].sort((a, b) => {
 });
 ---
 
-<nav
-  id="sidebar"
-  class="sidebar"
-  data-view="grouped"
-  aria-label="Course navigation"
->
+<nav id="sidebar" class="sidebar" aria-label="Course navigation">
   <div class="sidebar-header">
     <Logo label="Home" />
     <div class="sidebar-header-actions">
@@ -553,17 +548,24 @@ const flatNotes = [...notes].sort((a, b) => {
     color: var(--fg);
   }
 
-  .view-toggle-btn[aria-pressed="true"] {
+  /* Visual "selected" state is driven by the html data attribute (set before
+     paint via the inline head script) so the correct button is highlighted
+     on first render, with no flash. */
+  :global(html[data-sidebar-view="flat"])
+    .view-toggle-btn[data-view-target="flat"],
+  :global(html:not([data-sidebar-view="flat"]))
+    .view-toggle-btn[data-view-target="grouped"] {
     background-color: var(--bg);
     color: var(--accent);
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
   }
 
-  /* Visibility gate based on current view mode */
-  .sidebar[data-view="grouped"] .nav-flat {
+  /* Visibility gate based on current view mode (set on <html> via inline
+     head script so it applies before the browser paints — no flicker). */
+  :global(html[data-sidebar-view="flat"]) .nav-tree {
     display: none;
   }
-  .sidebar[data-view="flat"] .nav-tree {
+  :global(html:not([data-sidebar-view="flat"])) .nav-flat {
     display: none;
   }
 
@@ -656,42 +658,28 @@ const flatNotes = [...notes].sort((a, b) => {
 
 <script>
   const TREE_KEY = "sidebar-tree-state";
-  const SCROLL_KEY = "sidebar-scroll-pos";
   const VIEW_KEY = "sidebar-view-mode";
-  const SCROLL_FLAT_KEY = "sidebar-scroll-flat";
   const sidebar = document.getElementById("sidebar");
 
-  // Save scroll position on link clicks (before navigation)
-  document.querySelectorAll(".note-link, .flat-link").forEach((link) => {
-    link.addEventListener("click", () => {
-      if (!sidebar) return;
-      const mode = sidebar.getAttribute("data-view") || "grouped";
-      const key = mode === "flat" ? SCROLL_FLAT_KEY : SCROLL_KEY;
-      sessionStorage.setItem(key, String(sidebar.scrollTop));
-    });
-  });
-
-  // Apply saved view mode (default: grouped)
-  const savedView = localStorage.getItem(VIEW_KEY);
-  if (sidebar && (savedView === "flat" || savedView === "grouped")) {
-    sidebar.setAttribute("data-view", savedView);
-    document.querySelectorAll(".view-toggle-btn").forEach((btn) => {
-      const target = btn.getAttribute("data-view-target");
-      btn.setAttribute("aria-pressed", target === savedView ? "true" : "false");
-    });
+  function currentMode(): "flat" | "grouped" {
+    return document.documentElement.getAttribute("data-sidebar-view") === "flat"
+      ? "flat"
+      : "grouped";
   }
+
+  // Reflect the saved view on the toggle buttons.
+  const initialMode = currentMode();
+  document.querySelectorAll(".view-toggle-btn").forEach((btn) => {
+    const target = btn.getAttribute("data-view-target");
+    btn.setAttribute("aria-pressed", target === initialMode ? "true" : "false");
+  });
 
   // View toggle click handler
   document.querySelectorAll(".view-toggle-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const target = btn.getAttribute("data-view-target");
-      if (!sidebar || !target) return;
-      // Persist current-mode scroll before switching
-      const prevMode = sidebar.getAttribute("data-view") || "grouped";
-      const prevKey = prevMode === "flat" ? SCROLL_FLAT_KEY : SCROLL_KEY;
-      sessionStorage.setItem(prevKey, String(sidebar.scrollTop));
-
-      sidebar.setAttribute("data-view", target);
+      if (!target) return;
+      document.documentElement.setAttribute("data-sidebar-view", target);
       localStorage.setItem(VIEW_KEY, target);
       document.querySelectorAll(".view-toggle-btn").forEach((b) => {
         b.setAttribute(
@@ -699,17 +687,7 @@ const flatNotes = [...notes].sort((a, b) => {
           b.getAttribute("data-view-target") === target ? "true" : "false",
         );
       });
-
-      // Restore scroll for the new mode, or center active row if none saved
-      const nextKey = target === "flat" ? SCROLL_FLAT_KEY : SCROLL_KEY;
-      const savedScroll = sessionStorage.getItem(nextKey);
-      setTimeout(() => {
-        if (savedScroll !== null) {
-          sidebar.scrollTop = parseInt(savedScroll, 10);
-        } else {
-          scrollActiveIntoView();
-        }
-      }, 0);
+      setTimeout(centerActive, 0);
     });
   });
 
@@ -724,7 +702,7 @@ const flatNotes = [...notes].sort((a, b) => {
     localStorage.setItem(TREE_KEY, JSON.stringify(state));
   }
 
-  // Restore tree state from localStorage
+  // Restore tree state from localStorage.
   const saved = localStorage.getItem(TREE_KEY);
   if (saved) {
     try {
@@ -736,37 +714,46 @@ const flatNotes = [...notes].sort((a, b) => {
         });
       });
     } catch {
-      // Ignore corrupted sessionStorage
+      // Ignore corrupted storage.
     }
   }
 
-  // Restore sidebar scroll position AFTER tree is expanded (mode-aware)
-  function restoreSidebarScroll() {
-    if (!sidebar) return;
-    const mode = sidebar.getAttribute("data-view") || "grouped";
-    const key = mode === "flat" ? SCROLL_FLAT_KEY : SCROLL_KEY;
-    const savedScroll = sessionStorage.getItem(key);
-    if (savedScroll !== null) {
-      sidebar.scrollTop = parseInt(savedScroll, 10);
+  // Make sure the active note is reachable in grouped view — open its
+  // course + week even if the user had collapsed them previously.
+  const activeNoteLink = document.querySelector(".note-link.active");
+  if (activeNoteLink) {
+    let node: Element | null = activeNoteLink;
+    while (node) {
+      if (
+        node instanceof HTMLElement &&
+        (node.classList.contains("course-details") ||
+          node.classList.contains("week-details"))
+      ) {
+        node.setAttribute("open", "");
+      }
+      node = node.parentElement;
     }
   }
 
-  function scrollActiveIntoView() {
+  // Center the active row of the current view in the sidebar scroll area.
+  function centerActive() {
     if (!sidebar) return;
-    const mode = sidebar.getAttribute("data-view") || "grouped";
-    const sel = mode === "flat" ? ".flat-link.active" : ".note-link.active";
+    const sel =
+      currentMode() === "flat" ? ".flat-link.active" : ".note-link.active";
     const active = sidebar.querySelector(sel) as HTMLElement | null;
     if (!active) return;
-    const sbBox = sidebar.getBoundingClientRect();
-    const activeBox = active.getBoundingClientRect();
-    if (activeBox.top < sbBox.top || activeBox.bottom > sbBox.bottom) {
-      active.scrollIntoView({ block: "center", behavior: "auto" });
-    }
+    active.scrollIntoView({ block: "center", behavior: "auto" });
   }
 
   // Run after layout settles. requestAnimationFrame doesn't fire when the
   // tab is not visible (common under headless preview), so use setTimeout.
-  setTimeout(restoreSidebarScroll, 0);
+  setTimeout(() => {
+    centerActive();
+    // Reveal the sidebar list once scroll position is correct — the critical
+    // inline CSS in the head keeps it invisible until this flag flips, so
+    // the user never sees the scrollbar jump from top to its final spot.
+    document.documentElement.setAttribute("data-sidebar-ready", "");
+  }, 0);
 
   // Save state on toggle and collapse weeks when closing a course
   document.querySelectorAll(".course-details").forEach((course) => {

@@ -31,8 +31,45 @@ const {
         ) {
           document.documentElement.setAttribute("data-theme", "light");
         }
+
+        const sidebarView = localStorage.getItem("sidebar-view-mode");
+        document.documentElement.setAttribute(
+          "data-sidebar-view",
+          sidebarView === "flat" ? "flat" : "grouped",
+        );
       })();
     </script>
+    <!-- Critical sidebar-view CSS: inlined so the correct mode is painted on
+         the first frame without waiting for the component stylesheet. Also
+         disables toggle-button transitions so any late restyle (e.g. HMR in
+         dev) never animates visibly. The .nav-tree/.nav-flat lists are kept
+         invisible until the sidebar script has scrolled the active row into
+         view, otherwise the scrollbar visibly jumps from top to its final
+         position on each navigation. -->
+    <style is:inline>
+      html[data-sidebar-view="flat"] #sidebar .nav-tree,
+      html:not([data-sidebar-view="flat"]) #sidebar .nav-flat {
+        display: none !important;
+      }
+      html[data-sidebar-view="flat"]
+        #sidebar
+        .view-toggle-btn[data-view-target="flat"],
+      html:not([data-sidebar-view="flat"])
+        #sidebar
+        .view-toggle-btn[data-view-target="grouped"] {
+        background-color: var(--bg);
+        color: var(--accent);
+        box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+      }
+      #sidebar .view-toggle-btn {
+        transition: none !important;
+      }
+      /* Keep the scrollable area hidden until the script positions it, so
+         the scrollbar thumb doesn't visibly jump from top to its final spot. */
+      html:not([data-sidebar-ready]) #sidebar {
+        visibility: hidden;
+      }
+    </style>
     <title>{title} - DE Specialization Notes</title>
     <meta
       name="description"
@@ -305,6 +342,103 @@ const {
           if (e.target === lightbox) lightbox.close();
         });
       })();
+    </script>
+
+    <script>
+      // Keyboard shortcuts: ← / → navigate between notes; ↑ / ↓ jump between
+      // subsection headings on the current page.
+      document.addEventListener("keydown", (e) => {
+        const isHorizontal = e.key === "ArrowLeft" || e.key === "ArrowRight";
+        const isVertical = e.key === "ArrowUp" || e.key === "ArrowDown";
+        if (!isHorizontal && !isVertical) return;
+        if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+        if (e.defaultPrevented) return;
+
+        const active = document.activeElement as HTMLElement | null;
+        if (active) {
+          const tag = active.tagName;
+          if (
+            tag === "INPUT" ||
+            tag === "TEXTAREA" ||
+            tag === "SELECT" ||
+            active.isContentEditable
+          )
+            return;
+        }
+
+        const dialog = document.getElementById(
+          "search-dialog",
+        ) as HTMLDialogElement | null;
+        if (dialog?.open) return;
+
+        if (isHorizontal) {
+          const sel =
+            e.key === "ArrowLeft"
+              ? ".page-nav-prev .page-nav-link"
+              : ".page-nav-next .page-nav-link";
+          const link = document.querySelector(sel) as HTMLAnchorElement | null;
+          if (!link) return;
+          e.preventDefault();
+          link.click();
+          return;
+        }
+
+        // ArrowUp / ArrowDown — jump between h2 section headings.
+        // Always suppress the default line-by-line scroll on docs pages;
+        // arrow keys are reserved for section navigation.
+        const prose = document.getElementById("prose-content");
+        if (!prose) return;
+        const headings = Array.from(
+          prose.querySelectorAll("h2"),
+        ) as HTMLElement[];
+        if (headings.length === 0) return;
+
+        e.preventDefault();
+
+        // Identify the "current" section: the last heading whose top is at or
+        // above the threshold (i.e. already scrolled to/past).
+        const threshold = 100;
+        const goingDown = e.key === "ArrowDown";
+
+        // The user is considered to be "in" the first section even before
+        // scrolling past its heading (the page title sits just above it), so
+        // the initial current index is 0, not -1.
+        let currentIdx = 0;
+        for (let i = 0; i < headings.length; i++) {
+          if (headings[i].getBoundingClientRect().top <= threshold) {
+            currentIdx = i;
+          } else {
+            break;
+          }
+        }
+
+        if (goingDown) {
+          const nextIdx = currentIdx + 1;
+          if (nextIdx >= headings.length) {
+            // Already in the last section — overflow to the next note.
+            const nextLink = document.querySelector(
+              ".page-nav-next .page-nav-link",
+            ) as HTMLAnchorElement | null;
+            nextLink?.click();
+            return;
+          }
+          headings[nextIdx].scrollIntoView({ block: "start" });
+        } else {
+          if (currentIdx === 0) {
+            if (window.scrollY > 0) {
+              window.scrollTo({ top: 0 });
+              return;
+            }
+            // At the top of the first section — overflow to previous note.
+            const prevLink = document.querySelector(
+              ".page-nav-prev .page-nav-link",
+            ) as HTMLAnchorElement | null;
+            prevLink?.click();
+            return;
+          }
+          headings[currentIdx - 1].scrollIntoView({ block: "start" });
+        }
+      });
     </script>
   </body>
 </html>
