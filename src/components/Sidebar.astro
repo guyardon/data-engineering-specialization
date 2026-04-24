@@ -34,6 +34,59 @@ const courseEmojis: Record<string, string> = {
   "course-4-data-modeling-transformation-and-serving": "\u{2699}",
 };
 
+// Per-note emoji for flat view, keyed by last path segment of the note id
+const noteEmojis: Record<string, string> = {
+  // Course 1
+  "11-how-to-think-like-a-data-engineer": "\u{1F914}",
+  "12-data-engineering-on-the-cloud": "\u{2601}\u{FE0F}",
+  "21-the-data-engineering-lifecycle": "\u{1F501}",
+  "22-introduction-to-the-undercurrents": "\u{1F30A}",
+  "23-practical-examples-on-aws": "\u{1F6E0}\u{FE0F}",
+  "31-introduction-to-data-architecture": "\u{1F3D7}\u{FE0F}",
+  "32-choosing-the-right-technologies": "\u{1F9F0}",
+  "33-investigating-your-architecture-on-aws": "\u{1F50D}",
+  "41-stakeholder-management-and-gathering-requirements": "\u{1F465}",
+  "42-aws-services-for-batch-pipelines": "\u{1F4E6}",
+  "43-aws-services-for-streaming-pipelines": "\u{26A1}",
+  // Course 2
+  "11-introduction-to-source-systems": "\u{1F50C}",
+  "12-connecting-to-source-systems": "\u{1F517}",
+  "21-data-ingestion-patterns": "\u{1F4E5}",
+  "22-etl-vs-elt": "\u{2194}\u{FE0F}",
+  "23-streaming-systems": "\u{1F30A}",
+  "24-change-data-capture": "\u{1F4F8}",
+  "31-dataops-automation": "\u{1F916}",
+  "32-data-observability-and-monitoring": "\u{1F4E1}",
+  "41-orchestration-overview": "\u{1F3BC}",
+  "42-airflow-ui-and-dag-creation": "\u{1F4A8}",
+  "43-airflow-taskflow-api": "\u{1F9E9}",
+  // Course 3
+  "11-storage-fundamentals": "\u{1F4BE}",
+  "12-storage-tiers-and-distributed-systems": "\u{1F5C2}\u{FE0F}",
+  "13-storage-in-databases": "\u{1F5C3}\u{FE0F}",
+  "14-specialized-databases": "\u{1F9EC}",
+  "21-data-warehouses": "\u{1F3E2}",
+  "22-data-lakes": "\u{1F3DE}\u{FE0F}",
+  "23-data-lakehouse": "\u{1F3E1}",
+  "24-aws-data-lakehouse": "\u{1F3DD}\u{FE0F}",
+  "31-batch-queries": "\u{1F4CB}",
+  "32-query-performance-and-advanced-sql": "\u{1F3CE}\u{FE0F}",
+  "33-joins-aggregations-and-redshift": "\u{1F500}",
+  "34-streaming-queries": "\u{1F300}",
+  // Course 4
+  "11-data-modeling-fundamentals": "\u{1F4D0}",
+  "12-normalization": "\u{1F9EE}",
+  "13-dimensional-modeling-and-star-schema": "\u{2B50}",
+  "14-modeling-approaches-and-dbt": "\u{1F9F1}",
+  "21-tabular-data-for-machine-learning": "\u{1F4CA}",
+  "22-unstructured-data-for-machine-learning": "\u{1F5BC}\u{FE0F}",
+  "31-batch-transformation-patterns": "\u{1F504}",
+  "32-hadoop": "\u{1F418}",
+  "33-spark-and-dataframes": "\u{2728}",
+  "34-pyspark-sql-emr-glue-and-streaming": "\u{1F525}",
+  "41-serving-data-and-analytics": "\u{1F4E1}",
+};
+
 const weekEmojis: Record<string, string> = {
   "week-1-how-to-think-like-a-data-engineer": "\u{1F914}",
   "week-2-the-data-engineering-lifecycle-undercurrents": "\u{1F504}",
@@ -104,9 +157,23 @@ for (const course of courses) {
 const currentNote = notes.find((n) => n.id === currentSlug);
 const activeCourseSlug = currentNote?.data.courseSlug;
 const activeWeekSlug = currentNote?.data.weekSlug;
+
+// Flat view: all notes in reading order (courseOrder → weekOrder → order)
+const flatNotes = [...notes].sort((a, b) => {
+  if (a.data.courseOrder !== b.data.courseOrder)
+    return a.data.courseOrder - b.data.courseOrder;
+  if (a.data.weekOrder !== b.data.weekOrder)
+    return a.data.weekOrder - b.data.weekOrder;
+  return a.data.order - b.data.order;
+});
 ---
 
-<nav id="sidebar" class="sidebar" aria-label="Course navigation">
+<nav
+  id="sidebar"
+  class="sidebar"
+  data-view="grouped"
+  aria-label="Course navigation"
+>
   <div class="sidebar-header">
     <Logo label="Home" />
     <div class="sidebar-header-actions">
@@ -138,6 +205,62 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     <a href={`${BASE}/glossary/`} class="sidebar-glossary-link"
       >📖 Glossary of Terms</a
     >
+  </div>
+
+  <div class="view-toggle" role="group" aria-label="Sidebar view mode">
+    <button
+      type="button"
+      class="view-toggle-btn"
+      data-view-target="grouped"
+      aria-pressed="true"
+    >
+      Grouped
+    </button>
+    <button
+      type="button"
+      class="view-toggle-btn"
+      data-view-target="flat"
+      aria-pressed="false"
+    >
+      Flat
+    </button>
+  </div>
+
+  <div class="nav-flat">
+    <ul class="flat-list">
+      {
+        flatNotes.map((note, idx) => {
+          const isActive = note.id === currentSlug;
+          const prev = flatNotes[idx - 1];
+          const showCourseSep =
+            !prev || prev.data.courseSlug !== note.data.courseSlug;
+          const leafSlug = note.id.split("/").pop() || note.id;
+          const emoji = noteEmojis[leafSlug] || "📄";
+          return (
+            <>
+              {showCourseSep && (
+                <li class="flat-course-sep" aria-hidden="true">
+                  {note.data.course}
+                </li>
+              )}
+              <li>
+                <a
+                  href={`${BASE}/notes/${note.id}/`}
+                  class={`flat-link ${isActive ? "active" : ""}`}
+                >
+                  <span class="flat-emoji" aria-hidden="true">
+                    {emoji}
+                  </span>
+                  <span class="flat-title">
+                    {note.data.title.replace(/^\d+\.\d+\s+/, "")}
+                  </span>
+                </a>
+              </li>
+            </>
+          );
+        })
+      }
+    </ul>
   </div>
 
   <div class="nav-tree">
@@ -399,6 +522,117 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     border-bottom: 1px solid var(--line);
   }
 
+  /* View toggle (Grouped / Flat) */
+  .view-toggle {
+    display: flex;
+    gap: 2px;
+    margin: 0.5rem 0.75rem;
+    padding: 2px;
+    background-color: var(--bg-hover);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .view-toggle-btn {
+    flex: 1;
+    padding: 0.3rem 0.5rem;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .view-toggle-btn:hover {
+    color: var(--fg);
+  }
+
+  .view-toggle-btn[aria-pressed="true"] {
+    background-color: var(--bg);
+    color: var(--accent);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+  }
+
+  /* Visibility gate based on current view mode */
+  .sidebar[data-view="grouped"] .nav-flat {
+    display: none;
+  }
+  .sidebar[data-view="flat"] .nav-tree {
+    display: none;
+  }
+
+  /* Flat view */
+  .nav-flat {
+    padding: 0.25rem 0 0.5rem;
+    flex: 1;
+  }
+
+  .flat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .flat-link {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    text-decoration: none;
+    line-height: 1.35;
+    color: var(--fg-soft);
+    border-left: 2px solid transparent;
+  }
+
+  .flat-link .flat-emoji {
+    font-size: 1em;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .flat-link .flat-title {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .flat-link:hover {
+    color: var(--fg);
+    background-color: var(--bg-hover);
+    border-left-color: var(--line-strong);
+  }
+
+  .flat-link.active {
+    color: var(--accent);
+    background-color: var(--bg-hover);
+    border-left-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .flat-course-sep {
+    padding: 0.75rem 1rem 0.3rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    border-top: 1px solid var(--line);
+    margin-top: 0.25rem;
+  }
+
+  .flat-list > .flat-course-sep:first-child {
+    border-top: none;
+    margin-top: 0;
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .sidebar {
@@ -423,13 +657,59 @@ const activeWeekSlug = currentNote?.data.weekSlug;
 <script>
   const TREE_KEY = "sidebar-tree-state";
   const SCROLL_KEY = "sidebar-scroll-pos";
+  const VIEW_KEY = "sidebar-view-mode";
+  const SCROLL_FLAT_KEY = "sidebar-scroll-flat";
   const sidebar = document.getElementById("sidebar");
 
   // Save scroll position on link clicks (before navigation)
-  document.querySelectorAll(".note-link").forEach((link) => {
+  document.querySelectorAll(".note-link, .flat-link").forEach((link) => {
     link.addEventListener("click", () => {
-      if (sidebar)
-        sessionStorage.setItem(SCROLL_KEY, String(sidebar.scrollTop));
+      if (!sidebar) return;
+      const mode = sidebar.getAttribute("data-view") || "grouped";
+      const key = mode === "flat" ? SCROLL_FLAT_KEY : SCROLL_KEY;
+      sessionStorage.setItem(key, String(sidebar.scrollTop));
+    });
+  });
+
+  // Apply saved view mode (default: grouped)
+  const savedView = localStorage.getItem(VIEW_KEY);
+  if (sidebar && (savedView === "flat" || savedView === "grouped")) {
+    sidebar.setAttribute("data-view", savedView);
+    document.querySelectorAll(".view-toggle-btn").forEach((btn) => {
+      const target = btn.getAttribute("data-view-target");
+      btn.setAttribute("aria-pressed", target === savedView ? "true" : "false");
+    });
+  }
+
+  // View toggle click handler
+  document.querySelectorAll(".view-toggle-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-view-target");
+      if (!sidebar || !target) return;
+      // Persist current-mode scroll before switching
+      const prevMode = sidebar.getAttribute("data-view") || "grouped";
+      const prevKey = prevMode === "flat" ? SCROLL_FLAT_KEY : SCROLL_KEY;
+      sessionStorage.setItem(prevKey, String(sidebar.scrollTop));
+
+      sidebar.setAttribute("data-view", target);
+      localStorage.setItem(VIEW_KEY, target);
+      document.querySelectorAll(".view-toggle-btn").forEach((b) => {
+        b.setAttribute(
+          "aria-pressed",
+          b.getAttribute("data-view-target") === target ? "true" : "false",
+        );
+      });
+
+      // Restore scroll for the new mode, or center active row if none saved
+      const nextKey = target === "flat" ? SCROLL_FLAT_KEY : SCROLL_KEY;
+      const savedScroll = sessionStorage.getItem(nextKey);
+      setTimeout(() => {
+        if (savedScroll !== null) {
+          sidebar.scrollTop = parseInt(savedScroll, 10);
+        } else {
+          scrollActiveIntoView();
+        }
+      }, 0);
     });
   });
 
@@ -460,13 +740,33 @@ const activeWeekSlug = currentNote?.data.weekSlug;
     }
   }
 
-  // Restore sidebar scroll position AFTER tree is expanded
-  const savedScroll = sessionStorage.getItem(SCROLL_KEY);
-  if (savedScroll && sidebar) {
-    requestAnimationFrame(() => {
+  // Restore sidebar scroll position AFTER tree is expanded (mode-aware)
+  function restoreSidebarScroll() {
+    if (!sidebar) return;
+    const mode = sidebar.getAttribute("data-view") || "grouped";
+    const key = mode === "flat" ? SCROLL_FLAT_KEY : SCROLL_KEY;
+    const savedScroll = sessionStorage.getItem(key);
+    if (savedScroll !== null) {
       sidebar.scrollTop = parseInt(savedScroll, 10);
-    });
+    }
   }
+
+  function scrollActiveIntoView() {
+    if (!sidebar) return;
+    const mode = sidebar.getAttribute("data-view") || "grouped";
+    const sel = mode === "flat" ? ".flat-link.active" : ".note-link.active";
+    const active = sidebar.querySelector(sel) as HTMLElement | null;
+    if (!active) return;
+    const sbBox = sidebar.getBoundingClientRect();
+    const activeBox = active.getBoundingClientRect();
+    if (activeBox.top < sbBox.top || activeBox.bottom > sbBox.bottom) {
+      active.scrollIntoView({ block: "center", behavior: "auto" });
+    }
+  }
+
+  // Run after layout settles. requestAnimationFrame doesn't fire when the
+  // tab is not visible (common under headless preview), so use setTimeout.
+  setTimeout(restoreSidebarScroll, 0);
 
   // Save state on toggle and collapse weeks when closing a course
   document.querySelectorAll(".course-details").forEach((course) => {
